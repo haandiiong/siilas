@@ -1,49 +1,35 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
----
+import Footer from '../components/Footer.astro';
+import { airports, formatLocalDateKey, getChatGPTSummary, getMaxDownload, getStreamingSummary, getTests } from '../data/airport-data';
+import { SITE_DESCRIPTION } from '../consts';
 
+const now = new Date();
+const weekStart = new Date(now);
+weekStart.setHours(0, 0, 0, 0);
+weekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+const weekStartKey = formatLocalDateKey(weekStart);
+const weeklyTests = airports.flatMap((airport) => {
+	const rawTests = getTests(airport)
+		.filter((test) => test.testedAt >= weekStartKey)
+		.map((test) => ({ airport: airport.slug, testedAt: test.testedAt }));
+	const qualitySamples = (airport.networkQualitySamples ?? [])
+		.filter((sample) => sample.testedAt >= weekStartKey)
+		.map((sample) => ({ airport: airport.slug, testedAt: sample.testedAt }));
+
+	return [...rawTests, ...qualitySamples];
+});
+const weeklyAirportCount = new Set(weeklyTests.map((test) => test.airport)).size;
+const currentMonitoringDay = Math.max(...airports.map((airport) => airport.dataDays), 0);
+---
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<html lang="zh-CN"><head><BaseHead description={SITE_DESCRIPTION} /></head><body><Header /><main>
+	<section class="hero shell">
+		<div><div class="eyebrow">Independent network intelligence · Since 2026</div><h1>看见节点在<br /><em>真实使用中的表现</em></h1><p class="lead">Siilas 持续记录主流机场的速度、稳定性、流媒体与 AI 服务可用性。少一点推荐话术，多一点可复查的数据。</p><div class="actions"><a class="button" href="/rank/">查看本周排行榜 →</a><a class="button secondary" href="/test/">浏览测速记录</a></div></div>
+		<aside class="live-card"><div class="live-head"><span>本周测试数据</span><span class="pulse">持续监测</span></div><div class="big-number">{weeklyTests.length}<span style="font-size:20px;color:var(--muted)"> 次</span></div><p>来自 {weeklyAirportCount} 个机场的真实测试记录</p><div class="mini-grid"><div class="mini"><b>{weeklyTests.length}</b><span>本周测试次数</span></div><div class="mini"><b>全天</b><span>不定时测试</span></div><div class="mini"><b>2 类</b><span>测试客户端</span></div><div class="mini"><b>{currentMonitoringDay > 0 ? `第 ${currentMonitoringDay} 天` : '待开始'}</b><span>当前监测周期</span></div></div></aside>
+	</section>
+	<section class="section shell"><div class="section-head"><div><div class="section-kicker">Weekly observations</div><h2>本周机场数据</h2></div><a class="text-link" href="/rank/">查看排行状态 →</a></div><div style="overflow-x:auto"><table class="data-table"><caption class="sr-only">本周十家机场测试与数据状态</caption><thead><tr><th>机场</th><th>综合评分</th><th>稳定性</th><th>最高实测速度</th><th>ChatGPT</th><th>流媒体</th></tr></thead><tbody>{airports.map((airport) => <tr><td><a class="airport-name" href={`/airport/${airport.slug}/`}>{airport.name}<small>{airport.status} · 更新 {airport.updated.slice(5)}</small></a></td><td class="score">{airport.score ?? '积累中'}</td><td>{airport.stability === null ? '样本不足' : `${airport.stability}%`}</td><td>{getMaxDownload(airport) === null ? '待实测' : `${getMaxDownload(airport)} Mbps`}</td><td>{getChatGPTSummary(airport)}</td><td>{getStreamingSummary(airport)}</td></tr>)}</tbody></table></div></section>
+	<section class="section shell"><div class="section-head"><div><div class="section-kicker">Transparent methodology</div><h2>数据是怎么来的</h2></div><a class="text-link" href="/methodology/">查看完整方法 →</a></div><div class="method-grid"><div class="method"><span>测试时段</span><b>全天不定时</b></div><div class="method"><span>测试环境</span><b>逐条记录补充中</b></div><div class="method"><span>原始证据</span><b>Speedtest 结果链接</b></div><div class="method"><span>测试客户端</span><b>机场专属客户端 / Clash</b></div></div></section>
+	<section class="section shell"><div class="section-head"><div><div class="section-kicker">Explore Siilas</div><h2>不止是一张推荐榜</h2></div></div><div class="feature-grid"><a class="feature" href="/airport/"><span class="num">01 / DATABASE</span><h3>机场数据库</h3><p>价格、协议、流量与长期表现集中归档。</p></a><a class="feature" href="/test/"><span class="num">02 / SPEED TEST</span><h3>测速中心</h3><p>保留每次测试的时间、速度和服务可用性。</p></a><a class="feature" href="/rank/"><span class="num">03 / RANKING</span><h3>分类排行榜</h3><p>样本充分后按稳定性、AI、流媒体和价格比较。</p></a><a class="feature" href="/tutorial/"><span class="num">04 / GUIDES</span><h3>实用教程</h3><p>从订阅配置到故障排查的清晰指南。</p></a></div></section>
+</main><Footer /></body></html>

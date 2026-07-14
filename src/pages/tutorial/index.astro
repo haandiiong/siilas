@@ -1,0 +1,16 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+<html lang="zh-CN"><head><BaseHead title="使用教程" description="Clash、Shadowrocket 订阅导入与常见节点问题排查教程。"/></head><body><Header/><main class="shell">
+  <div class="page-head"><div class="section-kicker">Practical guides</div><h1>使用教程</h1><p>从第一次导入订阅，到定位速度、节点和服务可用性问题。</p></div>
+  <div class="cards">
+    <article class="card"><span class="section-kicker">指南 01</span><h2>Clash Verge 导入订阅</h2><ol><li>在机场后台复制订阅链接。</li><li>进入 Profiles（配置），粘贴链接并导入。</li><li>更新配置后选择节点，开启系统代理或 TUN。</li><li>打开网页确认出口 IP；失败时先更新订阅再换节点。</li></ol><p class="desc">不同版本的菜单名称可能略有差异，订阅链接不要公开分享。</p></article>
+    <article class="card"><span class="section-kicker">指南 02</span><h2>Shadowrocket 添加订阅</h2><ol><li>复制机场订阅链接，打开右上角“+”。</li><li>类型选择 Subscribe，填入 URL 后保存。</li><li>更新订阅，选择节点并开启连接。</li><li>若配置为空，检查套餐状态并重新复制链接。</li></ol></article>
+    <article class="card"><span class="section-kicker">指南 03</span><h2>VLESS 与 SS 怎么选</h2><p><strong>SS：</strong>实现简单、客户端覆盖广，适合常规订阅使用。</p><p><strong>VLESS：</strong>组合方式更多，是否可用取决于机场线路与客户端支持。</p><p class="desc">优先使用机场提供的配置，不要手动修改订阅中的协议参数。</p></article>
+    <article class="card"><span class="section-kicker">指南 04</span><h2>订阅链接失效排查</h2><ol><li>检查套餐是否到期或流量用尽。</li><li>在机场后台确认域名和订阅地址是否变化。</li><li>删除旧配置后重新导入，校准系统时间。</li><li>仍失败时生成新链接并联系售后。</li></ol></article>
+    <article class="card"><span class="section-kicker">指南 05</span><h2>晚高峰速度变慢</h2><p>常见原因包括本地 Wi-Fi 拥堵、入口线路负载、节点倍率、出口带宽和测速服务器差异。</p><ol><li>固定设备、测速服务器和节点。</li><li>连续测试三次并记录中位数。</li><li>在日间与 20:00–23:00 分别复测。</li></ol></article>
+    <article class="card"><span class="section-kicker">指南 06</span><h2>ChatGPT 无法访问</h2><ol><li>先切换到新加坡、日本或美国节点。</li><li>确认浏览器出口国家与所选节点一致。</li><li>更换同地区不同线路，排除出口 IP 限制。</li><li>香港节点在本站当前样本中均不可用。</li></ol><p class="desc">能打开普通网页不代表特定服务一定可用，可用性需要单独测试。</p></article>
+  </div>
+</main><Footer/></body></html>

@@ -1,0 +1,8 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { airports, getMaxDownload } from '../../data/airport-data';
+const rankedAirports = [...airports].sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
+---
+<html lang="zh-CN"><head><BaseHead title="机场排行榜" description="基于持续测速的机场综合排行榜。" /></head><body><Header /><main class="shell"><div class="page-head"><div class="section-kicker">Data ranking</div><h1>机场排行榜</h1><p>综合评分同时考虑稳定性、全天测速表现、服务解锁与价格；样本不足的服务暂不参与正式排名。</p></div><div style="overflow-x:auto"><table class="data-table" style="margin-bottom:80px"><caption class="sr-only">机场排名及数据积累状态</caption><thead><tr><th>排名</th><th>机场</th><th>评分</th><th>稳定性</th><th>最高速度</th><th>价格</th></tr></thead><tbody>{rankedAirports.map((airport, index) => <tr><td>{airport.rankingEligible ? `#${index + 1}` : '观察'}</td><td><a class="airport-name" href={`/airport/${airport.slug}/`}>{airport.name}</a></td><td class="score">{airport.score ?? '积累中'}</td><td>{airport.stability === null ? '样本不足' : `${airport.stability}%`}</td><td>{getMaxDownload(airport) === null ? '待实测' : `${getMaxDownload(airport)} Mbps`}</td><td>¥{airport.price}/月</td></tr>)}</tbody></table></div></main><Footer /></body></html>

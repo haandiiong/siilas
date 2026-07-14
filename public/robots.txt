@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://siilas.com/sitemap-index.xml

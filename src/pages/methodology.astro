@@ -1,0 +1,32 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<html lang="zh-CN">
+<head><BaseHead title="测试方法" description="Siilas 测试环境、记录规则、评分门槛与商业披露。"/></head>
+<body><Header/><main class="shell">
+  <div class="page-head"><div class="section-kicker">Methodology</div><h1>测试方法与评分规则</h1><p>公开测试条件、原始记录与缺失数据，避免把少量样本包装成长期结论。</p></div>
+
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Test setup</div><h2>测试环境</h2></div></div><div class="cards">
+    <section class="card"><h2>本地网络</h2><p>1000 Mbps 本地宽带</p><p class="desc">实际结果同时受本地网络、节点负载、跨境线路和 Speedtest 目标服务器影响。</p></section>
+    <section class="card"><h2>测试客户端</h2><p>机场专属客户端 / Clash 客户端</p><p class="desc">按机场实际支持情况选择；后续记录会尽量补齐客户端字段。</p></section>
+    <section class="card"><h2>测试时段</h2><p>全天不定时</p><p class="desc">每条记录保留日期与时间。样本充足后再单独比较日间和晚高峰。</p></section>
+  </div></section>
+
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Raw data</div><h2>记录规则</h2></div></div><div class="cards">
+    <section class="card"><h2>速度</h2><p class="desc">记录下载、上传及 Speedtest 结果链接；不从套餐标称带宽推算实测速度。</p></section>
+    <section class="card"><h2>可用性</h2><p class="desc">逐节点记录 ChatGPT 与流媒体体验。香港节点按当前实测统一标为 ChatGPT 不可用。</p></section>
+    <section class="card"><h2>延迟、抖动与丢包</h2><p class="desc">只有取得可复核的实测值才展示；缺失时保持为空，不用下载速度反推。</p></section>
+  </div></section>
+
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Scoring</div><h2>何时显示正式评分</h2></div></div>
+    <div class="card"><p><strong>最低门槛：</strong>至少 7 个不同日期、28 条有效记录，原则上覆盖新加坡、香港、日本和美国四类常用节点。</p><p>未达到门槛时只展示基础资料和原始结果，稳定率与综合评分显示“数据积累中”。达到门槛也不代表自动获得高分，还需要记录失败测试并完成数据复核。</p><p class="desc">规划权重：稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。权重正式启用前会先补齐失败记录、延迟、抖动与丢包字段，避免产生伪精确分数。</p></div>
+  </section>
+
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Disclosure</div><h2>复核与商业独立</h2></div></div><div class="cards">
+    <section class="card"><h2>可复查</h2><p class="desc">有公开结果页的测速记录会保留链接；套餐和运营信息注明更新时间并持续复核。</p></section>
+    <section class="card"><h2>不补造数据</h2><p class="desc">未测项目显示为空或待复核，不沿用宣传页结论生成评分。</p></section>
+    <section class="card"><h2>推广不改权重</h2><p class="desc">页面可能含推广链接，但合作状态不改变原始记录、评分门槛或排行榜权重。</p></section>
+  </div></section>
+</main><Footer/></body></html>

@@ -4,16 +4,18 @@
     "website": "https://haandiiong.gcvipaff.cc/#/?code=Hg3FRQIf", "officialWebsite": "https://haandiiong.gcvipaff.cc",
     "affiliate": true, "foundedAt": "2025-10", "couponCode": "yp7 / qq88",
     "registrationOffer": "yp7：八折，可无限次使用；qq88：仅限新注册用户首次购买，八折。",
-    "score": null, "stability": null, "speed": 724.94, "latency": null, "chatgpt": null, "streaming": null,
-    "streamingStatus": "亚洲已测节点稳定；美国节点首日缓冲时间长，第 2 天稳定",
-    "dataDays": 2, "rankingEligible": false, "price": 20, "traffic": "120GB", "protocol": "VLESS",
-    "status": "监测第 2 天", "updated": "2026-07-14",
+    "score": null, "stability": null, "speed": 841.12, "latency": null, "chatgpt": null, "streaming": null,
+    "streamingStatus": "亚洲已测节点稳定；美国节点表现波动明显，2026-07-18 16:45 缓冲时间长，21:06 晚高峰复测恢复流畅",
+    "rankingEligible": false, "price": 20, "traffic": "120GB", "protocol": "VLESS / Shadowsocks",
+    "status": "持续监测中", "updated": "2026-07-18",
     "summary": "主打专属客户端与新手友好体验，适合网页、视频、ChatGPT 等轻中度日常使用。",
     "platforms": ["Windows", "macOS", "Android", "iOS"], "testClient": "机场官方专属客户端",
-    "universalSubscription": "支持，需咨询客服短时提供", "trial": "不支持", "noExpiry": "支持，提供一次性不限时流量包，流量用完为止", "deviceLimit": "不限制", "nodeCount": 63,
-    "onlineSnapshot": "2026-07-12 采集时 63/63 在线，0 个离线",
-    "regions": ["香港", "台湾", "新加坡", "美国", "马来西亚", "日本", "土耳其", "巴西", "德国"],
-    "lineTypes": ["IPLC", "IEPL"], "bandwidthPolicy": "套餐页标注全程不限速，节点统一 1× 计费倍率",
+    "universalSubscription": "支持，需咨询客服短时提供", "trial": "不支持", "noExpiry": "支持，提供一次性不限时流量包，流量用完为止", "deviceLimit": "不限制", "nodeCount": 58,
+    "onlineSnapshot": "2026-07-17 10:36 采集时 58/58 在线，0 个离线",
+    "regions": ["香港", "台湾", "新加坡", "美国", "马来西亚", "日本", "土耳其", "巴西", "越南"],
+    "regionsNote": "本次后台快照分布：香港 19、台湾 5、新加坡 9、美国 10、马来西亚 2、日本 10、土耳其 1、巴西 1、越南解锁节点 1；全部使用 VLESS，倍率均为 1×。",
+    "lineTypes": ["BGP", "IPLC", "IEPL"], "bandwidthPolicy": "BGP 月付与不限时套餐均标注不限速、全节点 1× 计费；独享专线提供独立带宽与独立公网 IP",
+    "billingPolicy": "不限时套餐一次性购买；轻量版按年付费；常规 BGP 套餐按月付费；独享专线下单后约 2–3 个工作日交付",
     "paymentMethods": ["支付宝", "USDT"],
     "refundPolicy": "技术问题需配合客服排查，可按当日规则退款；不支持无理由退款。",
     "supportChannel": "Telegram 公告频道", "supportUrl": "https://t.me/+Gw1SZ8_5EUwyNzZl",
@@ -26,69 +28,102 @@
       {"id":"20260714-1026-hk","testedAt":"2026-07-14","time":"10:26","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":215.28,"uploadMbps":31.28,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19428163250","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260714-1345-hk","testedAt":"2026-07-14","time":"13:45","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":724.94,"uploadMbps":50.33,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19428580439","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260714-1350-us","testedAt":"2026-07-14","time":"13:50","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":160.06,"uploadMbps":48.59,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19428590204","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260714-1354-jp","testedAt":"2026-07-14","time":"13:54","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":617.14,"uploadMbps":50.41,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19428601665","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260714-1354-jp","testedAt":"2026-07-14","time":"13:54","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":617.14,"uploadMbps":50.41,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19428601665","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1618-sg","testedAt":"2026-07-15","time":"16:18","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":234.09,"uploadMbps":45.85,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19433413790","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1748-hk","testedAt":"2026-07-15","time":"17:48","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":812.65,"uploadMbps":48.90,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19433694719","evidenceImage":"/evidence/globalcloud/2026-07-15-hk-chatgpt-unavailable.png","evidenceNote":"ChatGPT 页面显示 Unable to load site","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1800-jp","testedAt":"2026-07-15","time":"18:00","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":469.35,"uploadMbps":53.70,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19433733619","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1819-us","testedAt":"2026-07-15","time":"18:19","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":5.33,"uploadMbps":19.91,"chatgpt":"可用但慢","streaming":"卡顿","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19433792994","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260716-1547-sg","testedAt":"2026-07-16","time":"15:47","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":275.71,"uploadMbps":56.28,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19437708610","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260717-1741-sg","testedAt":"2026-07-17","time":"17:41","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":756.09,"uploadMbps":39.64,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19442291714","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260718-1629-sg","testedAt":"2026-07-18","time":"16:29","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":637.60,"uploadMbps":50.96,"chatgpt":"稳定","streaming":"稳定","latencyMs":84,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446018458","evidenceImage":"/evidence/globalcloud/2026-07-18-1629-sg-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 8:29 AM GMT（北京时间 16:29），测速服务器 M1 Limited，新加坡；负载延迟下载 178 ms、上传 105 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"全球云官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1636-hk","testedAt":"2026-07-18","time":"16:36","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":757.27,"uploadMbps":42.09,"chatgpt":"不可用","streaming":"稳定","latencyMs":112,"resultUrl":"https://www.speedtest.net/result/19446033844","evidenceImage":"/evidence/globalcloud/2026-07-18-1636-hk-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 8:36 AM GMT（北京时间 16:36），测速服务器 Sun Mobile，香港；负载延迟下载 143 ms、上传 117 ms","sourceRegion":null,"isp":"Lshiy-user-content","device":"macOS","client":"全球云官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1645-us","testedAt":"2026-07-18","time":"16:45","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":19.19,"uploadMbps":28.01,"chatgpt":"回复缓慢","streaming":"缓冲时间长","latencyMs":286,"resultUrl":"https://www.speedtest.net/result/19446056876","evidenceImage":"/evidence/globalcloud/2026-07-18-1645-us-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 8:45 AM GMT（北京时间 16:45），测速服务器 Chisholm Broadband，Enid, OK；负载延迟下载 281 ms、上传 298 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"全球云官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1708-jp","testedAt":"2026-07-18","time":"17:08","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":841.12,"uploadMbps":40.09,"chatgpt":"稳定","streaming":"稳定","latencyMs":146,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446113484","evidenceImage":"/evidence/globalcloud/2026-07-18-1708-jp-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 9:08 AM GMT（北京时间 17:08），测速服务器 fdcservers.net，东京；负载延迟下载 162 ms、上传 147 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"全球云官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-2106-us","testedAt":"2026-07-18","time":"21:06","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":142.70,"uploadMbps":7.51,"chatgpt":"流畅","streaming":"流畅","latencyMs":280,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446767571","evidenceImage":"/evidence/globalcloud/2026-07-18-2106-us-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 1:06 PM GMT（北京时间 21:06），测速服务器 Chisholm Broadband，Enid, OK；负载延迟下载 289 ms、上传 285 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"全球云官方专属客户端 + Speedtest Desktop"}
     ],
     "networkQualitySamples": [
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"17:42","node":"新加坡节点","downloadMbps":499,"uploadMbps":50.1,"latencyMs":79,"jitterMs":9,"packetLossPercent":0,"server":"Pacific Internet，新加坡","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-hk","testedAt":"2026-07-14","time":"17:45","node":"香港节点","downloadMbps":730,"uploadMbps":5.82,"latencyMs":108,"jitterMs":1,"packetLossPercent":0,"server":"SmarTone，香港","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"17:49","node":"日本节点","downloadMbps":539,"uploadMbps":50.4,"latencyMs":151,"jitterMs":1,"packetLossPercent":0,"server":"IPA CyberLab 400G，东京","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"17:42","node":"新加坡节点","downloadMbps":499,"uploadMbps":50.1,"latencyMs":79,"jitterMs":9,"packetLossPercent":0,"chatgpt":"稳定","streaming":"稳定","server":"Pacific Internet，新加坡","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-hk","testedAt":"2026-07-14","time":"17:45","node":"香港节点","downloadMbps":730,"uploadMbps":5.82,"latencyMs":108,"jitterMs":1,"packetLossPercent":0,"chatgpt":"不可用","streaming":"稳定","server":"SmarTone，香港","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"17:49","node":"日本节点","downloadMbps":539,"uploadMbps":50.4,"latencyMs":151,"jitterMs":1,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"IPA CyberLab 400G，东京","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260716-quality-sg-tokyo","testedAt":"2026-07-16","time":"15:32","node":"新加坡节点","downloadMbps":132,"uploadMbps":49.4,"latencyMs":141,"jitterMs":3,"packetLossPercent":null,"server":"IPA CyberLab 400G，东京","evidence":"新加坡节点连接，东京测速服务器","evidenceImage":"/evidence/globalcloud/2026-07-16-1532-sg-tokyo-speedtest.png"}
+    ],
+    "nodeSnapshots": [
+      {"capturedAt":"2026-07-17","time":"10:36","total":58,"reachable":58,"timeout":0,"highLatency":0,"latencyRange":"后台在线检查未展示延迟数据","selectedNode":"后台节点状态页（未选择具体节点）","timeoutNodes":[],"highLatencyNodes":[],"evidenceImages":["/evidence/globalcloud/2026-07-17-1036-nodes-1.png","/evidence/globalcloud/2026-07-17-1036-nodes-2.png","/evidence/globalcloud/2026-07-17-1036-nodes-3.png"]}
     ],
     "plans": [
-      {"name":"BGP 不限时轻量包","price":"¥100/一次性","traffic":"100GB 不限时"},
-      {"name":"BGP 不限时标准包","price":"¥360/一次性","traffic":"400GB 不限时"},
-      {"name":"BGP 不限时大容量包","price":"¥700/一次性","traffic":"800GB 不限时"},
-      {"name":"轻量版","price":"¥99/年","traffic":"59GB/月"},
-      {"name":"入门方案","price":"¥20/月","traffic":"120GB/月"},
-      {"name":"进阶方案","price":"¥40/月","traffic":"300GB/月"},
-      {"name":"高端方案","price":"¥100/月","traffic":"700GB/月"},
-      {"name":"商业方案","price":"¥180/月","traffic":"1.5TB/月"},
-      {"name":"独享专线","price":"¥600/月","traffic":"500GB/月"}
-    ]
+      {"name":"BGP 智能优化・不限时轻量包","price":"¥100/一次性","traffic":"100GB 永久有效","details":["流量用完即止、不按期重置","1× 计费","不限设备数量"]},
+      {"name":"BGP 智能优化・不限时标准包","price":"¥360/一次性","traffic":"400GB 永久有效","details":["流量用完即止、不按期重置","1× 计费","不限设备数量"]},
+      {"name":"BGP 智能优化・不限时大容量包","price":"¥700/一次性","traffic":"800GB 永久有效","details":["流量用完即止、不按期重置","1× 计费","不限设备数量"]},
+      {"name":"轻量版","price":"¥99/年","traffic":"59GB/月","details":["轻量用户限量套餐","适合轻度使用"]},
+      {"name":"BGP 智能优化・入门方案","price":"¥20/月","traffic":"120GB/月","details":["BGP 多线路智能调度与专线级出口","不限速、1× 计费","Shadowsocks、不限同时在线设备"]},
+      {"name":"BGP 智能优化・进阶方案","price":"¥40/月","traffic":"300GB/月","details":["BGP 三网智能优化与纯专线出口","不限速、1× 计费","支持 AI 与流媒体解锁"]},
+      {"name":"BGP 智能优化・高端方案","price":"¥100/月","traffic":"700GB/月","details":["多线路融合与专线级出口","不限速、1× 计费","不限设备数量"]},
+      {"name":"BGP 智能优化・商业方案","price":"¥180/月","traffic":"1.5TB/月","details":["企业级 BGP 智能路由与专线出口","不限速","面向团队与高并发场景"]},
+      {"name":"独享私人专线节点","price":"¥600/月","traffic":"500GB/月","details":["独立带宽与独立公网 IP","不与他人共享","下单后约 2–3 个工作日交付"]}
+    ],
+    "planEvidenceImages":["/evidence/globalcloud/2026-07-17-plans-1.png","/evidence/globalcloud/2026-07-17-plans-2.png"]
   },
   {
     "slug":"guangnianti","name":"光年梯",
     "website":"https://haandiiong.gntvipaff.cc/#/?code=ZWhMOU3y","officialWebsite":"https://haandiiong.gntvipaff.cc","affiliate":true,"foundedAt":"2025-10",
     "couponCode":"GNT80","registrationOffer":"八折；仅新注册账户可使用一次，不限制使用时间，成功使用后失效。18 元月付套餐优惠 3.6 元，实付 14.4 元。",
-    "score":null,"stability":null,"speed":501.05,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"已测试节点稳定","dataDays":2,"rankingEligible":false,
-    "price":18,"traffic":"110GB","protocol":"VLESS","status":"监测第 2 天","updated":"2026-07-14",
+    "score":null,"stability":null,"speed":868.43,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡、香港、美国节点稳定；日本节点第 2 天轻微缓冲、第 3 天稳定","rankingEligible":false,
+    "price":18,"traffic":"110GB","protocol":"VLESS","status":"持续监测中","updated":"2026-07-18",
     "summary":"采用专属客户端与 IPLC 专线定位，适合重视省心连接、ChatGPT 和流媒体体验的用户。",
     "platforms":["Android 5.0+","iOS 12.0+","macOS 10.15+","Windows 10+"],"testClient":"机场官方专属客户端",
     "universalSubscription":"不支持通用订阅","trial":"不支持","noExpiry":"不支持","deviceLimit":"不限制同时在线客户端数量，可多设备使用",
-    "nodeCount":62,"onlineSnapshot":"2026-07-12 约 10:40 采集时 62/62 在线，0 个离线",
-    "regions":["香港","美国","日本"],"regionsNote":"现有截图仅确认以上地区，节点列表下半部分待复核。",
-    "lineTypes":["IPLC"],"bandwidthPolicy":"所有节点 1× 倍率，套餐页标注晚高峰不限速、最高可提供 2.5 Gbps",
+    "nodeCount":62,"onlineSnapshot":"2026-07-17 10:46 采集时 61/62 在线，香港19 离线",
+    "regions":["香港","美国","日本","新加坡","台湾","马来西亚","土耳其","德国"],"regionsNote":"本次后台快照分布：香港 20、美国 10、日本 10、新加坡 10、台湾 4、马来西亚 2、土耳其 1、德国 5；全部使用 VLESS，倍率均为 1×。",
+    "lineTypes":["IPLC","IEPL"],"bandwidthPolicy":"常规套餐全部节点 1× 倍率，套餐页标注晚高峰不限速、全程 IPLC、最高可提供 2.5 Gbps；独享专线采用 IEPL",
+    "billingPolicy":"按购买日起算，每 30 天自动重置流量；年付优惠为 1 年 8 折、2 年 7 折、3 年 6 折，可与优惠码叠加",
     "paymentMethods":["支付宝","USDT"],"refundPolicy":"订阅计划页标注不提供退款服务，首次购买建议选择月付。",
     "supportResponse":"2026-07-01 20:01 留言，2026-07-02 04:31 回复，约 8 小时 30 分钟。",
     "tests":[
       {"id":"20260713-1157-sg","testedAt":"2026-07-13","time":"11:57","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":337.00,"uploadMbps":36.41,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19424186787","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1201-hk","testedAt":"2026-07-13","time":"12:01","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":205.75,"uploadMbps":49.49,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19424197533","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1206-jp","testedAt":"2026-07-13","time":"12:06","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":501.05,"uploadMbps":40.63,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19424206275","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260713-1209-us","testedAt":"2026-07-13","time":"12:09","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":424.21,"uploadMbps":47.86,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19424211266","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260713-1209-us","testedAt":"2026-07-13","time":"12:09","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":424.21,"uploadMbps":47.86,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19424211266","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1830-sg","testedAt":"2026-07-15","time":"18:30","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":752.09,"uploadMbps":40.37,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19433818645","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1850-hk","testedAt":"2026-07-15","time":"18:50","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":548.86,"uploadMbps":46.82,"chatgpt":"不可用","streaming":"流畅","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19433905389","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1914-jp","testedAt":"2026-07-15","time":"19:14","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":818.59,"uploadMbps":47.34,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19433971479","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1920-us","testedAt":"2026-07-15","time":"19:20","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":56.01,"uploadMbps":41.36,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19433995770","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260718-1711-sg","testedAt":"2026-07-18","time":"17:11","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":868.43,"uploadMbps":36.45,"chatgpt":"稳定","streaming":"稳定","latencyMs":81,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446121913","evidenceImage":"/evidence/guangnianti/2026-07-18-1711-sg-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 9:11 AM GMT（北京时间 17:11），测速服务器 PT. Indonesia Comnets Plus，新加坡；负载延迟下载 124 ms、上传 90 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"光年梯官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1720-us","testedAt":"2026-07-18","time":"17:20","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":164.47,"uploadMbps":50.43,"chatgpt":"稳定","streaming":"稳定","latencyMs":281,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446143276","evidenceImage":"/evidence/guangnianti/2026-07-18-1720-us-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 9:20 AM GMT（北京时间 17:20），测速服务器 Chisholm Broadband，Enid, OK；负载延迟下载 279 ms、上传 280 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"光年梯官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1723-jp","testedAt":"2026-07-18","time":"17:23","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":211.08,"uploadMbps":39.03,"chatgpt":"稳定","streaming":"稳定","latencyMs":169,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446150508","evidenceImage":"/evidence/guangnianti/2026-07-18-1723-jp-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 9:23 AM GMT（北京时间 17:23），测速服务器 サーバーならDDPS.jp，东京；负载延迟下载 166 ms、上传 183 ms","sourceRegion":null,"isp":"Komi","device":"macOS","client":"光年梯官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1748-hk","testedAt":"2026-07-18","time":"17:48","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":413.92,"uploadMbps":33.95,"chatgpt":"不可用","streaming":"稳定","latencyMs":119,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446214139","evidenceImage":"/evidence/guangnianti/2026-07-18-1748-hk-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 9:48 AM GMT（北京时间 17:48），测速服务器 Sun Mobile，香港；负载延迟下载 145 ms、上传 116 ms","sourceRegion":null,"isp":"Lshiy-user-content","device":"macOS","client":"光年梯官方专属客户端 + Speedtest Desktop"}
     ],
     "networkQualitySamples":[
-      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"17:56","node":"日本节点","downloadMbps":560,"uploadMbps":45.1,"latencyMs":143,"jitterMs":2,"packetLossPercent":3.9,"server":"fdcservers.net，东京","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"18:03","node":"新加坡节点","downloadMbps":638,"uploadMbps":52.3,"latencyMs":78,"jitterMs":17,"packetLossPercent":0,"server":"FPT Telecom，新加坡","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"17:56","node":"日本节点","downloadMbps":560,"uploadMbps":45.1,"latencyMs":143,"jitterMs":2,"packetLossPercent":3.9,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"fdcservers.net，东京","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"18:03","node":"新加坡节点","downloadMbps":638,"uploadMbps":52.3,"latencyMs":78,"jitterMs":17,"packetLossPercent":0,"chatgpt":"稳定","streaming":"稳定","server":"FPT Telecom，新加坡","evidence":"Speedtest 客户端结果截图"}
+    ],
+    "nodeSnapshots":[
+      {"capturedAt":"2026-07-17","time":"10:46","total":62,"reachable":61,"timeout":1,"highLatency":0,"latencyRange":"后台在线检查未展示延迟数据","selectedNode":"后台节点状态页（未选择具体节点）","timeoutNodes":["香港19（后台显示离线，最后检查时间异常为 1970-01-01）"],"highLatencyNodes":[],"evidenceImages":["/evidence/guangnianti/2026-07-17-1046-nodes-1.png","/evidence/guangnianti/2026-07-17-1046-nodes-2.png","/evidence/guangnianti/2026-07-17-1046-nodes-3.png","/evidence/guangnianti/2026-07-17-1046-nodes-4.png"]}
     ],
     "plans":[
-      {"name":"年付限时套餐","price":"¥89/年","traffic":"50GB/月"},
-      {"name":"光年梯入门版","price":"¥18/月","traffic":"110GB/月"},
-      {"name":"光年梯晋级版","price":"¥34/月","traffic":"220GB/月"},
-      {"name":"光年梯专业版","price":"¥68/月","traffic":"450GB/月"},
-      {"name":"光年梯至尊版","price":"¥130/月","traffic":"900GB/月"},
-      {"name":"独享私人专线节点","price":"¥680/月","traffic":"500GB/月"}
-    ]
+      {"name":"年付限时套餐","price":"¥89/年","traffic":"50GB/月","details":["全节点 1×、晚高峰不限速","全程 IPLC、最高 2.5 Gbps","不限同时在线客户端数量"]},
+      {"name":"光年梯入门版","price":"¥18/月","traffic":"110GB/月","details":["全节点 1×、晚高峰不限速","全程 IPLC、最高 2.5 Gbps","支持 ChatGPT、TikTok 与主流流媒体解锁"]},
+      {"name":"光年梯晋级版","price":"¥34/月","traffic":"220GB/月","details":["全节点 1×、晚高峰不限速","全程 IPLC、最高 2.5 Gbps","不限同时在线客户端数量"]},
+      {"name":"光年梯专业版","price":"¥68/月","traffic":"450GB/月","details":["全节点 1×、晚高峰不限速","全程 IPLC、最高 2.5 Gbps","支持 AI 与流媒体解锁"]},
+      {"name":"光年梯至尊版","price":"¥130/月","traffic":"900GB/月","details":["全节点 1×、晚高峰不限速","全程 IPLC、最高 2.5 Gbps","不限同时在线客户端数量"]},
+      {"name":"独享私人专线节点","price":"¥680/月","traffic":"500GB/月","details":["独立带宽与独立公网 IP、一人一线","IEPL 专线、支持定制地区与节点数量","支持多平台、AI 与主流流媒体"]}
+    ],
+    "planEvidenceImages":["/evidence/guangnianti/2026-07-17-plans.png"]
   },
   {
     "slug":"interexpress","name":"网际快车","website":"https://wjkc66.vip/?c=GDIHMU","affiliate":true,"foundedAt":"2021",
     "couponCode":"yp7net","registrationOffer":"免费体验 24 小时 5GB。",
-    "score":null,"stability":null,"speed":382.14,"latency":null,"chatgpt":null,"streaming":null,
-    "streamingStatus":"新加坡、香港、美国节点稳定；日本节点轻微缓冲","dataDays":2,"rankingEligible":false,
-    "price":28,"traffic":"每日 60GB（30 天）","protocol":"订阅制代理节点","status":"监测第 2 天","updated":"2026-07-14",
+    "score":null,"stability":null,"speed":628.57,"latency":null,"chatgpt":null,"streaming":null,
+    "streamingStatus":"新加坡节点稳定；美国节点第 1、4 天稳定，第 2 天缓冲严重、第 3 天延迟高；日本节点前两天轻微缓冲、第 3 天流畅、第 4 天可用；香港节点首日稳定、第 3 天延迟高、第 4 天恢复稳定","rankingEligible":false,
+    "price":28,"traffic":"每日 60GB（30 天）","protocol":"订阅制代理节点","status":"持续监测中","updated":"2026-07-18",
     "summary":"专属客户端与通用订阅并行，提供永久流量包和每日独立流量套餐；套餐页标注支持 4K 视频，实际体验仍以本站测试记录为准。",
     "platforms":["官方专属客户端","Clash Verge","Clash Meta","Clash for Android","Shadowrocket","V2Ray 系列"],"testClient":"机场官方专属客户端",
     "universalSubscription":"支持 Clash Verge、Clash Meta、Shadowrocket 等客户端","deviceLimit":"不限制设备数量",
     "paymentMethods":["支付宝","微信","USDT"],"trial":"24 小时 5GB","noExpiry":"支持，6 档永久流量包，一次购买、永久有效，流量用完为止",
-    "bandwidthPolicy":"不同节点采用不同流量倍率，当前有 1×、2×、3×、5× 节点",
+    "nodeCount":30,"onlineSnapshot":"2026-07-17 10:57 客户端截图中 30/30 个节点在线，显示延迟 43–174 ms",
+    "regions":["香港","新加坡","日本","台湾","美国","奥地利","英国","土耳其","德国","意大利","泰国","柬埔寨","巴西","越南","印度","哈萨克斯坦","法国"],
+    "regionsNote":"本次客户端快照分布：香港 3、新加坡 3、日本 5、台湾 3、美国 4，其余 12 个地区各 1；倍率分布为 1× 节点 18 个、2× 节点 8 个、3× 节点 3 个、5× 节点 1 个。",
+    "bandwidthPolicy":"不同节点采用不同流量倍率，当前有 1×、2×、3×、5× 节点；套餐页标注不限制设备数量并支持 4K 视频",
+    "billingPolicy":"永久流量包一次性购买、流量用完为止；日享套餐每日上限 60GB、凌晨重置，可选 30 天、90 天或 365 天",
     "supportResponse":"官网提供工单反馈入口，并标注 24 小时一对一支持。",
     "noExpiryPlans":[
       {"name":"试用套餐·不限时间","price":"¥6.80/一次性","traffic":"20GB 不限时"},
@@ -103,84 +138,124 @@
       {"name":"包季套餐","price":"¥68","duration":"90 天","traffic":"总计 5400GB，每日 60GB 凌晨重置"},
       {"name":"包年套餐","price":"¥198","duration":"365 天","traffic":"总计 21900GB，每日 60GB 凌晨重置"}
     ],
+    "planEvidenceImages":["/evidence/interexpress/2026-07-17-plans-no-expiry.png","/evidence/interexpress/2026-07-17-plans-daily.png"],
     "tests":[
       {"id":"20260713-1245-sg","testedAt":"2026-07-13","time":"12:45","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":382.14,"uploadMbps":47.12,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19424286187","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1250-hk","testedAt":"2026-07-13","time":"12:50","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":121.45,"uploadMbps":49.76,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19424294635","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1300-jp","testedAt":"2026-07-13","time":"13:00","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":29.13,"uploadMbps":15.19,"chatgpt":"流畅","streaming":"轻微缓冲","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19424314665","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260713-1303-us","testedAt":"2026-07-13","time":"13:03","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":156.25,"uploadMbps":21.07,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19424323113","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260713-1303-us","testedAt":"2026-07-13","time":"13:03","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":156.25,"uploadMbps":21.07,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19424323113","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1931-sg","testedAt":"2026-07-15","time":"19:31","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":362.27,"uploadMbps":48.65,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19434029923","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1935-hk","testedAt":"2026-07-15","time":"19:35","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":483.11,"uploadMbps":0.83,"chatgpt":"不可用","streaming":"延迟高","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19434042740","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-1940-jp","testedAt":"2026-07-15","time":"19:40","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":70.92,"uploadMbps":50.97,"chatgpt":"可用但慢","streaming":"流畅","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19434056912","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-2000-us","testedAt":"2026-07-15","time":"20:00","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":4.13,"uploadMbps":4.75,"chatgpt":"可用但慢","streaming":"延迟高","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19434135034","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260718-1803-sg","testedAt":"2026-07-18","time":"18:03","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":628.57,"uploadMbps":49.26,"chatgpt":"稳定","streaming":"稳定","latencyMs":83,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446251344","evidenceImage":"/evidence/interexpress/2026-07-18-1803-sg-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 10:03 AM GMT（北京时间 18:03），测速服务器 PT. Indosat Tbk，新加坡；负载延迟下载 128 ms、上传 80 ms","sourceRegion":null,"isp":"Akile","device":"macOS","client":"网际快车官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1809-hk","testedAt":"2026-07-18","time":"18:09","window":"日间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":546.68,"uploadMbps":48.91,"chatgpt":"不可用","streaming":"稳定","latencyMs":109,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446266785","evidenceImage":"/evidence/interexpress/2026-07-18-1809-hk-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 10:09 AM GMT（北京时间 18:09），测速服务器 CMC Telecom，香港；负载延迟下载 149 ms、上传 151 ms","sourceRegion":null,"isp":"Astrix","device":"macOS","client":"网际快车官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1813-jp","testedAt":"2026-07-18","time":"18:13","window":"日间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":188.72,"uploadMbps":50.69,"chatgpt":"可用","streaming":"可用","latencyMs":64,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446279022","evidenceImage":"/evidence/interexpress/2026-07-18-1813-jp-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 10:13 AM GMT（北京时间 18:13），测速服务器 fdcservers.net，东京；负载延迟下载 101 ms、上传 70 ms","sourceRegion":null,"isp":"Astrix","device":"macOS","client":"网际快车官方专属客户端 + Speedtest Desktop"},
+      {"id":"20260718-1815-us","testedAt":"2026-07-18","time":"18:15","window":"日间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":259.02,"uploadMbps":48.93,"chatgpt":"稳定","streaming":"稳定","latencyMs":207,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446284167","evidenceImage":"/evidence/interexpress/2026-07-18-1815-us-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 10:15 AM GMT（北京时间 18:15），测速服务器 Mutual Telephone Company，McPherson, KS；负载延迟下载 247 ms、上传 213 ms","sourceRegion":null,"isp":"IDC","device":"macOS","client":"网际快车官方专属客户端 + Speedtest Desktop"}
     ],
     "networkQualitySamples":[
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"18:11","node":"新加坡节点","downloadMbps":594,"uploadMbps":36.6,"latencyMs":83,"jitterMs":0,"packetLossPercent":3.7,"server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-jp-kyiv","testedAt":"2026-07-14","time":"18:13","node":"日本节点","downloadMbps":414,"uploadMbps":49.0,"latencyMs":271,"jitterMs":35,"packetLossPercent":null,"server":"Gigabit-Net LLC，基辅（与节点地区不一致）","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"18:24","node":"美国节点","downloadMbps":398,"uploadMbps":48.0,"latencyMs":218,"jitterMs":0,"packetLossPercent":0,"server":"TCT，Council Grove, KS","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"18:11","node":"新加坡节点","downloadMbps":594,"uploadMbps":36.6,"latencyMs":83,"jitterMs":0,"packetLossPercent":3.7,"chatgpt":"稳定","streaming":"稳定","server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-jp-kyiv","testedAt":"2026-07-14","time":"18:13","node":"日本节点","downloadMbps":414,"uploadMbps":49.0,"latencyMs":271,"jitterMs":35,"packetLossPercent":null,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"Gigabit-Net LLC，基辅（与节点地区不一致）","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"18:24","node":"美国节点","downloadMbps":398,"uploadMbps":48.0,"latencyMs":218,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"缓冲严重","server":"TCT，Council Grove, KS","evidence":"Speedtest 客户端结果截图"}
+    ],
+    "nodeSnapshots":[
+      {"capturedAt":"2026-07-17","time":"10:57","total":30,"reachable":30,"timeout":0,"highLatency":0,"latencyRange":"43–174 ms（客户端显示值）","selectedNode":"客户端节点列表（未显示当前选中节点）","timeoutNodes":[],"highLatencyNodes":[],"evidenceImages":["/evidence/interexpress/2026-07-17-nodes.png"]}
     ]
   },
   {
     "slug":"xxyun","name":"xxyun","website":"https://xxyun.at/?code=3AYVsSKY","affiliate":true,"foundedAt":"2024","couponCode":"xxyun",
-    "registrationOffer":"新注册用户首次购买可使用九折优惠码，成功使用一次后失效。","score":null,"stability":null,"speed":143.26,"latency":null,"chatgpt":null,"chatgptStatus":"问答回复时间久，使用不流畅","chatgptStatusUpdated":"2026-07-14","streaming":null,
-    "streamingStatus":"新加坡、美国、日本、香港节点稳定","dataDays":2,"rankingEligible":false,"price":9.99,"traffic":"100GB","protocol":"VLESS / ANYTLS / Shadowsocks / V2NODE / TUIC","status":"监测第 2 天","updated":"2026-07-14",
-    "summary":"低价、官方客户端和流媒体场景定位，不再支持 Clash、Shadowrocket 等第三方客户端。","platforms":["Android","iOS","Windows","macOS"],"testClient":"机场官方专属客户端",
-    "universalSubscription":"不支持，需使用 xxyun 官方客户端","deviceLimit":"不限设备","trial":"不支持","noExpiry":"支持，提供 500GB 和 2888GB 不限时流量套餐，流量用完为止","nodeCount":38,"onlineSnapshot":"2026-07-10 采集时 38/38 在线",
-    "regions":["日本","美国","香港","新加坡","台湾","欧洲","东南亚"],"lineTypes":["BGP","中转"],"bandwidthPolicy":"套餐提供 300M / 500M / 800M 带宽，节点均为 1× 倍率",
+    "registrationOffer":"新注册用户首次购买可使用九折优惠码，成功使用一次后失效。","score":null,"stability":null,"speed":143.26,"latency":null,"chatgpt":null,"chatgptStatus":"2026-07-15 实测卡住，无法正常使用","chatgptStatusUpdated":"2026-07-15","streaming":null,
+    "streamingStatus":"2026-07-15 实测无法正常播放；美国节点 20:08 测试时缓冲时间长","rankingEligible":false,"price":9.99,"traffic":"100GB","protocol":"VLESS / ANYTLS / Shadowsocks / V2NODE / TUIC","status":"持续监测中","serviceStatus":"异常：测速页面打不开，ChatGPT 卡住，流媒体无法正常播放","serviceStatusUpdated":"2026-07-15","updated":"2026-07-17",
+    "summary":"仅支持 xxyun 自家的官方专属客户端，不提供 Clash、Shadowrocket 等第三方客户端可用的通用订阅。","platforms":["官方专属客户端（Android）","官方专属客户端（iOS）","官方专属客户端（Windows）","官方专属客户端（macOS）"],"testClient":"xxyun 官方专属客户端",
+    "universalSubscription":"不支持任何 Clash 订阅或其他通用订阅，只能使用 xxyun 官方专属客户端","deviceLimit":"不限设备","trial":"不支持","noExpiry":"支持，提供 500GB 和 2888GB 不限时流量套餐，流量用完为止","nodeCount":36,"onlineSnapshot":"2026-07-17 11:08 后台清单共 36 个实际节点，全部标记在线、均为 1× 倍率；另有 1 条续费与客服网址信息入口，不计入节点总数。该页面未展示延迟，不代表实际链路全部可用。",
+    "regions":["美国（7）","日本（4）","香港（4）","台湾（3）","新加坡（3）","德国（2）","加拿大","印度","印度尼西亚","巴西","法国","泰国","澳大利亚","澳门","瑞士","英国","荷兰","越南","马来西亚"],"regionsNote":"2026-07-17 后台节点快照覆盖 19 个国家或地区；协议分布为 VLESS 24、Shadowsocks 6、ANYTLS 4、V2NODE 2，全部为 1× 倍率。","lineTypes":["BGP","三网优化","电信优化","直连","中转"],"bandwidthPolicy":"套餐页标注：100GB 月付和永久 500GB 套餐提供 300M 带宽，300GB 月付提供 500M，1000GB 月付和永久 2888GB 套餐提供 800M；2026-07-17 节点清单所示节点均为 1× 倍率。","billingPolicy":"月付套餐每月订单日重置流量；永久套餐一次性购买、长期有效，流量用完为止。",
     "paymentMethods":["支付宝","微信"],"supportResponse":"套餐页标注 7×24 在线客服",
-    "plans":[{"name":"初级月付","price":"¥9.99/月","traffic":"100GB/月"},{"name":"中级月付","price":"¥19.90/月","traffic":"300GB/月"},{"name":"高级月付","price":"¥39.90/月","traffic":"1000GB/月"},{"name":"永久 500G","price":"¥66.66/一次性","traffic":"500GB 不限时"},{"name":"永久 2888G","price":"¥199/一次性","traffic":"2888GB 不限时"}],
+    "plans":[
+      {"name":"初级月付","price":"¥9.99/月","traffic":"100GB/月","details":["每月订单日重置流量","BGP + 中转线路，套餐页标注 300M 带宽","不限制设备使用","套餐页标注 7×24 在线客服及 Netflix、Disney+、ChatGPT 等解锁"]},
+      {"name":"中级月付","price":"¥19.90/月","traffic":"300GB/月","details":["每月订单日重置流量","BGP + 中转线路，套餐页标注 500M 带宽","不限制设备使用","套餐页标注 7×24 在线客服及 Netflix、Disney+、ChatGPT 等解锁"]},
+      {"name":"高级月付","price":"¥39.90/月","traffic":"1000GB/月","details":["每月订单日重置流量","BGP + 中转线路，套餐页标注 800M 带宽","不限制设备使用","套餐页标注 7×24 在线客服及 Netflix、Disney+、ChatGPT 等解锁"]},
+      {"name":"永久 500G","price":"¥66.66/一次性","traffic":"500GB 不限时","details":["一次性购买后长期可用","BGP + 中转线路，套餐页标注 300M 带宽","不限制设备使用","流量用完为止"]},
+      {"name":"超划算永久 2888G","price":"¥199/一次性","traffic":"2888GB 不限时","details":["一次性购买后长期可用","BGP + 中转线路，套餐页标注 800M 带宽","不限制设备使用","流量用完为止"]}
+    ],
+    "planEvidenceImages":["/evidence/xxyun/2026-07-17-plans-monthly.png","/evidence/xxyun/2026-07-17-plans-no-expiry.png"],
     "tests":[
       {"id":"20260713-1915-sg","testedAt":"2026-07-13","time":"19:15","window":"晚间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":140.94,"uploadMbps":49.91,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425353012","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1918-us","testedAt":"2026-07-13","time":"19:18","window":"晚间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":143.26,"uploadMbps":20.75,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425364762","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1924-jp","testedAt":"2026-07-13","time":"19:24","window":"晚间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":138.99,"uploadMbps":51.87,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425382593","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260713-1927-hk","testedAt":"2026-07-13","time":"19:27","window":"晚间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":125.18,"uploadMbps":47.95,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425390813","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260713-1927-hk","testedAt":"2026-07-13","time":"19:27","window":"晚间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":125.18,"uploadMbps":47.95,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425390813","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-2008-us","testedAt":"2026-07-15","time":"20:08","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":131.8,"uploadMbps":12.00,"chatgpt":"可用但慢","streaming":"缓冲时间长","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19434162187","sourceRegion":null,"isp":null,"device":null,"client":null}
     ],
     "networkQualitySamples":[
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"18:28","node":"新加坡节点","downloadMbps":468,"uploadMbps":49.5,"latencyMs":78,"jitterMs":0,"packetLossPercent":0,"server":"CBN，新加坡","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"18:47","node":"美国节点","downloadMbps":525,"uploadMbps":46.3,"latencyMs":179,"jitterMs":0,"packetLossPercent":0,"server":"ReliableSite Hosting，Los Angeles, CA","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"18:28","node":"新加坡节点","downloadMbps":468,"uploadMbps":49.5,"latencyMs":78,"jitterMs":0,"packetLossPercent":0,"chatgpt":"稳定","streaming":"稳定","server":"CBN，新加坡","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"18:47","node":"美国节点","downloadMbps":525,"uploadMbps":46.3,"latencyMs":179,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"ReliableSite Hosting，Los Angeles, CA","evidence":"Speedtest 客户端结果截图"}
+    ],
+    "nodeSnapshots":[
+      {"capturedAt":"2026-07-15","time":"20:06","total":38,"reachable":32,"timeout":6,"highLatency":3,"latencyRange":"15–1000 ms（可达节点）","selectedNode":"pro 日本 A01BGP（当时显示超时）","timeoutNodes":["pro 日本 A01BGP","pro 日本 B02BGP","pro 日本 C03BGP","pro 台湾 02BGP","台湾直连 01","澳门"],"highLatencyNodes":["pro 台湾 01BGP（1000 ms）","pro 台湾 03BGP（127 ms）","越南（100 ms）"],"evidenceImages":["/evidence/xxyun/2026-07-15-2006-nodes-1.png","/evidence/xxyun/2026-07-15-2006-nodes-2.png","/evidence/xxyun/2026-07-15-2006-nodes-3.png","/evidence/xxyun/2026-07-15-2006-nodes-4.png","/evidence/xxyun/2026-07-15-2006-nodes-5.png"]},
+      {"capturedAt":"2026-07-17","time":"11:08","total":36,"reachable":36,"timeout":0,"highLatency":0,"latencyRange":"本次后台节点列表未展示延迟数据","selectedNode":"后台节点列表（未显示当前选中节点）","timeoutNodes":[],"highLatencyNodes":[],"evidenceImages":["/evidence/xxyun/2026-07-17-1108-nodes-1.png","/evidence/xxyun/2026-07-17-1108-nodes-2.png","/evidence/xxyun/2026-07-17-1108-nodes-3.png"]}
+    ],
+    "serviceIncidents":[
+      {"observedAt":"2026-07-15","time":"20:31","status":"服务异常","speedtest":"测速页面打不开，无法继续测速","chatgpt":"页面卡住，无法正常使用","streaming":"无法正常播放","note":"当日整体使用体验较差；这是一次带时间的人工实测观察，不填充虚构速度或延迟数据。"}
     ]
   },
   {
     "slug":"flybit","name":"Flybit","website":"https://goflybit.com/#/register?code=p3DOcgzt","affiliate":true,"foundedAt":"2024-07-15",
-    "couponCode":"flybit","registrationOffer":"九折优惠码，可无限次使用。","score":null,"stability":null,"speed":599.5,"latency":null,"chatgpt":null,"streaming":null,
-    "streamingStatus":"新加坡、日本、香港、美国节点稳定","dataDays":2,"rankingEligible":false,"price":15,"traffic":"128GB","protocol":"通用订阅","status":"监测第 2 天","updated":"2026-07-14",
+    "couponCode":"flybit","registrationOffer":"九折优惠码，可无限次使用。","score":null,"stability":null,"speed":882.82,"latency":null,"chatgpt":null,"streaming":null,
+    "streamingStatus":"新加坡、美国节点稳定；香港节点连续两次稳定；日本节点第 2 天轻微缓冲","rankingEligible":false,"price":15,"traffic":"128GB","protocol":"通用订阅","status":"持续监测中","updated":"2026-07-17",
     "summary":"以 Clash 通用订阅兼容为核心，适合熟悉规则配置和多端订阅的用户。","platforms":["Clash Verge","Clash Meta","Shadowrocket","Surge","Stash"],"testClient":"FlClash（macOS）",
-    "universalSubscription":"支持","trial":"新注册后可免费试用，1 天或 2GB 以先到者为准","noExpiry":"支持 128GB / 256GB / 512GB / 1024GB 不限时流量包","lineTypes":["专线","中转"],"paymentMethods":["支付宝","微信"],
+    "universalSubscription":"支持","deviceLimit":"不限制设备数量","trial":"新注册后可免费试用，1 天或 2GB 以先到者为准","noExpiry":"支持 128GB / 256GB / 512GB / 1024GB 不限时流量包","lineTypes":["专线","中转"],"paymentMethods":["支付宝","微信"],
     "plans":[{"name":"入门","price":"¥15/月","traffic":"128GB/月"},{"name":"日常","price":"¥22/月","traffic":"192GB/月"},{"name":"中度","price":"¥28/月","traffic":"256GB/月"},{"name":"重度","price":"¥52/月","traffic":"512GB/月"},{"name":"永久套餐","price":"¥36–238/一次性","traffic":"128–1024GB 不限时"}],
     "tests":[
       {"id":"20260713-1856-sg","testedAt":"2026-07-13","time":"18:56","window":"晚间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":599.5,"uploadMbps":43.95,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425296763","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1901-jp","testedAt":"2026-07-13","time":"19:01","window":"晚间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":553.12,"uploadMbps":48.78,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425312399","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1905-hk","testedAt":"2026-07-13","time":"19:05","window":"晚间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":316.34,"uploadMbps":24.99,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425320210","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260713-1909-us","testedAt":"2026-07-13","time":"19:09","window":"晚间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":586.78,"uploadMbps":11.35,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425334592","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260713-1909-us","testedAt":"2026-07-13","time":"19:09","window":"晚间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":586.78,"uploadMbps":11.35,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425334592","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260717-2051-hk","testedAt":"2026-07-17","time":"20:51","window":"晚高峰","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":882.82,"uploadMbps":47.91,"chatgpt":"不可用","streaming":"稳定","latencyMs":121,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/19442908387","evidenceImage":"/evidence/flybit/2026-07-17-2051-hk-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 12:51 PM GMT（北京时间 20:51），测速服务器 Hutchison HK，香港；负载延迟下载 156 ms、上传 117 ms","sourceRegion":null,"isp":"Debee Network","device":"macOS","client":"FlClash + Speedtest Desktop"}
     ],
     "networkQualitySamples":[
-      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"18:56","node":"日本节点","downloadMbps":514,"uploadMbps":49.2,"latencyMs":70,"jitterMs":5,"packetLossPercent":0,"server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"19:01","node":"新加坡节点","downloadMbps":445,"uploadMbps":50.2,"latencyMs":111,"jitterMs":2,"packetLossPercent":3.6,"server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"18:56","node":"日本节点","downloadMbps":514,"uploadMbps":49.2,"latencyMs":70,"jitterMs":5,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"19:01","node":"新加坡节点","downloadMbps":445,"uploadMbps":50.2,"latencyMs":111,"jitterMs":2,"packetLossPercent":3.6,"chatgpt":"稳定","streaming":"稳定","server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"}
     ]
   },
   {
     "slug":"pinhaolian","name":"拼好连（原 Runway）","website":"https://new.runwayhz.com/#/register?code=cgkx147T","affiliate":true,"foundedAt":"2025-11-01",
-    "score":null,"stability":null,"speed":323.62,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡、香港、美国节点稳定；日本节点流畅",
-    "dataDays":2,"rankingEligible":false,"price":9.9,"traffic":"100GB","protocol":"专属客户端","status":"监测第 2 天","updated":"2026-07-14",
-    "summary":"提供专属客户端、1 天 6GB 试用和多档套餐，适合新手先验证连接流程。","testClient":"FlClash（macOS）","universalSubscription":"不支持","deviceLimit":"不限制客户端连接数量",
-    "trial":"1 天 6GB","noExpiry":"支持 45 元 150GB 随心充能包","lineTypes":["BGP","IEPL"],"bandwidthPolicy":"入门套餐限速 200 Mbps，日常套餐限速 400 Mbps，高档套餐标注不限速",
-    "paymentMethods":["支付宝","微信"],"supportResponse":"部分高档套餐标注 7×24 小时客服或技术顾问",
+    "score":null,"stability":null,"speed":323.62,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡节点第 4 天缓冲慢；香港节点稳定；日本节点第 4 天缓冲时间长；美国节点第 2 天缓冲严重、第 3 天稳定",
+    "rankingEligible":false,"price":9.9,"traffic":"100GB","protocol":"VLESS（专属客户端 / 通用订阅）","status":"持续监测中","updated":"2026-07-17",
+    "summary":"提供专属客户端、通用订阅、1 天 6GB 试用和多档套餐，适合新手先验证连接流程。","testClient":"FlClash（macOS）","universalSubscription":"支持，需及时更新订阅链接与节点配置","deviceLimit":"不限制客户端连接数量",
+    "trial":"1 天 6GB","noExpiry":"支持 45 元 150GB 随心充能包","nodeCount":42,"onlineSnapshot":"2026-07-17 11:04 客户端截图中 42/42 个实际地区节点在线；官网与 TG 群组为信息入口，不计入节点总数","regions":["香港","澳门","泰国","台湾","菲律宾","新加坡","马来西亚","越南","印度尼西亚","日本","澳大利亚","韩国","美国","加拿大","巴西","智利","德国","英国","法国","意大利","土耳其"],"regionsNote":"21 个地区各提供 2 个节点；本次截图中的实际地区节点全部为 VLESS，倍率均为 1.5×。","lineTypes":["BGP","IEPL"],"bandwidthPolicy":"入门套餐限速 200 Mbps，日常套餐限速 400 Mbps，高档套餐标注不限速；2026-07-17 节点快照全部标注 1.5× 倍率",
+    "paymentMethods":["支付宝","微信"],"supportResponse":"至尊金牌拼标注 7×24 小时专业客服；VIP 包场拼标注 7×24 全天候 1V1 专属运维与网络级监控",
+    "billingPolicy":"前四档月付套餐支持月付、季付、半年付和年付；随心充能包与 VIP 包场拼为一次性购买",
     "plans":[
-      {"name":"天天尝鲜拼","price":"¥9.9/月","traffic":"100GB/月"},{"name":"万人好评拼","price":"¥19.9/月","traffic":"200GB/月"},
-      {"name":"至尊金牌拼","price":"¥50/月","traffic":"600GB/月"},{"name":"跨境全球拼","price":"¥79/月","traffic":"1TB/月"},
-      {"name":"随心充能包","price":"¥45/一次性","traffic":"150GB 不限时"},{"name":"VIP 包场拼","price":"¥888/一次性","traffic":"定制"}
+      {"name":"天天尝鲜拼","price":"¥9.9/月","traffic":"100GB/月","details":["全球 11 个国家接入","不限客户端连接数量、限速 200 Mbps","支持 Netflix、YouTube 解锁"]},
+      {"name":"万人好评拼","price":"¥19.9/月","traffic":"200GB/月","details":["全球 16 个国家接入","不限客户端连接数量、限速 400 Mbps","BGP 线路、SLA 在线率 99.99%"]},
+      {"name":"至尊金牌拼","price":"¥50/月","traffic":"600GB/月","details":["全球 18 个国家接入","不限客户端连接数量、不限速","BGP+IEPL、SLA 在线率 99.99%"]},
+      {"name":"跨境全球拼","price":"¥79/月","traffic":"1TB（1024GB）/月","details":["全球精选节点、不限速","支持流媒体与 ChatGPT、AI 工具","BGP+IEPL 专线底座"]},
+      {"name":"随心充能包","price":"¥45/一次性","traffic":"150GB 不限时","details":["手动重置流量 ¥45/次","全球 18 个国家接入、不限速","1 Gbps 带宽保证"]},
+      {"name":"VIP 包场拼","price":"¥888/一次性","traffic":"定制","details":["非公开自助售卖、按需组网","独享物理带宽与纯净原生 IP 池","IPLC/IEPL 物理专线与 7×24 1V1 运维"]}
     ],
+    "planEvidenceImages":["/evidence/pinhaolian/2026-07-17-plans.png"],
     "tests":[
       {"id":"20260713-1815-sg","testedAt":"2026-07-13","time":"18:15","window":"晚间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":86.01,"uploadMbps":49.12,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425173014","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1836-hk","testedAt":"2026-07-13","time":"18:36","window":"晚间","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":323.62,"uploadMbps":48.53,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425234914","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-1843-jp","testedAt":"2026-07-13","time":"18:43","window":"晚间","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":21.33,"uploadMbps":38.73,"chatgpt":"可用","streaming":"流畅","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425253956","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260713-1850-us","testedAt":"2026-07-13","time":"18:50","window":"晚间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":322.83,"uploadMbps":40.85,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425276089","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260713-1850-us","testedAt":"2026-07-13","time":"18:50","window":"晚间","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":322.83,"uploadMbps":40.85,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425276089","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260715-2050-us","testedAt":"2026-07-15","time":"20:50","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":287.05,"uploadMbps":25.32,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19434323287","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260716-1552-sg","testedAt":"2026-07-16","time":"15:52","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":93.58,"uploadMbps":46.56,"chatgpt":"回复慢","streaming":"缓冲慢","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19437723657","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260716-1934-jp","testedAt":"2026-07-16","time":"19:34","window":"晚高峰","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":27.9,"uploadMbps":6.3,"chatgpt":"响应慢","streaming":"缓冲时间长","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19438419331","sourceRegion":null,"isp":null,"device":null,"client":null}
     ],
     "networkQualitySamples":[
-      {"id":"20260714-quality-hk","testedAt":"2026-07-14","time":"19:10","node":"香港节点","downloadMbps":464,"uploadMbps":51.9,"latencyMs":40,"jitterMs":1,"packetLossPercent":null,"server":"Sun Mobile，香港","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"19:20","node":"日本节点","downloadMbps":429,"uploadMbps":52.4,"latencyMs":80,"jitterMs":0,"packetLossPercent":0,"server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"19:26","node":"美国节点","downloadMbps":537,"uploadMbps":16.2,"latencyMs":188,"jitterMs":1,"packetLossPercent":null,"server":"ReliableSite Hosting，Los Angeles, CA","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-hk","testedAt":"2026-07-14","time":"19:10","node":"香港节点","downloadMbps":464,"uploadMbps":51.9,"latencyMs":40,"jitterMs":1,"packetLossPercent":null,"chatgpt":"不可用","streaming":"稳定","server":"Sun Mobile，香港","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"19:20","node":"日本节点","downloadMbps":429,"uploadMbps":52.4,"latencyMs":80,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"19:26","node":"美国节点","downloadMbps":537,"uploadMbps":16.2,"latencyMs":188,"jitterMs":1,"packetLossPercent":null,"chatgpt":"可用但慢","streaming":"缓冲严重","server":"ReliableSite Hosting，Los Angeles, CA","evidence":"Speedtest 客户端结果截图"}
+    ],
+    "nodeSnapshots":[
+      {"capturedAt":"2026-07-15","time":"20:41","total":42,"reachable":31,"timeout":11,"highLatency":4,"latencyRange":"114–984 ms（可达的实际地区节点）","selectedNode":"自动选择（44 ms）","timeoutNodes":["新加坡 01","新加坡 02","日本 01","日本 02","韩国 01","韩国 02","巴西 01","英国 01","英国 02","意大利 01","意大利 02"],"highLatencyNodes":["香港 02（652 ms）","菲律宾 01（984 ms）","澳大利亚 01（835 ms）","澳大利亚 02（526 ms）"],"evidenceImages":["/evidence/pinhaolian/2026-07-15-2041-nodes-1.png","/evidence/pinhaolian/2026-07-15-2041-nodes-2.png"]},
+      {"capturedAt":"2026-07-17","time":"11:04","total":42,"reachable":42,"timeout":0,"highLatency":0,"latencyRange":"本次节点列表未展示延迟数据","selectedNode":"客户端节点列表（未显示当前选中节点）","timeoutNodes":[],"highLatencyNodes":[],"evidenceImages":["/evidence/pinhaolian/2026-07-17-nodes-1.png","/evidence/pinhaolian/2026-07-17-nodes-2.png"]}
     ]
   },
   {
-    "slug":"cocoduck","name":"cocoduck","website":"https://cocoduck.live/auth/register?code=ca0cfb89fa","affiliate":true,
-    "score":null,"stability":null,"speed":591.39,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡、日本、香港、美国节点稳定","dataDays":2,"rankingEligible":false,
-    "price":17,"traffic":"100GB","protocol":"专属客户端 / 通用订阅","status":"监测第 2 天","updated":"2026-07-14",
+    "slug":"cocoduck","name":"cocoduck","website":"https://cocoduck.live/auth/register?code=ca0cfb89fa","affiliate":true,"foundedAt":"2023",
+    "score":null,"stability":null,"speed":591.39,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡、香港节点稳定；日本节点第 2 天轻微缓冲；美国节点第 2 天缓冲严重","rankingEligible":false,
+    "price":17,"traffic":"100GB","protocol":"专属客户端 / 通用订阅","status":"持续监测中","updated":"2026-07-14",
     "summary":"套餐覆盖个人到团队场景，套餐页标注支持全部节点、全平台客户端、AI 服务与 4K 流媒体；实际体验仍以本站测试记录为准。",
     "platforms":["全平台客户端"],"testClient":"FlClash（macOS）","universalSubscription":"支持","deviceLimit":"不限制设备数量","trial":"新注册后可免费试用，1 天或 2GB 以先到者为准",
     "noExpiry":"不支持独立不限时套餐；另有流量加油包，但仅可配合当前常规套餐使用","bandwidthPolicy":"套餐页标注不限制连接速度，所有套餐均支持全部节点线路","paymentMethods":["支付宝","微信"],
@@ -193,16 +268,16 @@
       {"id":"20260713-2146-us","testedAt":"2026-07-13","time":"21:46","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":492.01,"uploadMbps":48.31,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425906173","sourceRegion":null,"isp":null,"device":null,"client":null}
     ],
     "networkQualitySamples":[
-      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"19:29","node":"日本节点","downloadMbps":530,"uploadMbps":46.8,"latencyMs":87,"jitterMs":1,"packetLossPercent":0,"server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"19:34","node":"新加坡节点","downloadMbps":822,"uploadMbps":44.6,"latencyMs":105,"jitterMs":3,"packetLossPercent":4.3,"server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"19:37","node":"美国节点","downloadMbps":595,"uploadMbps":34.3,"latencyMs":181,"jitterMs":0,"packetLossPercent":0,"server":"USA Connections，Wellington, KS","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"19:29","node":"日本节点","downloadMbps":530,"uploadMbps":46.8,"latencyMs":87,"jitterMs":1,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"19:34","node":"新加坡节点","downloadMbps":822,"uploadMbps":44.6,"latencyMs":105,"jitterMs":3,"packetLossPercent":4.3,"chatgpt":"稳定","streaming":"稳定","server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"19:37","node":"美国节点","downloadMbps":595,"uploadMbps":34.3,"latencyMs":181,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"缓冲严重","server":"USA Connections，Wellington, KS","evidence":"Speedtest 客户端结果截图"}
     ]
   },
   {
     "slug":"edgenode","name":"边缘节点","website":"https://haandiiong.edgenovaaff.cc/#/register?code=TgZ97dFt","affiliate":true,
     "couponCode":"xk808","registrationOffer":"仅限新注册用户首次购买使用，成功使用一次后失效；优惠幅度以后台结算为准。",
-    "score":null,"stability":null,"speed":563,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"日本、美国、香港节点稳定","dataDays":2,"rankingEligible":false,
-    "price":25,"traffic":"120GB","protocol":"专属客户端 / 临时通用订阅","status":"监测第 2 天","updated":"2026-07-14",
+    "score":null,"stability":null,"speed":818.8,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡节点连续两次稳定；香港节点稳定；日本节点第 2 天轻微缓冲；美国节点第 2 天可用但慢","rankingEligible":false,
+    "price":25,"traffic":"120GB","protocol":"专属客户端 / 临时通用订阅","status":"持续监测中","updated":"2026-07-17",
     "summary":"提供限时小包与 4 档常规套餐，覆盖 60+ 节点；套餐页标注支持主流流媒体和 AI 工具，实际体验仍以本站测试记录为准。",
     "platforms":["自研客户端"],"testClient":"机场官方专属客户端","universalSubscription":"支持临时一次性订阅，使用 Clash、Mihomo 或 Shadowrocket 前需确认有效期","deviceLimit":"不限制设备数量",
     "nodeCount":60,"onlineSnapshot":"套餐页标注 60+ 节点，实时在线数量待复核","regions":["香港","台湾","新加坡","日本","美国","马来西亚"],"lineTypes":["IEPL"],
@@ -211,16 +286,58 @@
     "refundPolicy":"不支持退款。","supportResponse":"售后服务响应及时，具体响应时间样本待记录。",
     "plans":[{"name":"限时月付小包","price":"¥15/月","traffic":"72GB/月"},{"name":"限时年付","price":"¥108/年","traffic":"45GB/月"},{"name":"极界·标准套餐","price":"¥25/月","traffic":"120GB/月"},{"name":"极界·进阶套餐","price":"¥50/月","traffic":"250GB/月"},{"name":"极界·高级套餐","price":"¥100/月","traffic":"500GB/月"},{"name":"极界·极限套餐","price":"¥200/月","traffic":"1TB/月"}],
     "networkQualitySamples":[
-      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"20:05","node":"新加坡节点","downloadMbps":493,"uploadMbps":49.8,"latencyMs":88,"jitterMs":2,"packetLossPercent":null,"server":"Pacific Internet (S)，新加坡","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"20:09","node":"日本节点","downloadMbps":540,"uploadMbps":49,"latencyMs":71,"jitterMs":0,"packetLossPercent":0,"server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
-      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"20:11","node":"美国节点","downloadMbps":563,"uploadMbps":31.6,"latencyMs":187,"jitterMs":0,"packetLossPercent":0,"server":"Mutual Telephone Company，McPherson, KS","evidence":"Speedtest 客户端结果截图"}
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"20:05","node":"新加坡节点","downloadMbps":493,"uploadMbps":49.8,"latencyMs":88,"jitterMs":2,"packetLossPercent":null,"chatgpt":"稳定","streaming":"稳定","server":"Pacific Internet (S)，新加坡","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"20:09","node":"日本节点","downloadMbps":540,"uploadMbps":49,"latencyMs":71,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"轻微缓冲","server":"Verizon，东京","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-us","testedAt":"2026-07-14","time":"20:11","node":"美国节点","downloadMbps":563,"uploadMbps":31.6,"latencyMs":187,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"可用但慢","server":"Mutual Telephone Company，McPherson, KS","evidence":"Speedtest 客户端结果截图"}
     ],
     "tests":[
       {"id":"20260713-2043-jp","testedAt":"2026-07-13","time":"20:43","window":"晚高峰","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":437.82,"uploadMbps":21.43,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425660275","sourceRegion":null,"isp":null,"device":null,"client":null},
       {"id":"20260713-2050-us","testedAt":"2026-07-13","time":"20:50","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":317.34,"uploadMbps":8.37,"chatgpt":"稳定","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/result/d/19425685752","sourceRegion":null,"isp":null,"device":null,"client":null},
-      {"id":"20260713-2110-hk","testedAt":"2026-07-13","time":"21:10","window":"晚高峰","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":367.82,"uploadMbps":4.22,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425763804","sourceRegion":null,"isp":null,"device":null,"client":null}
+      {"id":"20260713-2110-hk","testedAt":"2026-07-13","time":"21:10","window":"晚高峰","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":367.82,"uploadMbps":4.22,"chatgpt":"不可用","streaming":"稳定","latencyMs":null,"jitterMs":null,"packetLossPercent":null,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19425763804","sourceRegion":null,"isp":null,"device":null,"client":null},
+      {"id":"20260717-2031-sg","testedAt":"2026-07-17","time":"20:31","window":"晚高峰","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":818.8,"uploadMbps":49.74,"chatgpt":"稳定","streaming":"稳定","latencyMs":129,"jitterMs":null,"packetLossPercent":null,"resultUrl":null,"evidenceImage":"/evidence/edgenode/2026-07-17-2031-sg-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 12:31 PM GMT（北京时间 20:31），测速服务器 Pacific Internet (S)，新加坡；负载延迟下载 160 ms、上传 126 ms","sourceRegion":null,"isp":null,"device":null,"client":"机场官方专属客户端 + Speedtest Desktop"}
     ]
   },
-  {"slug":"xsus","name":"XSUS","website":"https://xsus.cloud/register?code=6hl2OXGR","affiliate":true,"score":null,"stability":null,"speed":578,"latency":null,"chatgpt":null,"streaming":null,"dataDays":1,"rankingEligible":false,"price":12,"traffic":"168GB","protocol":"专属客户端 / 通用订阅","status":"监测第 1 天","updated":"2026-07-14","summary":"提供常规月付、IEPL 企业专线与不限时流量包；套餐页标注支持全平台 AI 网络解锁及 Netflix、Disney，实际体验仍以本站测试记录为准。","platforms":["全平台设备"],"testClient":"FlClash（macOS）","universalSubscription":"支持","deviceLimit":"最多 5 个 IP；同一网络下多台设备按 1 个 IP 计算","regions":["全球多国"],"lineTypes":["IEPL 跨境专线","自有机房多地接入"],"trial":"不支持","noExpiry":"支持，不限时、按流量计费；流量包不可叠加、不可累计","paymentMethods":["支付宝","微信"],"networkQualitySamples":[{"id":"20260714-quality-hk","testedAt":"2026-07-14","time":"19:41","node":"香港节点","downloadMbps":466,"uploadMbps":32.7,"latencyMs":39,"jitterMs":1,"packetLossPercent":0,"chatgpt":"不可用","streaming":"正常播放","server":"Netvigator，香港","evidence":"Speedtest 客户端结果截图"},{"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"19:54","node":"新加坡节点","downloadMbps":322,"uploadMbps":50.4,"latencyMs":83,"jitterMs":3,"packetLossPercent":3.2,"chatgpt":"稳定","streaming":"稳定","server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"},{"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"20:02","node":"日本节点","downloadMbps":578,"uploadMbps":51.1,"latencyMs":79,"jitterMs":0,"packetLossPercent":0,"server":"Kairun Services，千叶","evidence":"Speedtest 客户端结果截图"}],"plans":[{"name":"IEPL-Small 企业专线套餐","price":"¥52/季","traffic":"50GB/月"},{"name":"IEPL-PLUS 企业专线套餐","price":"¥88/季","traffic":"100GB/月"},{"name":"P-Small 基础套餐","price":"¥12/月","traffic":"168GB/月"},{"name":"P-Plus 进阶套餐","price":"¥24/月","traffic":"336GB/月"},{"name":"P-Max 专业套餐","price":"¥30/月","traffic":"420GB/月"},{"name":"P-Ultra 极限套餐","price":"¥70/月","traffic":"1024GB/月"}],"noExpiryPlans":[{"name":"P-188G 流量不限时","price":"¥65/流量包","traffic":"188GB 不限时"},{"name":"P-240G 流量不限时","price":"¥82/流量包","traffic":"240GB 不限时"},{"name":"P-400G 流量不限时","price":"¥122/流量包","traffic":"400GB 不限时"},{"name":"P-1024G 流量不限时","price":"¥260/流量包","traffic":"1024GB 不限时"}]},
-  {"slug":"chongshangyunxiao","name":"冲上云霄","website":"https://cpdd.one/?r=156735","affiliate":true,"score":null,"stability":null,"speed":"待实测","latency":null,"chatgpt":null,"streaming":null,"dataDays":0,"rankingEligible":false,"price":7,"traffic":"50GB/30天","protocol":"通用订阅","status":"套餐资料已录入，待今日实测","updated":"2026-07-13","summary":"提供月付、季付、半年付和不限时流量套餐，进阶及以上套餐支持专线；套餐页标注支持流媒体解锁与 GPT，实际体验仍以本站测试记录为准。","universalSubscription":"支持","deviceLimit":"不限制设备数量","lineTypes":["普通线路","专线（进阶套餐及以上）"],"bandwidthPolicy":"入门 200Mbps、轻量 300Mbps、基础 500Mbps、进阶 800Mbps；高级及以上套餐不限速","trial":"不支持免费试用；7 元入门试用为 30 天付费套餐","noExpiry":"支持 2 款不限时流量套餐，流量用完为止","paymentMethods":["支付宝","微信"],"plans":[{"name":"入门试用","price":"¥7/30天","traffic":"50GB，限速 200Mbps"},{"name":"轻量套餐","price":"¥10/30天","traffic":"100GB，限速 300Mbps"},{"name":"基础套餐","price":"¥15/30天","traffic":"200GB，限速 500Mbps"},{"name":"进阶套餐","price":"¥30/30天","traffic":"500GB，限速 800Mbps，支持专线"},{"name":"高级套餐","price":"¥50/30天","traffic":"1024GB，不限速，支持专线"},{"name":"轻奢季付","price":"¥100/90天","traffic":"1500GB，不限速，支持专线"},{"name":"乐享套餐","price":"¥188/180天","traffic":"2000GB，不限速，支持专线"}],"noExpiryPlans":[{"name":"轻量纯享","price":"¥365/一次性","traffic":"800GB 不限时"},{"name":"高奢纯享","price":"¥800/一次性","traffic":"5120GB 不限时"}]}
+  {
+    "slug":"xsus","name":"XSUS","website":"https://xsus.cloud/register?code=6hl2OXGR","affiliate":true,"foundedAt":"2020",
+    "score":null,"stability":null,"speed":815.92,"latency":null,"chatgpt":null,"streaming":null,"streamingStatus":"新加坡节点连续两次稳定；香港节点连续两次稳定；日本节点前次稳定、本次晚高峰可用；美国节点晚高峰延迟高、缓冲时间长","rankingEligible":false,
+    "price":12,"traffic":"168GB","protocol":"专属客户端 / 通用订阅","status":"持续监测中","updated":"2026-07-18",
+    "summary":"提供常规月付、IEPL 企业专线与不限时流量包；套餐页标注支持全平台 AI 网络解锁及 Netflix、Disney，实际体验仍以本站测试记录为准。",
+    "platforms":["全平台设备"],"testClient":"FlClash（macOS）","universalSubscription":"支持",
+    "deviceLimit":"最多 5 个 IP；同一网络下多台设备按 1 个 IP 计算","nodeCount":75,
+    "onlineSnapshot":"2026-07-17 11:29 客户端清单共 75 个节点，全部标记在线；其中 62 个为 1×、13 个为 0.8×。截图未展示延迟数据，不代表实际链路全部稳定。",
+    "regions":["香港（10）","日本（10）","美国（10）","新加坡（9）","台湾（8）","马来西亚（6）","韩国","泰国","越南","菲律宾","柬埔寨","印度尼西亚","印度","澳大利亚","德国","意大利","法国","瑞士","乌克兰","土耳其","英国","冰岛","加拿大","挪威","巴西","墨西哥","尼日利亚","阿根廷"],
+    "regionsNote":"2026-07-17 客户端节点快照覆盖 28 个国家或地区；前 5 个 AnyTLS 节点及菲律宾、柬埔寨、瑞士、冰岛、加拿大、巴西、尼日利亚、阿根廷节点为 0.8×，其余为 1×。",
+    "lineTypes":["IEPL 跨境专线","自有机房多地接入","TR 中转","家宽","星链"],
+    "trial":"不支持","noExpiry":"支持，不限时、按流量计费；流量包不可叠加、不可累计",
+    "billingPolicy":"月付与企业季付套餐按账单日重置流量；常规套餐、企业套餐及不限时流量包均不可叠加流量，不限时流量也不可累计。",
+    "paymentMethods":["支付宝","微信"],
+    "networkQualitySamples":[
+      {"id":"20260714-quality-hk","testedAt":"2026-07-14","time":"19:41","node":"香港节点","downloadMbps":466,"uploadMbps":32.7,"latencyMs":39,"jitterMs":1,"packetLossPercent":0,"chatgpt":"不可用","streaming":"正常播放","server":"Netvigator，香港","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-sg","testedAt":"2026-07-14","time":"19:54","node":"新加坡节点","downloadMbps":322,"uploadMbps":50.4,"latencyMs":83,"jitterMs":3,"packetLossPercent":3.2,"chatgpt":"稳定","streaming":"稳定","server":"Singtel，新加坡","evidence":"Speedtest 客户端结果截图"},
+      {"id":"20260714-quality-jp","testedAt":"2026-07-14","time":"20:02","node":"日本节点","downloadMbps":578,"uploadMbps":51.1,"latencyMs":79,"jitterMs":0,"packetLossPercent":0,"chatgpt":"可用但慢","streaming":"稳定","server":"Kairun Services，千叶","evidence":"Speedtest 客户端结果截图"}
+    ],
+    "tests":[
+      {"id":"20260718-1953-sg","testedAt":"2026-07-18","time":"19:53","window":"日间","node":"新加坡节点","baselineDownloadMbps":1000,"downloadMbps":815.92,"uploadMbps":43.48,"chatgpt":"稳定","streaming":"稳定","latencyMs":142,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446547844","evidenceImage":"/evidence/xsus/2026-07-18-1953-sg-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 11:53 AM GMT（北京时间 19:53），测速服务器 Firstmedia，新加坡；负载延迟下载 165 ms、上传 144 ms","sourceRegion":null,"isp":"Akari Networks","device":"macOS","client":"FlClash（macOS）+ Speedtest Desktop"},
+      {"id":"20260718-2005-hk","testedAt":"2026-07-18","time":"20:05","window":"晚高峰","node":"香港节点","baselineDownloadMbps":1000,"downloadMbps":449.41,"uploadMbps":19.77,"chatgpt":"不可用","streaming":"稳定","latencyMs":103,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446583873","evidenceImage":"/evidence/xsus/2026-07-18-2005-hk-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 12:05 PM GMT（北京时间 20:05），测速服务器 CSL，香港；负载延迟下载 131 ms、上传 111 ms","sourceRegion":null,"isp":"Astrix","device":"macOS","client":"FlClash（macOS）+ Speedtest Desktop"},
+      {"id":"20260718-2124-jp","testedAt":"2026-07-18","time":"21:24","window":"晚高峰","node":"日本节点","baselineDownloadMbps":1000,"downloadMbps":328.12,"uploadMbps":11.70,"chatgpt":"可用","streaming":"可用","latencyMs":261,"resultUrl":"https://www.speedtest.net/result/19446824124","evidenceImage":"/evidence/xsus/2026-07-18-2124-jp-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 1:24 PM GMT（北京时间 21:24），测速服务器 fdcservers.net，东京；负载延迟下载 222 ms、上传 247 ms","sourceRegion":null,"isp":"Akari Networks","device":"macOS","client":"FlClash（macOS）+ Speedtest Desktop"},
+      {"id":"20260718-2134-us","testedAt":"2026-07-18","time":"21:34","window":"晚高峰","node":"美国节点","baselineDownloadMbps":1000,"downloadMbps":31.86,"uploadMbps":3.27,"chatgpt":"回复慢","streaming":"延迟高，缓冲时间长","latencyMs":267,"resultUrl":"https://www.speedtest.net/zh-Hans/result/19446854600","evidenceImage":"/evidence/xsus/2026-07-18-2134-us-speedtest.png","evidenceNote":"Speedtest Desktop 截图时间为 1:34 PM GMT（北京时间 21:34），测速服务器 Uniti，Los Angeles, CA；负载延迟下载 273 ms、上传 262 ms","sourceRegion":null,"isp":"Akari Networks","device":"macOS","client":"FlClash（macOS）+ Speedtest Desktop"}
+    ],
+    "nodeSnapshots":[{"capturedAt":"2026-07-17","time":"11:29","total":75,"reachable":75,"timeout":0,"highLatency":0,"latencyRange":"本次客户端节点列表未展示延迟数据","selectedNode":"客户端节点列表（未显示当前选中节点）","timeoutNodes":[],"highLatencyNodes":[],"evidenceImages":["/evidence/xsus/2026-07-17-1129-nodes-1.png","/evidence/xsus/2026-07-17-1129-nodes-2.png"]}],
+    "plans":[
+      {"name":"IEPL-Small 企业专线套餐","price":"¥52/季起","traffic":"50GB/月","details":["IEPL 跨境专线","每月 50GB，季付起步，账单日重置","最多 5 个 IP，同一网络多设备按 1 个 IP 计算","套餐页标注全平台 AI、Netflix、Disney+ 等解锁"]},
+      {"name":"IEPL-PLUS 企业专线套餐","price":"¥88/季起","traffic":"100GB/月","details":["IEPL 跨境专线","每月 100GB，季付起步，账单日重置","最多 5 个 IP，同一网络多设备按 1 个 IP 计算","套餐页标注全平台 AI、Netflix、Disney+ 等解锁"]},
+      {"name":"P-Small 基础套餐","price":"¥12/月起","traffic":"168GB/月","details":["流量不可叠加","最多 5 个 IP，同一网络多设备按 1 个 IP 计算","自有机房专柜及全球多地接入点","套餐页标注全平台 AI、Netflix、Disney 解锁"]},
+      {"name":"P-Plus 进阶套餐","price":"¥24/月起","traffic":"336GB/月","details":["流量不可叠加","最多 5 个 IP，同一网络多设备按 1 个 IP 计算","自有机房专柜及全球多地接入点","套餐页标注全平台 AI、Netflix、Disney 解锁"]},
+      {"name":"P-Max 专业套餐","price":"¥30/月起","traffic":"420GB/月","details":["流量不可叠加","最多 5 个 IP，同一网络多设备按 1 个 IP 计算","自有机房专柜及全球多地接入点","套餐页标注全平台 AI、Netflix、Disney 解锁"]},
+      {"name":"P-Ultra 极限套餐","price":"¥70/月起","traffic":"1024GB/月","details":["流量不可叠加","最多 5 个 IP，同一网络多设备按 1 个 IP 计算","自有机房专柜及全球多地接入点","套餐页标注全平台 AI、Netflix、Disney 解锁"]}
+    ],
+    "noExpiryPlans":[
+      {"name":"P-188G 流量不限时","price":"¥65/流量包","traffic":"188GB 不限时","details":["不限时间，按流量计费","不可叠加、不可累计","最多 5 个 IP","套餐页标注全球多国接入及 AI、Netflix、Disney 解锁"]},
+      {"name":"P-240G 流量不限时","price":"¥82/流量包","traffic":"240GB 不限时","details":["不限时间，按流量计费","不可叠加、不可累计","最多 5 个 IP","套餐页标注全球多国接入及 AI、Netflix、Disney 解锁"]},
+      {"name":"P-400G 流量不限时","price":"¥122/流量包","traffic":"400GB 不限时","details":["不限时间，按流量计费","不可叠加、不可累计","最多 5 个 IP","套餐页标注全球多国接入及 AI、Netflix、Disney 解锁"]},
+      {"name":"P-1024G 流量不限时","price":"¥260/流量包","traffic":"1024GB 不限时","details":["不限时间，按流量计费","不可叠加、不可累计","最多 5 个 IP","套餐页标注全球多国接入及 AI、Netflix、Disney 解锁"]}
+    ],
+    "planEvidenceImages":["/evidence/xsus/2026-07-17-plans-subscription.png","/evidence/xsus/2026-07-17-plans-no-expiry.png"]
+  },
+  {"slug":"chongshangyunxiao","name":"冲上云霄","website":"https://cpdd.one/?r=156735","affiliate":true,"score":null,"stability":null,"speed":"待实测","latency":null,"chatgpt":null,"streaming":null,"rankingEligible":false,"price":7,"traffic":"50GB/30天","protocol":"通用订阅","status":"套餐资料已录入，等待首次实测","updated":"2026-07-13","summary":"提供月付、季付、半年付和不限时流量套餐，进阶及以上套餐支持专线；套餐页标注支持流媒体解锁与 GPT，实际体验仍以本站测试记录为准。","testClient":"FlClash（macOS）","universalSubscription":"支持","deviceLimit":"不限制设备数量","lineTypes":["普通线路","专线（进阶套餐及以上）"],"bandwidthPolicy":"入门 200Mbps、轻量 300Mbps、基础 500Mbps、进阶 800Mbps；高级及以上套餐不限速","trial":"不支持免费试用；7 元入门试用为 30 天付费套餐","noExpiry":"支持 2 款不限时流量套餐，流量用完为止","paymentMethods":["支付宝","微信"],"plans":[{"name":"入门试用","price":"¥7/30天","traffic":"50GB，限速 200Mbps"},{"name":"轻量套餐","price":"¥10/30天","traffic":"100GB，限速 300Mbps"},{"name":"基础套餐","price":"¥15/30天","traffic":"200GB，限速 500Mbps"},{"name":"进阶套餐","price":"¥30/30天","traffic":"500GB，限速 800Mbps，支持专线"},{"name":"高级套餐","price":"¥50/30天","traffic":"1024GB，不限速，支持专线"},{"name":"轻奢季付","price":"¥100/90天","traffic":"1500GB，不限速，支持专线"},{"name":"乐享套餐","price":"¥188/180天","traffic":"2000GB，不限速，支持专线"}],"noExpiryPlans":[{"name":"轻量纯享","price":"¥365/一次性","traffic":"800GB 不限时"},{"name":"高奢纯享","price":"¥800/一次性","traffic":"5120GB 不限时"}]}
 ]

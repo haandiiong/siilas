@@ -13,9 +13,11 @@ const testSchema = z.object({
 	chatgpt: z.string(),
 	streaming: z.string(),
 	latencyMs: z.number().nonnegative().nullable(),
-	jitterMs: z.number().nonnegative().nullable(),
-	packetLossPercent: z.number().min(0).max(100).nullable(),
+	jitterMs: z.number().nonnegative().nullable().optional(),
+	packetLossPercent: z.number().min(0).max(100).nullable().optional(),
 	resultUrl: z.url().nullable(),
+	evidenceImage: z.string().startsWith('/').optional(),
+	evidenceNote: z.string().min(1).optional(),
 	sourceRegion: z.string().nullable(),
 	isp: z.string().nullable(),
 	device: z.string().nullable(),
@@ -30,12 +32,37 @@ const networkQualitySampleSchema = z.object({
 	downloadMbps: z.number().nonnegative(),
 	uploadMbps: z.number().nonnegative(),
 	latencyMs: z.number().nonnegative(),
-	jitterMs: z.number().nonnegative(),
-	packetLossPercent: z.number().min(0).max(100).nullable(),
+	jitterMs: z.number().nonnegative().nullable().optional(),
+	packetLossPercent: z.number().min(0).max(100).nullable().optional(),
 	chatgpt: z.string().optional(),
 	streaming: z.string().optional(),
 	server: z.string().min(1),
 	evidence: z.string().min(1),
+	evidenceImage: z.string().startsWith('/').optional(),
+});
+
+const nodeSnapshotSchema = z.object({
+	capturedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	time: z.string().min(1),
+	total: z.number().int().positive(),
+	reachable: z.number().int().nonnegative(),
+	timeout: z.number().int().nonnegative(),
+	highLatency: z.number().int().nonnegative(),
+	latencyRange: z.string().min(1),
+	selectedNode: z.string().min(1),
+	timeoutNodes: z.array(z.string()),
+	highLatencyNodes: z.array(z.string()),
+	evidenceImages: z.array(z.string().startsWith('/')).min(1),
+});
+
+const serviceIncidentSchema = z.object({
+	observedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	time: z.string().min(1),
+	status: z.string().min(1),
+	speedtest: z.string().min(1),
+	chatgpt: z.string().min(1),
+	streaming: z.string().min(1),
+	note: z.string().min(1),
 });
 
 const airportSchema = z.object({
@@ -58,12 +85,14 @@ const airportSchema = z.object({
 	chatgptStatusUpdated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 	streaming: z.number().min(0).max(5).nullable(),
 	streamingStatus: z.string().optional(),
-	dataDays: z.number().int().nonnegative(),
+	dataDays: z.number().int().nonnegative().optional(),
 	rankingEligible: z.boolean(),
 	price: z.number().nonnegative(),
 	traffic: z.string(),
 	protocol: z.string(),
 	status: z.string(),
+	serviceStatus: z.string().optional(),
+	serviceStatusUpdated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 	updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
 	summary: z.string(),
 	platforms: z.array(z.string()).optional(),
@@ -84,15 +113,42 @@ const airportSchema = z.object({
 	supportResponse: z.string().optional(),
 	trial: z.string().optional(),
 	noExpiry: z.string().optional(),
-	plans: z.array(z.object({ name: z.string(), price: z.string(), traffic: z.string() })).optional(),
-	noExpiryPlans: z.array(z.object({ name: z.string(), price: z.string(), traffic: z.string() })).optional(),
+	plans: z.array(z.object({
+		name: z.string(),
+		price: z.string(),
+		traffic: z.string(),
+		details: z.array(z.string()).optional(),
+	})).optional(),
+	planEvidenceImages: z.array(z.string().startsWith('/')).optional(),
+	noExpiryPlans: z.array(z.object({
+		name: z.string(),
+		price: z.string(),
+		traffic: z.string(),
+		details: z.array(z.string()).optional(),
+	})).optional(),
 	dailyPlans: z.array(z.object({ name: z.string(), price: z.string(), duration: z.string(), traffic: z.string() })).optional(),
 	addOns: z.array(z.object({ name: z.string(), price: z.string(), traffic: z.string(), condition: z.string() })).optional(),
 	tests: z.array(testSchema).optional(),
 	networkQualitySamples: z.array(networkQualitySampleSchema).optional(),
+	nodeSnapshots: z.array(nodeSnapshotSchema).optional(),
+	serviceIncidents: z.array(serviceIncidentSchema).optional(),
 });
 
-export const airports = z.array(airportSchema).length(10).parse(rawAirports);
+const parsedAirports = z.array(airportSchema).length(10).parse(rawAirports);
+
+const countMonitoringDays = (airport: z.infer<typeof airportSchema>) => new Set([
+	...(airport.tests ?? []),
+	...(airport.networkQualitySamples ?? []),
+].map((sample) => sample.testedAt)).size;
+
+export const airports = parsedAirports.map((airport) => {
+	const dataDays = countMonitoringDays(airport);
+	const status = airport.status === '持续监测中' || /^监测第\s*\d+\s*天$/u.test(airport.status)
+		? dataDays === 0 ? '等待首次实测' : `监测第 ${dataDays} 天`
+		: airport.status;
+
+	return { ...airport, dataDays, status };
+});
 export type Airport = (typeof airports)[number];
 export type AirportTest = NonNullable<Airport['tests']>[number];
 

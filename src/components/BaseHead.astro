@@ -8,9 +8,9 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · 机场
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const structuredData = {
 	'@context': 'https://schema.org',
-	'@type': 'WebSite',
-	name: SITE_TITLE,
-	url: Astro.site,
+	'@type': title ? 'WebPage' : 'WebSite',
+	name: pageTitle,
+	url: canonicalURL,
 	description,
 	inLanguage: 'zh-CN',
 };

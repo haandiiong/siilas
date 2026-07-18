@@ -17,11 +17,11 @@ import Footer from '../components/Footer.astro';
   <section class="section"><div class="section-head"><div><div class="section-kicker">Raw data</div><h2>记录规则</h2></div></div><div class="cards">
     <section class="card"><h2>速度</h2><p class="desc">记录下载、上传及 Speedtest 结果链接；不从套餐标称带宽推算实测速度。</p></section>
     <section class="card"><h2>可用性</h2><p class="desc">逐节点记录 ChatGPT 与流媒体体验。香港节点按当前实测统一标为 ChatGPT 不可用。</p></section>
-    <section class="card"><h2>延迟、抖动与丢包</h2><p class="desc">只有取得可复核的实测值才展示；缺失时保持为空，不用下载速度反推。</p></section>
+    <section class="card"><h2>延迟与实际体验</h2><p class="desc">测速截图能确认延迟时才记录。以后不再要求采集抖动和丢包：单次 Speedtest 的这两项容易受到测速服务器、瞬时线路和当时拥塞影响，对机场长期使用体验的参考价值有限。本站主要通过跨日期复测、连接失败情况、速度、ChatGPT 和流媒体体验判断稳定性。</p></section>
   </div></section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Scoring</div><h2>何时显示正式评分</h2></div></div>
-    <div class="card"><p><strong>最低门槛：</strong>至少 7 个不同日期、28 条有效记录，原则上覆盖新加坡、香港、日本和美国四类常用节点。</p><p>未达到门槛时只展示基础资料和原始结果，稳定率与综合评分显示“数据积累中”。达到门槛也不代表自动获得高分，还需要记录失败测试并完成数据复核。</p><p class="desc">规划权重：稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。权重正式启用前会先补齐失败记录、延迟、抖动与丢包字段，避免产生伪精确分数。</p></div>
+    <div class="card"><p><strong>最低门槛：</strong>至少 7 个不同日期、28 条已验证测速样本，原则上覆盖新加坡、香港、日本和美国四类常用节点。</p><p>已验证测速样本包括带结果链接的原始测速，以及有客户端截图佐证的网络质量补充测试。节点在线快照和服务异常观察单独归档，不计入评分门槛。</p><p>未达到门槛时只展示基础资料和原始结果，稳定率与综合评分显示“数据积累中”。达到门槛也不代表自动获得高分，还需要记录失败测试并完成数据复核。</p><p class="desc">规划权重：稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。权重正式启用前会先补齐失败记录、跨日期覆盖、延迟和实际使用体验，避免产生伪精确分数。抖动与丢包不作为本站采集或评分指标。</p></div>
   </section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Disclosure</div><h2>复核与商业独立</h2></div></div><div class="cards">

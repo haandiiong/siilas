@@ -6,14 +6,14 @@ const links = [['/airport/', '机场库'], ['/rank/', '排行榜'], ['/test/', '
   <nav class="nav shell" aria-label="主导航">
     <a class="brand" href="/" aria-label="Siilas 首页"><span class="brand-mark">S</span><span>SIILAS</span></a>
     <div class="nav-links">
-      {links.map(([href, label]) => <a class:list={{active: path.startsWith(href)}} href={href}>{label}</a>)}
+      {links.map(([href, label]) => <a class:list={{active: path.startsWith(href)}} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
     </div>
-    <a class="nav-cta" href="/methodology/">测试方法</a>
+    <a class:list={['nav-cta', { active: path.startsWith('/methodology/') }]} href="/methodology/" aria-current={path.startsWith('/methodology/') ? 'page' : undefined}>测试方法</a>
     <details class="mobile-menu">
       <summary aria-label="打开主导航">菜单</summary>
       <div class="mobile-menu-panel">
-        {links.map(([href, label]) => <a class:list={{active: path.startsWith(href)}} href={href}>{label}</a>)}
-        <a href="/methodology/">测试方法</a>
+        {links.map(([href, label]) => <a class:list={{active: path.startsWith(href)}} href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>)}
+        <a class:list={{active: path.startsWith('/methodology/')}} href="/methodology/" aria-current={path.startsWith('/methodology/') ? 'page' : undefined}>测试方法</a>
       </div>
     </details>
   </nav>

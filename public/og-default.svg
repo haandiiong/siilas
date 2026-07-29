@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07110f"/>
+      <stop offset="1" stop-color="#10231d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.18" r="0.7">
+      <stop offset="0" stop-color="#b9ff66" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#b9ff66" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="54" y="54" width="1092" height="522" rx="30" fill="none" stroke="#315248"/>
+  <circle cx="118" cy="118" r="22" fill="#b9ff66"/>
+  <text x="158" y="134" fill="#f3f7f5" font-family="Arial, PingFang SC, sans-serif" font-size="54" font-weight="700" letter-spacing="7">SIILAS</text>
+  <text x="90" y="294" fill="#f3f7f5" font-family="Arial, PingFang SC, sans-serif" font-size="64" font-weight="700">机场节点长期实测</text>
+  <text x="90" y="374" fill="#9eb1aa" font-family="Arial, PingFang SC, sans-serif" font-size="34">速度 · 稳定性 · ChatGPT · 4K 流媒体</text>
+  <text x="90" y="492" fill="#b9ff66" font-family="Arial, sans-serif" font-size="30">SIILAS.COM</text>
+</svg>

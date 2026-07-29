@@ -2,18 +2,37 @@
 import '../styles/global.css';
 import { Font } from 'astro:assets';
 import { SITE_TITLE } from '../consts';
-interface Props { title?: string; description: string; noindex?: boolean }
-const { title, description, noindex = false } = Astro.props;
+interface Props {
+	title?: string;
+	description: string;
+	noindex?: boolean;
+	structuredData?: Record<string, unknown>;
+	ogType?: 'website' | 'article';
+	image?: string;
+}
+const { title, description, noindex = false, structuredData, ogType = 'website', image = '/og-default.png' } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} · 机场评测数据库`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const structuredData = {
+const socialImageURL = new URL(image, Astro.site);
+const defaultStructuredData = {
 	'@context': 'https://schema.org',
 	'@type': title ? 'WebPage' : 'WebSite',
 	name: pageTitle,
 	url: canonicalURL,
 	description,
 	inLanguage: 'zh-CN',
+	author: {
+		'@type': 'Person',
+		name: 'Siilas.com 站长',
+		url: new URL('/about/', Astro.site),
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'Siilas',
+		url: new URL('/', Astro.site),
+	},
 };
+const pageStructuredData = structuredData ?? defaultStructuredData;
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -25,12 +44,18 @@ const structuredData = {
 <meta name="description" content={description} />
 <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'} />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
+<meta property="og:locale" content="zh_CN" />
 <meta property="og:site_name" content={SITE_TITLE} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content={socialImageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Siilas 机场节点长期实测" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
-<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+<meta name="twitter:image" content={socialImageURL} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(pageStructuredData)} />

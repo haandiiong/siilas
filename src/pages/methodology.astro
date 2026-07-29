@@ -8,6 +8,10 @@ import Footer from '../components/Footer.astro';
 <body><Header/><main class="shell">
   <div class="page-head"><div class="section-kicker">Methodology</div><h1>测试方法与评分规则</h1><p>公开测试条件、原始记录与缺失数据，避免把少量样本包装成长期结论。</p></div>
 
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Who tests</div><h2>测试者与内容作者</h2></div></div>
+    <div class="card"><p><strong>本站测速及 ChatGPT、流媒体使用体验测试，均由 Siilas.com 站长本人完成。</strong></p><p>测试者同时也是机场服务的实际用户，通过持续使用和复测不同机场、地区节点与客户端，为其他用户选择更合适的机场提供可复查的真实参考。</p><p class="desc">测试结果只代表记录时间、测试网络和对应节点下的实际表现，不保证所有地区、运营商或时间段都能得到相同结果。查看<a class="text-link" href="/about/" rel="author">完整测试者说明 →</a></p></div>
+  </section>
+
   <section class="section"><div class="section-head"><div><div class="section-kicker">Test setup</div><h2>测试环境</h2></div></div><div class="cards">
     <section class="card"><h2>本地网络</h2><p>1000 Mbps 本地宽带</p><p class="desc">实际结果同时受本地网络、节点负载、跨境线路和 Speedtest 目标服务器影响。</p></section>
     <section class="card"><h2>测试客户端</h2><p>机场专属客户端 / Clash 客户端</p><p class="desc">按机场实际支持情况选择；后续记录会尽量补齐客户端字段。</p></section>
@@ -16,12 +20,21 @@ import Footer from '../components/Footer.astro';
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Raw data</div><h2>记录规则</h2></div></div><div class="cards">
     <section class="card"><h2>速度</h2><p class="desc">记录下载、上传及 Speedtest 结果链接；不从套餐标称带宽推算实测速度。</p></section>
-    <section class="card"><h2>可用性</h2><p class="desc">逐节点记录 ChatGPT 与流媒体体验。香港节点按当前实测统一标为 ChatGPT 不可用。</p></section>
-    <section class="card"><h2>延迟与实际体验</h2><p class="desc">测速截图能确认延迟时才记录。以后不再要求采集抖动和丢包：单次 Speedtest 的这两项容易受到测速服务器、瞬时线路和当时拥塞影响，对机场长期使用体验的参考价值有限。本站主要通过跨日期复测、连接失败情况、速度、ChatGPT 和流媒体体验判断稳定性。</p></section>
+    <section class="card"><h2>可用性</h2><p class="desc">ChatGPT 与流媒体分别记录、分别计分，互不影响。香港节点按当前实测统一标为 ChatGPT 不可用；流媒体统一采用 4K 视频缓冲时间五档制。</p></section>
+    <section class="card"><h2>延迟与实际体验</h2><p class="desc">测速截图能确认延迟时才记录。以后不再要求采集抖动和丢包：单次 Speedtest 的这两项容易受到测速服务器、瞬时线路和当时拥塞影响，对机场长期使用体验的参考价值有限。本站主要通过同地区节点跨日期复测的速度波动，以及 ChatGPT 和流媒体体验判断实际表现。</p></section>
   </div></section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Scoring</div><h2>何时显示正式评分</h2></div></div>
-    <div class="card"><p><strong>最低门槛：</strong>至少 7 个不同日期、28 条已验证测速样本，原则上覆盖新加坡、香港、日本和美国四类常用节点。</p><p>已验证测速样本包括带结果链接的原始测速，以及有客户端截图佐证的网络质量补充测试。节点在线快照和服务异常观察单独归档，不计入评分门槛。</p><p>未达到门槛时只展示基础资料和原始结果，稳定率与综合评分显示“数据积累中”。达到门槛也不代表自动获得高分，还需要记录失败测试并完成数据复核。</p><p class="desc">规划权重：稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。权重正式启用前会先补齐失败记录、跨日期覆盖、延迟和实际使用体验，避免产生伪精确分数。抖动与丢包不作为本站采集或评分指标。</p></div>
+    <div class="card"><p><strong>最低门槛：</strong>至少 7 个不同日期、28 条已验证测速样本，并覆盖新加坡、香港、日本和美国四类常用节点；每个地区还需至少 3 个不同日期、5 条样本。满足全部条件后自动参评。</p><p>已验证测速样本包括带结果链接的原始测速，以及有客户端截图佐证的网络质量补充测试。节点在线快照和服务异常观察单独归档，不计入评分门槛。</p><p>未达到门槛时，稳定性与综合评分显示“数据积累中”；ChatGPT 和流媒体是独立体验子项，只要存在符合状态规则的实测记录，就会先自动换算并显示百分制平均分。</p><p><strong>自动评分：</strong>稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。所有测速先按“地区＋日期”汇总：同一地区同一天多次测速取中位数，避免某一天因测试次数更多而获得额外权重。稳定性比较每日代表速度的跨日期波动；速度比较四个地区的每日代表下载速度；ChatGPT 与流媒体先计算地区内每日体验，再让已有实测的地区等权；性价比按标准月付套餐的月流量与月费换算，10GB/元达到该项满分。不限时流量包、加油包与私人专线单独展示，不混入性价比计算。最终综合评分为 10 分制，保留一位小数。</p><p class="desc">为降低单次异常值的影响，速度和同日汇总采用中位数。抖动与丢包不作为本站采集或评分指标。</p></div>
+  </section>
+
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Score conversion</div><h2>稳定性与可用性如何计分</h2></div></div>
+    <div class="cards">
+      <section class="card"><h2>稳定性分数</h2><p>分别汇总新加坡、香港、日本和美国四个地区的跨日期测速。同一地区同一天存在多条记录时，先分别取下载和上传中位数，形成当天的代表值；再使用<strong>变异系数（标准差 ÷ 平均值）</strong>衡量每日代表速度的波动。波动越小，稳定性越高；某天速度明显下降，会直接拉低该地区得分。</p><p>单地区分数 = 下载一致性 × 80% + 上传一致性 × 20%，其中一致性 = 100 − 变异系数 × 100，并限制在 0–100 分。总稳定性为四个地区分数的等权平均值，每个地区各占 25%。</p><p class="desc">同地区测试会尽量使用相同节点、客户端、本地宽带和 Speedtest 服务器。现阶段部分历史记录只能按地区归组，因此该分数更准确地表示“跨时间速度一致性”，不等同于全年在线率。低速和失败记录不会被删除。</p></section>
+      <section class="card"><h2>ChatGPT 分数</h2><div class="table-scroll"><table class="data-table"><caption class="sr-only">ChatGPT 首字响应体验与分数换算</caption><thead><tr><th>首字响应时间</th><th>标准状态</th><th>单条得分</th></tr></thead><tbody><tr><td>≤ 5 秒</td><td>流畅</td><td>100</td></tr><tr><td>&gt; 5 秒且 ≤ 10 秒</td><td>轻微延迟</td><td>75</td></tr><tr><td>&gt; 10 秒且 ≤ 20 秒</td><td>响应较慢</td><td>50</td></tr><tr><td>&gt; 20 秒且 ≤ 40 秒</td><td>响应严重延迟</td><td>25</td></tr><tr><td>&gt; 40 秒、无法回答或页面打不开</td><td>不可用</td><td>0</td></tr></tbody></table></div><p class="desc">使用同一账户、模型和固定短问题，从点击发送计时到出现第一个回答文字。每个节点连续测试 3 次，取首字响应时间中位数计分。同一地区同一天多条记录先求平均，再计算该地区跨日期平均分；最后让已有实测的各地区等权，避免测试次数多的地区主导结果。</p></section>
+      <section class="card"><h2>流媒体分数（4K）</h2><div class="table-scroll"><table class="data-table"><caption class="sr-only">4K 流媒体缓冲体验与分数换算</caption><thead><tr><th>最长缓冲时间</th><th>标准状态</th><th>单条得分</th></tr></thead><tbody><tr><td>≤ 5 秒</td><td>流畅</td><td>100</td></tr><tr><td>&gt; 5 秒且 ≤ 10 秒</td><td>轻微缓冲</td><td>75</td></tr><tr><td>&gt; 10 秒且 ≤ 15 秒</td><td>缓冲明显</td><td>50</td></tr><tr><td>&gt; 15 秒且 ≤ 20 秒</td><td>缓冲严重</td><td>25</td></tr><tr><td>&gt; 20 秒或无法播放</td><td>不可用</td><td>0</td></tr></tbody></table></div><p class="desc">固定使用同一 4K（2160p）视频，记录首次播放以及拖动至 25%、50%、75%位置后的恢复播放时间，取其中最长一次计分。每个节点至少播放 60 秒。同一地区同一天多条记录先求平均，再计算该地区跨日期平均分；最后让已有实测的各地区等权。</p></section>
+    </div>
+    <div class="card" style="margin-top:20px"><p><strong>进入综合评分的权重：</strong>稳定性分数占 40%，ChatGPT 分数占 15%，流媒体分数占 10%。这里展示的都是百分制子项，按权重与速度、性价比合并后，再换算成首页所见的 10 分制综合评分。</p><p><strong>历史状态归档：</strong>采用计时规则前的 ChatGPT 与流媒体文字记录按原含义映射到最接近的五档状态，不补写不存在的精确秒数；新记录必须按上述计时方法提交。</p><p><strong>状态校验：</strong>新提交的 ChatGPT 或流媒体状态必须属于上表已有规则。出现未定义措辞时会先提示确认，不直接写入，也不会自动给予分数。</p><p class="desc">所有分数都会随新增实测记录自动重新计算，因此同一家机场的分数可能随着不同时段和不同节点的表现上升或下降。</p></div>
   </section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Disclosure</div><h2>复核与商业独立</h2></div></div><div class="cards">

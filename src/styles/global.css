@@ -33,9 +33,21 @@ a {
   text-decoration: none;
 }
 a:focus-visible,
-summary:focus-visible {
+summary:focus-visible,
+button:focus-visible {
   outline: 2px solid var(--lime);
   outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 .shell {
   width: min(1160px, calc(100% - 40px));
@@ -90,6 +102,11 @@ summary:focus-visible {
   border-radius: 9px;
   padding: 8px 14px;
   font-size: 14px;
+}
+.nav-cta:hover,
+.nav-cta.active {
+  color: var(--lime);
+  border-color: var(--lime);
 }
 .mobile-menu {
   display: none;
@@ -274,6 +291,47 @@ summary:focus-visible {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+.table-pagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.table-pagination button {
+  min-width: 42px;
+  padding: 8px 12px;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.table-pagination button:hover:not(:disabled),
+.table-pagination button[aria-current="page"] {
+  color: #07110f;
+  background: var(--lime);
+  border-color: var(--lime);
+}
+.table-pagination button:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.page-numbers {
+  display: contents;
+}
+.page-summary {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 14px;
+}
+.raw-records {
+  padding-bottom: 80px;
+}
 .airport-name {
   font-weight: 700;
 }
@@ -344,6 +402,25 @@ summary:focus-visible {
 .page-head {
   padding: 70px 0 38px;
 }
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding-top: 28px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.breadcrumbs a:hover {
+  color: var(--lime);
+}
+.breadcrumbs + .page-head {
+  padding-top: 38px;
+}
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .page-head h1 {
   font-size: 52px;
   margin: 10px 0;
@@ -359,6 +436,7 @@ summary:focus-visible {
   padding-bottom: 80px;
 }
 .card {
+  min-width: 0;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -450,10 +528,21 @@ footer {
     font-size: 14px;
     min-width: 680px;
   }
+  .table-scroll::before {
+    content: "左右滑动查看完整表格";
+    display: block;
+    padding: 0 0 8px;
+    color: var(--muted);
+    font-size: 12px;
+  }
 }
 @media (max-width: 520px) {
   .shell {
     width: min(100% - 24px, 1160px);
+  }
+  .page-head h1 {
+    font-size: 38px;
+    line-height: 1.15;
   }
   .hero {
     gap: 35px;

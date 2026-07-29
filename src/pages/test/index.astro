@@ -14,6 +14,55 @@ const totalRecordCount = records.length + qualityRecords.length;
 ---
 <html lang="zh-CN"><head><BaseHead title="测速中心" description="Siilas 机场测速原始记录。" /></head><body><Header /><main class="shell">
 	<div class="page-head"><div class="section-kicker">Speed test archive</div><h1>测速中心</h1><p>当前共监测 {testedAirportCount} 家机场，累计 {totalRecordCount} 条真实记录。未提供的指标不会使用估算值。</p></div>
-	<div style="overflow-x:auto"><table class="data-table" style="margin-bottom:80px"><caption class="sr-only">机场测速原始记录</caption><thead><tr><th>时间</th><th>服务 / 节点</th><th>下载</th><th>上传</th><th>ChatGPT</th><th>流媒体</th><th>详情</th></tr></thead><tbody>{records.map((record) => <tr><td>{record.testedAt}<br />{record.time ?? '未记录'}</td><td class="airport-name">{record.airport}<small>{record.node}</small></td><td>{record.downloadMbps} Mbps</td><td>{record.uploadMbps.toFixed(2)} Mbps</td><td>{record.chatgpt}</td><td>{record.streaming}</td><td>{record.resultUrl ? <a class="text-link" href={record.resultUrl} target="_blank" rel="noopener nofollow">Speedtest →</a> : '链接未记录'}</td></tr>)}</tbody></table></div>
-	{qualityRecords.length > 0 && <section class="section"><div class="section-head"><div><div class="section-kicker">Network quality</div><h2>延迟与使用体验记录</h2></div></div><div style="overflow-x:auto"><table class="data-table"><caption class="sr-only">延迟与使用体验补充记录</caption><thead><tr><th>日期</th><th>服务 / 节点</th><th>延迟</th><th>ChatGPT</th><th>流媒体</th><th>下载 / 上传</th><th>服务器</th></tr></thead><tbody>{qualityRecords.map((record) => <tr><td>{record.testedAt}<br />{record.time ?? '未记录'}</td><td class="airport-name">{record.airport}<small>{record.node}</small></td><td>{record.latencyMs} ms</td><td>{record.chatgpt ?? '未复测'}</td><td>{record.streaming ?? '未复测'}</td><td>↓ {record.downloadMbps} / ↑ {record.uploadMbps} Mbps</td><td>{record.server}</td></tr>)}</tbody></table></div><p class="desc">抖动与丢包容易受到单次测速服务器和瞬时线路影响，对本站的长期机场体验对比参考价值有限，因此不再采集、展示或参与评分。</p></section>}
+	<section data-archive-pagination data-page-size="10">
+		<div style="overflow-x:auto"><table class="data-table"><caption class="sr-only">机场测速原始记录</caption><thead><tr><th>时间</th><th>服务 / 节点</th><th>下载</th><th>上传</th><th>ChatGPT</th><th>流媒体</th><th>详情</th></tr></thead><tbody>{records.map((record) => <tr data-page-row><td>{record.testedAt}<br />{record.time ?? '未记录'}</td><td class="airport-name">{record.airport}<small>{record.node}</small></td><td>{record.downloadMbps} Mbps</td><td>{record.uploadMbps.toFixed(2)} Mbps</td><td>{record.chatgpt}</td><td>{record.streaming}</td><td>{record.resultUrl ? <a class="text-link" href={record.resultUrl} target="_blank" rel="noopener nofollow">Speedtest →</a> : '链接未记录'}</td></tr>)}</tbody></table></div>
+		<nav class="table-pagination" data-pagination-controls hidden aria-label="测速原始记录分页"><button type="button" data-page-action="previous">上一页</button><span class="page-numbers" data-page-numbers></span><button type="button" data-page-action="next">下一页</button><span class="page-summary" data-page-summary aria-live="polite"></span></nav>
+	</section>
+	{qualityRecords.length > 0 && <section class="section" data-archive-pagination data-page-size="10"><div class="section-head"><div><div class="section-kicker">Network quality</div><h2>延迟与使用体验记录</h2></div></div><div style="overflow-x:auto"><table class="data-table"><caption class="sr-only">延迟与使用体验补充记录</caption><thead><tr><th>日期</th><th>服务 / 节点</th><th>延迟</th><th>ChatGPT</th><th>流媒体</th><th>下载 / 上传</th><th>服务器</th></tr></thead><tbody>{qualityRecords.map((record) => <tr data-page-row><td>{record.testedAt}<br />{record.time ?? '未记录'}</td><td class="airport-name">{record.airport}<small>{record.node}</small></td><td>{record.latencyMs} ms</td><td>{record.chatgpt ?? '未复测'}</td><td>{record.streaming ?? '未复测'}</td><td>↓ {record.downloadMbps} / ↑ {record.uploadMbps} Mbps</td><td>{record.server}</td></tr>)}</tbody></table></div><nav class="table-pagination" data-pagination-controls hidden aria-label="延迟与使用体验记录分页"><button type="button" data-page-action="previous">上一页</button><span class="page-numbers" data-page-numbers></span><button type="button" data-page-action="next">下一页</button><span class="page-summary" data-page-summary aria-live="polite"></span></nav><p class="desc">抖动与丢包容易受到单次测速服务器和瞬时线路影响，对本站的长期机场体验对比参考价值有限，因此不再采集、展示或参与评分。</p></section>}
 </main><Footer /></body></html>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-archive-pagination]').forEach((section) => {
+		const rows = Array.from(section.querySelectorAll<HTMLTableRowElement>('[data-page-row]'));
+		const controls = section.querySelector<HTMLElement>('[data-pagination-controls]');
+		const pageNumbers = section.querySelector<HTMLElement>('[data-page-numbers]');
+		const summary = section.querySelector<HTMLElement>('[data-page-summary]');
+		const previous = section.querySelector<HTMLButtonElement>('[data-page-action="previous"]');
+		const next = section.querySelector<HTMLButtonElement>('[data-page-action="next"]');
+		const pageSize = Number(section.dataset.pageSize) || 10;
+		const pageCount = Math.ceil(rows.length / pageSize);
+		let currentPage = 1;
+
+		if (!controls || !pageNumbers || !summary || !previous || !next || pageCount <= 1) return;
+
+		const render = () => {
+			rows.forEach((row, index) => {
+				row.hidden = index < (currentPage - 1) * pageSize || index >= currentPage * pageSize;
+			});
+			previous.disabled = currentPage === 1;
+			next.disabled = currentPage === pageCount;
+			summary.textContent = `第 ${currentPage} / ${pageCount} 页，共 ${rows.length} 条`;
+			pageNumbers.replaceChildren();
+			for (let page = 1; page <= pageCount; page += 1) {
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.textContent = String(page);
+				button.dataset.page = String(page);
+				button.setAttribute('aria-label', `第 ${page} 页`);
+				if (page === currentPage) button.setAttribute('aria-current', 'page');
+				pageNumbers.append(button);
+			}
+		};
+
+		controls.hidden = false;
+		controls.addEventListener('click', (event) => {
+			const button = (event.target as Element).closest<HTMLButtonElement>('button');
+			if (!button || button.disabled) return;
+			if (button.dataset.pageAction === 'previous') currentPage -= 1;
+			if (button.dataset.pageAction === 'next') currentPage += 1;
+			if (button.dataset.page) currentPage = Number(button.dataset.page);
+			render();
+		});
+		render();
+	});
+</script>

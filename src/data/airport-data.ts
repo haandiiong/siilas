@@ -92,6 +92,7 @@ const airportSchema = z.object({
 	affiliate: z.boolean().optional(),
 	foundedAt: z.string().optional(),
 	couponCode: z.string().optional(),
+	couponLabel: z.string().optional(),
 	registrationOffer: z.string().optional(),
 	offerEvidenceImages: z.array(z.string().startsWith('/')).optional(),
 	score: z.number().min(0).max(10).nullable(),
@@ -178,10 +179,6 @@ type DailyRegionSample = {
 	streaming: number | null;
 };
 
-const MIN_SCORING_DAYS = 7;
-const MIN_SCORING_SAMPLES = 28;
-const MIN_REGION_SCORING_DAYS = 3;
-const MIN_REGION_SCORING_SAMPLES = 5;
 const REQUIRED_NODE_REGIONS = [
 	{ name: '新加坡', pattern: /新加坡/u },
 	{ name: '香港', pattern: /香港/u },
@@ -330,13 +327,9 @@ export const airports = parsedAirports.map((airport) => {
 	];
 	const hasRequiredNodeCoverage = REQUIRED_NODE_REGIONS.every(({ pattern }) => {
 		const regionalSamples = verifiedSamples.filter((sample) => pattern.test(sample.node));
-		const regionalDays = new Set(regionalSamples.map((sample) => sample.testedAt)).size;
-		return regionalSamples.length >= MIN_REGION_SCORING_SAMPLES
-			&& regionalDays >= MIN_REGION_SCORING_DAYS;
+		return regionalSamples.length > 0;
 	});
-	const rankingEligible = dataDays >= MIN_SCORING_DAYS
-		&& verifiedSamples.length >= MIN_SCORING_SAMPLES
-		&& hasRequiredNodeCoverage;
+	const rankingEligible = verifiedSamples.length > 0 && hasRequiredNodeCoverage;
 	const calculated = rankingEligible ? calculateScore(airport, verifiedSamples) : null;
 	const experienceScores = calculateExperienceScores(verifiedSamples);
 	const status = airport.status === '持续监测中' || /^监测第\s*\d+\s*天$/u.test(airport.status)

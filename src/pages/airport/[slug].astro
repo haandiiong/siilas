@@ -168,8 +168,8 @@ const airportStructuredData = {
 const monitoringCopy = a.dataDays === 0
   ? '尚无实测样本，暂不参与正式排名。'
   : a.rankingEligible
-    ? '评分来自达到最低样本要求后的滚动测试数据。'
-    : `当前已有 ${a.dataDays} 个测试日期，达到至少 7 个日期、28 条已验证测速样本后再评估正式评分。`;
+    ? '评分来自当前已验证的滚动测试数据，新增有效记录后会自动更新。'
+    : `当前已有 ${a.dataDays} 个测试日期；新加坡、香港、日本和美国均有有效样本后即可参与评分。`;
 const testHeading = a.dataDays === 0 ? '等待首次实测' : `已有样本 ${a.dataDays} 天`;
 const withoutTrailingPunctuation = (value: string) => value.replace(/[。；;，,\s]+$/u, '');
 const formatFoundedAt = (value: string) => {
@@ -198,7 +198,7 @@ const formatFoundedAt = (value: string) => {
       <p class="desc">{monitoringCopy}</p>
     </section>
     <section class="card"><h2>最低套餐</h2><p>{a.entryPlan.price} · {a.entryPlan.traffic}</p><p>协议：{a.protocol}</p>
-      {a.couponCode && <p>优惠码：<strong class="score">{a.couponCode}</strong></p>}{a.registrationOffer && <p class="desc">{a.registrationOffer}</p>}{a.offerEvidenceImages && <p class="desc">优惠截图证据：{a.offerEvidenceImages.map((image, index) => <><a class="text-link" href={image} target="_blank" rel="noopener">截图 {index + 1} →</a>{index < a.offerEvidenceImages!.length - 1 ? ' · ' : ''}</>)}</p>}
+      {a.couponCode && <p>{a.couponLabel ?? '优惠码'}：<strong class="score">{a.couponCode}</strong></p>}{a.registrationOffer && <p class="desc">{a.registrationOffer}</p>}{a.offerEvidenceImages && <p class="desc">优惠截图证据：{a.offerEvidenceImages.map((image, index) => <><a class="text-link" href={image} target="_blank" rel="noopener">截图 {index + 1} →</a>{index < a.offerEvidenceImages!.length - 1 ? ' · ' : ''}</>)}</p>}
     </section>
     <section class="card"><h2>{testHeading}</h2>{verifiedTestSampleCount > 0 ? <>
 	      <p><strong>{verifiedTestSampleCount}</strong> 条已验证测速样本</p>
@@ -208,9 +208,9 @@ const formatFoundedAt = (value: string) => {
       {a.streamingStatus && <p>流媒体：<span class="yes">{a.streamingStatus}</span></p>}
       <p class="desc">已实测体验分（百分制）：ChatGPT {a.experienceScores.chatgpt ?? '待测试'} · 流媒体 {a.experienceScores.streaming ?? '待测试'}</p>
       {a.scoreBreakdown && <p class="desc">综合评分构成（百分制）：稳定性 {a.scoreBreakdown.stability} · 速度 {a.scoreBreakdown.speed} · 性价比 {a.scoreBreakdown.value}</p>}
-      <p class="desc">{a.rankingEligible ? '当前数据已进入正式评分样本。' : '样本尚未达到评分门槛，不计算稳定率和综合评分。'}</p>
-	      {operationalObservationCount > 0 && <p class="desc">另有 {operationalObservationCount} 条节点或服务观察，仅作运行记录，不计入评分门槛。</p>}
-	    </> : <><p>尚未录入已验证测速样本</p>{operationalObservationCount > 0 && <p>{operationalObservationCount} 条节点或服务观察</p>}<p class="desc">运行观察不计入评分门槛，不使用历史结论生成新评分。</p></>}</section>
+      <p class="desc">{a.rankingEligible ? '当前四个常用地区均有有效样本，已计算综合评分。' : '常用地区覆盖尚不完整，暂不计算稳定率和综合评分。'}</p>
+	      {operationalObservationCount > 0 && <p class="desc">另有 {operationalObservationCount} 条节点或服务观察，仅作运行记录，不计入评分。</p>}
+	    </> : <><p>尚未录入已验证测速样本</p>{operationalObservationCount > 0 && <p>{operationalObservationCount} 条节点或服务观察</p>}<p class="desc">运行观察不计入评分，不使用历史结论生成新评分。</p></>}</section>
   </div>
   <section class="section">
     <div class="section-head"><div><div class="section-kicker">Score provenance</div><h2>评分依据</h2></div><a class="text-link" href="/methodology/">查看完整评分规则 →</a></div>
@@ -231,7 +231,7 @@ const formatFoundedAt = (value: string) => {
       <p class="desc">本站分数是基于自有测试样本自动计算的编辑评分，不是用户投票或第三方评级。新增有效记录后，分数会按相同规则重新计算。</p>
     </div> : <div class="card" style="margin-top:20px">
       <p><strong>评分状态：数据积累中</strong></p>
-      <p>当前累计 {a.dataDays} 个不同测试日期、{verifiedTestSampleCount} 条已验证样本。正式综合评分要求至少 7 个日期、28 条样本，并且新加坡、香港、日本、美国每个地区至少覆盖 3 个日期、5 条样本。</p>
+      <p>当前累计 {a.dataDays} 个不同测试日期、{verifiedTestSampleCount} 条已验证样本。新加坡、香港、日本和美国均有至少一条有效样本后即可计算综合评分。</p>
       <p class="desc">当前仅显示已有实测的体验子项：ChatGPT {a.experienceScores.chatgpt ?? '待测试'} · 流媒体 {a.experienceScores.streaming ?? '待测试'}。未达到门槛前，不生成稳定性和综合评分。</p>
       <p class="desc">本站分数是基于自有测试样本自动计算的编辑评分，不是用户投票或第三方评级。</p>
     </div>}

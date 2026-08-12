@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 <html lang="zh-CN">
-<head><BaseHead title="测试方法" description="Siilas 测试环境、记录规则、评分门槛与商业披露。"/></head>
+<head><BaseHead title="测试方法" description="Siilas 测试环境、记录规则、评分条件与商业披露。"/></head>
 <body><Header/><main class="shell">
   <div class="page-head"><div class="section-kicker">Methodology</div><h1>测试方法与评分规则</h1><p>公开测试条件、原始记录与缺失数据，避免把少量样本包装成长期结论。</p></div>
 
@@ -24,8 +24,8 @@ import Footer from '../components/Footer.astro';
     <section class="card"><h2>延迟与实际体验</h2><p class="desc">测速截图能确认延迟时才记录。以后不再要求采集抖动和丢包：单次 Speedtest 的这两项容易受到测速服务器、瞬时线路和当时拥塞影响，对机场长期使用体验的参考价值有限。本站主要通过同地区节点跨日期复测的速度波动，以及 ChatGPT 和流媒体体验判断实际表现。</p></section>
   </div></section>
 
-  <section class="section"><div class="section-head"><div><div class="section-kicker">Scoring</div><h2>何时显示正式评分</h2></div></div>
-    <div class="card"><p><strong>最低门槛：</strong>至少 7 个不同日期、28 条已验证测速样本，并覆盖新加坡、香港、日本和美国四类常用节点；每个地区还需至少 3 个不同日期、5 条样本。满足全部条件后自动参评。</p><p>已验证测速样本包括带结果链接的原始测速，以及有客户端截图佐证的网络质量补充测试。节点在线快照和服务异常观察单独归档，不计入评分门槛。</p><p>未达到门槛时，稳定性与综合评分显示“数据积累中”；ChatGPT 和流媒体是独立体验子项，只要存在符合状态规则的实测记录，就会先自动换算并显示百分制平均分。</p><p><strong>自动评分：</strong>稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。所有测速先按“地区＋日期”汇总：同一地区同一天多次测速取中位数，避免某一天因测试次数更多而获得额外权重。稳定性比较每日代表速度的跨日期波动；速度比较四个地区的每日代表下载速度；ChatGPT 与流媒体先计算地区内每日体验，再让已有实测的地区等权；性价比按标准月付套餐的月流量与月费换算，10GB/元达到该项满分。不限时流量包、加油包与私人专线单独展示，不混入性价比计算。最终综合评分为 10 分制，保留一位小数。</p><p class="desc">为降低单次异常值的影响，速度和同日汇总采用中位数。抖动与丢包不作为本站采集或评分指标。</p></div>
+  <section class="section"><div class="section-head"><div><div class="section-kicker">Scoring</div><h2>何时显示评分</h2></div></div>
+    <div class="card"><p><strong>参评条件：</strong>新加坡、香港、日本和美国四类常用节点均有至少一条已验证测速样本后，即可自动计算并显示评分，不限制连续测试天数或累计样本数量。</p><p>已验证测速样本包括带结果链接的原始测速，以及有客户端截图佐证的网络质量补充测试。节点在线快照和服务异常观察单独归档，不计入评分。</p><p>地区覆盖不完整时，稳定性与综合评分显示“数据积累中”；ChatGPT 和流媒体是独立体验子项，只要存在符合状态规则的实测记录，就会先自动换算并显示百分制平均分。样本较少时，单次结果对分数影响更大，新增记录后分数会持续更新。</p><p><strong>自动评分：</strong>稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。所有测速先按“地区＋日期”汇总：同一地区同一天多次测速取中位数，避免某一天因测试次数更多而获得额外权重。稳定性比较每日代表速度的跨日期波动；速度比较四个地区的每日代表下载速度；ChatGPT 与流媒体先计算地区内每日体验，再让已有实测的地区等权；性价比按标准月付套餐的月流量与月费换算，10GB/元达到该项满分。不限时流量包、加油包与私人专线单独展示，不混入性价比计算。最终综合评分为 10 分制，保留一位小数。</p><p class="desc">为降低单次异常值的影响，速度和同日汇总采用中位数。抖动与丢包不作为本站采集或评分指标。</p></div>
   </section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Score conversion</div><h2>稳定性与可用性如何计分</h2></div></div>
@@ -40,6 +40,6 @@ import Footer from '../components/Footer.astro';
   <section class="section"><div class="section-head"><div><div class="section-kicker">Disclosure</div><h2>复核与商业独立</h2></div></div><div class="cards">
     <section class="card"><h2>可复查</h2><p class="desc">有公开结果页的测速记录会保留链接；套餐和运营信息注明更新时间并持续复核。</p></section>
     <section class="card"><h2>不补造数据</h2><p class="desc">未测项目显示为空或待复核，不沿用宣传页结论生成评分。</p></section>
-    <section class="card"><h2>推广不改权重</h2><p class="desc">页面可能含推广链接，但合作状态不改变原始记录、评分门槛或排行榜权重。</p></section>
+    <section class="card"><h2>推广不改权重</h2><p class="desc">页面可能含推广链接，但合作状态不改变原始记录、参评条件或排行榜权重。</p></section>
   </div></section>
 </main><Footer/></body></html>

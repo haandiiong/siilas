@@ -2,19 +2,43 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { AUTHOR_DESCRIPTION, AUTHOR_NAME, TEST_CLIENTS, TEST_DEVICE, TEST_NETWORK } from '../consts';
+const methodologyUrl = new URL('/methodology/', Astro.site).href;
+const authorUrl = new URL('/about/', Astro.site).href;
+const methodologyStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  url: methodologyUrl,
+  headline: '机场测速与评分方法',
+  description: `siilas 公开使用${TEST_NETWORK}、${TEST_DEVICE}和${TEST_CLIENTS}测试机场节点的记录规则、参评条件与自动评分公式。`,
+  inLanguage: 'zh-CN',
+  dateModified: '2026-08-14',
+  author: {
+    '@type': 'Person',
+    name: AUTHOR_NAME,
+    description: AUTHOR_DESCRIPTION,
+    url: authorUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Siilas',
+    url: new URL('/', Astro.site).href,
+  },
+};
 ---
 <html lang="zh-CN">
-<head><BaseHead title="测试方法" description="Siilas 测试环境、记录规则、评分条件与商业披露。"/></head>
+<head><BaseHead title="机场测速与评分方法｜速度、稳定性与体验规则" description="siilas 公开机场节点测速环境、原始记录规则、参评条件及自动评分公式，说明速度、稳定性、ChatGPT、4K 流媒体和性价比如何计分。" structuredData={methodologyStructuredData}/></head>
 <body><Header/><main class="shell">
   <div class="page-head"><div class="section-kicker">Methodology</div><h1>测试方法与评分规则</h1><p>公开测试条件、原始记录与缺失数据，避免把少量样本包装成长期结论。</p></div>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Who tests</div><h2>测试者与内容作者</h2></div></div>
-    <div class="card"><p><strong>本站测速及 ChatGPT、流媒体使用体验测试，均由 Siilas.com 站长本人完成。</strong></p><p>测试者同时也是机场服务的实际用户，通过持续使用和复测不同机场、地区节点与客户端，为其他用户选择更合适的机场提供可复查的真实参考。</p><p class="desc">测试结果只代表记录时间、测试网络和对应节点下的实际表现，不保证所有地区、运营商或时间段都能得到相同结果。查看<a class="text-link" href="/about/" rel="author">完整测试者说明 →</a></p></div>
+    <div class="card"><p><strong>本站测速及 ChatGPT、流媒体使用体验测试，均由 {AUTHOR_NAME} 本人完成。</strong></p><p>{AUTHOR_DESCRIPTION}测试者同时也是机场服务的实际用户，通过持续使用和复测不同机场、地区节点与客户端，为其他用户选择更合适的机场提供可复查的真实参考。</p><p class="desc">测试结果只代表记录时间、测试网络和对应节点下的实际表现，不保证所有地区、运营商或时间段都能得到相同结果。查看<a class="text-link" href="/about/" rel="author">完整测试者说明 →</a></p></div>
   </section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Test setup</div><h2>测试环境</h2></div></div><div class="cards">
-    <section class="card"><h2>本地网络</h2><p>1000 Mbps 本地宽带</p><p class="desc">实际结果同时受本地网络、节点负载、跨境线路和 Speedtest 目标服务器影响。</p></section>
-    <section class="card"><h2>测试客户端</h2><p>机场专属客户端 / Clash 客户端</p><p class="desc">按机场实际支持情况选择；后续记录会尽量补齐客户端字段。</p></section>
+    <section class="card"><h2>本地网络</h2><p>{TEST_NETWORK}</p><p class="desc">实际结果同时受本地网络、节点负载、跨境线路和 Speedtest 目标服务器影响。</p></section>
+    <section class="card"><h2>测试设备</h2><p>{TEST_DEVICE}</p><p class="desc">在同一主要设备上进行测试，减少设备性能和网络配置差异带来的额外变量。</p></section>
+    <section class="card"><h2>测试客户端</h2><p>{TEST_CLIENTS}</p><p class="desc">按机场实际支持情况选择，客户端信息尽量随每条原始记录保留。</p></section>
     <section class="card"><h2>测试时段</h2><p>全天不定时</p><p class="desc">每条记录保留日期与时间。样本充足后再单独比较日间和晚高峰。</p></section>
   </div></section>
 
@@ -41,5 +65,5 @@ import Footer from '../components/Footer.astro';
     <section class="card"><h2>可复查</h2><p class="desc">有公开结果页的测速记录会保留链接；套餐和运营信息注明更新时间并持续复核。</p></section>
     <section class="card"><h2>不补造数据</h2><p class="desc">未测项目显示为空或待复核，不沿用宣传页结论生成评分。</p></section>
     <section class="card"><h2>推广不改权重</h2><p class="desc">页面可能含推广链接，但合作状态不改变原始记录、参评条件或排行榜权重。</p></section>
-  </div></section>
+  </div><p class="desc">查看<a class="text-link" href="/test/">全部机场测速记录 →</a>或<a class="text-link" href="/rank/">当前机场排行榜 →</a>，可将这里的规则与实际样本、评分结果交叉复核。</p></section>
 </main><Footer/></body></html>

@@ -2,6 +2,7 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { AUTHOR_DESCRIPTION, AUTHOR_NAME, TEST_CLIENTS, TEST_DEVICE, TEST_NETWORK } from '../../consts';
 import { airports, getMaxDownload } from '../../data/airport-data';
 export function getStaticPaths() { return airports.map((airport) => ({ params: { slug: airport.slug }, props: { airport } })); }
 const { airport: a } = Astro.props;
@@ -28,6 +29,8 @@ const testedRegions = [
   { name: '日本', pattern: /日本/u },
   { name: '美国', pattern: /美国/u },
 ].filter(({ pattern }) => verifiedSamples.some((sample) => pattern.test(sample.node))).map(({ name }) => name);
+const coverageLabel = testedRegions.length ? testedRegions.join('、') : '常用地区节点';
+const pageDescription = `${a.name}机场实测评测：收录 ${verifiedTestSampleCount} 条已验证样本，覆盖${coverageLabel}，展示节点速度、稳定性、ChatGPT、流媒体、套餐价格与可复查证据。`;
 const scoreCalculatedAtIso = latestSample
   ? `${latestSample.testedAt}T${latestSample.time ?? '00:00'}:00+08:00`
   : `${a.updated}T00:00:00+08:00`;
@@ -48,8 +51,8 @@ const airportStructuredData = {
       '@type': 'WebPage',
       '@id': webpageId,
       url: pageUrl,
-      name: `${a.name}机场评测`,
-      description: a.summary,
+      name: `${a.name}机场评测｜节点速度、稳定性与套餐`,
+      description: pageDescription,
       inLanguage: 'zh-CN',
       dateModified: a.updated,
       mainEntity: [{ '@id': articleId }, { '@id': datasetId }],
@@ -59,13 +62,15 @@ const airportStructuredData = {
       '@type': 'Article',
       '@id': articleId,
       url: pageUrl,
-      headline: `${a.name}机场评测`,
-      description: a.summary,
+      headline: `${a.name}机场评测｜节点速度、稳定性与套餐`,
+      description: pageDescription,
       inLanguage: 'zh-CN',
       dateModified: a.updated,
       author: {
         '@type': 'Person',
-        name: 'Siilas.com 站长',
+        '@id': `${authorUrl}#person`,
+        name: AUTHOR_NAME,
+        description: AUTHOR_DESCRIPTION,
         url: authorUrl,
       },
       publisher: {
@@ -81,11 +86,13 @@ const airportStructuredData = {
       '@type': 'Dataset',
       '@id': datasetId,
       name: `${a.name}机场节点实测数据`,
-      description: `Siilas 使用 1000M 本地宽带持续测试${a.name}的常用地区节点，记录下载速度、上传速度、节点延迟、ChatGPT 问答体验与 4K 流媒体播放体验。`,
+      description: `siilas 使用${TEST_NETWORK}、${TEST_DEVICE}和${TEST_CLIENTS}持续测试${a.name}的常用地区节点，记录下载速度、上传速度、节点延迟、ChatGPT 问答体验与 4K 流媒体播放体验。`,
       url: pageUrl,
       creator: {
         '@type': 'Person',
-        name: 'Siilas.com 站长',
+        '@id': `${authorUrl}#person`,
+        name: AUTHOR_NAME,
+        description: AUTHOR_DESCRIPTION,
         url: authorUrl,
       },
       publisher: {
@@ -95,7 +102,7 @@ const airportStructuredData = {
       },
       dateModified: scoreCalculatedAtIso,
       ...(sampleStartDate && sampleEndDate ? { temporalCoverage: `${sampleStartDate}/${sampleEndDate}` } : {}),
-      measurementTechnique: `1000M 本地宽带、${a.testClient ?? '对应机场客户端'}、Speedtest 实测、ChatGPT 实际问答与 4K 视频播放测试`,
+      measurementTechnique: `${TEST_NETWORK}、${TEST_DEVICE}、${a.testClient ?? TEST_CLIENTS}、Speedtest 实测、ChatGPT 实际问答与 4K 视频播放测试`,
       variableMeasured: [
         '下载速度 Mbps',
         '上传速度 Mbps',
@@ -179,13 +186,13 @@ const formatFoundedAt = (value: string) => {
 };
 ---
 <html lang="zh-CN">
-<head><BaseHead title={`${a.name}机场评测`} description={a.summary} structuredData={airportStructuredData} ogType="article" /></head>
+<head><BaseHead title={`${a.name}机场评测｜节点速度、稳定性与套餐`} description={pageDescription} structuredData={airportStructuredData} ogType="article" /></head>
 <body><Header /><main class="shell">
   <nav class="breadcrumbs" aria-label="面包屑导航"><a href="/">首页</a><span aria-hidden="true">/</span><a href="/airport/">机场数据库</a><span aria-hidden="true">/</span><span aria-current="page">{a.name}</span></nav>
   <div class="page-head">
     <div class="section-kicker">SAMPLE DAYS {a.dataDays ?? '—'} · UPDATED {a.updated}</div>
     <h1>{a.name}机场评测</h1><p>{a.summary}</p>
-    <p class="desc">测试与整理：<a class="text-link" href="/about/" rel="author">Siilas.com 站长</a> · 机场服务实际用户</p>
+    <p class="desc">测试与整理：<a class="text-link" href="/about/" rel="author">{AUTHOR_NAME}</a> · {AUTHOR_DESCRIPTION}</p>
     {a.website && <div class="actions"><a class="button" href={a.website} target="_blank" rel="nofollow sponsored noopener">官网入口 →</a></div>}
   </div>
   <div class="cards">
@@ -217,7 +224,7 @@ const formatFoundedAt = (value: string) => {
     <div class="cards">
       <section class="card"><h2>样本与范围</h2><p><strong>{verifiedTestSampleCount}</strong> 条已验证样本</p><p class="desc">原始测速 {testCount} 条 · 网络质量补充 {qualitySampleCount} 条</p><p>覆盖 {a.dataDays} 个不同测试日期</p></section>
       <section class="card"><h2>数据周期</h2><p>{sampleStartDate === sampleEndDate ? sampleStartDate : `${sampleStartDate} 至 ${sampleEndDate}`}</p><p class="desc">数据计算截止：{latestSample ? `${latestSample.testedAt}${latestSample.time ? ` ${latestSample.time}` : ''}` : '待测试'}</p><p class="desc">评分依据更新：{scoreCalculatedAtDisplay}</p><p class="desc">页面资料更新：{a.updated}</p></section>
-      <section class="card"><h2>实测覆盖</h2><p>{testedRegions.length ? testedRegions.join('、') : '常用地区节点待补充'}</p><p class="desc">测试环境：1000M 本地宽带</p><p class="desc">测试客户端：{a.testClient ?? '逐条记录为准'}</p></section>
+      <section class="card"><h2>实测覆盖</h2><p>{testedRegions.length ? testedRegions.join('、') : '常用地区节点待补充'}</p><p class="desc">测试环境：{TEST_NETWORK} · {TEST_DEVICE}</p><p class="desc">测试客户端：{a.testClient ?? TEST_CLIENTS}</p></section>
     </div>
     {a.scoreBreakdown ? <div class="card" style="margin-top:20px">
       <div class="table-scroll"><table class="data-table"><caption class="sr-only">{a.name}机场综合评分构成</caption><thead><tr><th>评分项目</th><th>分数</th><th>权重</th><th>评分来源</th></tr></thead><tbody>
@@ -254,7 +261,7 @@ const formatFoundedAt = (value: string) => {
     <section class="card"><h2>支付与售后</h2><p>{a.paymentMethods?.join('、') ?? '支付方式待复核'}</p>{a.refundPolicy && <p class="desc">{a.refundPolicy}</p>}</section>
   </div></section>}
   {testCount > 0 && <section class="section raw-records" data-test-pagination>
-    <div class="section-head"><div><div class="section-kicker">Raw records</div><h2>原始测速记录</h2></div></div>
+    <div class="section-head"><div><div class="section-kicker">Raw records</div><h2>原始测速记录</h2></div><a class="text-link" href="/test/">浏览全部机场测速 →</a></div>
     <div class="table-scroll"><table class="data-table"><caption class="sr-only">{a.name}机场原始测速记录</caption><thead><tr><th>时间</th><th>节点</th><th>下载</th><th>上传</th><th>ChatGPT</th><th>流媒体</th><th>详情</th></tr></thead><tbody>{a.tests?.map(t => <tr data-page-row><td>{t.testedAt}<br/>{t.time ?? '时间未记录'}</td><td class="airport-name">{t.node}</td><td>{t.downloadMbps} Mbps</td><td>{t.uploadMbps.toFixed(2)} Mbps</td><td>{t.chatgpt}{t.evidenceImage && <small><a class="text-link" href={t.evidenceImage} target="_blank" rel="noopener">截图证据 →</a>{t.evidenceNote && <> · {t.evidenceNote}</>}</small>}</td><td>{t.streaming}</td><td>{t.resultUrl ? <a class="text-link" href={t.resultUrl} target="_blank" rel="noopener nofollow">Speedtest →</a> : '链接未记录'}</td></tr>)}</tbody></table></div>
     <nav class="table-pagination" data-pagination-controls hidden aria-label="原始测速记录分页">
       <button type="button" data-page-action="previous">上一页</button>

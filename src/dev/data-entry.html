@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="noindex,nofollow" />
+	<title>Siilas 本地数据录入</title>
+	<style>
+		:root {
+			color-scheme: dark;
+			--bg: #07110f;
+			--panel: #0d1a17;
+			--panel-2: #12221e;
+			--line: #294139;
+			--text: #edf7f3;
+			--muted: #90aaa2;
+			--lime: #b9ff4b;
+			--cyan: #55e7cf;
+			--warn: #ffc65c;
+			--danger: #ff8278;
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		}
+		* { box-sizing: border-box; }
+		html { background: var(--bg); }
+		body {
+			margin: 0;
+			min-height: 100vh;
+			color: var(--text);
+			background: radial-gradient(circle at 75% 0, rgba(85, 231, 207, .1), transparent 32%), var(--bg);
+		}
+		a { color: inherit; }
+		button, input, select, textarea { font: inherit; }
+		button, input, select, textarea { outline: none; }
+		button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+			box-shadow: 0 0 0 3px rgba(185, 255, 75, .2);
+			border-color: var(--lime);
+		}
+		.shell { width: min(1220px, calc(100% - 36px)); margin: 0 auto; }
+		header { border-bottom: 1px solid var(--line); background: rgba(7, 17, 15, .86); backdrop-filter: blur(16px); }
+		.header-inner { min-height: 70px; display: flex; align-items: center; gap: 16px; }
+		.brand { display: flex; align-items: center; gap: 10px; font-weight: 850; letter-spacing: .11em; }
+		.brand-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9px; background: var(--lime); color: var(--bg); letter-spacing: 0; }
+		.local-badge { color: var(--cyan); border: 1px solid rgba(85, 231, 207, .3); border-radius: 999px; padding: 3px 10px; font-size: 12px; }
+		.back-link { margin-left: auto; color: var(--muted); text-decoration: none; }
+		main { padding: 52px 0 80px; }
+		.intro { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; margin-bottom: 28px; }
+		.kicker { color: var(--lime); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+		h1 { margin: 10px 0 8px; font-size: clamp(34px, 5vw, 58px); letter-spacing: -.04em; line-height: 1.05; }
+		.intro p { color: var(--muted); max-width: 760px; margin: 0; }
+		.safety { max-width: 340px; padding: 14px 16px; border: 1px solid rgba(255, 198, 92, .25); background: rgba(255, 198, 92, .06); border-radius: 12px; color: #ffe4a8; font-size: 13px; }
+		.layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 22px; align-items: start; }
+		.card { background: linear-gradient(145deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+		fieldset { border: 0; padding: 0; margin: 0 0 30px; }
+		legend { display: block; width: 100%; margin-bottom: 16px; font-weight: 800; font-size: 19px; }
+		legend span { display: inline-grid; place-items: center; width: 27px; height: 27px; margin-right: 8px; border-radius: 8px; background: rgba(185, 255, 75, .12); color: var(--lime); font-size: 13px; }
+		.fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+		.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+		.field.wide { grid-column: 1 / -1; }
+		.field.two { grid-column: span 2; }
+		label { color: #d5e5df; font-size: 14px; font-weight: 700; }
+		.required::after { content: " *"; color: var(--warn); }
+		.hint { color: var(--muted); font-size: 12px; line-height: 1.4; }
+		input, select, textarea {
+			width: 100%;
+			border: 1px solid var(--line);
+			border-radius: 10px;
+			background: #091410;
+			color: var(--text);
+			padding: 11px 12px;
+		}
+		textarea { min-height: 86px; resize: vertical; }
+		input[type="file"] { padding: 9px; color: var(--muted); }
+		input[type="file"]::file-selector-button { margin-right: 12px; border: 0; border-radius: 7px; padding: 7px 10px; background: var(--panel-2); color: var(--text); cursor: pointer; }
+		.form-actions { display: flex; align-items: center; gap: 16px; padding-top: 4px; border-top: 1px solid var(--line); }
+		.submit {
+			border: 0;
+			border-radius: 10px;
+			padding: 13px 20px;
+			background: var(--lime);
+			color: var(--bg);
+			font-weight: 850;
+			cursor: pointer;
+		}
+		.submit:disabled { opacity: .55; cursor: wait; }
+		.status { min-height: 24px; color: var(--muted); font-size: 14px; }
+		.status.success { color: var(--lime); }
+		.status.error { color: var(--danger); }
+		.sidebar { position: sticky; top: 20px; display: grid; gap: 18px; }
+		.sidebar h2 { margin: 0 0 14px; font-size: 18px; }
+		.preview-list { display: grid; gap: 11px; margin: 0; }
+		.preview-row { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(41, 65, 57, .7); }
+		.preview-row:last-child { padding-bottom: 0; border-bottom: 0; }
+		.preview-row dt { color: var(--muted); font-size: 12px; }
+		.preview-row dd { margin: 0; text-align: right; overflow-wrap: anywhere; font-size: 14px; }
+		.preview-image { width: 100%; aspect-ratio: 1.85; object-fit: contain; display: none; margin-top: 15px; border: 1px solid var(--line); border-radius: 10px; background: #050a09; }
+		.recent { display: grid; gap: 10px; }
+		.recent-item { padding: 10px 0; border-top: 1px solid var(--line); }
+		.recent-item:first-child { border-top: 0; padding-top: 0; }
+		.recent-item b, .recent-item small { display: block; }
+		.recent-item small { color: var(--muted); }
+		.empty { color: var(--muted); font-size: 14px; }
+		@media (max-width: 920px) {
+			.layout { grid-template-columns: 1fr; }
+			.sidebar { position: static; grid-template-columns: 1fr 1fr; }
+			.intro { grid-template-columns: 1fr; }
+		}
+		@media (max-width: 680px) {
+			.fields { grid-template-columns: 1fr; }
+			.field.two, .field.wide { grid-column: auto; }
+			.sidebar { grid-template-columns: 1fr; }
+			.local-badge { display: none; }
+			.form-actions { align-items: stretch; flex-direction: column; }
+			.submit { width: 100%; }
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="shell header-inner">
+			<div class="brand"><span class="brand-mark">S</span> SIILAS</div>
+			<span class="local-badge">仅本机开发环境</span>
+			<a class="back-link" href="/">返回网站 →</a>
+		</div>
+	</header>
+
+	<main class="shell">
+		<section class="intro">
+			<div>
+				<div class="kicker">Local data workspace</div>
+				<h1>机场测试数据录入</h1>
+				<p>提交后会保存截图、追加结构化数据，并由项目现有逻辑自动更新机场详情、测速中心和评分。</p>
+			</div>
+			<div class="safety">此页面和写入接口只在本地开发服务器中存在，不会进入正式网站构建。</div>
+		</section>
+
+		<div class="layout">
+			<form id="entry-form" class="card" autocomplete="off">
+				<fieldset>
+					<legend><span>1</span>测试对象与时间</legend>
+					<div class="fields">
+						<div class="field">
+							<label class="required" for="airportSlug">机场</label>
+							<select id="airportSlug" name="airportSlug" required disabled><option value="">正在读取机场列表…</option></select>
+						</div>
+						<div class="field">
+							<label class="required" for="nodeRegion">节点地区</label>
+							<select id="nodeRegion" name="nodeRegion" required>
+								<option value="香港">香港</option><option value="日本">日本</option><option value="新加坡">新加坡</option><option value="美国">美国</option>
+							</select>
+						</div>
+						<div class="field">
+							<label for="nodeLabel">节点名称</label>
+							<input id="nodeLabel" name="nodeLabel" value="香港节点" maxlength="120" placeholder="例如：香港节点" />
+							<span class="hint">名称必须包含所选地区，才能参与地区评分。</span>
+						</div>
+						<div class="field">
+							<label class="required" for="testedAt">测试日期</label>
+							<input id="testedAt" name="testedAt" type="date" required />
+						</div>
+						<div class="field">
+							<label class="required" for="time">北京时间</label>
+							<input id="time" name="time" type="time" required />
+						</div>
+						<div class="field">
+							<label class="required" for="window">测试时段</label>
+							<select id="window" name="window" required><option>上午</option><option>日间</option><option>晚间</option><option>晚高峰</option></select>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend><span>2</span>测速结果与使用体验</legend>
+					<div class="fields">
+						<div class="field">
+							<label class="required" for="baselineDownloadMbps">本地宽带（Mbps）</label>
+							<input id="baselineDownloadMbps" name="baselineDownloadMbps" type="number" min="1" step="1" value="1000" required />
+						</div>
+						<div class="field">
+							<label class="required" for="downloadMbps">下载（Mbps）</label>
+							<input id="downloadMbps" name="downloadMbps" type="number" min="0" step="0.01" required inputmode="decimal" />
+						</div>
+						<div class="field">
+							<label class="required" for="uploadMbps">上传（Mbps）</label>
+							<input id="uploadMbps" name="uploadMbps" type="number" min="0" step="0.01" required inputmode="decimal" />
+						</div>
+						<div class="field">
+							<label for="latencyMs">空闲延迟（ms）</label>
+							<input id="latencyMs" name="latencyMs" type="number" min="0" step="1" inputmode="numeric" />
+						</div>
+						<div class="field">
+							<label for="downloadLatencyMs">下载负载延迟（ms）</label>
+							<input id="downloadLatencyMs" name="downloadLatencyMs" type="number" min="0" step="1" inputmode="numeric" />
+						</div>
+						<div class="field">
+							<label for="uploadLatencyMs">上传负载延迟（ms）</label>
+							<input id="uploadLatencyMs" name="uploadLatencyMs" type="number" min="0" step="1" inputmode="numeric" />
+						</div>
+						<div class="field">
+							<label class="required" for="chatgpt">ChatGPT</label>
+							<select id="chatgpt" name="chatgpt" required><option>流畅</option><option>轻微延迟</option><option>响应较慢</option><option>响应严重延迟</option><option>不可用</option></select>
+						</div>
+						<div class="field">
+							<label class="required" for="streaming">流媒体</label>
+							<select id="streaming" name="streaming" required><option>流畅</option><option>轻微缓冲</option><option>缓冲明显</option><option>缓冲严重</option><option>不可用</option></select>
+						</div>
+						<div class="field">
+							<label for="server">测速服务器</label>
+							<input id="server" name="server" maxlength="200" placeholder="例如：fdcservers.net，Tokyo" />
+						</div>
+						<div class="field wide">
+							<label class="required" for="resultUrl">Speedtest链接</label>
+							<input id="resultUrl" name="resultUrl" type="url" required maxlength="500" placeholder="https://www.speedtest.net/result/..." />
+						</div>
+						<div class="field wide">
+							<label class="required" for="image">Speedtest截图</label>
+							<input id="image" name="image" type="file" accept="image/png,image/jpeg,image/webp" required />
+							<span class="hint">支持PNG、JPG、WebP，最大10MB；提交后自动复制到对应机场的证据目录。</span>
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend><span>3</span>本地网络与测试环境</legend>
+					<div class="fields">
+						<div class="field">
+							<label class="required" for="sourceRegion">测试省市</label>
+							<input id="sourceRegion" name="sourceRegion" required maxlength="120" placeholder="例如：河北石家庄" />
+						</div>
+						<div class="field">
+							<label class="required" for="carrier">本地运营商</label>
+							<select id="carrier" name="carrier" required><option>中国联通</option><option>中国电信</option><option>中国移动</option><option>其他</option></select>
+						</div>
+						<div class="field">
+							<label class="required" for="accessType">网络类型</label>
+							<select id="accessType" name="accessType" required><option>家庭宽带</option><option>移动网络</option><option>企业宽带</option><option>其他</option></select>
+						</div>
+						<div class="field">
+							<label class="required" for="connectionType">连接方式</label>
+							<select id="connectionType" name="connectionType" required><option>有线</option><option>Wi-Fi</option><option>移动数据</option><option>其他</option></select>
+						</div>
+						<div class="field">
+							<label class="required" for="device">测试设备</label>
+							<input id="device" name="device" required maxlength="160" value="MacBook" />
+						</div>
+						<div class="field">
+							<label class="required" for="client">客户端</label>
+							<input id="client" name="client" required maxlength="200" value="FlClash（macOS）" />
+						</div>
+						<div class="field">
+							<label for="isp">测速出口ISP</label>
+							<input id="isp" name="isp" maxlength="160" placeholder="截图左下方名称，可选" />
+						</div>
+						<div class="field two">
+							<label for="evidenceNote">证据备注</label>
+							<textarea id="evidenceNote" name="evidenceNote" maxlength="500" placeholder="服务器位置、截图时区换算或本次异常情况，可选"></textarea>
+						</div>
+					</div>
+				</fieldset>
+
+				<div class="form-actions">
+					<button id="submit-button" class="submit" type="submit">提交并写入项目</button>
+					<div id="form-status" class="status" role="status" aria-live="polite">提交前请检查右侧预览。</div>
+				</div>
+			</form>
+
+			<aside class="sidebar">
+				<section class="card">
+					<h2>提交预览</h2>
+					<dl class="preview-list">
+						<div class="preview-row"><dt>机场</dt><dd data-preview="airportSlug">—</dd></div>
+						<div class="preview-row"><dt>节点</dt><dd data-preview="nodeLabel">香港节点</dd></div>
+						<div class="preview-row"><dt>时间</dt><dd data-preview="datetime">—</dd></div>
+						<div class="preview-row"><dt>速度</dt><dd data-preview="speed">—</dd></div>
+						<div class="preview-row"><dt>体验</dt><dd data-preview="experience">流畅 / 流畅</dd></div>
+						<div class="preview-row"><dt>测试环境</dt><dd data-preview="environment">中国联通 · MacBook</dd></div>
+					</dl>
+					<img id="image-preview" class="preview-image" alt="待提交的Speedtest截图预览" />
+				</section>
+				<section class="card">
+					<h2>最近本地提交</h2>
+					<div id="recent-list" class="recent"><div class="empty">暂无通过此表单提交的数据。</div></div>
+				</section>
+			</aside>
+		</div>
+	</main>
+
+	<script>
+		const API_URL = '/__siilas/local-entry';
+		const form = document.querySelector('#entry-form');
+		const airportSelect = document.querySelector('#airportSlug');
+		const nodeRegion = document.querySelector('#nodeRegion');
+		const nodeLabel = document.querySelector('#nodeLabel');
+		const testedAt = document.querySelector('#testedAt');
+		const timeInput = document.querySelector('#time');
+		const windowSelect = document.querySelector('#window');
+		const fileInput = document.querySelector('#image');
+		const imagePreview = document.querySelector('#image-preview');
+		const submitButton = document.querySelector('#submit-button');
+		const status = document.querySelector('#form-status');
+		const recentList = document.querySelector('#recent-list');
+		let airports = [];
+
+		const chinaNow = () => {
+			const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+				timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
+				hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+			}).formatToParts(new Date()).filter((part) => part.type !== 'literal').map((part) => [part.type, part.value]));
+			return { date: `${parts.year}-${parts.month}-${parts.day}`, time: `${parts.hour}:${parts.minute}` };
+		};
+
+		const updateWindow = () => {
+			const hour = Number(timeInput.value.slice(0, 2));
+			if (!Number.isFinite(hour)) return;
+			windowSelect.value = hour < 12 ? '上午' : hour >= 20 ? '晚高峰' : hour >= 18 ? '晚间' : '日间';
+		};
+
+		const fieldValue = (name) => form.elements.namedItem(name)?.value?.trim?.() ?? '';
+		const selectedAirportName = () => airportSelect.selectedOptions[0]?.textContent ?? '—';
+
+		const updatePreview = () => {
+			const values = {
+				airportSlug: selectedAirportName(),
+				nodeLabel: fieldValue('nodeLabel') || `${fieldValue('nodeRegion')}节点`,
+				datetime: `${fieldValue('testedAt') || '—'} ${fieldValue('time') || '—'} · ${fieldValue('window') || '—'}`,
+				speed: fieldValue('downloadMbps') && fieldValue('uploadMbps') ? `↓ ${fieldValue('downloadMbps')} / ↑ ${fieldValue('uploadMbps')} Mbps` : '—',
+				experience: `${fieldValue('chatgpt') || '—'} / ${fieldValue('streaming') || '—'}`,
+				environment: [fieldValue('sourceRegion'), fieldValue('carrier'), fieldValue('accessType'), fieldValue('device')].filter(Boolean).join(' · ') || '—',
+			};
+			for (const [key, value] of Object.entries(values)) {
+				document.querySelector(`[data-preview="${key}"]`).textContent = value;
+			}
+		};
+
+		const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.addEventListener('load', () => resolve(reader.result));
+			reader.addEventListener('error', () => reject(new Error('无法读取截图')));
+			reader.readAsDataURL(file);
+		});
+
+		const renderRecent = (records) => {
+			recentList.replaceChildren();
+			if (!records.length) {
+				recentList.innerHTML = '<div class="empty">暂无通过此表单提交的数据。</div>';
+				return;
+			}
+			for (const record of records) {
+				const airport = airports.find((item) => item.slug === record.airportSlug)?.name ?? record.airportSlug;
+				const item = document.createElement('div');
+				item.className = 'recent-item';
+				const title = document.createElement('b');
+				title.textContent = `${airport} · ${record.node}`;
+				const detail = document.createElement('small');
+				detail.textContent = `${record.testedAt} ${record.time} · ↓ ${record.downloadMbps} Mbps`;
+				item.append(title, detail);
+				recentList.append(item);
+			}
+		};
+
+		const loadData = async () => {
+			try {
+				const response = await fetch(API_URL, { headers: { Accept: 'application/json' } });
+				const data = await response.json();
+				if (!response.ok || !data.ok) throw new Error(data.message || '无法读取项目数据');
+				airports = data.airports;
+				airportSelect.replaceChildren(...airports.map((airport) => {
+					const option = document.createElement('option');
+					option.value = airport.slug;
+					option.textContent = airport.name;
+					option.dataset.client = airport.testClient;
+					return option;
+				}));
+				airportSelect.disabled = false;
+				const defaultClient = airportSelect.selectedOptions[0]?.dataset.client;
+				if (defaultClient) form.elements.namedItem('client').value = defaultClient;
+				renderRecent(data.recent);
+				updatePreview();
+			} catch (error) {
+				status.className = 'status error';
+				status.textContent = error.message;
+			}
+		};
+
+		const resetForNextNode = () => {
+			const regions = ['香港', '日本', '新加坡', '美国'];
+			const nextRegion = regions[(regions.indexOf(nodeRegion.value) + 1) % regions.length];
+			nodeRegion.value = nextRegion;
+			nodeLabel.value = `${nextRegion}节点`;
+			for (const name of ['downloadMbps', 'uploadMbps', 'latencyMs', 'downloadLatencyMs', 'uploadLatencyMs', 'resultUrl', 'isp', 'server', 'evidenceNote']) {
+				form.elements.namedItem(name).value = '';
+			}
+			fileInput.value = '';
+			imagePreview.removeAttribute('src');
+			imagePreview.style.display = 'none';
+			const now = chinaNow();
+			testedAt.value = now.date;
+			timeInput.value = now.time;
+			updateWindow();
+			updatePreview();
+		};
+
+		form.addEventListener('input', updatePreview);
+		timeInput.addEventListener('change', () => { updateWindow(); updatePreview(); });
+		nodeRegion.addEventListener('change', () => {
+			const oldStandardNames = ['香港节点', '日本节点', '新加坡节点', '美国节点'];
+			if (!nodeLabel.value || oldStandardNames.includes(nodeLabel.value)) nodeLabel.value = `${nodeRegion.value}节点`;
+			updatePreview();
+		});
+		airportSelect.addEventListener('change', () => {
+			const client = airportSelect.selectedOptions[0]?.dataset.client;
+			if (client) form.elements.namedItem('client').value = client;
+			updatePreview();
+		});
+		fileInput.addEventListener('change', async () => {
+			const file = fileInput.files[0];
+			if (!file) return;
+			if (file.size > 10 * 1024 * 1024) {
+				fileInput.setCustomValidity('截图不能超过10MB');
+				imagePreview.style.display = 'none';
+				return;
+			}
+			fileInput.setCustomValidity('');
+			imagePreview.src = await readFileAsDataUrl(file);
+			imagePreview.style.display = 'block';
+		});
+
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			if (!form.reportValidity()) return;
+			const file = fileInput.files[0];
+			if (!file) return;
+
+			submitButton.disabled = true;
+			status.className = 'status';
+			status.textContent = '正在校验并写入项目…';
+			try {
+				const values = Object.fromEntries(new FormData(form).entries());
+				delete values.image;
+				values.image = { name: file.name, type: file.type, dataUrl: await readFileAsDataUrl(file) };
+				const response = await fetch(API_URL, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+					body: JSON.stringify(values),
+				});
+				const data = await response.json();
+				if (!response.ok || !data.ok) throw new Error(data.message || '写入失败');
+				status.className = 'status success';
+				status.innerHTML = `写入成功：${data.id} · <a href="/airport/${data.airportSlug}/">查看机场页面 →</a>`;
+				const currentResponse = await fetch(API_URL);
+				const currentData = await currentResponse.json();
+				if (currentData.ok) renderRecent(currentData.recent);
+				resetForNextNode();
+			} catch (error) {
+				status.className = 'status error';
+				status.textContent = error.message;
+			} finally {
+				submitButton.disabled = false;
+			}
+		});
+
+		const now = chinaNow();
+		testedAt.value = now.date;
+		testedAt.max = now.date;
+		timeInput.value = now.time;
+		updateWindow();
+		updatePreview();
+		loadData();
+	</script>
+</body>
+</html>

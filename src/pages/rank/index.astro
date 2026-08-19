@@ -2,8 +2,53 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { AUTHOR_DESCRIPTION, AUTHOR_NAME } from '../../consts';
 import { airports, getNetworkQualitySamples, getTests } from '../../data/airport-data';
 const rankedAirports = [...airports].sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
-const eligibleRanks = new Map(rankedAirports.filter((airport) => airport.rankingEligible).map((airport, index) => [airport.slug, index + 1]));
+const eligibleAirports = rankedAirports.filter((airport) => airport.rankingEligible);
+const eligibleRanks = new Map(eligibleAirports.map((airport, index) => [airport.slug, index + 1]));
+const rankDescription = `查看 Siilas 基于持续测速生成的机场排行榜，综合比较 ${eligibleAirports.length} 家参评机场的节点速度、稳定性、ChatGPT、流媒体体验、套餐价格与有效样本。`;
+const rankUrl = new URL('/rank/', Astro.site).href;
+const authorUrl = new URL('/about/', Astro.site).href;
+const listId = `${rankUrl}#ranking`;
+const rankStructuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${rankUrl}#webpage`,
+      url: rankUrl,
+      name: '机场排行榜｜速度、稳定性与 AI 解锁实测',
+      description: rankDescription,
+      inLanguage: 'zh-CN',
+      dateModified: [...airports].map((airport) => airport.updated).sort().at(-1),
+      author: {
+        '@type': 'Person',
+        '@id': `${authorUrl}#person`,
+        name: AUTHOR_NAME,
+        description: AUTHOR_DESCRIPTION,
+        url: authorUrl,
+      },
+      mainEntity: { '@id': listId },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': listId,
+      name: 'Siilas 机场综合排行榜',
+      numberOfItems: eligibleAirports.length,
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      itemListElement: eligibleAirports.map((airport, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'WebPage',
+          name: `${airport.name}机场评测`,
+          url: new URL(`/airport/${airport.slug}/`, Astro.site).href,
+          description: `综合评分 ${airport.score} / 10，稳定性 ${airport.stability}%`,
+        },
+      })),
+    },
+  ],
+};
 ---
-<html lang="zh-CN"><head><BaseHead title="机场排行榜" description="基于持续测速的机场综合排行榜。" /></head><body><Header /><main class="shell"><div class="page-head"><div class="section-kicker">Data ranking</div><h1>机场排行榜</h1><p>综合评分同时考虑速度、稳定性、ChatGPT 与流媒体实测表现；新加坡、香港、日本和美国均有有效样本后即可参与排名，分数会随新增样本持续更新。</p></div><div class="table-scroll"><table class="data-table" style="margin-bottom:80px"><caption class="sr-only">机场排名及数据积累状态</caption><thead><tr><th>排名</th><th>机场</th><th>评分</th><th>稳定性</th><th>已验证样本</th><th>最低套餐</th></tr></thead><tbody>{rankedAirports.map((airport) => <tr><td>{airport.rankingEligible ? `#${eligibleRanks.get(airport.slug)}` : '观察'}</td><td><a class="airport-name" href={`/airport/${airport.slug}/`}>{airport.name}</a></td><td class="score">{airport.score ?? '积累中'}</td><td>{airport.stability === null ? '样本不足' : `${airport.stability}%`}</td><td>{getTests(airport).length + getNetworkQualitySamples(airport).length} 条</td><td><strong>{airport.entryPlan.price}</strong><small>{airport.entryPlan.traffic}</small></td></tr>)}</tbody></table></div></main><Footer /></body></html>
+<html lang="zh-CN"><head><BaseHead title="机场排行榜｜速度、稳定性与 AI 解锁实测" description={rankDescription} structuredData={rankStructuredData} /></head><body><Header /><main class="shell"><div class="page-head"><div class="section-kicker">Data ranking</div><h1>机场排行榜</h1><p>综合评分同时考虑速度、稳定性、ChatGPT 与流媒体实测表现；新加坡、香港、日本和美国均有有效样本后即可参与排名，分数会随新增样本持续更新。</p><div class="actions"><a class="button secondary" href="/methodology/">查看评分方法</a><a class="button secondary" href="/test/">复查原始测速</a></div></div><div class="table-scroll"><table class="data-table" style="margin-bottom:40px"><caption class="sr-only">机场排名及数据积累状态</caption><thead><tr><th>排名</th><th>机场</th><th>评分</th><th>稳定性</th><th>已验证样本</th><th>最低套餐</th></tr></thead><tbody>{rankedAirports.map((airport) => <tr><td>{airport.rankingEligible ? `#${eligibleRanks.get(airport.slug)}` : '观察'}</td><td><a class="airport-name" href={`/airport/${airport.slug}/`}>{airport.name}</a></td><td class="score">{airport.score ?? '积累中'}</td><td>{airport.stability === null ? '样本不足' : `${airport.stability}%`}</td><td>{getTests(airport).length + getNetworkQualitySamples(airport).length} 条</td><td><strong>{airport.entryPlan.price}</strong><small>{airport.entryPlan.traffic}</small></td></tr>)}</tbody></table></div><p class="desc">排名由当前已验证样本自动计算。了解数据采集者请查看<a class="text-link" href="/about/" rel="author">测试者 siilas →</a>。</p><div class="section"></div></main><Footer /></body></html>

@@ -1,5 +1,6 @@
 import { z } from 'astro/zod';
 import rawAirports from './airports.json';
+import rawTestSubmissions from './test-submissions.json';
 
 const chatgptStatusSchema = z.enum([
 	'流畅',
@@ -33,13 +34,19 @@ const testSchema = z.object({
 	chatgpt: chatgptStatusSchema,
 	streaming: streamingStatusSchema,
 	latencyMs: z.number().nonnegative().nullable(),
+	downloadLatencyMs: z.number().nonnegative().nullable().optional(),
+	uploadLatencyMs: z.number().nonnegative().nullable().optional(),
 	jitterMs: z.number().nonnegative().nullable().optional(),
 	packetLossPercent: z.number().min(0).max(100).nullable().optional(),
 	resultUrl: z.url().nullable(),
 	evidenceImage: z.string().startsWith('/').optional(),
 	evidenceNote: z.string().min(1).optional(),
 	sourceRegion: z.string().nullable(),
+	carrier: z.string().nullable().optional(),
+	accessType: z.string().nullable().optional(),
+	connectionType: z.string().nullable().optional(),
 	isp: z.string().nullable(),
+	server: z.string().nullable().optional(),
 	device: z.string().nullable(),
 	client: z.string().nullable(),
 });
@@ -157,7 +164,23 @@ const airportSchema = z.object({
 	serviceIncidents: z.array(serviceIncidentSchema).optional(),
 });
 
-const parsedAirports = z.array(airportSchema).length(9).parse(rawAirports);
+const testSubmissionSchema = z.object({
+	airportSlug: z.string().regex(/^[a-z0-9-]+$/),
+	submittedAt: z.iso.datetime(),
+	test: testSchema,
+});
+
+const parsedTestSubmissions = z.array(testSubmissionSchema).parse(rawTestSubmissions);
+const airportsWithSubmissions = rawAirports.map((airport) => ({
+	...airport,
+	tests: [
+		...(airport.tests ?? []),
+		...parsedTestSubmissions
+			.filter((submission) => submission.airportSlug === airport.slug)
+			.map((submission) => submission.test),
+	],
+}));
+const parsedAirports = z.array(airportSchema).length(9).parse(airportsWithSubmissions);
 
 type ScoringSample = {
 	testedAt: string;
@@ -325,6 +348,8 @@ export const airports = parsedAirports.map((airport) => {
 		...(airport.tests ?? []),
 		...(airport.networkQualitySamples ?? []),
 	];
+	const latestSampleDate = verifiedSamples.map((sample) => sample.testedAt).sort().at(-1);
+	const updated = [airport.updated, latestSampleDate].filter(isPresent).sort().at(-1) ?? airport.updated;
 	const hasRequiredNodeCoverage = REQUIRED_NODE_REGIONS.every(({ pattern }) => {
 		const regionalSamples = verifiedSamples.filter((sample) => pattern.test(sample.node));
 		return regionalSamples.length > 0;
@@ -350,6 +375,7 @@ export const airports = parsedAirports.map((airport) => {
 
 	return {
 		...airport,
+		updated,
 		dataDays,
 		status,
 		rankingEligible,

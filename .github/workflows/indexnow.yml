@@ -1,0 +1,50 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: read
+
+jobs:
+  submit:
+    name: Submit published URLs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Wait for Cloudflare Pages production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in {1..36}; do
+            conclusion="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${GITHUB_SHA}/check-runs" --jq '.check_runs | map(select(.name == "Cloudflare Pages")) | first | .conclusion // ""')"
+            if [ "$conclusion" = "success" ]; then
+              exit 0
+            fi
+            case "$conclusion" in
+              failure|cancelled|timed_out|action_required)
+                echo "Cloudflare Pages deployment ended with: $conclusion"
+                exit 1
+                ;;
+            esac
+            sleep 10
+          done
+          echo "Timed out waiting for Cloudflare Pages deployment."
+          exit 1
+
+      - name: Verify published IndexNow key
+        env:
+          INDEXNOW_KEY: 3539316b60c9375fb2b21d12e72fd219
+        run: |
+          published_key="$(curl --fail --silent --show-error "https://siilas.com/${INDEXNOW_KEY}.txt")"
+          test "$published_key" = "$INDEXNOW_KEY"
+
+      - name: Submit site URLs to IndexNow
+        env:
+          INDEXNOW_KEY: 3539316b60c9375fb2b21d12e72fd219
+        run: node scripts/submit-indexnow.mjs

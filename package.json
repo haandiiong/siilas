@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "check": "astro check",
+    "indexnow": "node scripts/submit-indexnow.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

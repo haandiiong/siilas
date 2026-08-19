@@ -2,9 +2,34 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { AUTHOR_DESCRIPTION, AUTHOR_NAME, TEST_CLIENTS, TEST_DEVICE, TEST_NETWORK } from '../consts';
+const aboutUrl = new URL('/about/', Astro.site).href;
+const personId = `${aboutUrl}#person`;
+const aboutStructuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${aboutUrl}#webpage`,
+      url: aboutUrl,
+      name: '关于测试者 siilas',
+      description: `${AUTHOR_DESCRIPTION}公开测试环境、测试方法、原始记录和自动评分规则。`,
+      inLanguage: 'zh-CN',
+      mainEntity: { '@id': personId },
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: AUTHOR_NAME,
+      url: aboutUrl,
+      description: AUTHOR_DESCRIPTION,
+      knowsAbout: ['机场节点测速', '网络稳定性测试', 'ChatGPT 节点可用性', '4K 流媒体体验'],
+    },
+  ],
+};
 ---
 <html lang="zh-CN">
-<head><BaseHead title="测试者与作者" description="了解 Siilas.com 的测试者身份、测试目的与内容制作方式。"/></head>
+<head><BaseHead title="关于测试者 siilas｜身份、环境与内容制作" description="了解测试者 siilas 的测试目的与内容制作方式，以及中国北方联通宽带、MacBook、机场专属客户端和 FlClash 的公开测试环境。" structuredData={aboutStructuredData}/></head>
 <body><Header/><main class="shell">
   <div class="page-head">
     <div class="section-kicker">About the tester</div>
@@ -16,8 +41,13 @@ import Footer from '../components/Footer.astro';
     <div class="cards">
       <section class="card">
         <h2>测试者身份</h2>
-        <p><strong>Siilas.com 站长</strong></p>
-        <p class="desc">本站测速及 ChatGPT、流媒体使用体验测试，均由站长本人完成。测试者同时也是机场服务的实际用户。</p>
+        <p><strong>{AUTHOR_NAME}</strong></p>
+        <p class="desc">{AUTHOR_DESCRIPTION}本站测速及 ChatGPT、流媒体使用体验测试均由本人完成，测试者同时也是机场服务的实际用户。</p>
+      </section>
+      <section class="card">
+        <h2>公开测试环境</h2>
+        <p>{TEST_NETWORK} · {TEST_DEVICE}</p>
+        <p class="desc">根据机场实际支持情况使用{TEST_CLIENTS}，每条记录保留日期、时间、节点、客户端、Speedtest 链接及可用的截图证据。</p>
       </section>
       <section class="card">
         <h2>测试目的</h2>
@@ -37,7 +67,7 @@ import Footer from '../components/Footer.astro';
     <div class="card">
       <p>测试结果只代表记录时间、本地网络、所用客户端和对应节点下的实际表现。不同地区、宽带运营商、设备、时间段及节点负载都可能造成不同结果。</p>
       <p>因此，Siilas 将原始测速记录、Speedtest 链接、测试时间和客户端信息一并保留，让用户能够了解分数的来源，而不是把单次测试描述为永久结论。</p>
-      <p class="desc">测试方法和评分公式请参阅<a class="text-link" href="/methodology/">测试方法与评分规则 →</a></p>
+      <p class="desc">测试方法和评分公式请参阅<a class="text-link" href="/methodology/">测试方法与评分规则 →</a>，原始样本可在<a class="text-link" href="/test/">机场测速记录 →</a>中复查。</p>
     </div>
   </section>
 </main><Footer/></body></html>

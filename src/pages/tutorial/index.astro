@@ -3,8 +3,8 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 ---
-<html lang="zh-CN"><head><BaseHead title="使用教程" description="Clash、Shadowrocket 订阅导入与常见节点问题排查教程。"/></head><body><Header/><main class="shell">
-  <div class="page-head"><div class="section-kicker">Practical guides</div><h1>使用教程</h1><p>从第一次导入订阅，到定位速度、节点和服务可用性问题。</p></div>
+<html lang="zh-CN"><head><BaseHead title="机场客户端使用教程｜Clash 与 Shadowrocket" description="机场客户端使用与故障排查教程：介绍 Clash Verge、Shadowrocket 订阅导入、VLESS 与 SS 选择、订阅失效、晚高峰变慢和 ChatGPT 无法访问的处理方法。"/></head><body><Header/><main class="shell">
+  <div class="page-head"><div class="section-kicker">Practical guides</div><h1>使用教程</h1><p>从第一次导入订阅，到定位速度、节点和服务可用性问题。</p><div class="actions"><a class="button secondary" href="/methodology/">查看测速方法</a><a class="button secondary" href="/test/">浏览真实测速</a></div></div>
   <div class="cards">
     <article class="card"><span class="section-kicker">指南 01</span><h2>Clash Verge 导入订阅</h2><ol><li>在机场后台复制订阅链接。</li><li>进入 Profiles（配置），粘贴链接并导入。</li><li>更新配置后选择节点，开启系统代理或 TUN。</li><li>打开网页确认出口 IP；失败时先更新订阅再换节点。</li></ol><p class="desc">不同版本的菜单名称可能略有差异，订阅链接不要公开分享。</p></article>
     <article class="card"><span class="section-kicker">指南 02</span><h2>Shadowrocket 添加订阅</h2><ol><li>复制机场订阅链接，打开右上角“+”。</li><li>类型选择 Subscribe，填入 URL 后保存。</li><li>更新订阅，选择节点并开启连接。</li><li>若配置为空，检查套餐状态并重新复制链接。</li></ol></article>

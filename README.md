@@ -33,4 +33,6 @@ pnpm check
 pnpm build
 ```
 
-机场基础资料和原始测速记录位于 `src/data/airports.json`，构建时由 `src/data/airport-data.ts` 校验并生成页面统计。
+机场基础资料和原始测速记录位于 `src/data/airports.json`，本地录入追加到 `src/data/test-submissions.json`，构建时由 `src/data/airport-data.ts` 校验并生成页面统计。
+
+原有 25 条网络质量补充记录已归入 `historicalTests`。这些记录的证据无法完整复核，单独展示为历史记录，不计入已验证样本；原始数值保留，继续按原规则参与评分、参评资格与测试日期统计。已验证样本仅统计 `tests` 中保留结果链接或截图的记录。

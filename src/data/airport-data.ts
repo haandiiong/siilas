@@ -51,7 +51,7 @@ const testSchema = z.object({
 	client: z.string().nullable(),
 });
 
-const networkQualitySampleSchema = z.object({
+const historicalTestSchema = z.object({
 	id: z.string().min(1),
 	testedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
 	time: z.string().nullable(),
@@ -130,6 +130,7 @@ const airportSchema = z.object({
 	platforms: z.array(z.string()).optional(),
 	testClient: z.string().optional(),
 	universalSubscription: z.string().optional(),
+	clientNotes: z.string().optional(),
 	deviceLimit: z.string().optional(),
 	nodeCount: z.number().int().nonnegative().optional(),
 	onlineSnapshot: z.string().optional(),
@@ -150,6 +151,7 @@ const airportSchema = z.object({
 		details: z.array(z.string()).optional(),
 	})).optional(),
 	planEvidenceImages: z.array(z.string().startsWith('/')).optional(),
+	planEvidenceLabel: z.string().optional(),
 	noExpiryPlans: z.array(z.object({
 		name: z.string(),
 		price: z.string(),
@@ -159,7 +161,7 @@ const airportSchema = z.object({
 	dailyPlans: z.array(z.object({ name: z.string(), price: z.string(), duration: z.string(), traffic: z.string() })).optional(),
 	addOns: z.array(z.object({ name: z.string(), price: z.string(), traffic: z.string(), condition: z.string() })).optional(),
 	tests: z.array(testSchema).optional(),
-	networkQualitySamples: z.array(networkQualitySampleSchema).optional(),
+	historicalTests: z.array(historicalTestSchema).optional(),
 	nodeSnapshots: z.array(nodeSnapshotSchema).optional(),
 	serviceIncidents: z.array(serviceIncidentSchema).optional(),
 });
@@ -209,6 +211,8 @@ const REQUIRED_NODE_REGIONS = [
 	{ name: '美国', pattern: /美国/u },
 ] as const;
 
+export const MIN_RANKING_REGION_DAYS = 3;
+
 const round = (value: number, digits = 1) => Number(value.toFixed(digits));
 const average = (values: number[]) => values.length
 	? values.reduce((sum, value) => sum + value, 0) / values.length
@@ -253,8 +257,13 @@ const streamingScore = (status?: string) => {
 };
 
 const trafficInGb = (traffic: string) => {
+	const toGb = (amount: number, unit: string) => /TB|T\b/iu.test(unit) ? amount * 1024 : amount;
+	const dailyPlan = /\u6bcf\u65e5\s*(\d+(?:\.\d+)?)\s*(TB|T\b|GB).*?(\d+)\s*\u5929/iu.exec(traffic);
+	if (dailyPlan) {
+		return toGb(Number.parseFloat(dailyPlan[1]), dailyPlan[2]) * Number.parseInt(dailyPlan[3], 10);
+	}
 	const amount = Number.parseFloat(traffic.match(/\d+(?:\.\d+)?/u)?.[0] ?? '0');
-	return /TB|T\b/iu.test(traffic) ? amount * 1024 : amount;
+	return toGb(amount, traffic);
 };
 
 const getRegionName = (node: string) =>
@@ -339,24 +348,31 @@ const calculateScore = (airport: z.infer<typeof airportSchema>, samples: Scoring
 
 const countMonitoringDays = (airport: z.infer<typeof airportSchema>) => new Set([
 	...(airport.tests ?? []),
-	...(airport.networkQualitySamples ?? []),
+	...(airport.historicalTests ?? []),
 ].map((sample) => sample.testedAt)).size;
 
 export const airports = parsedAirports.map((airport) => {
 	const dataDays = countMonitoringDays(airport);
-	const verifiedSamples: ScoringSample[] = [
+	// Historical records retain their original scoring contribution, but are not verified evidence.
+	const scoringSamples: ScoringSample[] = [
 		...(airport.tests ?? []),
-		...(airport.networkQualitySamples ?? []),
+		...(airport.historicalTests ?? []),
 	];
-	const latestSampleDate = verifiedSamples.map((sample) => sample.testedAt).sort().at(-1);
+	const verifiedTestCount = (airport.tests ?? []).filter((test) => test.resultUrl || test.evidenceImage).length;
+	const historicalTestCount = airport.historicalTests?.length ?? 0;
+	const latestSampleDate = scoringSamples.map((sample) => sample.testedAt).sort().at(-1);
 	const updated = [airport.updated, latestSampleDate].filter(isPresent).sort().at(-1) ?? airport.updated;
-	const hasRequiredNodeCoverage = REQUIRED_NODE_REGIONS.every(({ pattern }) => {
-		const regionalSamples = verifiedSamples.filter((sample) => pattern.test(sample.node));
-		return regionalSamples.length > 0;
-	});
-	const rankingEligible = verifiedSamples.length > 0 && hasRequiredNodeCoverage;
-	const calculated = rankingEligible ? calculateScore(airport, verifiedSamples) : null;
-	const experienceScores = calculateExperienceScores(verifiedSamples);
+	const dailySamples = aggregateSamplesByRegionDay(scoringSamples);
+	const regionalSampleDays = Object.fromEntries(REQUIRED_NODE_REGIONS.map(({ name }) => [
+		name,
+		dailySamples.filter((sample) => sample.region === name).length,
+	]));
+	const hasMinimumRegionalSamples = REQUIRED_NODE_REGIONS.every(({ name }) =>
+		regionalSampleDays[name] >= MIN_RANKING_REGION_DAYS
+	);
+	const rankingEligible = scoringSamples.length > 0 && hasMinimumRegionalSamples;
+	const calculated = rankingEligible ? calculateScore(airport, scoringSamples) : null;
+	const experienceScores = calculateExperienceScores(scoringSamples);
 	const status = airport.status === '持续监测中' || /^监测第\s*\d+\s*天$/u.test(airport.status)
 		? dataDays === 0 ? '等待首次实测' : `已有样本 ${dataDays} 天`
 		: airport.status;
@@ -377,6 +393,10 @@ export const airports = parsedAirports.map((airport) => {
 		...airport,
 		updated,
 		dataDays,
+		regionalSampleDays,
+		verifiedTestCount,
+		historicalTestCount,
+		scoringSampleCount: scoringSamples.length,
 		status,
 		rankingEligible,
 		score: calculated?.score ?? null,
@@ -390,12 +410,12 @@ export type Airport = (typeof airports)[number];
 export type AirportTest = NonNullable<Airport['tests']>[number];
 
 export const getTests = (airport: Airport) => airport.tests ?? [];
-export const getNetworkQualitySamples = (airport: Airport) => airport.networkQualitySamples ?? [];
+export const getHistoricalTests = (airport: Airport) => airport.historicalTests ?? [];
 
 export const getMaxDownload = (airport: Airport) => {
 	const downloads = [
 		...getTests(airport).map((test) => test.downloadMbps),
-		...getNetworkQualitySamples(airport).map((sample) => sample.downloadMbps),
+		...getHistoricalTests(airport).map((sample) => sample.downloadMbps),
 	];
 	return downloads.length ? Math.max(...downloads) : airport.speed;
 };
@@ -404,7 +424,7 @@ export const getChatGPTSummary = (airport: Airport) => {
 	if (airport.chatgptStatus) return airport.chatgptStatus;
 	const values = [...new Set([
 		...getTests(airport).map((test) => test.chatgpt),
-		...getNetworkQualitySamples(airport).map((sample) => sample.chatgpt).filter(isPresent),
+		...getHistoricalTests(airport).map((sample) => sample.chatgpt).filter(isPresent),
 	])];
 	if (!values.length) return '待测试';
 	if (values.length > 1) return '结果不一';
@@ -415,7 +435,7 @@ export const getStreamingSummary = (airport: Airport) => {
 	if (typeof airport.streamingStatus === 'string') return airport.streamingStatus;
 	const values = [...new Set([
 		...getTests(airport).map((test) => test.streaming),
-		...getNetworkQualitySamples(airport).map((sample) => sample.streaming).filter(isPresent),
+		...getHistoricalTests(airport).map((sample) => sample.streaming).filter(isPresent),
 	])];
 	if (!values.length) return '待测试';
 	return values.length === 1 ? values[0] : '结果不一';

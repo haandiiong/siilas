@@ -9,8 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "check": "astro check",
+    "data:audit": "node scripts/audit-data.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "preview": "astro preview",
+    "validate": "pnpm data:audit && pnpm check && pnpm build",
     "astro": "astro"
   },
   "dependencies": {

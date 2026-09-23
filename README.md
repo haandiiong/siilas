@@ -29,10 +29,39 @@ pnpm astro dev stop
 ## 验证
 
 ```sh
-pnpm check
-pnpm build
+pnpm data:audit
+pnpm validate
 ```
 
-机场基础资料和原始测速记录位于 `src/data/airports.json`，本地录入追加到 `src/data/test-submissions.json`，构建时由 `src/data/airport-data.ts` 校验并生成页面统计。
+`pnpm data:audit` 会列出每家机场的商业资料复核日期、两个月后的下次复核日期、最新测速、有效记录数和参评样本缺口，同时检查重复 slug、重复测试 ID、重复 Speedtest 链接和缺失证据文件。它只读取数据，不会修改文件；发现数据错误时返回失败状态，复核到期仅显示提醒。
 
-原有 25 条网络质量补充记录已归入 `historicalTests`。这些记录的证据无法完整复核，单独展示为历史记录，不计入已验证样本；原始数值保留，继续按原规则参与评分、参评资格与测试日期统计。已验证样本仅统计 `tests` 中保留结果链接或截图的记录。
+需要供其他工具读取时可运行 `pnpm data:audit -- --json`。`pnpm validate` 会依次执行数据审计、Astro 类型检查和正式构建。
+
+机场基础资料和原始测速记录统一位于 `src/data/airports.json`，构建时由 `src/data/airport-data.ts` 校验并生成页面统计。
+
+评分仅使用 `tests` 中保留 Speedtest 结果链接或截图的已验证记录。
+
+机场商业资料使用 `commercialReviewedAt` 单独记录复核日期，最新测速日期由构建过程自动生成。每家机场通过 `scoringPlan` 明确指定性价比计分套餐。
+
+## 添加测速记录
+
+以后统一使用以下模板提交，并附上对应的 Speedtest 截图：
+
+```text
+机场名：
+节点名称：
+ChatGPT：
+流媒体：
+Speedtest 链接：
+```
+
+日期、时间、下载速度、上传速度、延迟、测速出口 ISP 和服务器信息从截图读取。截图中的 GMT 时间换算为北京时间，并据此自动确定测试时段。
+
+默认测试环境如下，提交时无需重复填写：
+
+- 本地网络：中国南方电信 1000M 家庭宽带
+- 连接方式：Wi-Fi
+- 测试设备：MacBook
+- 测试客户端：FlClash
+
+如果某次测试环境发生变化，在模板后单独注明。

@@ -8,12 +8,10 @@ export function getStaticPaths() { return airports.map((airport) => ({ params: {
 const { airport: a } = Astro.props;
 const testCount = a.tests?.length ?? 0;
 const verifiedTestCount = a.verifiedTestCount;
-const historicalTestCount = a.historicalTestCount;
-const scoringSampleCount = a.scoringSampleCount;
 const nodeSnapshotCount = a.nodeSnapshots?.length ?? 0;
 const serviceIncidentCount = a.serviceIncidents?.length ?? 0;
 const operationalObservationCount = nodeSnapshotCount + serviceIncidentCount;
-const scoringSamples = [...(a.tests ?? []), ...(a.historicalTests ?? [])];
+const scoringSamples = a.tests ?? [];
 const nodeEvidenceImages = [...new Set([
   ...(a.nodeEvidenceImages ?? []),
   ...(a.nodeSnapshots ?? []).flatMap((snapshot) => snapshot.evidenceImages),
@@ -31,13 +29,14 @@ const testedRegions = [
   { name: '美国', pattern: /美国/u },
 ].filter(({ pattern }) => scoringSamples.some((sample) => pattern.test(sample.node))).map(({ name }) => name);
 const coverageLabel = testedRegions.length ? testedRegions.join('、') : '常用地区节点';
-const pageDescription = `${a.name}机场实测评测：收录 ${verifiedTestCount} 条已验证测速与 ${historicalTestCount} 条历史记录，覆盖${coverageLabel}。历史记录的证据无法完整复核，仍按原规则参与评分和日期统计。`;
+const pageTitle = `${a.name}机场评测｜价格、套餐、节点速度与稳定性`;
+const pageDescription = `${a.name}机场实测评测：最低套餐 ${a.entryPlan.price}、${a.entryPlan.traffic}，收录 ${verifiedTestCount} 条已验证测速，覆盖${coverageLabel}，包含套餐价格、节点速度、稳定性、ChatGPT 与流媒体体验；商业资料复核于 ${a.commercialReviewedAt}。`;
 const scoreCalculatedAtIso = latestSample
   ? `${latestSample.testedAt}T${latestSample.time ?? '00:00'}:00+08:00`
-  : `${a.updated}T00:00:00+08:00`;
+  : `${a.commercialReviewedAt}T00:00:00+08:00`;
 const scoreCalculatedAtDisplay = latestSample
   ? `${latestSample.testedAt}${latestSample.time ? ` ${latestSample.time}` : ''}`
-  : a.updated;
+  : '待测试';
 const pageUrl = new URL(`/airport/${a.slug}/`, Astro.site).href;
 const authorUrl = new URL('/about/', Astro.site).href;
 const siteUrl = new URL('/', Astro.site).href;
@@ -52,10 +51,10 @@ const airportStructuredData = {
       '@type': 'WebPage',
       '@id': webpageId,
       url: pageUrl,
-      name: `${a.name}机场评测｜节点速度、稳定性与套餐`,
+      name: pageTitle,
       description: pageDescription,
       inLanguage: 'zh-CN',
-      dateModified: a.updated,
+      dateModified: a.pageModifiedAt,
       mainEntity: [{ '@id': articleId }, { '@id': datasetId }],
       breadcrumb: { '@id': breadcrumbId },
     },
@@ -63,10 +62,10 @@ const airportStructuredData = {
       '@type': 'Article',
       '@id': articleId,
       url: pageUrl,
-      headline: `${a.name}机场评测｜节点速度、稳定性与套餐`,
+      headline: pageTitle,
       description: pageDescription,
       inLanguage: 'zh-CN',
-      dateModified: a.updated,
+      dateModified: a.pageModifiedAt,
       author: {
         '@type': 'Person',
         '@id': `${authorUrl}#person`,
@@ -87,7 +86,7 @@ const airportStructuredData = {
       '@type': 'Dataset',
       '@id': datasetId,
       name: `${a.name}机场节点实测数据`,
-      description: `siilas 使用${TEST_NETWORK}、${TEST_DEVICE}和${TEST_CLIENTS}持续测试${a.name}的常用地区节点，记录速度、延迟、ChatGPT 与 4K 流媒体体验。数据包含 ${verifiedTestCount} 条已验证测速与 ${historicalTestCount} 条历史记录；历史记录的证据无法完整复核，不计入已验证样本，仍按原规则参与评分和日期统计。`,
+      description: `siilas 使用${TEST_NETWORK}、${TEST_DEVICE}和${TEST_CLIENTS}持续测试${a.name}的常用地区节点，记录速度、延迟、ChatGPT 与 4K 流媒体体验。数据包含 ${verifiedTestCount} 条已验证测速。`,
       url: pageUrl,
       creator: {
         '@type': 'Person',
@@ -115,8 +114,8 @@ const airportStructuredData = {
       additionalProperty: [
         {
           '@type': 'PropertyValue',
-          name: '参与评分计算的记录总数（含历史记录）',
-          value: scoringSampleCount,
+          name: '参与评分计算的记录总数',
+          value: testCount,
           unitText: '条',
         },
         {
@@ -133,13 +132,7 @@ const airportStructuredData = {
         },
         {
           '@type': 'PropertyValue',
-          name: '历史记录数量（证据无法完整复核，保留评分贡献）',
-          value: historicalTestCount,
-          unitText: '条',
-        },
-        {
-          '@type': 'PropertyValue',
-          name: '覆盖的不同测试日期（含历史记录）',
+          name: '覆盖的不同测试日期',
           value: a.dataDays,
           unitText: '天',
         },
@@ -148,10 +141,20 @@ const airportStructuredData = {
           name: '最后计算时间',
           value: scoreCalculatedAtIso,
         },
+        {
+          '@type': 'PropertyValue',
+          name: '商业资料复核日期',
+          value: a.commercialReviewedAt,
+        },
+        {
+          '@type': 'PropertyValue',
+          name: '性价比计分套餐',
+          value: `${a.scoringPlan.name}，${a.scoringPlan.priceLabel}，${a.scoringPlan.trafficLabel}`,
+        },
       ],
       isAccessibleForFree: true,
       keywords: [`${a.name}机场`, '机场测速', '机场稳定性', 'ChatGPT 节点', '流媒体测试'],
-      version: a.updated,
+      version: a.latestTestAt ?? '暂无测速',
     },
     {
       '@type': 'BreadcrumbList',
@@ -182,8 +185,8 @@ const airportStructuredData = {
 const monitoringCopy = a.dataDays === 0
   ? '尚无实测样本，暂不参与正式排名。'
 	: a.rankingEligible
-	  ? '评分来自已验证测速和历史记录，新增有效记录后会自动更新；历史记录继续按原规则参与评分和日期统计。'
-	  : `当前已有 ${a.dataDays} 个测试日期（含历史记录）；新加坡、香港、日本和美国每个地区均达到 3 个不同测试日期后即可参与评分。`;
+	  ? '评分来自已验证测速，新增有效记录后会自动更新。'
+	  : `当前已有 ${a.dataDays} 个测试日期；新加坡、香港、日本和美国每个地区均达到 3 个不同测试日期后即可参与评分。`;
 const testHeading = a.dataDays === 0 ? '等待首次实测' : `已有样本 ${a.dataDays} 天`;
 const withoutTrailingPunctuation = (value: string) => value.replace(/[。；;，,\s]+$/u, '');
 const formatFoundedAt = (value: string) => {
@@ -193,11 +196,11 @@ const formatFoundedAt = (value: string) => {
 };
 ---
 <html lang="zh-CN">
-<head><BaseHead title={`${a.name}机场评测｜节点速度、稳定性与套餐`} description={pageDescription} structuredData={airportStructuredData} ogType="article" /></head>
+<head><BaseHead title={pageTitle} description={pageDescription} structuredData={airportStructuredData} ogType="article" /></head>
 <body><Header /><main class="shell">
   <nav class="breadcrumbs" aria-label="面包屑导航"><a href="/">首页</a><span aria-hidden="true">/</span><a href="/airport/">机场数据库</a><span aria-hidden="true">/</span><span aria-current="page">{a.name}</span></nav>
   <div class="page-head">
-    <div class="section-kicker">SAMPLE DAYS {a.dataDays ?? '—'} · UPDATED {a.updated}</div>
+    <div class="section-kicker">SAMPLE DAYS {a.dataDays ?? '—'} · TESTED {a.latestTestAt ?? '—'}</div>
     <h1>{a.name}机场评测</h1><p>{a.summary}</p>
     <p class="desc">测试与整理：<a class="text-link" href="/about/" rel="author">{AUTHOR_NAME}</a> · {AUTHOR_DESCRIPTION}</p>
     {a.website && <div class="actions"><a class="button" href={a.website} target="_blank" rel="nofollow sponsored noopener">官网入口 →</a></div>}
@@ -212,26 +215,27 @@ const formatFoundedAt = (value: string) => {
       <p class="desc">{monitoringCopy}</p>
     </section>
     <section class="card"><h2>最低套餐</h2><p>{a.entryPlan.price} · {a.entryPlan.traffic}</p><p>协议：{a.protocol}</p>
+      <p class="desc">性价比计分套餐：{a.scoringPlan.name} · {a.scoringPlan.priceLabel} · {a.scoringPlan.trafficLabel}</p>
       {a.couponCode && <p>{a.couponLabel ?? '优惠码'}：<strong class="score">{a.couponCode}</strong></p>}{a.registrationOffer && <p class="desc">{a.registrationOffer}</p>}{a.offerEvidenceImages && <p class="desc">优惠截图证据：{a.offerEvidenceImages.map((image, index) => <><a class="text-link" href={image} target="_blank" rel="noopener">截图 {index + 1} →</a>{index < a.offerEvidenceImages!.length - 1 ? ' · ' : ''}</>)}</p>}
+      <p class="desc">商业资料复核：{a.commercialReviewedAt} · 下次复核：{a.nextCommercialReviewAt}</p>
     </section>
-    <section class="card"><h2>{testHeading}</h2>{scoringSampleCount > 0 ? <>
+    <section class="card"><h2>{testHeading}</h2>{testCount > 0 ? <>
 	      <p><strong>{verifiedTestCount}</strong> 条已验证测速样本</p>
-	      <p class="desc">原始测速 {testCount} 条 · 历史记录 {historicalTestCount} 条</p>
-	      <p class="desc">参与评分共 {scoringSampleCount} 条记录（含历史记录）</p>
+	      <p class="desc">{testCount} 条原始测速全部参与评分</p>
 	      <p>最高下载 <strong>{getMaxDownload(a)} Mbps</strong></p>
       {a.chatgptStatus && <p>ChatGPT：{a.chatgptStatus}{a.chatgptStatusUpdated && <small>（更新 {a.chatgptStatusUpdated}）</small>}</p>}
       {a.streamingStatus && <p>流媒体：<span class="yes">{a.streamingStatus}</span></p>}
       <p class="desc">已实测体验分（百分制）：ChatGPT {a.experienceScores.chatgpt ?? '待测试'} · 流媒体 {a.experienceScores.streaming ?? '待测试'}</p>
       {a.scoreBreakdown && <p class="desc">综合评分构成（百分制）：稳定性 {a.scoreBreakdown.stability} · 速度 {a.scoreBreakdown.speed} · 性价比 {a.scoreBreakdown.value}</p>}
-	  <p class="desc">{a.rankingEligible ? '包含历史记录在内，当前四个常用地区均有至少 3 个不同测试日期，已计算综合评分。' : '至少一个常用地区少于 3 个不同测试日期，样本不足，暂不计算稳定性和综合评分。'}</p>
+	  <p class="desc">{a.rankingEligible ? '当前四个常用地区均有至少 3 个不同测试日期，已计算综合评分。' : '至少一个常用地区少于 3 个不同测试日期，样本不足，暂不计算稳定性和综合评分。'}</p>
 	      {operationalObservationCount > 0 && <p class="desc">另有 {operationalObservationCount} 条节点或服务观察，仅作运行记录，不计入评分。</p>}
-	    </> : <><p>尚未录入测速或历史记录</p>{operationalObservationCount > 0 && <p>{operationalObservationCount} 条节点或服务观察</p>}<p class="desc">运行观察不计入评分。</p></>}</section>
+	    </> : <><p>尚未录入测速记录</p>{operationalObservationCount > 0 && <p>{operationalObservationCount} 条节点或服务观察</p>}<p class="desc">运行观察不计入评分。</p></>}</section>
   </div>
   <section class="section">
     <div class="section-head"><div><div class="section-kicker">Score provenance</div><h2>评分依据</h2></div><a class="text-link" href="/methodology/">查看完整评分规则 →</a></div>
     <div class="cards">
-      <section class="card"><h2>样本与范围</h2><p><strong>{verifiedTestCount}</strong> 条已验证样本</p><p class="desc">原始测速 {testCount} 条 · 历史记录 {historicalTestCount} 条</p><p>参与评分共 {scoringSampleCount} 条，覆盖 {a.dataDays} 个不同测试日期（含历史记录）</p><p class="desc">历史记录的证据无法完整复核，不计入已验证样本，仍按原规则参与评分和日期统计。</p></section>
-      <section class="card"><h2>数据周期</h2><p>{sampleStartDate === sampleEndDate ? sampleStartDate : `${sampleStartDate} 至 ${sampleEndDate}`}</p><p class="desc">数据计算截止：{latestSample ? `${latestSample.testedAt}${latestSample.time ? ` ${latestSample.time}` : ''}` : '待测试'}</p><p class="desc">评分依据更新：{scoreCalculatedAtDisplay}</p><p class="desc">页面资料更新：{a.updated}</p></section>
+      <section class="card"><h2>样本与范围</h2><p><strong>{verifiedTestCount}</strong> 条已验证样本</p><p>覆盖 {a.dataDays} 个不同测试日期，全部参与评分。</p><p class="desc">每条样本均保留 Speedtest 结果链接或截图。</p></section>
+      <section class="card"><h2>数据周期</h2><p>{sampleStartDate === sampleEndDate ? sampleStartDate : `${sampleStartDate} 至 ${sampleEndDate}`}</p><p class="desc">最新测速：{latestSample ? `${latestSample.testedAt}${latestSample.time ? ` ${latestSample.time}` : ''}` : '待测试'}</p><p class="desc">评分依据更新：{scoreCalculatedAtDisplay}</p><p class="desc">商业资料复核：{a.commercialReviewedAt}</p><p class="desc">下次商业复核：{a.nextCommercialReviewAt}</p></section>
       <section class="card"><h2>实测覆盖</h2><p>{testedRegions.length ? testedRegions.join('、') : '常用地区节点待补充'}</p><p class="desc">测试环境：{TEST_NETWORK} · {TEST_DEVICE}</p><p class="desc">测试客户端：{a.testClient ?? TEST_CLIENTS}</p></section>
     </div>
     {a.scoreBreakdown ? <div class="card" style="margin-top:20px">
@@ -240,15 +244,15 @@ const formatFoundedAt = (value: string) => {
         <tr><td>速度</td><td class="score">{a.scoreBreakdown.speed}</td><td>25%</td><td>各地区每日代表下载速度相对 1000M 宽带的利用率，地区等权</td></tr>
         <tr><td>ChatGPT</td><td class="score">{a.scoreBreakdown.chatgpt}</td><td>15%</td><td>每次实际问答的首字响应体验</td></tr>
         <tr><td>流媒体</td><td class="score">{a.scoreBreakdown.streaming}</td><td>10%</td><td>4K 播放及拖动进度后的缓冲体验</td></tr>
-        <tr><td>性价比</td><td class="score">{a.scoreBreakdown.value}</td><td>10%</td><td>月付套餐流量与月费</td></tr>
+        <tr><td>性价比</td><td class="score">{a.scoreBreakdown.value}</td><td>10%</td><td>计分套餐价格与周期总流量</td></tr>
       </tbody></table></div>
       <p><strong>综合评分：{a.score} / 10</strong></p>
-      <p class="desc">本站分数是基于已验证测速与历史记录自动计算的编辑评分，不是用户投票或第三方评级。新增有效记录后，分数会按相同规则重新计算。</p>
+      <p class="desc">本站分数是基于已验证测速自动计算的编辑评分，不是用户投票或第三方评级。新增有效记录后，分数会按相同规则重新计算。</p>
     </div> : <div class="card" style="margin-top:20px">
 	  <p><strong>评分状态：样本不足</strong></p>
-	  <p>当前累计 {a.dataDays} 个不同测试日期（含历史记录）、{verifiedTestCount} 条已验证样本与 {historicalTestCount} 条历史记录，参与评分共 {scoringSampleCount} 条。新加坡、香港、日本和美国每个地区均达到 3 个不同测试日期后才计算综合评分。</p>
+	  <p>当前累计 {a.dataDays} 个不同测试日期、{verifiedTestCount} 条已验证样本。新加坡、香港、日本和美国每个地区均达到 3 个不同测试日期后才计算综合评分。</p>
       <p class="desc">当前仅显示已有实测的体验子项：ChatGPT {a.experienceScores.chatgpt ?? '待测试'} · 流媒体 {a.experienceScores.streaming ?? '待测试'}。未达到门槛前，不生成稳定性和综合评分。</p>
-      <p class="desc">本站分数是基于已验证测速与历史记录自动计算的编辑评分，不是用户投票或第三方评级。</p>
+      <p class="desc">本站分数是基于已验证测速自动计算的编辑评分，不是用户投票或第三方评级。</p>
     </div>}
   </section>
   {(a.trial || a.universalSubscription || a.noExpiry) && <section class="section"><div class="section-head"><div><div class="section-kicker">Service terms</div><h2>试用与使用方式</h2></div></div><div class="cards">
@@ -256,7 +260,7 @@ const formatFoundedAt = (value: string) => {
     <section class="card"><h2>订阅方式</h2><p>{a.universalSubscription ?? '待复核'}</p>{a.platforms && <p class="desc">{a.platforms.join('、')}</p>}{a.clientNotes && <p class="desc">{a.clientNotes}</p>}{a.bandwidthPolicy && <p class="desc">{a.bandwidthPolicy}</p>}</section>
     <section class="card"><h2>不限时流量</h2><p>{a.noExpiry ?? '待复核'}</p>{a.paymentMethods && <p class="desc">支付：{a.paymentMethods.join('、')}</p>}</section>
   </div></section>}
-  {a.historicalTests && <section class="section"><div class="section-head"><div><div class="section-kicker">Historical records</div><h2>历史测速记录</h2></div></div><div class="table-scroll"><table class="data-table"><caption class="sr-only">{a.name}机场历史测速记录（证据无法完整复核）</caption><thead><tr><th>日期</th><th>节点</th><th>延迟</th><th>ChatGPT</th><th>流媒体</th><th>速度</th><th>测速服务器</th></tr></thead><tbody>{a.historicalTests.map(sample => <tr><td>{sample.testedAt}<br/>{sample.time ?? '时间未记录'}</td><td class="airport-name">{sample.node}</td><td>{sample.latencyMs} ms</td><td>{sample.chatgpt ?? '未复测'}</td><td>{sample.streaming ?? '未复测'}</td><td>↓ {sample.downloadMbps} / ↑ {sample.uploadMbps} Mbps</td><td>{sample.server}</td></tr>)}</tbody></table></div><p class="desc">这些历史记录的原始证据目前无法完整复核，因此独立归档，不计入已验证样本。历史记录保留原有数值，继续按原规则参与评分、地区日期统计和参评资格判断。抖动与丢包不展示，也不参与评分。</p></section>}
+
   {a.nodeSnapshots && <section class="section"><div class="section-head"><div><div class="section-kicker">Node availability</div><h2>节点在线快照</h2></div></div><div class="table-scroll"><table class="data-table"><caption class="sr-only">{a.name}机场节点在线快照</caption><thead><tr><th>采集时间</th><th>节点总数</th><th>可达</th><th>超时</th><th>高延迟</th><th>异常节点</th><th>截图证据</th></tr></thead><tbody>{a.nodeSnapshots.map(snapshot => <tr><td>{snapshot.capturedAt}<br/>{snapshot.time}</td><td>{snapshot.total}</td><td class="yes">{snapshot.reachable}</td><td>{snapshot.timeout}</td><td>{snapshot.highLatency}<small>{snapshot.latencyRange}</small></td><td><small>超时：{snapshot.timeoutNodes.length ? snapshot.timeoutNodes.join('、') : '无'}</small><small>高延迟：{snapshot.highLatencyNodes.length ? snapshot.highLatencyNodes.join('、') : '无'}</small><small>当前选择：{snapshot.selectedNode}</small></td><td>{snapshot.evidenceImages.map((image, index) => <a class="text-link" href={image} target="_blank" rel="noopener">截图 {index + 1} →<br/></a>)}</td></tr>)}</tbody></table></div><p class="desc">节点状态是指定时刻的客户端快照，仅反映当时可达性与客户端显示延迟，不等同于长期在线率。</p></section>}
   {a.serviceIncidents && <section class="section"><div class="section-head"><div><div class="section-kicker">Service incidents</div><h2>服务异常记录</h2></div></div><div class="table-scroll"><table class="data-table"><caption class="sr-only">{a.name}机场服务异常记录</caption><thead><tr><th>观察时间</th><th>状态</th><th>测速</th><th>ChatGPT</th><th>流媒体</th></tr></thead><tbody>{a.serviceIncidents.map(incident => <tr><td>{incident.observedAt}<br/>{incident.time}</td><td>{incident.status}</td><td>{incident.speedtest}</td><td>{incident.chatgpt}</td><td>{incident.streaming}<small>{incident.note}</small></td></tr>)}</tbody></table></div></section>}
   {a.plans && <section class="section"><div class="section-head"><div><div class="section-kicker">Plans</div><h2>套餐与流量</h2></div></div><div class="table-scroll"><table class="data-table"><caption class="sr-only">{a.name}机场月付及周期套餐</caption><thead><tr><th>套餐</th><th>价格</th><th>流量</th><th>主要规则</th></tr></thead><tbody>{a.plans.map(p => <tr><td class="airport-name">{p.name}</td><td>{p.price}</td><td>{p.traffic}</td><td>{p.details?.join('；') ?? '以套餐页实时说明为准'}</td></tr>)}</tbody></table></div>{a.billingPolicy && <p class="desc">付费周期：{a.billingPolicy}</p>}{a.planEvidenceImages && <p class="desc">{a.planEvidenceLabel ?? '套餐截图证据'}：{a.planEvidenceImages.map((image, index) => <><a class="text-link" href={image} target="_blank" rel="noopener">截图 {index + 1} →</a>{index < a.planEvidenceImages!.length - 1 ? ' · ' : ''}</>)}</p>}</section>}

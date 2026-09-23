@@ -2,15 +2,11 @@
 
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
-import { siilasLocalEntry } from './scripts/local-entry-plugin.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://siilas.com',
 	integrations: [sitemap()],
-	vite: {
-		plugins: [siilasLocalEntry()],
-	},
 	fonts: [
 		{
 			provider: fontProviders.local(),

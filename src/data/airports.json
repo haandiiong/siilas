@@ -1649,7 +1649,7 @@
       "官方客户端（Windows）",
       "官方客户端（Mac）"
     ],
-    "testClient": "xxyun 官方专属客户端",
+    "testClient": "xxyun 官方专属客户端（历史客户端标注待核实）",
     "universalSubscription": "不支持。必须使用 xxyun 官方客户端，不能将订阅导入 Clash、FlClash、Shadowrocket、Surge 或 Stash。",
     "deviceLimit": "不限设备",
     "trial": "当前月付套餐未列免费试用承诺，购买前请确认。",
@@ -1981,7 +1981,7 @@
         "note": "当日整体使用体验较差；这是一次带时间的人工实测观察，不填充虚构速度或延迟数据。"
       }
     ],
-    "clientNotes": "从官网选择对应系统的客户端，按文档安装并登录。当前不支持 Clash Verge、FlClash、Shadowrocket、Surge、Stash 或软路由的通用订阅导入。",
+    "clientNotes": "仅支持 xxyun 官方专属客户端，不支持 Clash、FlClash、Shadowrocket、Surge、Stash 等通用客户端或软路由订阅导入。2026-08-08 的 3 条历史测速记录曾标注 FlClash，原测试客户端待核实。",
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）",
     "commercialReviewedAt": "2026-09-11",
     "scoringPlan": {
@@ -1990,7 +1990,9 @@
       "trafficGb": 100,
       "priceLabel": "¥9.99/月",
       "trafficLabel": "100GB/月"
-    }
+    },
+    "clientSupportVerifiedAt": "2026-09-24",
+    "officialClientOnly": true
   },
   {
     "slug": "flybit",
@@ -3487,17 +3489,17 @@
     "chatgptStatus": "2026-08-13 晚高峰：香港节点不可用，美国、新加坡、日本节点轻微延迟",
     "chatgptStatusUpdated": "2026-08-13",
     "streamingStatus": "2026-08-13 晚高峰：香港节点缓冲严重，美国、新加坡、日本节点轻微缓冲",
-    "protocol": "专属客户端 / 临时通用订阅",
+    "protocol": "专属客户端",
     "status": "持续监测中",
-    "summary": "官网当前提供 ¥15 月付体验包、¥98 年付小包、五档常规套餐及两档永久流量包；套餐标注全 IPLC、最高 2.5Gbps、原生 IP、多设备不限，并支持 AI 与主流流媒体，实际体验以本站测速为准。",
+    "summary": "官网当前提供 ¥15 月付体验包、¥98 年付小包、五档常规套餐及两档永久流量包；仅支持官方专属客户端。套餐标注全 IPLC、最高 2.5Gbps、原生 IP、多设备不限，实际体验以本站测速为准。",
     "platforms": [
-      "Android",
-      "iOS",
-      "macOS",
-      "Windows"
+      "官方客户端（Android）",
+      "官方客户端（iOS）",
+      "官方客户端（macOS）",
+      "官方客户端（Windows）"
     ],
     "testClient": "官网提供 Android、iOS、macOS 与 Windows 客户端；本站测速使用机场官方专属客户端",
-    "universalSubscription": "支持临时一次性订阅，使用 Clash、Mihomo 或 Shadowrocket 前需确认有效期",
+    "universalSubscription": "不支持 Clash、FlClash、Mihomo、Shadowrocket 等通用客户端订阅；仅支持边缘节点官方专属客户端。",
     "deviceLimit": "套餐页标注不限制设备连接数量，可多端同时登录",
     "nodeCount": 72,
     "onlineSnapshot": "2026-07-29 19:36 采集时 72/72 在线，0 个离线",
@@ -3841,7 +3843,10 @@
       "trafficGb": 120,
       "priceLabel": "¥22/月",
       "trafficLabel": "120GB/月"
-    }
+    },
+    "clientSupportVerifiedAt": "2026-09-24",
+    "officialClientOnly": true,
+    "clientNotes": "按设备系统从官网获取官方专属客户端。通用 Clash 订阅或第三方客户端无法使用。"
   },
   {
     "slug": "xsus",

@@ -106,6 +106,8 @@ const airportSchema = z.object({
 	summary: z.string(),
 	platforms: z.array(z.string()).optional(),
 	testClient: z.string().optional(),
+	officialClientOnly: z.boolean().optional(),
+	clientSupportVerifiedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
 	universalSubscription: z.string().optional(),
 	clientNotes: z.string().optional(),
 	deviceLimit: z.string().optional(),
@@ -313,7 +315,7 @@ export const airports = parsedAirports.map((airport) => {
 	const dataDays = countMonitoringDays(scoringSamples);
 	const verifiedTestCount = (airport.tests ?? []).filter((test) => test.resultUrl || test.evidenceImage).length;
 	const latestTestAt = scoringSamples.map((sample) => sample.testedAt).sort().at(-1) ?? null;
-	const pageModifiedAt = [airport.commercialReviewedAt, latestTestAt].filter(isPresent).sort().at(-1)
+	const pageModifiedAt = [airport.commercialReviewedAt, airport.clientSupportVerifiedAt, latestTestAt].filter(isPresent).sort().at(-1)
 		?? airport.commercialReviewedAt;
 	const commercialReviewDate = new Date(`${airport.commercialReviewedAt}T00:00:00Z`);
 	commercialReviewDate.setUTCMonth(commercialReviewDate.getUTCMonth() + 2);

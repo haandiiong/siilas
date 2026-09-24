@@ -30,7 +30,7 @@ const testedRegions = [
 ].filter(({ pattern }) => scoringSamples.some((sample) => pattern.test(sample.node))).map(({ name }) => name);
 const coverageLabel = testedRegions.length ? testedRegions.join('、') : '常用地区节点';
 const pageTitle = `${a.name}机场评测｜价格、套餐、节点速度与稳定性`;
-const pageDescription = `${a.name}机场实测评测：最低套餐 ${a.entryPlan.price}、${a.entryPlan.traffic}，收录 ${verifiedTestCount} 条已验证测速，覆盖${coverageLabel}，包含套餐价格、节点速度、稳定性、ChatGPT 与流媒体体验；商业资料复核于 ${a.commercialReviewedAt}。`;
+const pageDescription = `${a.name}机场实测评测：最低套餐 ${a.entryPlan.price}、${a.entryPlan.traffic}，收录 ${verifiedTestCount} 条已验证测速，覆盖${coverageLabel}，包含套餐价格、节点速度、稳定性、ChatGPT 与流媒体体验${a.officialClientOnly ? '；仅支持官方专属客户端' : ''}；商业资料复核于 ${a.commercialReviewedAt}。`;
 const scoreCalculatedAtIso = latestSample
   ? `${latestSample.testedAt}T${latestSample.time ?? '00:00'}:00+08:00`
   : `${a.commercialReviewedAt}T00:00:00+08:00`;
@@ -86,7 +86,7 @@ const airportStructuredData = {
       '@type': 'Dataset',
       '@id': datasetId,
       name: `${a.name}机场节点实测数据`,
-      description: `siilas 使用${TEST_NETWORK}、${TEST_DEVICE}和${TEST_CLIENTS}持续测试${a.name}的常用地区节点，记录速度、延迟、ChatGPT 与 4K 流媒体体验。数据包含 ${verifiedTestCount} 条已验证测速。`,
+      description: `siilas 使用${TEST_NETWORK}、${TEST_DEVICE}和${a.testClient ?? TEST_CLIENTS}持续测试${a.name}的常用地区节点，记录速度、延迟、ChatGPT 与 4K 流媒体体验。数据包含 ${verifiedTestCount} 条已验证测速。`,
       url: pageUrl,
       creator: {
         '@type': 'Person',
@@ -146,6 +146,11 @@ const airportStructuredData = {
           name: '商业资料复核日期',
           value: a.commercialReviewedAt,
         },
+        ...(a.clientSupportVerifiedAt ? [{
+          '@type': 'PropertyValue',
+          name: '客户端支持确认日期',
+          value: a.clientSupportVerifiedAt,
+        }] : []),
         {
           '@type': 'PropertyValue',
           name: '性价比计分套餐',
@@ -211,6 +216,7 @@ const formatFoundedAt = (value: string) => {
       {a.serviceStatus && <p>当前服务状态：<strong>{a.serviceStatus}</strong>{a.serviceStatusUpdated && <small>（更新 {a.serviceStatusUpdated}）</small>}</p>}
       {a.foundedAt && <p>成立时间：{formatFoundedAt(a.foundedAt)}</p>}
       {a.testClient && <p>测试客户端：{a.testClient}</p>}
+      {a.officialClientOnly && <p><strong>客户端兼容性：仅支持官方专属客户端</strong>{a.clientSupportVerifiedAt && <small>（确认于 {a.clientSupportVerifiedAt}）</small>}</p>}
       {a.platforms && <p>支持平台：{a.platforms.join('、')}</p>}{a.deviceLimit && <p>设备限制：{a.deviceLimit}</p>}
       <p class="desc">{monitoringCopy}</p>
     </section>

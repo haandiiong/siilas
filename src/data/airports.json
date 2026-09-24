@@ -1649,7 +1649,7 @@
       "官方客户端（Windows）",
       "官方客户端（Mac）"
     ],
-    "testClient": "xxyun 官方专属客户端（历史客户端标注待核实）",
+    "testClient": "xxyun 官方专属客户端",
     "universalSubscription": "不支持。必须使用 xxyun 官方客户端，不能将订阅导入 Clash、FlClash、Shadowrocket、Surge 或 Stash。",
     "deviceLimit": "不限设备",
     "trial": "当前月付套餐未列免费试用承诺，购买前请确认。",
@@ -1850,7 +1850,7 @@
         "sourceRegion": null,
         "isp": "365 Data Centers",
         "device": "macOS",
-        "client": "FlClash",
+        "client": "xxyun 官方专属客户端",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1872,7 +1872,7 @@
         "sourceRegion": null,
         "isp": "DMIT",
         "device": "macOS",
-        "client": "FlClash",
+        "client": "xxyun 官方专属客户端",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1894,7 +1894,7 @@
         "sourceRegion": null,
         "isp": "Akamai Technologies",
         "device": "macOS",
-        "client": "FlClash",
+        "client": "xxyun 官方专属客户端",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1981,7 +1981,7 @@
         "note": "当日整体使用体验较差；这是一次带时间的人工实测观察，不填充虚构速度或延迟数据。"
       }
     ],
-    "clientNotes": "仅支持 xxyun 官方专属客户端，不支持 Clash、FlClash、Shadowrocket、Surge、Stash 等通用客户端或软路由订阅导入。2026-08-08 的 3 条历史测速记录曾标注 FlClash，原测试客户端待核实。",
+    "clientNotes": "仅支持 xxyun 官方专属客户端，不支持 Clash、FlClash、Shadowrocket、Surge、Stash 等通用客户端或软路由订阅导入。",
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）",
     "commercialReviewedAt": "2026-09-11",
     "scoringPlan": {

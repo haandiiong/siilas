@@ -11,7 +11,7 @@ interface Props {
 	image?: string;
 }
 const { title, description, noindex = false, structuredData, ogType = 'website', image = '/og-default.png' } = Astro.props;
-const pageTitle = title ? `${title}｜${SITE_TITLE}` : `机场推荐与节点测速排行榜｜${SITE_TITLE}`;
+const pageTitle = title ? `${title}｜${SITE_TITLE}` : `机场实测与节点测速排行榜｜${SITE_TITLE}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
 const authorURL = new URL('/about/', Astro.site);

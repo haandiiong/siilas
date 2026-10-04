@@ -7,12 +7,9 @@
     "foundedAt": "2025-10",
     "couponCode": "cff88",
     "registrationOffer": "旧首购八折码 cff88 的有效性、适用套餐和首购限制待确认，实际优惠以下单金额为准。",
-    "chatgptStatus": "2026-07-28 晚高峰：新加坡节点可用；香港节点不可用；美国、日本节点回复慢",
-    "chatgptStatusUpdated": "2026-07-28",
-    "streamingStatus": "2026-07-28 晚高峰：新加坡节点可用，香港节点稳定；美国、日本节点缓冲时间长",
     "protocol": "Shadowsocks（套餐标注）；VLESS（2026-07-17 节点记录）",
     "status": "持续监测中",
-    "summary": "月付 20 元含 120GB，另有轻量年付、不限时流量包和独享专线。按设备使用对应客户端，通用订阅条件需先确认。",
+    "summary": "月付 20 元含 120GB，另有轻量年付、不限时流量包和独享专线。按设备使用官网说明的账号登录客户端；不支持免费试用和通用订阅。",
     "platforms": [
       "Windows 自研客户端",
       "Android 自研客户端",
@@ -21,8 +18,8 @@
       "Linux 自研客户端压缩包"
     ],
     "testClient": "机场官方专属客户端",
-    "universalSubscription": "待确认。长期通用订阅的领取入口、格式和使用期限尚不明确；需要 Clash 或 Shadowrocket 时，请先向客服核对。",
-    "trial": "待确认，暂不承诺可领取免费试用。",
+    "universalSubscription": "不支持通用订阅。Windows、Android 和 macOS 使用官网自研客户端，iOS 按知识库使用 Nextin；不能将普通订阅导入 Clash 或 Shadowrocket。",
+    "trial": "不支持免费试用；2026-09-27 由站长补充确认。",
     "noExpiry": "支持，一次性购买 100GB、400GB 或 800GB 总流量，用完为止，不按月补充或重置。",
     "deviceLimit": "BGP 套餐标注不限制设备数量",
     "nodeCount": 58,
@@ -642,7 +639,7 @@
       "/evidence/globalcloud/2026-07-17-plans-1.png",
       "/evidence/globalcloud/2026-07-17-plans-2.png"
     ],
-    "couponLabel": "历史优惠码（待核实）",
+    "couponLabel": "旧优惠码（待复核）",
     "clientNotes": "Windows、Android、Mac 使用官网账号登录自研客户端；iOS 使用 Nextin，填写识别码 quanqiuyun 后登录。Linux 安装步骤需先确认。面板标注最低系统为 Windows 10、Android 5.0、macOS 10.15、iOS 12，安装时仍需核对软件要求。",
     "noExpiryPlans": [
       {
@@ -688,6 +685,17 @@
       "trafficGb": 120,
       "priceLabel": "¥20/月",
       "trafficLabel": "120GB/月"
+    },
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/quanqiuyun/",
+    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-11；免费试用和通用订阅规则于 2026-09-27 获站长补充确认。",
+    "selectionGuide": {
+      "goodFor": [
+        "接受按设备使用账号登录客户端，想比较 20 元月付与不限时总流量包。"
+      ],
+      "checkBeforeBuying": [
+        "不提供免费试用和通用订阅；旧优惠码及退款条件仍待核实。"
+      ]
     }
   },
   {
@@ -697,19 +705,19 @@
     "affiliate": true,
     "foundedAt": "2025-10",
     "couponCode": "GNT80",
-    "registrationOffer": "八折；仅新注册账户可使用一次，不限制使用时间，成功使用后失效。18 元月付套餐优惠 3.6 元，实付 14.4 元。",
-    "streamingStatus": "新加坡、香港、美国节点稳定；日本节点第 2 天轻微缓冲、第 3 天稳定",
+    "couponLabel": "站长补充八折码（适用条件待核）",
+    "registrationOffer": "八折码 GNT80 由站长于 2026-09-27 补充；适用套餐、有效期、使用次数及与周期折扣的叠加条件未验证，实际金额以结算页为准。",
     "protocol": "VLESS",
     "status": "持续监测中",
-    "summary": "官网当前提供 ¥89 年付限时套餐及 110GB 至 900GB 的月付套餐，常规套餐采用 IPLC 线路并标注晚高峰不限速、最高 2.5Gbps；支持订阅导入、AI 与主流流媒体，实际表现以本站测速为准。",
+    "summary": "官网当前提供 ¥89 年付限时套餐及 110GB 至 900GB 的月付套餐，常规套餐标注 IPLC 线路、晚高峰不限速和最高 2.5Gbps；普通套餐使用官网指定客户端，不支持通用订阅，实际表现以本站测速为准。",
     "platforms": [
       "Android 5.0+",
       "iOS 12.0+",
       "macOS 10.15+",
       "Windows 10+"
     ],
-    "testClient": "官方页面推荐 v2rayNG、Shadowrocket、ClashX 与 Clash for Windows；本站测速使用机场官方专属客户端",
-    "universalSubscription": "支持通过订阅链接或二维码导入第三方客户端",
+    "testClient": "光年梯官方专属客户端（macOS）",
+    "universalSubscription": "普通套餐不支持通用订阅，不能直接导入 Clash、Shadowrocket 等通用客户端；iOS 按知识库使用 Nextin。独享私人专线另有专属配置说明，不能套用到普通套餐。",
     "trial": "不支持",
     "noExpiry": "不支持",
     "deviceLimit": "套餐页标注不限制同时在线客户端数量，可多设备使用",
@@ -1092,6 +1100,18 @@
       "trafficGb": 110,
       "priceLabel": "¥18/月",
       "trafficLabel": "110GB/月"
+    },
+    "clientNotes": "Windows、Android 和 macOS 提供官网客户端；iOS 使用 Nextin，Linux 有官方压缩包说明。客户端与系统要求来自官网知识库，本站未逐平台重新安装验证。",
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/guangnianti-review-2026/",
+    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-16；免费试用和优惠码于 2026-09-27 获站长补充，优惠码结算条件仍待验证。",
+    "selectionGuide": {
+      "goodFor": [
+        "接受官网客户端或 iOS 的 Nextin 用法，按月度流量比较 110GB 至 900GB 套餐。"
+      ],
+      "checkBeforeBuying": [
+        "普通套餐不支持通用订阅、免费试用或退款；GNT80 的具体结算条件未验证。"
+      ]
     }
   },
   {
@@ -1101,12 +1121,8 @@
     "affiliate": true,
     "foundedAt": "2021",
     "couponCode": "yp7net",
-    "couponLabel": "历史体验券（待核实）",
-    "registrationOffer": "旧资料记录 yp7net 为 1 天 5GB 体验券、ZLOARB 为首购九折码，当前是否有效及适用条件均待确认。6.8 元试用套餐是付费流量包。",
-    "chatgptStatus": "2026-09-11 晚高峰：新加坡、日本、美国节点流畅，香港节点不可用",
-    "chatgptStatusUpdated": "2026-09-11",
-    "streamingStatus": "2026-09-11 晚高峰：新加坡、日本、香港、美国节点 YouTube 4K 流畅",
-    "streamingStatusUpdated": "2026-09-11",
+    "couponLabel": "免费体验券",
+    "registrationOffer": "体验券 yp7net 可领取 1 天 5GB 免费试用（2026-09-27 站长补充）；旧首购九折码 ZLOARB 的当前有效性和适用条件待确认。6.8 元 20GB 是付费流量包。",
     "lowestPlan": {
       "price": "¥6.8",
       "traffic": "20GB 永久"
@@ -1139,7 +1155,7 @@
       "USDT"
     ],
     "refundPolicy": "退款条件待确认，付款前请核对套餐与售后条款。",
-    "trial": "免费体验待确认。首页提供体验券兑换入口，旧券 yp7net 的 1 天 5GB 额度尚待核实；6.8 元 20GB 为付费套餐。",
+    "trial": "支持通过官网体验券兑换框使用 yp7net 领取 1 天 5GB 免费试用；2026-09-27 由站长补充确认，实际到账以账户显示为准。",
     "noExpiry": "支持，6 档永久流量包，一次购买、永久有效，流量用完为止",
     "nodeCount": 30,
     "onlineSnapshot": "2026-07-29 晚间客户端截图中可辨认 29 个实际线路节点，均返回探测延迟；显示范围 120–3101 ms，其中 3 个节点达到 500 ms 以上。",
@@ -1624,6 +1640,17 @@
       "trafficGb": 1800,
       "priceLabel": "¥28/30天",
       "trafficLabel": "每日 60GB（30 天）"
+    },
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/wangji-kuaiche-review/",
+    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-10；体验券规则于 2026-09-27 获站长补充。",
+    "selectionGuide": {
+      "goodFor": [
+        "会配置第三方客户端，想比较不限时总流量包或每日 60GB 上限的日享包。"
+      ],
+      "checkBeforeBuying": [
+        "6.8 元 20GB 是付费包；日享包每天重置，累计展示流量不能一次使用。"
+      ]
     }
   },
   {
@@ -1633,11 +1660,8 @@
     "affiliate": true,
     "foundedAt": "2024",
     "couponCode": "xxyun",
+    "couponLabel": "新用户单次九折码",
     "registrationOffer": "新注册用户首次购买可使用九折优惠码，成功使用一次后失效。",
-    "chatgptStatus": "2026-09-11 晚高峰：香港节点流畅",
-    "chatgptStatusUpdated": "2026-09-11",
-    "streamingStatus": "2026-09-11 晚高峰：香港节点 YouTube 4K 流畅",
-    "streamingStatusUpdated": "2026-09-11",
     "protocol": "VLESS / ANYTLS / Shadowsocks / V2NODE / TUIC",
     "status": "持续监测中",
     "serviceStatus": "持续监测中；2026-09-11 香港节点可测速，ChatGPT 和 YouTube 4K 均流畅",
@@ -1992,7 +2016,18 @@
       "trafficLabel": "100GB/月"
     },
     "clientSupportVerifiedAt": "2026-09-24",
-    "officialClientOnly": true
+    "officialClientOnly": true,
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/xxyun-review-2026/",
+    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-10；2026-10-03 的来源页编辑未重新核价或测速。",
+    "selectionGuide": {
+      "goodFor": [
+        "预算约 10 元/月、接受官方专属客户端与 100GB/月流量的用户。"
+      ],
+      "checkBeforeBuying": [
+        "不支持通用订阅；三个地区的测试日期仍不足，暂不能计算综合评分。"
+      ]
+    }
   },
   {
     "slug": "flybit",
@@ -2002,9 +2037,6 @@
     "foundedAt": "2024-07-15",
     "couponCode": "flybit",
     "registrationOffer": "九折码 flybit；到期日、首购限制和适用套餐未明确，实际优惠以结算页为准。",
-    "chatgptStatus": "2026-08-13 晚高峰：新加坡、日本、美国节点流畅，香港节点不可用",
-    "chatgptStatusUpdated": "2026-08-13",
-    "streamingStatus": "2026-08-13 晚高峰：新加坡、日本、香港、美国节点均流畅",
     "protocol": "SS / Secure 隧道（通用订阅）",
     "status": "持续监测中",
     "summary": "月付 15 元含 128GB，不限时总流量包 36 元 128GB 起。后台提供 7 个第三方客户端导入入口，适合接受订阅配置和多设备共享流量的用户。",
@@ -2477,6 +2509,17 @@
       "trafficGb": 128,
       "priceLabel": "¥15/月",
       "trafficLabel": "128GB/月"
+    },
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/flybit-review-2026/",
+    "sourceReviewNote": "官网套餐价格核对于 2026-09-08、客户端资料核对于 2026-09-09；试用规则于 2026-09-27 获站长补充。",
+    "selectionGuide": {
+      "goodFor": [
+        "会导入第三方订阅，想比较 15 元 128GB 月付或不限时总流量包。"
+      ],
+      "checkBeforeBuying": [
+        "需自行安装兼容客户端并完成连接；一键导入不代表已经联网。"
+      ]
     }
   },
   {
@@ -2486,7 +2529,6 @@
     "affiliate": true,
     "foundedAt": "2025-11-01",
     "couponCode": "无",
-    "streamingStatus": "新加坡节点第 4 天缓冲慢；香港节点稳定；日本节点第 4 天缓冲时间长；美国节点第 2 天缓冲严重、第 3 天稳定",
     "protocol": "VLESS（专属客户端 / 通用订阅）",
     "status": "持续监测中",
     "summary": "官网当前提供 100GB 至 1TB 的四档周期套餐，以及不限时流量包和企业定制方案；官方客户端覆盖 iOS、Android、macOS 与 Windows，高档套餐提供 BGP+IEPL 线路，实际表现以本站测速为准。",
@@ -2500,7 +2542,7 @@
     "testClient": "FlClash（macOS）",
     "universalSubscription": "支持第三方代理订阅；遇到全地区节点超时或订阅更新失败时，官网公告建议重置订阅并重新导入",
     "deviceLimit": "第三方代理连接数量不限；官方客户端限制 3 台设备",
-    "trial": "新用户可免费试用，需使用官方自研客户端；官网当前页面未注明试用流量和有效期",
+    "trial": "新用户可免费试用 1 天 6GB；2026-09-27 由站长补充确认，实际到账额度和期限以账户显示为准。",
     "noExpiry": "支持 ¥45 的 150GB 随心充能包，不限时并可手动重置流量",
     "nodeCount": 42,
     "onlineSnapshot": "2026-07-17 11:04 客户端截图中 42/42 个实际地区节点在线；官网与 TG 群组为信息入口，不计入节点总数",
@@ -2537,8 +2579,8 @@
       "支付宝",
       "微信"
     ],
-    "refundPolicy": "不支持退款。",
-    "billingPolicy": "四档周期套餐支持月付、季付、半年付和年付；常规套餐每月在订单日重置流量，未用完流量不结转。随心充能包和 VIP 包场拼为一次性购买。",
+    "refundPolicy": "退款政策尚未核实，付款前请向客服确认适用条件。",
+    "billingPolicy": "四档周期套餐支持月付、季付、半年付和年付；常规套餐每月在订单日重置流量，未用完流量不结转。一个账号使用一种套餐，手动重置流量不改变套餐到期日。随心充能包和 VIP 包场拼为一次性购买。",
     "plans": [
       {
         "name": "天天尝鲜拼",
@@ -2940,28 +2982,37 @@
         ]
       }
     ],
-    "commercialReviewedAt": "2026-09-19",
+    "commercialReviewedAt": "2026-09-27",
     "scoringPlan": {
       "name": "天天尝鲜拼",
       "priceCny": 9.9,
       "trafficGb": 100,
       "priceLabel": "¥9.90/月",
       "trafficLabel": "100GB/月"
+    },
+    "clientNotes": "官方客户端通过账号登录；FlClash 可按官网教程导入订阅。重置订阅会使旧链接失效，需要在第三方客户端重新导入；重置订阅与重置流量是不同操作。",
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/runway-review-2026/",
+    "sourceReviewNote": "官网套餐、客户端与使用说明核对于 2026-09-27；1 天 6GB 试用由站长补充，退款政策仍待核实。",
+    "selectionGuide": {
+      "goodFor": [
+        "想先使用 1 天 6GB 试用，再比较 9.9 元 100GB 月付与 45 元 150GB 不限时包。"
+      ],
+      "checkBeforeBuying": [
+        "官方客户端限制 3 台；第三方订阅需确认兼容格式，退款政策待核实。"
+      ]
     }
   },
   {
     "slug": "cocoduck",
     "name": "cocoduck",
-    "website": "https://www.cocoduck.site/auth/register?code=ca0cfb89fa",
+    "website": "https://cocoduck.live/auth/register?code=ca0cfb89fa",
     "affiliate": true,
     "foundedAt": "2023",
     "couponCode": "无",
-    "chatgptStatus": "2026-08-13 晚高峰：日本节点流畅，新加坡节点轻微延迟，香港、美国节点响应较慢",
-    "chatgptStatusUpdated": "2026-08-13",
-    "streamingStatus": "2026-08-13 晚高峰：日本节点流畅，新加坡节点轻微缓冲，香港、美国节点缓冲明显",
     "protocol": "VLESS / AnyTLS",
     "status": "持续监测中",
-    "summary": "官网当前提供个人、精英、家庭、团队及迷你鸭 77 五档套餐，标注支持全部节点线路、全球 AI、4K 流媒体、全平台客户端，且不限连接速度和设备数量；实际体验以本站长期测速为准。",
+    "summary": "官网当前提供个人、精英、家庭、团队及迷你鸭 77 五档套餐，标注不限连接速度和设备数量；Android、Android TV、Windows、macOS 有专属客户端，iOS 使用第三方客户端。AI 与流媒体体验以本站对应日期的测速为准。",
     "platforms": [
       "Android",
       "Android TV",
@@ -2972,7 +3023,7 @@
     "testClient": "FlClash（macOS）",
     "universalSubscription": "提供 Clash、ShadowRocket、Quantumult、Stash 与 V2Ray 订阅入口",
     "deviceLimit": "官网套餐页标注不限制设备数量",
-    "trial": "新注册用户可免费试用，24 小时或 2GB 以先到者为准",
+    "trial": "新注册用户可免费试用，24 小时或 2GB 以先到者为准；试用不提供人工支持。",
     "noExpiry": "不支持独立不限时套餐；另有流量加油包，但仅可配合当前常规套餐使用",
     "nodeCount": 75,
     "onlineSnapshot": "2026-07-17 客户端清单共 75 个节点，截图中全部标记在线；2026-07-29 晚间使用 FlClash 复查时，公开证据截图覆盖的 37 个地区节点中 36 个可达、1 个超时。在线标记与客户端延迟只代表截图时刻的连通状态。",
@@ -3466,13 +3517,25 @@
         "connectionType": "Wi-Fi"
       }
     ],
-    "commercialReviewedAt": "2026-09-19",
+    "commercialReviewedAt": "2026-09-27",
     "scoringPlan": {
       "name": "个人套餐（月付）",
       "priceCny": 17,
       "trafficGb": 100,
       "priceLabel": "¥17/月",
       "trafficLabel": "100GB/月"
+    },
+    "clientNotes": "Android、Android TV、Windows 和 macOS 提供专属客户端；iOS 使用第三方客户端，专属客户端仍在开发，OpenWRT 专属客户端也仍在开发。提供 Clash 主用与备用订阅。旧版 Clash for Windows、ClashX Pro、V2RayN 和 Surge 曾被公告提示兼容问题；导入失败时先核对当前教程与客户端版本。2026-09-05 公告称此前 DNS 污染问题已修复，无需长期沿用临时强制 DNS 设置。",
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/cocoduck-review/",
+    "sourceReviewNote": "官网套餐、客户端与试用公告核对于 2026-09-27；2026-10-03 的来源页编辑未重新核价或测速。",
+    "selectionGuide": {
+      "goodFor": [
+        "想先使用 1 天 2GB 试用，再按月流量比较常规套餐。"
+      ],
+      "checkBeforeBuying": [
+        "流量加油包须搭配有效常规套餐；旧版第三方客户端的兼容性需确认。"
+      ]
     }
   },
   {
@@ -3482,24 +3545,21 @@
     "affiliate": true,
     "foundedAt": "2026-02",
     "couponCode": "xk808",
-    "registrationOffer": "仅限新注册用户首次购买使用，成功使用一次后失效；结算页实测显示 20% 折扣，即实付八折。",
+    "registrationOffer": "优惠码 xk808 标注八折，适用于常规月付套餐和 ¥98 年付小包；¥15 月付体验包不参加优惠。有效期和能否与其他折扣叠加待确认，实际金额以结算页为准。",
     "offerEvidenceImages": [
       "/evidence/edgenode/2026-07-29-coupon-xk808-20-percent.jpg"
     ],
-    "chatgptStatus": "2026-08-13 晚高峰：香港节点不可用，美国、新加坡、日本节点轻微延迟",
-    "chatgptStatusUpdated": "2026-08-13",
-    "streamingStatus": "2026-08-13 晚高峰：香港节点缓冲严重，美国、新加坡、日本节点轻微缓冲",
     "protocol": "专属客户端",
     "status": "持续监测中",
-    "summary": "官网当前提供 ¥15 月付体验包、¥98 年付小包、五档常规套餐及两档永久流量包；仅支持官方专属客户端。套餐标注全 IPLC、最高 2.5Gbps、原生 IP、多设备不限，实际体验以本站测速为准。",
+    "summary": "官网当前提供 ¥15 月付体验包、¥98 年付小包、五档常规套餐及两档永久流量包；按官网指定客户端流程登录，不支持通用订阅。套餐标注全 IPLC、最高 2.5Gbps、原生 IP、多设备不限，实际体验以本站测速为准。",
     "platforms": [
       "官方客户端（Android）",
-      "官方客户端（iOS）",
+      "iOS（官网指定 Nextin）",
       "官方客户端（macOS）",
       "官方客户端（Windows）"
     ],
-    "testClient": "官网提供 Android、iOS、macOS 与 Windows 客户端；本站测速使用机场官方专属客户端",
-    "universalSubscription": "不支持 Clash、FlClash、Mihomo、Shadowrocket 等通用客户端订阅；仅支持边缘节点官方专属客户端。",
+    "testClient": "官网指定 Android、Windows、macOS 专属客户端及 iOS Nextin；本站测速使用机场官方专属客户端",
+    "universalSubscription": "不支持 Clash、FlClash、Mihomo、Shadowrocket 等通用订阅；Android、Windows、macOS 使用官方专属客户端，iOS 按官网教程使用 Nextin 和识别码登录。",
     "deviceLimit": "套餐页标注不限制设备连接数量，可多端同时登录",
     "nodeCount": 72,
     "onlineSnapshot": "2026-07-29 19:36 采集时 72/72 在线，0 个离线",
@@ -3529,8 +3589,8 @@
       "USDT"
     ],
     "trial": "不支持免费试用；¥15 的 50GB 限时体验月付小包为付费套餐，不参加优惠活动",
-    "noExpiry": "支持 ¥100/100GB 与 ¥399/450GB 两档永久不限时流量包，不自动重置，可付费手动重置",
-    "refundPolicy": "不支持退款。",
+    "noExpiry": "支持 ¥100/100GB 与 ¥399/450GB 两档永久不限时流量包，不自动重置，可付费手动重置；450GB 包的重置报价待核实",
+    "refundPolicy": "退款规则尚未核实，付款前请向客服确认。",
     "plans": [
       {
         "name": "限时体验月付小包",
@@ -3829,14 +3889,14 @@
         "traffic": "450GB 不限时",
         "details": [
           "购买后不自动重置",
-          "页面标注支持付费手动重置",
+          "页面标注支持付费手动重置，但重置费算式与 ¥399 标价不一致，需确认报价",
           "所有节点 1×、高峰不降速",
           "全 IPLC、最高 2.5Gbps",
           "不限设备数量"
         ]
       }
     ],
-    "commercialReviewedAt": "2026-09-20",
+    "commercialReviewedAt": "2026-09-27",
     "scoringPlan": {
       "name": "极界·标准套餐",
       "priceCny": 22,
@@ -3846,7 +3906,18 @@
     },
     "clientSupportVerifiedAt": "2026-09-24",
     "officialClientOnly": true,
-    "clientNotes": "按设备系统从官网获取官方专属客户端。通用 Clash 订阅或第三方客户端无法使用。"
+    "clientNotes": "按官网指定流程登录：Android、Windows、macOS 使用官方专属客户端；iOS 按官网教程使用 Nextin，输入识别码 edgenova0526 后以官网账号登录。Clash、Shadowrocket 等通用订阅不可用。",
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/bianyuan-review-2026/",
+    "sourceReviewNote": "官网套餐、客户端与优惠说明核对于 2026-09-27；退款条件仍待核实。",
+    "selectionGuide": {
+      "goodFor": [
+        "接受官方专属客户端，比较 15 元体验月付和不限时总流量包。"
+      ],
+      "checkBeforeBuying": [
+        "不提供免费试用或通用订阅；15 元体验包不参加八折活动，450GB 包的重置报价与退款条件待核实。"
+      ]
+    }
   },
   {
     "slug": "xsus",
@@ -3855,10 +3926,7 @@
     "affiliate": true,
     "foundedAt": "2020",
     "couponCode": "BdHUPs0L",
-    "registrationOffer": "使用优惠码可享 9 折优惠。",
-    "chatgptStatus": "2026-08-12 晚高峰：日本、香港节点流畅，新加坡、美国节点轻微延迟",
-    "chatgptStatusUpdated": "2026-08-12",
-    "streamingStatus": "2026-08-12 晚高峰：香港、美国节点流畅，日本、新加坡节点轻微缓冲",
+    "registrationOffer": "旧优惠码 BdHUPs0L 的当前有效性和适用条件待确认；套餐价格按未折扣标价展示，实际金额以结算页为准。",
     "protocol": "专属客户端 / 通用订阅",
     "status": "持续监测中",
     "summary": "官网当前提供 168GB 至 1024GB 的常规月付套餐、IEPL 企业专线及四档不限时流量包；支持全平台客户端、主流订阅导入、AI 与 Netflix、Disney 解锁，实际体验以本站测速为准。",
@@ -4346,13 +4414,26 @@
       "/evidence/xsus/2026-07-17-plans-subscription.png",
       "/evidence/xsus/2026-07-17-plans-no-expiry.png"
     ],
-    "commercialReviewedAt": "2026-09-20",
+    "commercialReviewedAt": "2026-09-23",
     "scoringPlan": {
       "name": "P-Small 基础套餐",
       "priceCny": 12,
       "trafficGb": 168,
       "priceLabel": "¥12/月起",
       "trafficLabel": "168GB/月"
-    }
+    },
+    "clientNotes": "帮助中心提供 Windows、Android、macOS、iOS 和 Linux 客户端教程，仪表盘提供复制订阅、二维码和 Clash、sing-box、Shadowrocket、Loon 导入入口；这些入口不代表本站已逐平台安装测试。",
+    "editorialUpdatedAt": "2026-10-04",
+    "sourcePage": "https://yp7.net/posts/xsus-review-2026/",
+    "sourceReviewNote": "官网套餐、帮助中心与仪表盘核对于 2026-09-23；不支持免费试用于 2026-09-27 获站长补充。",
+    "selectionGuide": {
+      "goodFor": [
+        "需要 168GB 起的月付套餐或不限时总流量包，并接受官方或第三方客户端。"
+      ],
+      "checkBeforeBuying": [
+        "最多 5 个 IP；周期流量不结转，续费不立即重置流量；不提供免费试用。"
+      ]
+    },
+    "couponLabel": "旧优惠码（待复核）"
   }
 ]

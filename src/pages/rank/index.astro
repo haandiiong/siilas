@@ -21,7 +21,7 @@ const rankStructuredData = {
       name: '机场排行榜｜速度、稳定性与 AI 解锁实测',
       description: rankDescription,
       inLanguage: 'zh-CN',
-      dateModified: [...airports].map((airport) => airport.pageModifiedAt).sort().at(-1),
+      dateModified: [...airports].map((airport) => airport.rankingDataModifiedAt).sort().at(-1),
       author: {
         '@type': 'Person',
         '@id': `${authorUrl}#person`,

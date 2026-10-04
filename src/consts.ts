@@ -3,6 +3,6 @@ export const SITE_DESCRIPTION = 'Siilas 持续记录主流机场在香港、日�
 export const SITE_URL = 'https://siilas.com';
 export const AUTHOR_NAME = 'siilas';
 export const AUTHOR_DESCRIPTION = 'siilas专注于机场节点在真实使用中的表现。';
-export const TEST_NETWORK = '中国北方联通 1000M 宽带';
+export const TEST_NETWORK = '中国大陆联通电信移动1000M带宽';
 export const TEST_DEVICE = 'MacBook';
 export const TEST_CLIENTS = '机场专属客户端和 FlClash';

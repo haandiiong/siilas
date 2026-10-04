@@ -2,17 +2,22 @@
   "name": "siilas",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@11.19.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.13.0"
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "pnpm data:test && pnpm data:audit && pnpm data:handoff && pnpm check && astro build",
     "check": "astro check",
     "data:audit": "node scripts/audit-data.mjs",
+    "data:test": "node --test scripts/date-validation.test.mjs",
+    "data:handoff": "node scripts/check-airport-source-handoff.mjs",
+    "data:handoff:source": "node scripts/check-airport-source-handoff.mjs --source",
+    "data:handoff:accept": "node scripts/check-airport-source-handoff.mjs --accept",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "preview": "astro preview",
-    "validate": "pnpm data:audit && pnpm check && pnpm build",
+    "validate": "pnpm build",
     "astro": "astro"
   },
   "dependencies": {

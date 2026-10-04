@@ -1,31 +1,73 @@
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, isCalendarDate } from '../src/data/date-utils.mjs';
 
 const PROJECT_ROOT = fileURLToPath(new URL('..', import.meta.url));
 const REGIONS = ['新加坡', '香港', '日本', '美国'];
 const MIN_REGION_DAYS = 3;
 
-const addMonths = (dateKey, months) => {
-	const date = new Date(`${dateKey}T00:00:00Z`);
-	date.setUTCMonth(date.getUTCMonth() + months);
-	return date.toISOString().slice(0, 10);
-};
-
 const unique = (values) => [...new Set(values)];
 
-export const auditData = async ({ airports, projectRoot, today }) => {
+export const auditData = async ({ airports, profiles = [], pageUpdates = {}, projectRoot, today = getShanghaiDateKey() }) => {
+	if (!isCalendarDate(today)) throw new RangeError(`无效审计日期：${today}`);
 	const errors = [];
 	const warnings = [];
+	const validateDate = (value, label) => {
+		const message = getDateValidationError(value, today);
+		if (message) errors.push(`${label}：${message}（${String(value)}）`);
+		return !message;
+	};
+	for (const [pathname, updatedAt] of Object.entries(pageUpdates)) validateDate(updatedAt, `页面 ${pathname} 编辑日期`);
 	const airportSlugs = airports.map((airport) => airport.slug);
 	const duplicateSlugs = unique(airportSlugs.filter((slug, index) => airportSlugs.indexOf(slug) !== index));
 	for (const slug of duplicateSlugs) errors.push(`机场 slug 重复：${slug}`);
+	const profileSlugs = profiles.map((profile) => profile.slug);
+	const allSlugs = [...airportSlugs, ...profileSlugs];
+	for (const slug of unique(allSlugs.filter((value, index) => allSlugs.indexOf(value) !== index))) {
+		if (!duplicateSlugs.includes(slug)) errors.push(`实测页与资料页 slug 冲突或资料页重复：${slug}`);
+	}
+	for (const profile of profiles) {
+		const validSourceReviewedAt = validateDate(profile.sourceReviewedAt, `${profile.name} sourceReviewedAt`);
+		const validSourceUpdatedAt = validateDate(profile.sourceUpdatedAt, `${profile.name} sourceUpdatedAt`);
+		const validEditorialUpdatedAt = validateDate(profile.editorialUpdatedAt, `${profile.name} editorialUpdatedAt`);
+		if (profile.publishedAt != null) {
+			const validPublishedAt = validateDate(profile.publishedAt, `${profile.name} publishedAt`);
+			if (validPublishedAt && validEditorialUpdatedAt && profile.publishedAt > profile.editorialUpdatedAt) {
+				errors.push(`${profile.name}首次发布日期晚于页面编辑日期`);
+			}
+		}
+		if (validSourceReviewedAt && validSourceUpdatedAt && profile.sourceReviewedAt > profile.sourceUpdatedAt) {
+			errors.push(`${profile.name}来源核对日期晚于来源页编辑日期`);
+		}
+		if (profile.status !== 'stopped' && validSourceReviewedAt) {
+			const nextReviewAt = addCalendarMonths(profile.sourceReviewedAt, 2);
+			if (nextReviewAt <= today) warnings.push(`${profile.name}来源资料需要复核：${nextReviewAt}`);
+		}
+	}
+	for (const airport of airports) {
+		validateDate(airport.commercialReviewedAt, `${airport.name} commercialReviewedAt`);
+		for (const field of ['editorialUpdatedAt', 'clientSupportVerifiedAt', 'serviceStatusUpdated', 'chatgptStatusUpdated', 'streamingStatusUpdated']) {
+			if (airport[field] !== undefined) validateDate(airport[field], `${airport.name} ${field}`);
+		}
+		if (airport.foundedAt !== undefined) {
+			const message = getPartialDateValidationError(airport.foundedAt, today);
+			if (message) errors.push(`${airport.name} foundedAt：${message}（${String(airport.foundedAt)}）`);
+		}
+		for (const [index, snapshot] of (airport.nodeSnapshots ?? []).entries()) {
+			validateDate(snapshot.capturedAt, `${airport.name} nodeSnapshots[${index}].capturedAt`);
+		}
+		for (const [index, incident] of (airport.serviceIncidents ?? []).entries()) {
+			validateDate(incident.observedAt, `${airport.name} serviceIncidents[${index}].observedAt`);
+		}
+	}
 
 	const allTests = airports.flatMap((airport) => (airport.tests ?? [])
 		.map((test) => ({ airportSlug: airport.slug, test })));
 	const ids = new Map();
 	const resultUrls = new Map();
 	for (const { airportSlug, test } of allTests) {
+		validateDate(test.testedAt, `${airportSlug} 测试 ${test.id} testedAt`);
 		const idKey = `${airportSlug}:${test.id}`;
 		if (ids.has(idKey)) errors.push(`测试 ID 重复：${idKey}`);
 		ids.set(idKey, true);
@@ -46,14 +88,16 @@ export const auditData = async ({ airports, projectRoot, today }) => {
 		const verifiedTests = allTests
 			.filter((item) => item.airportSlug === airport.slug)
 			.map((item) => item.test)
-			.filter((test) => test.resultUrl || test.evidenceImage);
+			.filter((test) => (test.resultUrl || test.evidenceImage) && !getDateValidationError(test.testedAt, today));
 		const regionDays = Object.fromEntries(REGIONS.map((region) => [
 			region,
 			new Set(verifiedTests.filter((test) => test.node.includes(region)).map((test) => test.testedAt)).size,
 		]));
-		const nextReviewAt = addMonths(airport.commercialReviewedAt, 2);
-		const reviewState = nextReviewAt < today ? '已到期' : nextReviewAt === today ? '今日到期' : '正常';
-		if (reviewState !== '正常') warnings.push(`${airport.name}商业资料${reviewState}：${nextReviewAt}`);
+		const nextReviewAt = getDateValidationError(airport.commercialReviewedAt, today)
+			? '无效日期' : addCalendarMonths(airport.commercialReviewedAt, 2);
+		const reviewState = nextReviewAt === '无效日期' ? '日期错误'
+			: nextReviewAt < today ? '已到期' : nextReviewAt === today ? '今日到期' : '正常';
+		if (reviewState !== '正常' && reviewState !== '日期错误') warnings.push(`${airport.name}商业资料${reviewState}：${nextReviewAt}`);
 		const gaps = REGIONS.filter((region) => regionDays[region] < MIN_REGION_DAYS)
 			.map((region) => `${region}缺${MIN_REGION_DAYS - regionDays[region]}天`);
 
@@ -69,20 +113,20 @@ export const auditData = async ({ airports, projectRoot, today }) => {
 		};
 	});
 
-	return { today, airportCount: airports.length, testCount: allTests.length, rows, errors, warnings };
+	return { today, airportCount: airports.length, profileCount: profiles.length, testCount: allTests.length, rows, errors, warnings };
 };
 
 const run = async () => {
 	const airports = await readFile(join(PROJECT_ROOT, 'src/data/airports.json'), 'utf8').then(JSON.parse);
-	const today = new Intl.DateTimeFormat('en-CA', {
-		timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
-	}).format(new Date());
-	const report = await auditData({ airports, projectRoot: PROJECT_ROOT, today });
+	const profiles = await readFile(join(PROJECT_ROOT, 'src/data/airport-profiles.json'), 'utf8').then(JSON.parse);
+	const pageUpdates = await readFile(join(PROJECT_ROOT, 'src/data/page-updates.json'), 'utf8').then(JSON.parse);
+	const today = getShanghaiDateKey();
+	const report = await auditData({ airports, profiles, pageUpdates, projectRoot: PROJECT_ROOT, today });
 
 	if (process.argv.includes('--json')) {
 		console.log(JSON.stringify(report, null, 2));
 	} else {
-		console.log(`数据审计日期：${report.today}｜机场 ${report.airportCount}｜测速 ${report.testCount}`);
+		console.log(`数据审计日期：${report.today}｜实测机场 ${report.airportCount}｜资料页 ${report.profileCount}｜测速 ${report.testCount}`);
 		console.table(report.rows.map((row) => ({
 			机场: row.name,
 			资料复核: row.commercialReviewedAt,

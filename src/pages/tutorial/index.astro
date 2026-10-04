@@ -2,6 +2,16 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { airports, getTests } from '../../data/airport-data';
+
+const hongKongTests = airports.flatMap((airport) => getTests(airport))
+  .filter((test) => test.node.includes('香港') && (test.resultUrl || test.evidenceImage));
+const latestHongKongTestAt = hongKongTests.map((test) => test.testedAt).sort().at(-1);
+const hongKongChatgptSummary = (['流畅', '轻微延迟', '响应较慢', '响应严重延迟', '不可用'] as const)
+  .map((status) => ({ status, count: hongKongTests.filter((test) => test.chatgpt === status).length }))
+  .filter(({ count }) => count > 0)
+  .map(({ status, count }) => `${status} ${count} 条`)
+  .join('、');
 ---
 <html lang="zh-CN"><head><BaseHead title="机场客户端使用教程｜Clash 与 Shadowrocket" description="机场客户端使用与故障排查教程：介绍 Clash Verge、Shadowrocket 订阅导入、VLESS 与 SS 选择、订阅失效、晚高峰变慢和 ChatGPT 无法访问的处理方法。"/></head><body><Header/><main class="shell">
   <div class="page-head"><div class="section-kicker">Practical guides</div><h1>使用教程</h1><p>从第一次导入订阅，到定位速度、节点和服务可用性问题。</p><div class="actions"><a class="button secondary" href="/methodology/">查看测速方法</a><a class="button secondary" href="/test/">浏览真实测速</a></div></div>
@@ -11,6 +21,6 @@ import Footer from '../../components/Footer.astro';
     <article class="card"><span class="section-kicker">指南 03</span><h2>VLESS 与 SS 怎么选</h2><p><strong>SS：</strong>实现简单、客户端覆盖广，适合常规订阅使用。</p><p><strong>VLESS：</strong>组合方式更多，是否可用取决于机场线路与客户端支持。</p><p class="desc">优先使用机场提供的配置，不要手动修改订阅中的协议参数。</p></article>
     <article class="card"><span class="section-kicker">指南 04</span><h2>订阅链接失效排查</h2><ol><li>检查套餐是否到期或流量用尽。</li><li>在机场后台确认域名和订阅地址是否变化。</li><li>删除旧配置后重新导入，校准系统时间。</li><li>仍失败时生成新链接并联系售后。</li></ol></article>
     <article class="card"><span class="section-kicker">指南 05</span><h2>晚高峰速度变慢</h2><p>常见原因包括本地 Wi-Fi 拥堵、入口线路负载、节点倍率、出口带宽和测速服务器差异。</p><ol><li>固定设备、测速服务器和节点。</li><li>连续测试三次并记录中位数。</li><li>在日间与 20:00–23:00 分别复测。</li></ol></article>
-    <article class="card"><span class="section-kicker">指南 06</span><h2>ChatGPT 无法访问</h2><ol><li>先切换到新加坡、日本或美国节点。</li><li>确认浏览器出口国家与所选节点一致。</li><li>更换同地区不同线路，排除出口 IP 限制。</li><li>香港节点在本站当前样本中均不可用。</li></ol><p class="desc">能打开普通网页不代表特定服务一定可用，可用性需要单独测试。</p></article>
+    <article class="card"><span class="section-kicker">指南 06</span><h2>ChatGPT 无法访问</h2><ol><li>先切换到新加坡、日本或美国节点。</li><li>确认浏览器出口国家与所选节点一致。</li><li>更换同地区不同线路，排除出口 IP 限制。</li><li>{latestHongKongTestAt ? <>截至 {latestHongKongTestAt}，本站香港节点的 ChatGPT 实测为：{hongKongChatgptSummary}。请按机场和测试日期判断。</> : '香港节点暂无 ChatGPT 实测记录。'}</li></ol><p class="desc">能打开普通网页不代表特定服务一定可用，可用性需要单独测试。<a class="text-link" href="/test/">查看原始测速 →</a></p></article>
   </div>
 </main><Footer/></body></html>

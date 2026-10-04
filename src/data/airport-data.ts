@@ -1,5 +1,8 @@
 import { z } from 'astro/zod';
 import rawAirports from './airports.json';
+import { foundedDateSchema, historicalDateSchema } from './date-schema';
+import { addCalendarMonths, getShanghaiDateKey } from './date-utils.mjs';
+import { getLatestExperienceSummary } from './test-record-presentation';
 
 const chatgptStatusSchema = z.enum([
 	'流畅',
@@ -23,7 +26,7 @@ const streamingStatusSchema = z.enum([
 
 const testSchema = z.object({
 	id: z.string().min(1),
-	testedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	testedAt: historicalDateSchema,
 	time: z.string().nullable(),
 	window: z.string(),
 	node: z.string().min(1),
@@ -51,7 +54,7 @@ const testSchema = z.object({
 });
 
 const nodeSnapshotSchema = z.object({
-	capturedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	capturedAt: historicalDateSchema,
 	time: z.string().min(1),
 	total: z.number().int().positive(),
 	reachable: z.number().int().nonnegative(),
@@ -65,7 +68,7 @@ const nodeSnapshotSchema = z.object({
 });
 
 const serviceIncidentSchema = z.object({
-	observedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	observedAt: historicalDateSchema,
 	time: z.string().min(1),
 	status: z.string().min(1),
 	speedtest: z.string().min(1),
@@ -79,14 +82,11 @@ const airportSchema = z.object({
 	name: z.string().min(1),
 	website: z.url().optional(),
 	affiliate: z.boolean().optional(),
-	foundedAt: z.string().optional(),
+	foundedAt: foundedDateSchema.optional(),
 	couponCode: z.string().optional(),
 	couponLabel: z.string().optional(),
 	registrationOffer: z.string().optional(),
 	offerEvidenceImages: z.array(z.string().startsWith('/')).optional(),
-	chatgptStatus: z.string().optional(),
-	chatgptStatusUpdated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-	streamingStatus: z.string().optional(),
 	scoringPlan: z.object({
 		name: z.string().min(1),
 		priceCny: z.number().positive(),
@@ -101,13 +101,20 @@ const airportSchema = z.object({
 	protocol: z.string(),
 	status: z.string(),
 	serviceStatus: z.string().optional(),
-	serviceStatusUpdated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-	commercialReviewedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	serviceStatusUpdated: historicalDateSchema.optional(),
+	commercialReviewedAt: historicalDateSchema,
+	editorialUpdatedAt: historicalDateSchema.optional(),
+	sourcePage: z.url().optional(),
+	sourceReviewNote: z.string().optional(),
+	selectionGuide: z.object({
+		goodFor: z.array(z.string().min(1)).min(1),
+		checkBeforeBuying: z.array(z.string().min(1)).min(1),
+	}).optional(),
 	summary: z.string(),
 	platforms: z.array(z.string()).optional(),
 	testClient: z.string().optional(),
 	officialClientOnly: z.boolean().optional(),
-	clientSupportVerifiedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+	clientSupportVerifiedAt: historicalDateSchema.optional(),
 	universalSubscription: z.string().optional(),
 	clientNotes: z.string().optional(),
 	deviceLimit: z.string().optional(),
@@ -315,11 +322,11 @@ export const airports = parsedAirports.map((airport) => {
 	const dataDays = countMonitoringDays(scoringSamples);
 	const verifiedTestCount = (airport.tests ?? []).filter((test) => test.resultUrl || test.evidenceImage).length;
 	const latestTestAt = scoringSamples.map((sample) => sample.testedAt).sort().at(-1) ?? null;
-	const pageModifiedAt = [airport.commercialReviewedAt, airport.clientSupportVerifiedAt, latestTestAt].filter(isPresent).sort().at(-1)
+	const rankingDataModifiedAt = [airport.commercialReviewedAt, latestTestAt].filter(isPresent).sort().at(-1)
 		?? airport.commercialReviewedAt;
-	const commercialReviewDate = new Date(`${airport.commercialReviewedAt}T00:00:00Z`);
-	commercialReviewDate.setUTCMonth(commercialReviewDate.getUTCMonth() + 2);
-	const nextCommercialReviewAt = commercialReviewDate.toISOString().slice(0, 10);
+	const pageModifiedAt = [rankingDataModifiedAt, airport.clientSupportVerifiedAt, airport.editorialUpdatedAt].filter(isPresent).sort().at(-1)
+		?? rankingDataModifiedAt;
+	const nextCommercialReviewAt = addCalendarMonths(airport.commercialReviewedAt, 2);
 	const dailySamples = aggregateSamplesByRegionDay(scoringSamples);
 	const regionalSampleDays = Object.fromEntries(REQUIRED_NODE_REGIONS.map(({ name }) => [
 		name,
@@ -350,6 +357,7 @@ export const airports = parsedAirports.map((airport) => {
 	return {
 		...airport,
 		latestTestAt,
+		rankingDataModifiedAt,
 		pageModifiedAt,
 		nextCommercialReviewAt,
 		dataDays,
@@ -373,28 +381,7 @@ export const getMaxDownload = (airport: Airport) => {
 	return downloads.length ? Math.max(...downloads) : null;
 };
 
-export const getChatGPTSummary = (airport: Airport) => {
-	if (airport.chatgptStatus) return airport.chatgptStatus;
-	const values = [...new Set([
-		...getTests(airport).map((test) => test.chatgpt),
-	])];
-	if (!values.length) return '待测试';
-	if (values.length > 1) return '结果不一';
-	return values[0];
-};
+export const getChatGPTSummary = (airport: Airport) => getLatestExperienceSummary(getTests(airport), 'chatgpt');
+export const getStreamingSummary = (airport: Airport) => getLatestExperienceSummary(getTests(airport), 'streaming');
 
-export const getStreamingSummary = (airport: Airport) => {
-	if (typeof airport.streamingStatus === 'string') return airport.streamingStatus;
-	const values = [...new Set([
-		...getTests(airport).map((test) => test.streaming),
-	])];
-	if (!values.length) return '待测试';
-	return values.length === 1 ? values[0] : '结果不一';
-};
-
-export const formatLocalDateKey = (date: Date) => {
-	const year = date.getFullYear();
-	const month = String(date.getMonth() + 1).padStart(2, '0');
-	const day = String(date.getDate()).padStart(2, '0');
-	return `${year}-${month}-${day}`;
-};
+export const formatLocalDateKey = getShanghaiDateKey;

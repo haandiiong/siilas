@@ -11,6 +11,7 @@ if (!key || !/^[A-Za-z0-9-]{8,128}$/.test(key)) {
 }
 
 const airportData = JSON.parse(await readFile(new URL('../src/data/airports.json', import.meta.url), 'utf8'));
+const airportProfiles = JSON.parse(await readFile(new URL('../src/data/airport-profiles.json', import.meta.url), 'utf8'));
 const defaultPaths = [
 	'/',
 	'/airport/',
@@ -22,6 +23,7 @@ const defaultPaths = [
 	'/disclosure/',
 	'/privacy/',
 	...airportData.map((airport) => `/airport/${airport.slug}/`),
+	...airportProfiles.map((profile) => `/airport/${profile.slug}/`),
 ];
 const paths = requestedPaths.length ? requestedPaths : defaultPaths;
 const urlList = [...new Set(paths.map((path) => new URL(path, origin).href))];

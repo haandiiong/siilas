@@ -57,3 +57,12 @@ export const toRecordedAtIso = (dateKey, time) => {
 	return typeof time === 'string' && /^(?:[01]\d|2[0-3]):[0-5]\d$/u.test(time)
 		? `${dateKey}T${time}:00+08:00` : dateKey;
 };
+
+/** Classify only an exact recorded China Standard Time; keep uncertain times unclassified. */
+export const getTestWindow = (time) => {
+	if (typeof time !== 'string' || !/^(?:[01]\d|2[0-3]):[0-5]\d$/u.test(time)) return null;
+	const hour = Number(time.slice(0, 2));
+	if (hour < 6) return '凌晨';
+	if (hour < 18) return '日间';
+	return hour >= 20 && hour < 23 ? '晚高峰' : '晚间';
+};

@@ -72,6 +72,14 @@ const isDivider = (line) => {
   return splitRow(line).every((cell) => /^:?-{3,}:?$/u.test(cell));
 };
 
+const isClientVersionTable = (headings, columns) => {
+  const section = headings.filter(Boolean).join(' > ');
+  return /客户端下载|自有客户端/u.test(section)
+    && /^(?:系统|平台)$/u.test(columns[0] ?? '')
+    && columns.includes('页面版本')
+    && columns.includes('页面标注更新日期');
+};
+
 const classify = (headings, columns) => {
   const section = headings.filter(Boolean).join(' > ');
   const firstColumn = columns[0] ?? '';
@@ -86,9 +94,10 @@ const classify = (headings, columns) => {
   const planColumns = /价格|付款|金额|月付|季付|半年付|年付|总价|月价|流量|额度|重置包价格/u.test(columnText);
   if (planSection && planColumns && /套餐|方案|商品|价格|付款|金额|月付|季付|半年付|年付|流量|额度|档位/u.test(columnText)) return 'planTables';
 
-  const clientFirstColumn = /^(?:设备|使用设备|设备或使用方式|系统|系统或方式|平台|后台菜单中的客户端|客户端)$/u.test(firstColumn);
+  const clientFirstColumn = /^(?:设备|设备分类|使用设备|设备或使用方式|系统|系统或方式|平台|后台菜单中的客户端|客户端)$/u.test(firstColumn);
   const clientColumns = /客户端|教程|入口|导入|使用方式|连接方式|官网|资料|文档|操作/u.test(columnText);
   if (clientFirstColumn && clientColumns && (/客户端|订阅|下载|导入|使用流程/u.test(section) || /系统|平台|客户端/u.test(firstColumn))) return 'clientTables';
+  if (isClientVersionTable(headings, columns)) return 'clientTables';
 
   return null;
 };
@@ -129,7 +138,9 @@ const extractTables = (markdown, filename) => {
       end += 1;
     }
     const kind = classify(headings, columns);
-    let title = tableTitle(lines, index, headings);
+    let title = isClientVersionTable(headings, columns)
+      ? '客户端下载版本信息'
+      : tableTitle(lines, index, headings);
     if (!kind) {
       skipped.push(`${title} (${rows.length} 行)`);
     } else if (rows.length > 0) {
@@ -184,7 +195,7 @@ if (process.argv.includes('--check')) {
   if (!matches) throw new Error(`airport-profile-details.json${slug ? ` 中 ${slug}` : ''} 与来源 Markdown 不一致；请重新运行生成脚本`);
   if (!process.argv.includes('--tables-only')) {
     await checkHandoff({ source: true, slug });
-    console.log('完整来源版本与已接收商业字段一致；--check 同时检查交接清单，不再仅检查表格。');
+    console.log('商业来源指纹（旧清单检查完整版本）与已接收商业字段一致；--check 同时检查交接清单，不再仅检查表格。');
   } else {
     console.log('仅检查套餐与客户端表；其余商业字段和来源版本需另行复核确认。');
   }

@@ -20,7 +20,7 @@
     "testClient": "机场官方专属客户端",
     "universalSubscription": "不支持通用订阅。Windows、Android 和 macOS 使用官网自研客户端，iOS 按知识库使用 Nextin；不能将普通订阅导入 Clash 或 Shadowrocket。",
     "trial": "不支持免费试用；2026-09-27 由站长补充确认。",
-    "noExpiry": "支持，一次性购买 100GB、400GB 或 800GB 总流量，用完为止，不按月补充或重置。",
+    "noExpiry": "支持，一次性购买 100GB、400GB 或 800GB 总流量，用完为止，不按月补充或重置；“永久流量”不代表服务永久运营。",
     "deviceLimit": "BGP 套餐标注不限制设备数量",
     "nodeCount": 58,
     "onlineSnapshot": "2026-07-17 10:36 采集时 58/58 在线，0 个离线",
@@ -273,19 +273,24 @@
         "jitterMs": null,
         "packetLossPercent": null,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19433694719",
-        "evidenceImage": "/evidence/globalcloud/2026-07-15-hk-chatgpt-unavailable.png",
         "evidenceNote": "ChatGPT 页面显示 Unable to load site",
         "sourceRegion": null,
         "isp": null,
         "device": null,
         "client": null,
-        "connectionType": "Wi-Fi"
+        "connectionType": "Wi-Fi",
+        "evidenceImages": [
+          {
+            "label": "ChatGPT 状态截图",
+            "path": "/evidence/globalcloud/2026-07-15-hk-chatgpt-unavailable.png"
+          }
+        ]
       },
       {
         "id": "20260715-1800-jp",
         "testedAt": "2026-07-15",
         "time": "18:00",
-        "window": "日间",
+        "window": "晚间",
         "node": "日本节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 469.35,
@@ -306,7 +311,7 @@
         "id": "20260715-1819-us",
         "testedAt": "2026-07-15",
         "time": "18:19",
-        "window": "日间",
+        "window": "晚间",
         "node": "美国节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 5.33,
@@ -383,7 +388,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -404,7 +410,8 @@
         "sourceRegion": null,
         "isp": "Lshiy-user-content",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -425,7 +432,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -446,7 +454,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -467,7 +476,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -488,7 +498,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -509,7 +520,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -530,7 +542,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -551,8 +564,117 @@
         "sourceRegion": null,
         "isp": "Lshiy-user-content",
         "device": "macOS",
-        "client": "全球云官方专属客户端 + Speedtest Desktop",
+        "client": "全球云官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
+      },
+      {
+        "id": "20261008-2047-sg",
+        "testedAt": "2026-10-08",
+        "time": "20:47",
+        "window": "晚高峰",
+        "node": "新加坡节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 416.9,
+        "uploadMbps": 92.81,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 143,
+        "downloadLatencyMs": 205,
+        "uploadLatencyMs": 319,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765395401",
+        "evidenceImage": "/evidence/globalcloud/2026-10-08-2047-sg-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:47 PM，换算北京时间 20:47。用户确认使用全球云客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Komi",
+        "server": "FPT Telecom · Singapore",
+        "device": "MacBook",
+        "client": "全球云客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2051-jp",
+        "testedAt": "2026-10-08",
+        "time": "20:51",
+        "window": "晚高峰",
+        "node": "日本节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 132.71,
+        "uploadMbps": 37.0,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 171,
+        "downloadLatencyMs": 165,
+        "uploadLatencyMs": 205,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765413045",
+        "evidenceImage": "/evidence/globalcloud/2026-10-08-2051-jp-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:51 PM，换算北京时间 20:51。用户确认使用全球云客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Komi",
+        "server": "サーバーならDDPS.jp · Tokyo",
+        "device": "MacBook",
+        "client": "全球云客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2057-us",
+        "testedAt": "2026-10-08",
+        "time": "20:57",
+        "window": "晚高峰",
+        "node": "美国节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 405.33,
+        "uploadMbps": 90.74,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 303,
+        "downloadLatencyMs": 349,
+        "uploadLatencyMs": 503,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765434254",
+        "evidenceImage": "/evidence/globalcloud/2026-10-08-2057-us-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:57 PM，换算北京时间 20:57。用户确认使用全球云客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Komi",
+        "server": "Chisholm Broadband · Enid, OK",
+        "device": "MacBook",
+        "client": "全球云客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2105-hk",
+        "testedAt": "2026-10-08",
+        "time": "21:05",
+        "window": "晚高峰",
+        "node": "香港节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 424.58,
+        "uploadMbps": 91.34,
+        "chatgpt": "不可用",
+        "streaming": "流畅",
+        "latencyMs": 326,
+        "downloadLatencyMs": null,
+        "uploadLatencyMs": 4159,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765465408",
+        "evidenceImage": "/evidence/globalcloud/2026-10-08-2105-hk-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 1:05 PM，换算北京时间 21:05。截图未显示下载负载延迟；上传负载延迟为 4159 ms，按原图记录。用户确认使用全球云客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Lshiy-user-content",
+        "server": "Club SIM by HKT · Hong Kong",
+        "device": "MacBook",
+        "client": "全球云客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "nodeSnapshots": [
@@ -686,9 +808,9 @@
       "priceLabel": "¥20/月",
       "trafficLabel": "120GB/月"
     },
-    "editorialUpdatedAt": "2026-10-04",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/quanqiuyun/",
-    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-11；免费试用和通用订阅规则于 2026-09-27 获站长补充确认。",
+    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-11；不支持免费试用和通用订阅由站长于 2026-09-27 补充确认。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "接受按设备使用账号登录客户端，想比较 20 元月付与不限时总流量包。"
@@ -712,13 +834,14 @@
     "summary": "官网当前提供 ¥89 年付限时套餐及 110GB 至 900GB 的月付套餐，常规套餐标注 IPLC 线路、晚高峰不限速和最高 2.5Gbps；普通套餐使用官网指定客户端，不支持通用订阅，实际表现以本站测速为准。",
     "platforms": [
       "Android 5.0+",
-      "iOS 12.0+",
+      "iOS 12.0+（Nextin）",
       "macOS 10.15+",
-      "Windows 10+"
+      "Windows 10+",
+      "Linux（Ubuntu 22.04+ / Debian 12+ / Fedora 36+，知识库标注）"
     ],
     "testClient": "光年梯官方专属客户端（macOS）",
     "universalSubscription": "普通套餐不支持通用订阅，不能直接导入 Clash、Shadowrocket 等通用客户端；iOS 按知识库使用 Nextin。独享私人专线另有专属配置说明，不能套用到普通套餐。",
-    "trial": "不支持",
+    "trial": "不支持免费试用；2026-09-27 由站长补充确认。",
     "noExpiry": "不支持",
     "deviceLimit": "套餐页标注不限制同时在线客户端数量，可多设备使用",
     "nodeCount": 62,
@@ -739,7 +862,7 @@
       "IEPL"
     ],
     "bandwidthPolicy": "常规套餐全部节点 1× 倍率，标注晚高峰不限速、全程 IPLC、最高可提供 2.5Gbps；独享私人专线采用 IEPL 和独立公网 IP。",
-    "billingPolicy": "月付套餐季付及以上按购买日起算，每 30 天自动重置流量；年付优惠为 1 年 8 折、2 年 7 折、3 年 6 折，并标注可叠加优惠码。",
+    "billingPolicy": "季付及以上按购买日起算，每 30 天重置流量，年付限时套餐也按每 30 天重置。套餐页宣传年付 8 折、两年付 7 折、三年付 6 折并称可叠加优惠码，但不能据此认定 GNT80 的适用范围或结算金额；89 元限时档能否用码未验证。",
     "paymentMethods": [
       "支付宝",
       "USDT"
@@ -834,7 +957,7 @@
         "id": "20260715-1830-sg",
         "testedAt": "2026-07-15",
         "time": "18:30",
-        "window": "日间",
+        "window": "晚间",
         "node": "新加坡节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 752.09,
@@ -855,7 +978,7 @@
         "id": "20260715-1850-hk",
         "testedAt": "2026-07-15",
         "time": "18:50",
-        "window": "日间",
+        "window": "晚间",
         "node": "香港节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 548.86,
@@ -876,7 +999,7 @@
         "id": "20260715-1914-jp",
         "testedAt": "2026-07-15",
         "time": "19:14",
-        "window": "日间",
+        "window": "晚间",
         "node": "日本节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 818.59,
@@ -897,7 +1020,7 @@
         "id": "20260715-1920-us",
         "testedAt": "2026-07-15",
         "time": "19:20",
-        "window": "日间",
+        "window": "晚间",
         "node": "美国节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 56.01,
@@ -932,7 +1055,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "光年梯官方专属客户端 + Speedtest Desktop",
+        "client": "光年梯官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -953,7 +1077,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "光年梯官方专属客户端 + Speedtest Desktop",
+        "client": "光年梯官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -974,7 +1099,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": "macOS",
-        "client": "光年梯官方专属客户端 + Speedtest Desktop",
+        "client": "光年梯官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -995,8 +1121,117 @@
         "sourceRegion": null,
         "isp": "Lshiy-user-content",
         "device": "macOS",
-        "client": "光年梯官方专属客户端 + Speedtest Desktop",
+        "client": "光年梯官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
+      },
+      {
+        "id": "20261008-2017-sg",
+        "testedAt": "2026-10-08",
+        "time": "20:17",
+        "window": "晚高峰",
+        "node": "新加坡节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 107.26,
+        "uploadMbps": 13.89,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 208,
+        "downloadLatencyMs": 220,
+        "uploadLatencyMs": 243,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765286002",
+        "evidenceImage": "/evidence/guangnianti/2026-10-08-2017-sg-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:17 PM，换算北京时间 20:17。用户确认使用光年梯客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Komi",
+        "server": "AIXXYCODE.ID · Singapore",
+        "device": "MacBook",
+        "client": "光年梯客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2030-us",
+        "testedAt": "2026-10-08",
+        "time": "20:30",
+        "window": "晚高峰",
+        "node": "美国节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 8.22,
+        "uploadMbps": 46.29,
+        "chatgpt": "轻微延迟",
+        "streaming": "缓冲严重",
+        "latencyMs": 204,
+        "downloadLatencyMs": 230,
+        "uploadLatencyMs": 228,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765333047",
+        "evidenceImage": "/evidence/guangnianti/2026-10-08-2030-us-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:30 PM，换算北京时间 20:30。用户确认使用光年梯客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Pegasus Technologies",
+        "server": "Misaka Network, Inc. · Los Angeles, CA",
+        "device": "MacBook",
+        "client": "光年梯客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2039-jp",
+        "testedAt": "2026-10-08",
+        "time": "20:39",
+        "window": "晚高峰",
+        "node": "日本节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 67.53,
+        "uploadMbps": 48.92,
+        "chatgpt": "轻微延迟",
+        "streaming": "缓冲严重",
+        "latencyMs": 373,
+        "downloadLatencyMs": 555,
+        "uploadLatencyMs": 742,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765366735",
+        "evidenceImage": "/evidence/guangnianti/2026-10-08-2039-jp-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:39 PM，换算北京时间 20:39。用户确认使用光年梯客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Deutsche Telekom",
+        "server": "Rakuten Mobile, Inc · Tokyo",
+        "device": "MacBook",
+        "client": "光年梯客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2043-hk",
+        "testedAt": "2026-10-08",
+        "time": "20:43",
+        "window": "晚高峰",
+        "node": "香港节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 121.46,
+        "uploadMbps": 7.83,
+        "chatgpt": "不可用",
+        "streaming": "流畅",
+        "latencyMs": 179,
+        "downloadLatencyMs": 175,
+        "uploadLatencyMs": 168,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765381537",
+        "evidenceImage": "/evidence/guangnianti/2026-10-08-2043-hk-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:43 PM，换算北京时间 20:43。用户确认使用光年梯客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Lshiy-user-content",
+        "server": "1010 · Hong Kong",
+        "device": "MacBook",
+        "client": "光年梯客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "nodeSnapshots": [
@@ -1093,7 +1328,7 @@
     "planEvidenceImages": [
       "/evidence/guangnianti/2026-07-17-plans.png"
     ],
-    "commercialReviewedAt": "2026-09-19",
+    "commercialReviewedAt": "2026-09-16",
     "scoringPlan": {
       "name": "光年梯入门版",
       "priceCny": 18,
@@ -1101,10 +1336,10 @@
       "priceLabel": "¥18/月",
       "trafficLabel": "110GB/月"
     },
-    "clientNotes": "Windows、Android 和 macOS 提供官网客户端；iOS 使用 Nextin，Linux 有官方压缩包说明。客户端与系统要求来自官网知识库，本站未逐平台重新安装验证。",
-    "editorialUpdatedAt": "2026-10-04",
+    "clientNotes": "Windows、Android 和 macOS 使用自研客户端；iOS 使用 Nextin，识别码为 guangnianti。Android 知识库的 V7、V8 下载项指向相同 arm64 文件，安装前需核对设备架构；Linux 提供压缩包，文档最低要求 Ubuntu 22.04+、Debian 12+、Fedora 36+。以上为教程与面板标注，本站未逐平台安装验证。",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/guangnianti-review-2026/",
-    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-16；免费试用和优惠码于 2026-09-27 获站长补充，优惠码结算条件仍待验证。",
+    "sourceReviewNote": "官网套餐、客户端知识库与仪表盘核对于 2026-09-16；不支持免费试用及八折码 GNT80 由站长于 2026-09-27 补充，优惠码结算条件仍未验证。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "接受官网客户端或 iOS 的 Nextin 用法，按月度流量比较 110GB 至 900GB 套餐。"
@@ -1112,7 +1347,8 @@
       "checkBeforeBuying": [
         "普通套餐不支持通用订阅、免费试用或退款；GNT80 的具体结算条件未验证。"
       ]
-    }
+    },
+    "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）"
   },
   {
     "slug": "interexpress",
@@ -1191,7 +1427,7 @@
       "纯净家宽"
     ],
     "bandwidthPolicy": "套餐标注不限设备。2026-07-29 节点快照记录过 1×、2×、3×、5× 流量倍率，当前倍率需以订阅为准；“4K 秒开”等套餐宣传不作为实测结论。",
-    "billingPolicy": "永久包一次性付费，不按月清零，用完为止。日享包每天上限 60GB，凌晨重置；30、90、365 天价格为周期总额，累计展示流量不能一次使用。",
+    "billingPolicy": "永久包一次性付费，不按月清零，用完为止；“永久”不是服务永久运营的承诺。日享包每天上限 60GB，凌晨重置；30、90、365 天价格均为周期总额，累计展示流量不能一次使用。",
     "noExpiryPlans": [
       {
         "name": "试用套餐·不限时间",
@@ -1337,7 +1573,7 @@
         "id": "20260715-1931-sg",
         "testedAt": "2026-07-15",
         "time": "19:31",
-        "window": "日间",
+        "window": "晚间",
         "node": "新加坡节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 362.27,
@@ -1358,7 +1594,7 @@
         "id": "20260715-1935-hk",
         "testedAt": "2026-07-15",
         "time": "19:35",
-        "window": "日间",
+        "window": "晚间",
         "node": "香港节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 483.11,
@@ -1379,7 +1615,7 @@
         "id": "20260715-1940-jp",
         "testedAt": "2026-07-15",
         "time": "19:40",
-        "window": "日间",
+        "window": "晚间",
         "node": "日本节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 70.92,
@@ -1421,7 +1657,7 @@
         "id": "20260718-1803-sg",
         "testedAt": "2026-07-18",
         "time": "18:03",
-        "window": "日间",
+        "window": "晚间",
         "node": "新加坡节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 628.57,
@@ -1431,18 +1667,19 @@
         "latencyMs": 83,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19446251344",
         "evidenceImage": "/evidence/interexpress/2026-07-18-1803-sg-speedtest.png",
-        "evidenceNote": "Speedtest Desktop 截图时间为 10:03 AM GMT（北京时间 18:03），测速服务器 PT. Indosat Tbk，新加坡；负载延迟下载 128 ms、上传 80 ms",
+        "evidenceNote": "Speedtest Desktop 截图时间为 10:03 AM GMT（北京时间 18:03），测速服务器 PT. Indosat Tbk，新加坡；负载延迟下载 128 ms、上传 80 ms；历史记录曾标注“网际快车官方专属客户端 + Speedtest Desktop”；现存测速截图只显示 Speedtest Desktop 测速工具，连接客户端待当时测试者确认。",
         "sourceRegion": null,
         "isp": "Akile",
         "device": "macOS",
-        "client": "网际快车官方专属客户端 + Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
         "id": "20260718-1809-hk",
         "testedAt": "2026-07-18",
         "time": "18:09",
-        "window": "日间",
+        "window": "晚间",
         "node": "香港节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 546.68,
@@ -1452,18 +1689,19 @@
         "latencyMs": 109,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19446266785",
         "evidenceImage": "/evidence/interexpress/2026-07-18-1809-hk-speedtest.png",
-        "evidenceNote": "Speedtest Desktop 截图时间为 10:09 AM GMT（北京时间 18:09），测速服务器 CMC Telecom，香港；负载延迟下载 149 ms、上传 151 ms",
+        "evidenceNote": "Speedtest Desktop 截图时间为 10:09 AM GMT（北京时间 18:09），测速服务器 CMC Telecom，香港；负载延迟下载 149 ms、上传 151 ms；历史记录曾标注“网际快车官方专属客户端 + Speedtest Desktop”；现存测速截图只显示 Speedtest Desktop 测速工具，连接客户端待当时测试者确认。",
         "sourceRegion": null,
         "isp": "Astrix",
         "device": "macOS",
-        "client": "网际快车官方专属客户端 + Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
         "id": "20260718-1813-jp",
         "testedAt": "2026-07-18",
         "time": "18:13",
-        "window": "日间",
+        "window": "晚间",
         "node": "日本节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 188.72,
@@ -1473,18 +1711,19 @@
         "latencyMs": 64,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19446279022",
         "evidenceImage": "/evidence/interexpress/2026-07-18-1813-jp-speedtest.png",
-        "evidenceNote": "Speedtest Desktop 截图时间为 10:13 AM GMT（北京时间 18:13），测速服务器 fdcservers.net，东京；负载延迟下载 101 ms、上传 70 ms",
+        "evidenceNote": "Speedtest Desktop 截图时间为 10:13 AM GMT（北京时间 18:13），测速服务器 fdcservers.net，东京；负载延迟下载 101 ms、上传 70 ms；历史记录曾标注“网际快车官方专属客户端 + Speedtest Desktop”；现存测速截图只显示 Speedtest Desktop 测速工具，连接客户端待当时测试者确认。",
         "sourceRegion": null,
         "isp": "Astrix",
         "device": "macOS",
-        "client": "网际快车官方专属客户端 + Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
         "id": "20260718-1815-us",
         "testedAt": "2026-07-18",
         "time": "18:15",
-        "window": "日间",
+        "window": "晚间",
         "node": "美国节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 259.02,
@@ -1494,11 +1733,12 @@
         "latencyMs": 207,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19446284167",
         "evidenceImage": "/evidence/interexpress/2026-07-18-1815-us-speedtest.png",
-        "evidenceNote": "Speedtest Desktop 截图时间为 10:15 AM GMT（北京时间 18:15），测速服务器 Mutual Telephone Company，McPherson, KS；负载延迟下载 247 ms、上传 213 ms",
+        "evidenceNote": "Speedtest Desktop 截图时间为 10:15 AM GMT（北京时间 18:15），测速服务器 Mutual Telephone Company，McPherson, KS；负载延迟下载 247 ms、上传 213 ms；历史记录曾标注“网际快车官方专属客户端 + Speedtest Desktop”；现存测速截图只显示 Speedtest Desktop 测速工具，连接客户端待当时测试者确认。",
         "sourceRegion": null,
         "isp": "IDC",
         "device": "macOS",
-        "client": "网际快车官方专属客户端 + Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1521,7 +1761,8 @@
         "sourceRegion": null,
         "isp": "Akile",
         "device": null,
-        "client": "Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1544,7 +1785,8 @@
         "sourceRegion": null,
         "isp": "Astrix",
         "device": null,
-        "client": "Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1562,12 +1804,19 @@
         "jitterMs": null,
         "packetLossPercent": null,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19660982963",
-        "evidenceImage": "/evidence/interexpress/2026-09-11-2154-hk-chatgpt-unavailable.png",
+        "evidenceImage": "/evidence/interexpress/2026-09-11-2154-hk-speedtest.png",
+        "evidenceImages": [
+          {
+            "label": "ChatGPT 状态截图",
+            "path": "/evidence/interexpress/2026-09-11-2154-hk-chatgpt-unavailable.png"
+          }
+        ],
         "evidenceNote": "ChatGPT 截图显示 Unable to load site；用户反馈 YouTube 4K 流畅。Speedtest 截图时间为 1:54 PM GMT（北京时间 21:54），测速服务器 Netvigator，Hong Kong；负载延迟下载 156 ms、上传 131 ms；测速截图归档：/evidence/interexpress/2026-09-11-2154-hk-speedtest.png",
         "sourceRegion": null,
         "isp": "NETVIGATOR",
         "device": null,
-        "client": "Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -1590,8 +1839,36 @@
         "sourceRegion": null,
         "isp": "IDC",
         "device": null,
-        "client": "Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
+      },
+      {
+        "id": "20261008-2117-hk",
+        "testedAt": "2026-10-08",
+        "time": "21:17",
+        "window": "晚高峰",
+        "node": "香港节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 141.53,
+        "uploadMbps": 84.35,
+        "chatgpt": "不可用",
+        "streaming": "轻微缓冲",
+        "latencyMs": 207,
+        "downloadLatencyMs": 248,
+        "uploadLatencyMs": 556,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765515114",
+        "evidenceImage": "/evidence/interexpress/2026-10-08-2117-hk-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 1:17 PM，换算北京时间 21:17。用户确认使用 FlClash 客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "DMIT",
+        "server": "AIXXYCODE.ID · Hong Kong",
+        "device": "MacBook",
+        "client": "FlClash",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "nodeSnapshots": [
@@ -1631,9 +1908,9 @@
         ]
       }
     ],
-    "clientNotes": "按 Windows、Android、iOS、macOS 或 Linux 选择第三方客户端，再导入兼容订阅。Windows 的 v2ray 入口要求 v7 及以上版本；软路由“快车VPN”对应 OpenClash 插件，不是电脑或手机专属 App。",
+    "clientNotes": "按 Windows、Android、iOS、macOS 或 Linux 选择 FlClash、Hiddify、SingBox、Karing 等兼容第三方客户端，再取得订阅并导入；机场账户不是所有第三方客户端的登录账户。Windows 的 v2ray 入口要求 v7 及以上版本；软路由“快车VPN”对应 OpenClash 插件，不是电脑或手机专属 App。",
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）",
-    "commercialReviewedAt": "2026-09-11",
+    "commercialReviewedAt": "2026-09-10",
     "scoringPlan": {
       "name": "30 天日享包",
       "priceCny": 28,
@@ -1641,9 +1918,9 @@
       "priceLabel": "¥28/30天",
       "trafficLabel": "每日 60GB（30 天）"
     },
-    "editorialUpdatedAt": "2026-10-04",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/wangji-kuaiche-review/",
-    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-10；体验券规则于 2026-09-27 获站长补充。",
+    "sourceReviewNote": "官网套餐与第三方客户端资料核对于 2026-09-10；体验券 yp7net 的 1 天 5GB 规则由站长于 2026-09-27 补充。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "会配置第三方客户端，想比较不限时总流量包或每日 60GB 上限的日享包。"
@@ -1661,11 +1938,11 @@
     "foundedAt": "2024",
     "couponCode": "xxyun",
     "couponLabel": "新用户单次九折码",
-    "registrationOffer": "新注册用户首次购买可使用九折优惠码，成功使用一次后失效。",
+    "registrationOffer": "公告列出新用户九折码 xxyun，仅可使用一次；是否适用所选套餐及最终金额以下单页面为准。",
     "protocol": "VLESS / ANYTLS / Shadowsocks / V2NODE / TUIC",
     "status": "持续监测中",
-    "serviceStatus": "持续监测中；2026-09-11 香港节点可测速，ChatGPT 和 YouTube 4K 均流畅",
-    "serviceStatusUpdated": "2026-09-11",
+    "serviceStatus": "持续监测中；2026-10-08 新加坡、日本节点 ChatGPT 与流媒体均流畅；香港节点 ChatGPT 不可用、流媒体轻微缓冲",
+    "serviceStatusUpdated": "2026-10-08",
     "summary": "月付 9.99 元含 100GB，仅支持官方客户端。需要 Clash、FlClash、Shadowrocket 等第三方订阅或软路由订阅的用户不适用。",
     "platforms": [
       "官方客户端（Android）",
@@ -1676,7 +1953,7 @@
     "testClient": "xxyun 官方专属客户端",
     "universalSubscription": "不支持。必须使用 xxyun 官方客户端，不能将订阅导入 Clash、FlClash、Shadowrocket、Surge 或 Stash。",
     "deviceLimit": "不限设备",
-    "trial": "当前月付套餐未列免费试用承诺，购买前请确认。",
+    "trial": "来源汇总标记为不支持免费试用；本次核对的月付卡片未列试用承诺，购买前请确认当前条款。",
     "noExpiry": "支持，另有不限时套餐入口；当前价格、总流量和有效期需在购买页确认。",
     "nodeCount": 36,
     "onlineSnapshot": "2026-07-17 11:08 后台清单共 36 个实际节点，全部标记在线、均为 1× 倍率；另有 1 条续费与客服网址信息入口，不计入节点总数。该页面未展示延迟，不代表实际链路全部可用。",
@@ -1858,8 +2135,8 @@
       {
         "id": "20260808-0944-jp",
         "testedAt": "2026-08-08",
-        "time": "09:44",
-        "window": "上午",
+        "time": "17:44",
+        "window": "日间",
         "node": "日本节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 149.03,
@@ -1871,17 +2148,19 @@
         "packetLossPercent": null,
         "resultUrl": "https://www.speedtest.net/zh-Hans/result/19531449616",
         "evidenceImage": "/evidence/xxyun/2026-08-08-0944-jp-speedtest.png",
+        "evidenceNote": "截图原始时间为 GMT 09:44，换算北京时间 17:44；历史记录 ID 与证据文件名沿用截图 GMT 钟点。",
         "sourceRegion": null,
         "isp": "365 Data Centers",
         "device": "macOS",
         "client": "xxyun 官方专属客户端",
-        "connectionType": "Wi-Fi"
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260808-1009-us",
         "testedAt": "2026-08-08",
-        "time": "10:09",
-        "window": "上午",
+        "time": "18:09",
+        "window": "晚间",
         "node": "美国节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 136.53,
@@ -1893,17 +2172,19 @@
         "packetLossPercent": null,
         "resultUrl": "https://www.speedtest.net/result/19531510081",
         "evidenceImage": "/evidence/xxyun/2026-08-08-1009-us-speedtest.png",
+        "evidenceNote": "截图原始时间为 GMT 10:09，换算北京时间 18:09；历史记录 ID 与证据文件名沿用截图 GMT 钟点。",
         "sourceRegion": null,
         "isp": "DMIT",
         "device": "macOS",
         "client": "xxyun 官方专属客户端",
-        "connectionType": "Wi-Fi"
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260808-1013-sg",
         "testedAt": "2026-08-08",
-        "time": "10:13",
-        "window": "上午",
+        "time": "18:13",
+        "window": "晚间",
         "node": "新加坡节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 172.62,
@@ -1915,11 +2196,13 @@
         "packetLossPercent": null,
         "resultUrl": "https://www.speedtest.net/result/19531521721",
         "evidenceImage": "/evidence/xxyun/2026-08-08-1013-sg-speedtest.png",
+        "evidenceNote": "截图原始时间为 GMT 10:13，换算北京时间 18:13；历史记录 ID 与证据文件名沿用截图 GMT 钟点。",
         "sourceRegion": null,
         "isp": "Akamai Technologies",
         "device": "macOS",
         "client": "xxyun 官方专属客户端",
-        "connectionType": "Wi-Fi"
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260911-2129-hk",
@@ -1941,8 +2224,90 @@
         "sourceRegion": null,
         "isp": "DMIT",
         "device": null,
-        "client": "Speedtest Desktop",
+        "client": null,
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
+      },
+      {
+        "id": "20261008-1919-sg",
+        "testedAt": "2026-10-08",
+        "time": "19:19",
+        "window": "晚间",
+        "node": "新加坡节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 183.53,
+        "uploadMbps": 95.95,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 92,
+        "downloadLatencyMs": 101,
+        "uploadLatencyMs": 301,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765091965",
+        "evidenceImage": "/evidence/xxyun/2026-10-08-1919-sg-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 11:19 AM，换算北京时间 19:19。用户确认使用 xxyun 客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Akamai Technologies",
+        "server": "CBN · Singapore",
+        "device": "MacBook",
+        "client": "xxyun 官方专属客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-1928-jp",
+        "testedAt": "2026-10-08",
+        "time": "19:28",
+        "window": "晚间",
+        "node": "日本节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 115.9,
+        "uploadMbps": 76.3,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 110,
+        "downloadLatencyMs": 146,
+        "uploadLatencyMs": 164,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765121073",
+        "evidenceImage": "/evidence/xxyun/2026-10-08-1928-jp-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 11:28 AM，换算北京时间 19:28。截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Lamhosting",
+        "server": "サーバーならDDPS.jp · Tokyo",
+        "device": "MacBook",
+        "client": "xxyun 官方专属客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-1939-hk",
+        "testedAt": "2026-10-08",
+        "time": "19:39",
+        "window": "晚间",
+        "node": "香港节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 17.01,
+        "uploadMbps": 20.01,
+        "chatgpt": "不可用",
+        "streaming": "轻微缓冲",
+        "latencyMs": 150,
+        "downloadLatencyMs": 147,
+        "uploadLatencyMs": 269,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765155474",
+        "evidenceImage": "/evidence/xxyun/2026-10-08-1939-hk-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 11:39 AM，换算北京时间 19:39。截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "DMIT",
+        "server": "CSL · Hong Kong",
+        "device": "MacBook",
+        "client": "xxyun 官方专属客户端",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "nodeSnapshots": [
@@ -2007,7 +2372,7 @@
     ],
     "clientNotes": "仅支持 xxyun 官方专属客户端，不支持 Clash、FlClash、Shadowrocket、Surge、Stash 等通用客户端或软路由订阅导入。",
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）",
-    "commercialReviewedAt": "2026-09-11",
+    "commercialReviewedAt": "2026-09-10",
     "scoringPlan": {
       "name": "初级月付",
       "priceCny": 9.99,
@@ -2017,26 +2382,26 @@
     },
     "clientSupportVerifiedAt": "2026-09-24",
     "officialClientOnly": true,
-    "editorialUpdatedAt": "2026-10-04",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/xxyun-review-2026/",
-    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-10；2026-10-03 的来源页编辑未重新核价或测速。",
+    "sourceReviewNote": "官网月付套餐与官方客户端公告核对于 2026-09-10。来源汇总标记不支持免费试用，正文说明月付卡片未列试用或退款承诺；购买前仍需确认具体条款。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "预算约 10 元/月、接受官方专属客户端与 100GB/月流量的用户。"
       ],
       "checkBeforeBuying": [
-        "不支持通用订阅；三个地区的测试日期仍不足，暂不能计算综合评分。"
+        "不支持通用订阅；购买前请使用 xxyun 官方专属客户端核对目标地区的实际体验。"
       ]
     }
   },
   {
     "slug": "flybit",
     "name": "Flybit",
-    "website": "https://www.fastfastfast.buzz/#/register?code=p3DOcgzt",
+    "website": "https://goflybit.com/#/register?code=p3DOcgzt",
     "affiliate": true,
     "foundedAt": "2024-07-15",
     "couponCode": "flybit",
-    "registrationOffer": "九折码 flybit；到期日、首购限制和适用套餐未明确，实际优惠以结算页为准。",
+    "registrationOffer": "官方公开说明列出九折码 flybit；到期日、是否仅限首购和适用套餐未明确，来源记录未提交订单验证，实际优惠以结算页为准。",
     "protocol": "SS / Secure 隧道（通用订阅）",
     "status": "持续监测中",
     "summary": "月付 15 元含 128GB，不限时总流量包 36 元 128GB 起。后台提供 7 个第三方客户端导入入口，适合接受订阅配置和多设备共享流量的用户。",
@@ -2052,7 +2417,7 @@
     "testClient": "FlClash（macOS）",
     "universalSubscription": "支持。后台提供 Clash Meta、Hiddify、SingBox、Shadowrocket、QuantumultX、Surge、Stash 共 7 个导入入口，以及复制地址和二维码订阅；属于第三方客户端订阅。",
     "deviceLimit": "套餐标注不限设备数量、支持家庭共享；所有设备共用套餐流量",
-    "trial": "注册说明提供 1 天 2GB 免费试用，实际到账额度与到期时间以账号显示为准。",
+    "trial": "支持注册后 1 天 2GB 免费试用（2026-09-27 站长补充）；来源记录未新建账号验证，实际到账流量和到期时间以账户显示为准。",
     "noExpiry": "支持 128GB / 256GB / 512GB / 1024GB 一次性总流量包，按用量扣除，不按月补充；用完后按当期规则续购。",
     "nodeCount": 69,
     "onlineSnapshot": "2026-07-29 客户端后台截图可辨认 69 条节点记录，其中 67 条显示蓝色状态，表示正常在线；台湾 02 与美国 04 显示红色状态，表示离线。",
@@ -2312,7 +2677,8 @@
         "sourceRegion": null,
         "isp": "Debee Network",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2335,7 +2701,8 @@
         "sourceRegion": null,
         "isp": "Google Cloud Platform",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2358,7 +2725,8 @@
         "sourceRegion": null,
         "isp": "Google Cloud Platform",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2381,7 +2749,8 @@
         "sourceRegion": null,
         "isp": "Teyvat Continent",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2404,7 +2773,8 @@
         "sourceRegion": null,
         "isp": "Redoubt Networks",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2427,7 +2797,8 @@
         "sourceRegion": null,
         "isp": "Google Cloud Platform",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2450,7 +2821,8 @@
         "sourceRegion": null,
         "isp": "Google Cloud Platform",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2473,7 +2845,8 @@
         "sourceRegion": null,
         "isp": "Teyvat Continent",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -2496,13 +2869,14 @@
         "sourceRegion": null,
         "isp": "Redoubt Networks",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       }
     ],
     "clientNotes": "先安装客户端，再使用后台导入入口；也可复制订阅地址或扫描二维码。Clash Verge 需按兼容格式手动导入。Windows、macOS、iOS、Android、Linux、路由器和安卓电视的支持条件需按各客户端教程确认。",
     "planEvidenceLabel": "历史套餐截图（2026-07-29，不代表当前价格）",
-    "commercialReviewedAt": "2026-09-11",
+    "commercialReviewedAt": "2026-09-08",
     "scoringPlan": {
       "name": "每月 128GB",
       "priceCny": 15,
@@ -2510,9 +2884,9 @@
       "priceLabel": "¥15/月",
       "trafficLabel": "128GB/月"
     },
-    "editorialUpdatedAt": "2026-10-04",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/flybit-review-2026/",
-    "sourceReviewNote": "官网套餐价格核对于 2026-09-08、客户端资料核对于 2026-09-09；试用规则于 2026-09-27 获站长补充。",
+    "sourceReviewNote": "官网套餐标价核对于 2026-09-08，客户端一键导入菜单与公开说明核对于 2026-09-09；1 天 2GB 试用由站长于 2026-09-27 补充。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "会导入第三方订阅，想比较 15 元 128GB 月付或不限时总流量包。"
@@ -2531,7 +2905,7 @@
     "couponCode": "无",
     "protocol": "VLESS（专属客户端 / 通用订阅）",
     "status": "持续监测中",
-    "summary": "官网当前提供 100GB 至 1TB 的四档周期套餐，以及不限时流量包和企业定制方案；官方客户端覆盖 iOS、Android、macOS 与 Windows，高档套餐提供 BGP+IEPL 线路，实际表现以本站测速为准。",
+    "summary": "月付 9.9 元含 100GB，另有 19.9 元 200GB、50 元 600GB、79 元 1024GB 套餐和 45 元 150GB 不限时包。提供四端官方客户端及通用订阅，免费试用 1 天 6GB；入门限速 200Mbps，官方客户端限制 3 台。",
     "platforms": [
       "iOS（官方客户端）",
       "Android（官方客户端）",
@@ -2540,8 +2914,8 @@
       "第三方代理客户端"
     ],
     "testClient": "FlClash（macOS）",
-    "universalSubscription": "支持第三方代理订阅；遇到全地区节点超时或订阅更新失败时，官网公告建议重置订阅并重新导入",
-    "deviceLimit": "第三方代理连接数量不限；官方客户端限制 3 台设备",
+    "universalSubscription": "支持。后台提供复制订阅地址、二维码和重置入口；Windows 教程使用 FlClash，其他第三方客户端需确认订阅格式及版本兼容。",
+    "deviceLimit": "官方客户端限制 3 台；第三方代理连接条款按所选套餐核对，跨境全球拼及随心充能包标注不限第三方连接。",
     "trial": "新用户可免费试用 1 天 6GB；2026-09-27 由站长补充确认，实际到账额度和期限以账户显示为准。",
     "noExpiry": "支持 ¥45 的 150GB 随心充能包，不限时并可手动重置流量",
     "nodeCount": 42,
@@ -2574,7 +2948,7 @@
       "BGP",
       "IEPL"
     ],
-    "bandwidthPolicy": "天天尝鲜拼限速 200Mbps，万人好评拼限速 400Mbps；至尊金牌拼、跨境全球拼和随心充能包标注不限速。官方客户端限制 3 台，第三方代理连接数量不限。",
+    "bandwidthPolicy": "天天尝鲜拼标注 200Mbps，万人好评拼标注 400Mbps，至尊金牌拼标注不限速；跨境全球拼标注不限第三方连接。以上为套餐条件，不是本站实测速率；官方客户端均需按 3 台限制使用。",
     "paymentMethods": [
       "支付宝",
       "微信"
@@ -2587,10 +2961,9 @@
         "price": "¥9.90/月",
         "traffic": "100GB/月",
         "details": [
-          "全球 11 个主流国家接入",
-          "第三方代理连接数量不限、官方客户端限制 3 台",
-          "限速 200Mbps",
-          "支持 Netflix、YouTube 解锁"
+          "商店标注 11 国节点、200Mbps 限速",
+          "官方客户端限 3 台，第三方连接条件按所选套餐核对",
+          "每月订单日重置，未用流量不结转"
         ]
       },
       {
@@ -2598,10 +2971,9 @@
         "price": "¥19.90/月",
         "traffic": "200GB/月",
         "details": [
-          "全球 16 个主流国家接入",
-          "第三方代理连接数量不限、官方客户端限制 3 台",
-          "限速 400Mbps",
-          "BGP 线路、SLA 在线率标注 99.99%"
+          "商店标注 16 国节点、400Mbps 限速",
+          "官方客户端限 3 台，第三方连接条件按所选套餐核对",
+          "每月订单日重置，未用流量不结转"
         ]
       },
       {
@@ -2609,10 +2981,9 @@
         "price": "¥50/月",
         "traffic": "600GB/月",
         "details": [
-          "全球 18 个主流国家接入",
-          "第三方代理连接数量不限、官方客户端限制 3 台、不限速",
-          "BGP+IEPL 线路、SLA 在线率标注 99.99%",
-          "7×24 小时客服"
+          "商店标注 18 国节点、不限速",
+          "官方客户端限 3 台，第三方连接条件按所选套餐核对",
+          "每月订单日重置，未用流量不结转"
         ]
       },
       {
@@ -2620,10 +2991,9 @@
         "price": "¥79/月",
         "traffic": "1TB（1024GB）/月",
         "details": [
-          "全部精选节点及高阶专属线路",
-          "第三方代理连接数量不限、官方客户端限制 3 台",
-          "支持流媒体与 ChatGPT、AI 工具",
-          "BGP+IEPL 专线"
+          "商店标注不限第三方代理连接",
+          "官方客户端限 3 台",
+          "每月订单日重置，未用流量不结转"
         ]
       },
       {
@@ -2631,10 +3001,9 @@
         "price": "¥45/一次性",
         "traffic": "150GB 不限时",
         "details": [
-          "手动重置流量 ¥45/次",
-          "全球 18 个国家接入",
-          "第三方代理连接数量不限、官方客户端限制 3 台、不限速",
-          "1Gbps 带宽保证"
+          "一次性购买 150GB 总流量，不限时",
+          "专属客户端限 3 台，第三方不限连接",
+          "手动重置流量 ¥45/次"
         ]
       },
       {
@@ -2642,10 +3011,9 @@
         "price": "¥888/一次性",
         "traffic": "按需定制",
         "details": [
-          "非公开自助售卖，需通过工单或官方群组洽谈",
-          "独享物理带宽与纯净原生 IP 池",
-          "可指定国家及机房落地",
-          "IPLC/IEPL 专线与 7×24 小时专属运维"
+          "888 元为一次性展示价，属于需工单洽谈的定制服务",
+          "不是固定流量的普通自助套餐",
+          "实际流量、交付内容及服务条件需单独确认"
         ]
       }
     ],
@@ -2783,7 +3151,7 @@
         "id": "20260716-1934-jp",
         "testedAt": "2026-07-16",
         "time": "19:34",
-        "window": "晚高峰",
+        "window": "晚间",
         "node": "日本节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 27.9,
@@ -2824,7 +3192,8 @@
         "isp": "BAGE",
         "server": "SmarTone · Hong Kong",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260920-2156-sg",
@@ -2850,7 +3219,8 @@
         "isp": "M247",
         "server": "M1 Limited · Singapore",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260923-2230-hk",
@@ -2876,7 +3246,8 @@
         "isp": "BAGE",
         "server": "RETN · Hong Kong",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260923-2235-us",
@@ -2902,7 +3273,8 @@
         "isp": "BAGE",
         "server": "Melbicom · Los Angeles, CA",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260923-2239-jp",
@@ -2928,7 +3300,8 @@
         "isp": "BAGE",
         "server": "fdcservers.net · Tokyo",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "nodeSnapshots": [
@@ -2990,10 +3363,10 @@
       "priceLabel": "¥9.90/月",
       "trafficLabel": "100GB/月"
     },
-    "clientNotes": "官方客户端通过账号登录；FlClash 可按官网教程导入订阅。重置订阅会使旧链接失效，需要在第三方客户端重新导入；重置订阅与重置流量是不同操作。",
-    "editorialUpdatedAt": "2026-10-04",
+    "clientNotes": "四端官方客户端通过账号登录；Windows 第三方教程使用 FlClash，要求 Windows 10 及以上 64 位系统。后台可复制订阅地址、使用二维码及重置订阅；重置订阅会令旧链接立即失效，需要重新导入，不能与重置流量混淆。其他客户端应先核对格式兼容。",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/runway-review-2026/",
-    "sourceReviewNote": "官网套餐、客户端与使用说明核对于 2026-09-27；1 天 6GB 试用由站长补充，退款政策仍待核实。",
+    "sourceReviewNote": "套餐商店、客户端公告、使用规则及 FlClash 订阅教程核对于 2026-09-27；1 天 6GB 试用由站长当日补充，退款条款仍待核实。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "想先使用 1 天 6GB 试用，再比较 9.9 元 100GB 月付与 45 元 150GB 不限时包。"
@@ -3001,7 +3374,8 @@
       "checkBeforeBuying": [
         "官方客户端限制 3 台；第三方订阅需确认兼容格式，退款政策待核实。"
       ]
-    }
+    },
+    "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）"
   },
   {
     "slug": "cocoduck",
@@ -3012,7 +3386,7 @@
     "couponCode": "无",
     "protocol": "VLESS / AnyTLS",
     "status": "持续监测中",
-    "summary": "官网当前提供个人、精英、家庭、团队及迷你鸭 77 五档套餐，标注不限连接速度和设备数量；Android、Android TV、Windows、macOS 有专属客户端，iOS 使用第三方客户端。AI 与流媒体体验以本站对应日期的测速为准。",
+    "summary": "个人套餐 17 元/月含 100GB，迷你鸭 77 元/年含 40GB/月；新用户可试用 1 天 2GB。Android、Android TV、Windows 和 macOS 提供专属客户端，iOS 使用第三方客户端；加油包必须搭配有效常规套餐。",
     "platforms": [
       "Android",
       "Android TV",
@@ -3093,7 +3467,7 @@
       "家宽"
     ],
     "bandwidthPolicy": "官网套餐页标注所有套餐均支持全部节点线路，不限制连接速度和设备数量。",
-    "billingPolicy": "个人、精英、家庭和团队套餐均提供月付、半年付和年付；官网当前显示半年付及年付折扣。迷你鸭 77 仅提供年付，每月 40GB。流量加油包仅可配合当前常规套餐使用。",
+    "billingPolicy": "个人、精英、家庭和团队套餐提供月付、半年付及年付，价格均为对应周期总额、流量仍按月。迷你鸭 77 仅按年付费，每月 40GB。加油包必须搭配仍在有效期内的常规套餐，不能单独开通服务。",
     "paymentMethods": [
       "支付宝",
       "微信"
@@ -3106,8 +3480,8 @@
         "traffic": "100GB/月",
         "details": [
           "支持全部节点线路",
-          "稳定全球 AI 支持",
-          "4K 流媒体",
+          "商家宣传 AI 支持，实际可用性按节点实测",
+          "商家宣传 4K 流媒体，实际播放体验按节点实测",
           "不限连接速度与设备数量"
         ]
       },
@@ -3226,25 +3600,25 @@
         "name": "流量加油包 50GB",
         "price": "¥10",
         "traffic": "增加 50GB",
-        "condition": "仅可配合当前常规套餐使用"
+        "condition": "必须搭配仍在有效期内的常规套餐，不能单独开通服务"
       },
       {
         "name": "流量加油包 100GB",
         "price": "¥20",
         "traffic": "增加 100GB",
-        "condition": "仅可配合当前常规套餐使用"
+        "condition": "必须搭配仍在有效期内的常规套餐，不能单独开通服务"
       },
       {
         "name": "流量加油包 500GB",
         "price": "¥100",
         "traffic": "增加 500GB",
-        "condition": "仅可配合当前常规套餐使用"
+        "condition": "必须搭配仍在有效期内的常规套餐，不能单独开通服务"
       },
       {
         "name": "流量加油包 1000GB",
         "price": "¥200",
         "traffic": "增加 1000GB",
-        "condition": "仅可配合当前常规套餐使用"
+        "condition": "必须搭配仍在有效期内的常规套餐，不能单独开通服务"
       }
     ],
     "tests": [
@@ -3352,7 +3726,8 @@
         "sourceRegion": null,
         "isp": "Eons Data Communications",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3375,7 +3750,8 @@
         "sourceRegion": null,
         "isp": "Eons Data Communications",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3398,7 +3774,8 @@
         "sourceRegion": null,
         "isp": "HKBN",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3421,7 +3798,8 @@
         "sourceRegion": null,
         "isp": "Eons Data Communications",
         "device": "macOS",
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3444,7 +3822,8 @@
         "sourceRegion": null,
         "isp": "NETVIGATOR",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3467,7 +3846,8 @@
         "sourceRegion": null,
         "isp": "Eons Data Communications",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3490,7 +3870,8 @@
         "sourceRegion": null,
         "isp": "Eons Data Communications",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3513,7 +3894,8 @@
         "sourceRegion": null,
         "isp": "Eons Data Communications",
         "device": null,
-        "client": "FlClash + Speedtest Desktop",
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       }
     ],
@@ -3525,10 +3907,10 @@
       "priceLabel": "¥17/月",
       "trafficLabel": "100GB/月"
     },
-    "clientNotes": "Android、Android TV、Windows 和 macOS 提供专属客户端；iOS 使用第三方客户端，专属客户端仍在开发，OpenWRT 专属客户端也仍在开发。提供 Clash 主用与备用订阅。旧版 Clash for Windows、ClashX Pro、V2RayN 和 Surge 曾被公告提示兼容问题；导入失败时先核对当前教程与客户端版本。2026-09-05 公告称此前 DNS 污染问题已修复，无需长期沿用临时强制 DNS 设置。",
-    "editorialUpdatedAt": "2026-10-04",
+    "clientNotes": "Android、Android TV、Windows 和 macOS 提供专属客户端，Mac 提供全芯片版本；iOS 使用第三方客户端，iOS 及 OpenWRT 专属客户端仍在开发。提供 Clash 主用与备用订阅，以及 Shadowrocket、Quantumult、Stash 和 V2Ray 入口；旧 Clash for Windows、ClashX Pro、V2RayN 和 Surge 存在兼容性提醒。2026-09-05 公告称 DNS 问题已修复，可先更新订阅或尝试备用 Clash 地址，无需长期沿用临时强制 DNS 覆写。",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/cocoduck-review/",
-    "sourceReviewNote": "官网套餐、客户端与试用公告核对于 2026-09-27；2026-10-03 的来源页编辑未重新核价或测速。",
+    "sourceReviewNote": "套餐与加油包、客户端和试用公告核对于 2026-09-27。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "想先使用 1 天 2GB 试用，再按月流量比较常规套餐。"
@@ -3583,12 +3965,12 @@
       "直连"
     ],
     "bandwidthPolicy": "当前套餐页标注所有节点 1× 倍率、高峰时段不降速、全 IPLC 专线，最高提供 2.5Gbps；不限制设备连接数量。",
-    "billingPolicy": "常规套餐支持月付、季付、半年付和年付；年付 85 折、两年付 8 折、三年付 75 折。限时体验月付小包不参加优惠活动；永久流量包不适用周期折扣。",
+    "billingPolicy": "周期套餐按月刷新流量，具体付款周期及长周期折扣以所选套餐结算页为准。15 元限时月付体验不参加优惠；常规月付档位与 98 元年付包展示 xk808 八折码，优惠期限及叠加条件未确认。不限时包不自动刷新，手动重置需核对报价。",
     "paymentMethods": [
       "支付宝",
       "USDT"
     ],
-    "trial": "不支持免费试用；¥15 的 50GB 限时体验月付小包为付费套餐，不参加优惠活动",
+    "trial": "不支持免费试用（2026-09-27 站长补充确认）；15 元 50GB 限时体验月付是付费套餐，不参加优惠活动。",
     "noExpiry": "支持 ¥100/100GB 与 ¥399/450GB 两档永久不限时流量包，不自动重置，可付费手动重置；450GB 包的重置报价待核实",
     "refundPolicy": "退款规则尚未核实，付款前请向客服确认。",
     "plans": [
@@ -3774,7 +4156,8 @@
         "sourceRegion": null,
         "isp": null,
         "device": null,
-        "client": "机场官方专属客户端 + Speedtest Desktop",
+        "client": "机场官方专属客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3797,7 +4180,8 @@
         "sourceRegion": null,
         "isp": "Lshiy-user-content",
         "device": null,
-        "client": "边缘客户端 + Speedtest Desktop",
+        "client": "边缘客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3820,7 +4204,8 @@
         "sourceRegion": null,
         "isp": "Komi",
         "device": null,
-        "client": "边缘客户端 + Speedtest Desktop",
+        "client": "边缘客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3843,7 +4228,8 @@
         "sourceRegion": null,
         "isp": "Southeast Asia Teleco…（截图截断）",
         "device": null,
-        "client": "边缘客户端 + Speedtest Desktop",
+        "client": "边缘客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -3866,8 +4252,117 @@
         "sourceRegion": null,
         "isp": "Dodo",
         "device": null,
-        "client": "边缘客户端 + Speedtest Desktop",
+        "client": "边缘客户端",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
+      },
+      {
+        "id": "20261008-1942-sg",
+        "testedAt": "2026-10-08",
+        "time": "19:42",
+        "window": "晚间",
+        "node": "新加坡节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 551.47,
+        "uploadMbps": 94.93,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 88,
+        "downloadLatencyMs": 143,
+        "uploadLatencyMs": 290,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765167377",
+        "evidenceImage": "/evidence/edgenode/2026-10-08-1942-sg-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 11:42 AM，换算北京时间 19:42。用户确认使用边缘节点客户端 EdgeNova；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "AUK Network",
+        "server": "CBN · Singapore",
+        "device": "MacBook",
+        "client": "边缘节点客户端（EdgeNova）",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-1953-jp",
+        "testedAt": "2026-10-08",
+        "time": "19:53",
+        "window": "晚间",
+        "node": "日本节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 78.75,
+        "uploadMbps": 59.59,
+        "chatgpt": "流畅",
+        "streaming": "轻微缓冲",
+        "latencyMs": 163,
+        "downloadLatencyMs": 150,
+        "uploadLatencyMs": 213,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765202122",
+        "evidenceImage": "/evidence/edgenode/2026-10-08-1953-jp-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 11:53 AM，换算北京时间 19:53。用户确认使用边缘节点客户端 EdgeNova；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Dodo",
+        "server": "サーバーならDDPS.jp · Tokyo",
+        "device": "MacBook",
+        "client": "边缘节点客户端（EdgeNova）",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-1959-hk",
+        "testedAt": "2026-10-08",
+        "time": "19:59",
+        "window": "晚间",
+        "node": "香港节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 541.78,
+        "uploadMbps": 95.4,
+        "chatgpt": "不可用",
+        "streaming": "流畅",
+        "latencyMs": 152,
+        "downloadLatencyMs": 213,
+        "uploadLatencyMs": 377,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765222685",
+        "evidenceImage": "/evidence/edgenode/2026-10-08-1959-hk-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 11:59 AM，换算北京时间 19:59。用户确认使用边缘节点客户端 EdgeNova；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Lshiy-user-content",
+        "server": "fdcservers.net · Hong Kong",
+        "device": "MacBook",
+        "client": "边缘节点客户端（EdgeNova）",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2001-us",
+        "testedAt": "2026-10-08",
+        "time": "20:01",
+        "window": "晚高峰",
+        "node": "美国节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 601.7,
+        "uploadMbps": 95.33,
+        "chatgpt": "流畅",
+        "streaming": "流畅",
+        "latencyMs": 235,
+        "downloadLatencyMs": 294,
+        "uploadLatencyMs": 454,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765231897",
+        "evidenceImage": "/evidence/edgenode/2026-10-08-2001-us-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 12:01 PM，换算北京时间 20:01。用户确认使用边缘节点客户端 EdgeNova；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Komi",
+        "server": "Vyve Broadband · Abilene, KS",
+        "device": "MacBook",
+        "client": "边缘节点客户端（EdgeNova）",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "noExpiryPlans": [
@@ -3907,9 +4402,9 @@
     "clientSupportVerifiedAt": "2026-09-24",
     "officialClientOnly": true,
     "clientNotes": "按官网指定流程登录：Android、Windows、macOS 使用官方专属客户端；iOS 按官网教程使用 Nextin，输入识别码 edgenova0526 后以官网账号登录。Clash、Shadowrocket 等通用订阅不可用。",
-    "editorialUpdatedAt": "2026-10-04",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/bianyuan-review-2026/",
-    "sourceReviewNote": "官网套餐、客户端与优惠说明核对于 2026-09-27；退款条件仍待核实。",
+    "sourceReviewNote": "官网 9 款套餐、优惠说明、客户端下载与教程核对于 2026-09-27；站长当日补充确认不支持免费试用和通用订阅。退款规则仍待核实，399 元 450GB 不限时包重置费说明与标价冲突。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "接受官方专属客户端，比较 15 元体验月付和不限时总流量包。"
@@ -3932,9 +4427,10 @@
     "summary": "官网当前提供 168GB 至 1024GB 的常规月付套餐、IEPL 企业专线及四档不限时流量包；支持全平台客户端、主流订阅导入、AI 与 Netflix、Disney 解锁，实际体验以本站测速为准。",
     "platforms": [
       "Windows",
-      "Android",
+      "Android（教程标题含鸿蒙，系统兼容性需确认）",
       "macOS",
-      "iOS"
+      "iOS",
+      "Linux（帮助中心教程）"
     ],
     "testClient": "官网提供 Windows、Android、macOS、iOS 客户端；本站测速使用 FlClash（macOS）",
     "universalSubscription": "支持复制订阅链接、二维码，以及导入 Clash、sing-box、Shadowrocket 和 Loon",
@@ -3980,20 +4476,20 @@
       "星链"
     ],
     "bandwidthPolicy": "节点快照中 63 个节点为 1×、12 个节点为 0.8×；套餐页未标注统一限速，实际速度以节点与时段实测为准。",
-    "trial": "不支持",
+    "trial": "不支持免费试用；2026-09-27 由站长补充确认。",
     "noExpiry": "支持 188GB、240GB、400GB 与 1024GB 不限时流量包；不可叠加、不可累计，重复购买会重置为新购流量",
     "billingPolicy": "常规月付与企业季付套餐按账单日重置流量，未用完流量不结转。流量用尽后续费不会立即重置，可购买流量重置包或升级套餐；一次性流量包重复购买不会叠加，只会重置为新购流量。",
     "paymentMethods": [
       "支付宝",
       "微信"
     ],
-    "refundPolicy": "因收款渠道限制，购买后不提供原路退款。",
+    "refundPolicy": "官网说明因收款渠道限制无法原路退款；是否有其他处理方式尚未确认，购买前需向客服核对。",
     "tests": [
       {
         "id": "20260718-1953-sg",
         "testedAt": "2026-07-18",
         "time": "19:53",
-        "window": "日间",
+        "window": "晚间",
         "node": "新加坡节点",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 815.92,
@@ -4007,7 +4503,8 @@
         "sourceRegion": null,
         "isp": "Akari Networks",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4028,7 +4525,8 @@
         "sourceRegion": null,
         "isp": "Astrix",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4049,7 +4547,8 @@
         "sourceRegion": null,
         "isp": "Akari Networks",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4070,7 +4569,8 @@
         "sourceRegion": null,
         "isp": "Akari Networks",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4093,7 +4593,8 @@
         "sourceRegion": null,
         "isp": "Akari Networks",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4116,7 +4617,8 @@
         "sourceRegion": null,
         "isp": "Akari Networks",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4139,7 +4641,8 @@
         "sourceRegion": null,
         "isp": "Akari Networks",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4162,7 +4665,8 @@
         "sourceRegion": null,
         "isp": "Astrix",
         "device": "macOS",
-        "client": "FlClash（macOS）+ Speedtest Desktop",
+        "client": "FlClash（macOS）",
+        "measurementTool": "Speedtest Desktop",
         "connectionType": "Wi-Fi"
       },
       {
@@ -4189,7 +4693,8 @@
         "isp": "Astrix",
         "server": "Tata Communications · Hong Kong",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260923-2214-sg",
@@ -4215,7 +4720,8 @@
         "isp": "Akari Networks",
         "server": "CBN · Singapore",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260923-2220-jp",
@@ -4241,7 +4747,8 @@
         "isp": "Akari Networks",
         "server": "IPA CyberLab 400G · Tokyo",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
       },
       {
         "id": "20260923-2225-us",
@@ -4267,7 +4774,35 @@
         "isp": "Akari Networks",
         "server": "Hotwire Fision · Los Angeles, CA",
         "device": "MacBook",
-        "client": "FlClash"
+        "client": "FlClash",
+        "measurementTool": "Speedtest Desktop"
+      },
+      {
+        "id": "20261008-2109-sg",
+        "testedAt": "2026-10-08",
+        "time": "21:09",
+        "window": "晚高峰",
+        "node": "新加坡节点",
+        "baselineDownloadMbps": 1000,
+        "downloadMbps": 316.0,
+        "uploadMbps": 80.69,
+        "chatgpt": "轻微延迟",
+        "streaming": "流畅",
+        "latencyMs": 248,
+        "downloadLatencyMs": 290,
+        "uploadLatencyMs": 330,
+        "jitterMs": null,
+        "packetLossPercent": null,
+        "resultUrl": "https://www.speedtest.net/zh-Hans/result/19765482567",
+        "evidenceImage": "/evidence/xsus/2026-10-08-2109-sg-speedtest.png",
+        "evidenceNote": "截图时间为 GMT 1:09 PM，换算北京时间 21:09。用户确认使用 FlClash 客户端；截图中的 Speedtest Desktop 为测速工具。",
+        "sourceRegion": null,
+        "isp": "Akari Networks",
+        "server": "M1 Limited · Singapore",
+        "device": "MacBook",
+        "client": "FlClash",
+        "connectionType": "Wi-Fi",
+        "measurementTool": "Speedtest Desktop"
       }
     ],
     "nodeSnapshots": [
@@ -4422,10 +4957,10 @@
       "priceLabel": "¥12/月起",
       "trafficLabel": "168GB/月"
     },
-    "clientNotes": "帮助中心提供 Windows、Android、macOS、iOS 和 Linux 客户端教程，仪表盘提供复制订阅、二维码和 Clash、sing-box、Shadowrocket、Loon 导入入口；这些入口不代表本站已逐平台安装测试。",
-    "editorialUpdatedAt": "2026-10-04",
+    "clientNotes": "帮助中心提供 iPhone/iPad、Android、Windows、Mac、Linux 专用客户端教程，以及 Shadowrocket 和各系统 Clash 备用教程。Android 文档标题含鸿蒙，具体版本兼容性需确认；仪表盘提供复制订阅、二维码及 Clash、sing-box、Shadowrocket、Loon 一键导入入口，教程存在不代表本站已逐平台安装验证。",
+    "editorialUpdatedAt": "2026-10-09",
     "sourcePage": "https://yp7.net/posts/xsus-review-2026/",
-    "sourceReviewNote": "官网套餐、帮助中心与仪表盘核对于 2026-09-23；不支持免费试用于 2026-09-27 获站长补充。",
+    "sourceReviewNote": "官网 10 款套餐、购买须知、帮助中心及仪表盘核对于 2026-09-23；不支持免费试用由站长于 2026-09-27 补充。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
     "selectionGuide": {
       "goodFor": [
         "需要 168GB 起的月付套餐或不限时总流量包，并接受官方或第三方客户端。"
@@ -4434,6 +4969,7 @@
         "最多 5 个 IP；周期流量不结转，续费不立即重置流量；不提供免费试用。"
       ]
     },
-    "couponLabel": "旧优惠码（待复核）"
+    "couponLabel": "旧优惠码（待复核）",
+    "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）"
   }
 ]

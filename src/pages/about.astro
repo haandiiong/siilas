@@ -13,9 +13,11 @@ const aboutStructuredData = {
       '@id': `${aboutUrl}#webpage`,
       url: aboutUrl,
       name: '关于测试者 siilas',
-      description: `${AUTHOR_DESCRIPTION}公开测试环境、测试方法、原始记录和自动评分规则。`,
+      description: `${AUTHOR_DESCRIPTION}公开测试环境、原始记录和评分规则，并说明与 yp7.net 在商业资料收集、实测和推荐整理上的分工。`,
       inLanguage: 'zh-CN',
+      dateModified: '2026-10-08',
       mainEntity: { '@id': personId },
+      mentions: { '@type': 'WebSite', name: 'yp7.net', url: 'https://yp7.net/' },
     },
     {
       '@type': 'Person',
@@ -59,6 +61,15 @@ const aboutStructuredData = {
         <p>人工实测，数据自动计算</p>
         <p class="desc">测试由本人实际操作并记录；分项分数与综合评分依据公开规则从已验证样本自动计算，不根据推广合作人工调整。</p>
       </section>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><div class="section-kicker">Sources and responsibilities</div><h2>与 yp7.net 的资料分工</h2></div></div>
+    <div class="card">
+      <p>Siilas 与 <a class="text-link" href="https://yp7.net/" target="_blank" rel="noopener noreferrer">yp7.net</a> 由同一站长运营。yp7.net 负责收集和复核机场官网、套餐、试用、客户端与服务规则；Siilas 接收这些商业资料，进行节点测速及 ChatGPT、流媒体使用体验测试；实测结果再交回 yp7.net，供机场比较和推荐整理使用。</p>
+      <p>商业资料以 yp7.net 对应机场资料页的记录为准，来源链接和核对日期列在本站机场页末尾。测速结论以 Siilas 的原始记录为依据，保留测试日期、客户端、结果链接和截图；尚未实测的机场不生成测速评分。</p>
+      <p class="desc">套餐复核日期、实际测试日期和文章编辑日期分别记录。商业资料更新不会刷新旧测速的日期，也不会代替新的测试证据。</p>
     </div>
   </section>
 

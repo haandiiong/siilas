@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { auditData } from './audit-data.mjs';
-import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, isCalendarDate, toRecordedAtIso } from '../src/data/date-utils.mjs';
+import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate, toRecordedAtIso } from '../src/data/date-utils.mjs';
 
 const auditFixture = (airportChanges = {}, profiles = []) => auditData({
 	airports: [{ slug: 'fixture', name: '日期边界验证', commercialReviewedAt: '2026-09-30', ...airportChanges }],
@@ -43,6 +43,24 @@ test('精确时间输出有效 ISO，约时间和未知时间保留日期精度'
 	for (const time of ['约 10:40', null, undefined, '24:00', '09:60']) {
 		assert.equal(toRecordedAtIso('2026-10-04', time), '2026-10-04');
 	}
+});
+
+test('测试时段按北京时间边界划分，约时间不能自动推断', () => {
+	for (const [time, window] of [['00:00', '凌晨'], ['05:59', '凌晨'], ['06:00', '日间'], ['17:59', '日间'], ['18:00', '晚间'], ['19:59', '晚间'], ['20:00', '晚高峰'], ['22:59', '晚高峰'], ['23:00', '晚间'], ['23:59', '晚间']]) {
+		assert.equal(getTestWindow(time), window, time);
+	}
+	for (const time of ['约 10:40', null, undefined, '24:00', '09:60']) assert.equal(getTestWindow(time), null);
+});
+
+test('审计拒绝确定时间的错误时段，检查附加证据文件和路径', async () => {
+	const record = { id: 'evidence', testedAt: '2026-10-03', node: '香港', time: '19:00', window: '晚高峰', resultUrl: 'https://www.speedtest.net/result/fixture', evidenceImages: [{ label: 'ChatGPT 状态截图', path: '/evidence/not-present.png' }] };
+	const report = await auditFixture({ tests: [record] });
+	assert.ok(report.errors.some((error) => error.includes('时段应为晚间')));
+	assert.ok(report.errors.some((error) => error.includes('证据文件不存在')));
+	const unsafe = await auditFixture({ tests: [{ ...record, window: '晚间', evidenceImages: [{ label: '截图', path: '/../package.json' }] }] });
+	assert.ok(unsafe.errors.some((error) => error.includes('证据路径无效')));
+	const unknown = await auditFixture({ tests: [{ ...record, time: '约 19:00', evidenceImages: [] }] });
+	assert.deepEqual(unknown.errors, []);
 });
 
 test('审计拒绝未来测速日期、异常日历日期，异常记录不计入参评覆盖', async () => {

@@ -11,7 +11,7 @@
     "build": "pnpm data:test && pnpm data:audit && pnpm data:handoff && pnpm check && astro build",
     "check": "astro check",
     "data:audit": "node scripts/audit-data.mjs",
-    "data:test": "node --test scripts/date-validation.test.mjs",
+    "data:test": "node --test scripts/date-validation.test.mjs scripts/source-handoff.test.mjs",
     "data:handoff": "node scripts/check-airport-source-handoff.mjs",
     "data:handoff:source": "node scripts/check-airport-source-handoff.mjs --source",
     "data:handoff:accept": "node scripts/check-airport-source-handoff.mjs --accept",

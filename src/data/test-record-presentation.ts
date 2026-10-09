@@ -12,13 +12,30 @@ const timeMinutes = (time: string | null) => {
 	return match ? Number(match[1]) * 60 + Number(match[2]) : -1;
 };
 
+export const sortTestsNewestFirst = <T extends Pick<AirportTest, 'testedAt' | 'time'>>(tests: readonly T[]): T[] =>
+	[...tests].sort((left, right) => right.testedAt.localeCompare(left.testedAt)
+		|| timeMinutes(right.time) - timeMinutes(left.time));
+
+export const getTestSamplePeriod = (tests: AirportTest[]) => {
+	const dates = tests.filter((test) => test.resultUrl || test.evidenceImage).map((test) => test.testedAt).sort();
+	return dates.length ? dates[0] === dates.at(-1) ? dates[0] : `${dates[0]} 至 ${dates.at(-1)}` : '待测试';
+};
+
+export const getTestEvidenceLinks = (test: AirportTest) => {
+	const links = [
+		...(test.evidenceImage ? [{ label: 'Speedtest 截图', path: test.evidenceImage }] : []),
+		...(test.evidenceImages ?? []),
+	];
+	return links.filter((link, index) => links.findIndex((item) => item.path === link.path) === index);
+};
+
 export const getLatestRegionTests = (tests: AirportTest[]) => TEST_REGIONS.map(({ name, pattern }) => ({
 	region: name,
 	test: tests
 		.filter((test) => pattern.test(test.node) && Boolean(test.resultUrl || test.evidenceImage))
-		.sort((left, right) => left.testedAt.localeCompare(right.testedAt)
-			|| timeMinutes(left.time) - timeMinutes(right.time))
-		.at(-1),
+		.toSorted((left, right) => right.testedAt.localeCompare(left.testedAt)
+			|| timeMinutes(right.time) - timeMinutes(left.time))
+		.at(0),
 }));
 
 export const getLatestExperienceSummary = (tests: AirportTest[], field: 'chatgpt' | 'streaming') => {
@@ -38,7 +55,8 @@ export const getTestRecordDetails = (test: AirportTest) => [
 	{ label: '连接方式', value: recorded(test.connectionType) },
 	{ label: '基准下载带宽', value: measurement(test.baselineDownloadMbps, 'Mbps') },
 	{ label: '设备', value: recorded(test.device) },
-	{ label: '测试客户端', value: recorded(test.client) },
+	{ label: '连接客户端', value: recorded(test.client) },
+	{ label: '测速工具', value: recorded(test.measurementTool) },
 	{ label: 'Speedtest 显示网络', value: recorded(test.isp) },
 	{ label: '测速服务器', value: recorded(test.server) },
 	{ label: 'Speedtest 空闲延迟', value: measurement(test.latencyMs, 'ms') },

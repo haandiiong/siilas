@@ -19,6 +19,35 @@ const firstPartyFields = new Set([
 ]);
 const permalinkOf = (url) => new URL(url).pathname.replace(/\/+$/u, '') + '/';
 
+export function commercialSourceSha256(markdown, filename = '来源文章') {
+  const startMarker = '<!-- siilas-testing:start -->';
+  const endMarker = '<!-- siilas-testing:end -->';
+  const startCount = markdown.split(startMarker).length - 1;
+  const endCount = markdown.split(endMarker).length - 1;
+  if (startCount === 0 && endCount === 0) return hash(markdown);
+
+  const start = markdown.indexOf(startMarker);
+  const end = markdown.indexOf(endMarker);
+  const markerIsLine = (marker, index) => {
+    const lineStart = markdown.lastIndexOf('\n', index - 1) + 1;
+    const lineEnd = markdown.indexOf('\n', index + marker.length);
+    return markdown.slice(lineStart, lineEnd === -1 ? undefined : lineEnd).trim() === marker;
+  };
+  const frontmatter = markdown.match(/^---\s*\r?\n[\s\S]*?\r?\n---/u)?.[0];
+  if (startCount !== 1 || endCount !== 1 || start >= end
+    || !markerIsLine(startMarker, start) || !markerIsLine(endMarker, end)
+    || (frontmatter && start < frontmatter.length)) {
+    throw new Error(`${filename} 的 Siilas 自动测速块标记无效：必须为正文中唯一、完整且顺序正确的一对独立行标记`);
+  }
+  let commercial = markdown.slice(0, start) + markdown.slice(end + endMarker.length);
+  if (frontmatter) {
+    const dates = frontmatter.match(/^dateModified:[^\r\n]*(?:\r?\n|$)/gmu) ?? [];
+    if (dates.length > 1) throw new Error(`${filename} 的来源编辑日期字段重复，不能排除自动编辑日期`);
+    commercial = commercial.replace(frontmatter, frontmatter.replace(/^dateModified:[^\r\n]*(?:\r?\n|$)/gmu, ''));
+  }
+  return hash(commercial);
+}
+
 export async function loadLocalHandoff() {
   const [tested, profiles, details, highlights] = await Promise.all([
     readJson('src/data/airports.json'), readJson('src/data/airport-profiles.json'),
@@ -68,7 +97,11 @@ export async function loadSourceHandoff(entries) {
     if (!wanted.has(normalized)) continue;
     if (articles.has(normalized)) throw new Error(`多个来源文件使用 ${normalized}`);
     const updated = (frontmatter.match(/^(?:dateModified|updated):\s*["']?([^\s"']+)/mu)?.[1] ?? null)?.replaceAll('/', '-') ?? null;
-    articles.set(normalized, { filename, sourceSha256: hash(markdown), sourceUpdatedAt: updated });
+    articles.set(normalized, {
+      filename, sourceSha256: hash(markdown),
+      sourceCommercialSha256: commercialSourceSha256(markdown, filename),
+      sourceUpdatedAt: updated,
+    });
   }
   return new Map([...entries].map(([slug, entry]) => {
     const source = articles.get(permalinkOf(entry.sourcePage));
@@ -100,6 +133,10 @@ export function handoffErrors(entries, manifest, sources) {
     if (!validHash(accepted.sourceSha256) || typeof accepted.sourceFile !== 'string' || !accepted.sourceFile) {
       errors.push(`${current.name} 来源版本缺失或格式无效`);
     }
+    const hasCommercialHash = Object.hasOwn(accepted, 'sourceCommercialSha256');
+    if (hasCommercialHash && !validHash(accepted.sourceCommercialSha256)) {
+      errors.push(`${current.name} 商业来源指纹格式无效`);
+    }
     if (getDateValidationError(accepted.acceptedAt) || getDateValidationError(accepted.sourceUpdatedAt)
       || typeof accepted.acceptanceNote !== 'string' || !accepted.acceptanceNote.trim()) {
       errors.push(`${current.name} 交接确认日期或说明无效`);
@@ -119,9 +156,13 @@ export function handoffErrors(entries, manifest, sources) {
     }
     if (sources) {
       const source = sources.get(slug);
-      if (accepted.sourceSha256 !== source.sourceSha256 || accepted.sourceFile !== source.filename
-        || accepted.sourceUpdatedAt !== source.sourceUpdatedAt) {
-        errors.push(`${current.name} yp7.net 来源文章已变化：${source.filename}；请复核官网、摘要、套餐、试用、客户端、来源日期和专属要点后重新确认交接`);
+      // Old receipts keep full-article checks until a human accepts the new
+      // commercial fingerprint. Full hashes and edit dates remain audit data.
+      const versionChanged = hasCommercialHash
+        ? !validHash(source.sourceCommercialSha256) || accepted.sourceCommercialSha256 !== source.sourceCommercialSha256
+        : accepted.sourceSha256 !== source.sourceSha256 || accepted.sourceUpdatedAt !== source.sourceUpdatedAt;
+      if (versionChanged || accepted.sourceFile !== source.filename) {
+        errors.push(`${current.name} yp7.net ${hasCommercialHash ? '商业来源' : '完整来源文章'}已变化：${source.filename}；请复核官网、摘要、套餐、试用、客户端、来源日期和专属要点后重新确认交接`);
       }
     }
   }

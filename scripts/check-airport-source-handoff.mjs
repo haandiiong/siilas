@@ -12,7 +12,7 @@ if (!args.includes('--accept')) {
   const source = args.includes('--source');
   const count = await checkHandoff({ source });
   console.log(source
-    ? `商业资料交接通过：${count} 家机场的完整来源版本和全部已接收商业字段与确认清单一致。`
+    ? `商业资料交接通过：${count} 家机场的商业来源指纹和全部已接收商业字段与确认清单一致；旧清单仍按完整来源版本检查。`
     : `商业资料交接通过：${count} 家机场的本地商业字段、套餐/客户端表和专属要点与已接收清单一致；未读取 yp7.net 当前来源。`);
 } else {
   const slug = args.includes('--slug') ? valueAfter('--slug') : undefined;
@@ -47,7 +47,8 @@ if (!args.includes('--accept')) {
     const source = sources.get(selectedSlug);
     manifest.airports[selectedSlug] = {
       name: entry.name, kind: entry.kind, sourcePage: entry.sourcePage,
-      sourceFile: source.filename, sourceSha256: source.sourceSha256, sourceUpdatedAt: source.sourceUpdatedAt,
+      sourceFile: source.filename, sourceSha256: source.sourceSha256,
+      sourceCommercialSha256: source.sourceCommercialSha256, sourceUpdatedAt: source.sourceUpdatedAt,
       acceptedAt: todayShanghai(), acceptanceNote: note.trim(), received: entry.received,
     };
   }
@@ -56,5 +57,5 @@ if (!args.includes('--accept')) {
   }
   manifest.airports = Object.fromEntries(Object.entries(manifest.airports).sort(([left], [right]) => left.localeCompare(right, 'en')));
   await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-  console.log(`已记录 ${selected.length} 家机场的来源版本和人工接收字段；测速记录未写入交接清单。`);
+  console.log(`已记录 ${selected.length} 家机场的商业来源指纹、完整来源审计版本和人工接收字段；测速记录未写入交接清单。`);
 }

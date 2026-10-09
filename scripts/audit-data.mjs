@@ -1,7 +1,7 @@
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, isCalendarDate } from '../src/data/date-utils.mjs';
+import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate } from '../src/data/date-utils.mjs';
 
 const PROJECT_ROOT = fileURLToPath(new URL('..', import.meta.url));
 const REGIONS = ['新加坡', '香港', '日本', '美国'];
@@ -68,6 +68,10 @@ export const auditData = async ({ airports, profiles = [], pageUpdates = {}, pro
 	const resultUrls = new Map();
 	for (const { airportSlug, test } of allTests) {
 		validateDate(test.testedAt, `${airportSlug} 测试 ${test.id} testedAt`);
+		const expectedWindow = getTestWindow(test.time);
+		if (expectedWindow && test.window !== expectedWindow) {
+			errors.push(`${airportSlug} 测试 ${test.id} 时段应为${expectedWindow}（北京时间 ${test.time}）`);
+		}
 		const idKey = `${airportSlug}:${test.id}`;
 		if (ids.has(idKey)) errors.push(`测试 ID 重复：${idKey}`);
 		ids.set(idKey, true);
@@ -75,11 +79,23 @@ export const auditData = async ({ airports, profiles = [], pageUpdates = {}, pro
 			if (resultUrls.has(test.resultUrl)) errors.push(`Speedtest 链接重复：${test.resultUrl}`);
 			resultUrls.set(test.resultUrl, true);
 		}
-		if (test.evidenceImage) {
+		const evidencePaths = test.evidenceImage ? [test.evidenceImage] : [];
+		for (const evidence of test.evidenceImages ?? []) {
+			if (!evidence || typeof evidence.label !== 'string' || !evidence.label.trim() || typeof evidence.path !== 'string') {
+				errors.push(`${idKey} 附加证据必须包含 label 和 path`);
+				continue;
+			}
+			evidencePaths.push(evidence.path);
+		}
+		for (const evidencePath of evidencePaths) {
+			if (!evidencePath.startsWith('/') || evidencePath.startsWith('//') || evidencePath.split('/').includes('..')) {
+				errors.push(`证据路径无效：${evidencePath}`);
+				continue;
+			}
 			try {
-				await access(join(projectRoot, 'public', test.evidenceImage.replace(/^\//u, '')));
+				await access(join(projectRoot, 'public', evidencePath.replace(/^\//u, '')));
 			} catch {
-				errors.push(`证据文件不存在：${test.evidenceImage}`);
+				errors.push(`证据文件不存在：${evidencePath}`);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ const pageTitle = stopped
   : `${a.name}机场资料｜价格、套餐、客户端与购买前核对`;
 const pageDescription = stopped
   ? `${a.name}机场风险记录：来源资料已标记停止推荐，历史套餐不作为当前报价。Siilas 尚无独立测速，不提供评分。`
-  : `${a.name}机场资料：套餐摘要${a.priceSummary}；免费试用${a.trial}，通用订阅${a.universalSubscription}。第三方资料最近核对于 ${a.sourceReviewedAt}；Siilas 尚无独立测速。`;
+  : `${a.name}机场资料：套餐摘要${a.priceSummary}；免费试用${a.trial}，通用订阅${a.universalSubscription}。商业资料核对日期为 ${a.sourceReviewedAt}；Siilas 尚无独立测速。`;
 const cautions = a.cautions.split(/[；;]/u).map((item) => item.trim()).filter(Boolean);
 const audienceTags = a.audience?.split('、').map((item) => item.trim()).filter(Boolean) ?? [];
 const planTables = a.planTables ?? [];
@@ -88,7 +88,7 @@ const structuredData = {
     <h1>{a.name}机场{stopped ? '风险记录' : '资料'}</h1>
     <p>{stopped
       ? '来源资料已标记停止推荐。下方仅保留风险和出处，历史套餐不作为当前可购买的价格。'
-      : `第三方资料最近一次核对记录于 ${a.sourceReviewedAt}，套餐摘要为${a.priceSummary}。各项核对日期见下方来源区；本站尚无独立测速。`}</p>
+      : `商业资料核对日期为 ${a.sourceReviewedAt}，套餐摘要为${a.priceSummary}。分项核对日期见下方来源区；本站尚无独立测速。`}</p>
     <p class="desc">资料整理：<a class="text-link" href="/about/" rel="author">{AUTHOR_NAME}</a></p>
     {a.officialUrl && !stopped && <div class="actions"><a class="button" href={a.officialUrl} target="_blank" rel="nofollow sponsored noopener">官网入口 →</a></div>}
   </div>
@@ -103,7 +103,7 @@ const structuredData = {
         <p>资料状态：<span class="yes">商业资料已收录，本站尚未实测</span></p>
         <p>客户端：{a.client}</p>
         <p>通用订阅：{a.universalSubscription}</p>
-        <p class="desc">最近一项资料核对：{a.sourceReviewedAt} · 建议下次复核：{a.nextSourceReviewAt}</p>
+        <p class="desc">商业资料核对日期：{a.sourceReviewedAt} · 建议下次复核：{a.nextSourceReviewAt}</p>
       </section>
       <section class="card">
         <h2>套餐摘要</h2>
@@ -140,13 +140,13 @@ const structuredData = {
     </section>
     <section class="section">
       <div class="section-head"><div><div class="section-kicker">Clients and setup</div><h2>客户端与使用条件</h2></div></div>
-      <div class="card"><p>资料记录的客户端：{a.client}；通用订阅：{a.universalSubscription}。</p><p class="desc">下表仅整理来源页列出的教程与导入方式；安装步骤不代表本站验证了所有设备和网络。</p></div>
+      <div class="card"><p>资料记录的客户端：{a.client}；通用订阅：{a.universalSubscription}。</p><p class="desc">下表整理来源页列出的客户端、教程、导入方式或下载版本信息，不代表本站已安装验证所有设备和网络；客户端版本的发布日期不等于商业资料核对日期。</p></div>
       {clientTables.map((table) => <div class="profile-table-block">
         <h3>{table.title}</h3>
         <div class="table-scroll"><table class="data-table"><caption class="sr-only">{table.title}</caption><thead><tr>{table.columns.map((column) => <th scope="col">{column}</th>)}</tr></thead><tbody>{table.rows.map((row) => <tr>{row.map((value) => <td>{value}</td>)}</tr>)}</tbody></table></div>
         {table.truncated && <p class="desc">此表仅展示部分内容；原文共 {table.sourceRowCount} 行、{table.sourceColumnCount} 列，请查看资料来源页。</p>}
       </div>)}
-      {clientTables.length === 0 && <p class="desc">来源原文没有独立的分平台教程表，具体安装路径请查看资料来源链接及商家当前文档。</p>}
+      {clientTables.length === 0 && <p class="desc">本站暂未整理分平台表，具体安装路径请查看资料来源链接及商家当前文档。</p>}
     </section>
 
     <section class="section">
@@ -170,7 +170,7 @@ const structuredData = {
     <div class="section-head"><div><div class="section-kicker">Source notes</div><h2>{stopped ? '风险资料来源与日期' : '商业资料来源与日期'}</h2></div></div>
     <div class="card">
       <p>{stopped ? '风险资料来源：' : '商业资料来源：'}<a class="text-link" href={a.sourcePage} target="_blank" rel="noopener noreferrer">yp7.net 的{a.name}资料页 →</a></p>
-      <p>{stopped ? '风险依据复核时间：' : '最近一项资料核对：'}{a.sourceReviewedAt} · 下次建议复核：{a.nextSourceReviewAt}</p>
+      <p>{stopped ? '风险依据复核时间：' : '商业资料核对日期：'}{a.sourceReviewedAt} · 下次建议复核：{a.nextSourceReviewAt}</p>
       <p class="desc">来源文章编辑日期：{a.sourceUpdatedAt}。文章编辑不等于套餐或客户端重新核对。</p>
       <details><summary>查看分项核对日期</summary><p>{a.sourceReviewNote}</p></details>
       {a.officialLinkNote && <p class="desc">官网入口核对：{a.officialLinkNote}</p>}

@@ -42,6 +42,7 @@ const testSchema = z.object({
 	packetLossPercent: z.number().min(0).max(100).nullable().optional(),
 	resultUrl: z.url().nullable(),
 	evidenceImage: z.string().startsWith('/').optional(),
+	evidenceImages: z.array(z.object({ label: z.string().min(1), path: z.string().startsWith('/') })).optional(),
 	evidenceNote: z.string().min(1).optional(),
 	sourceRegion: z.string().nullable(),
 	carrier: z.string().nullable().optional(),
@@ -51,6 +52,7 @@ const testSchema = z.object({
 	server: z.string().nullable().optional(),
 	device: z.string().nullable(),
 	client: z.string().nullable(),
+	measurementTool: z.string().min(1).nullable().optional(),
 });
 
 const nodeSnapshotSchema = z.object({

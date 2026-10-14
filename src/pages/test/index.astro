@@ -2,9 +2,11 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import TestRecordLink from '../../components/TestRecordLink.astro';
+import TestRecordPagination from '../../components/TestRecordPagination.astro';
 import { AUTHOR_DESCRIPTION, AUTHOR_NAME, TEST_CLIENTS, TEST_DEVICE, TEST_NETWORK } from '../../consts';
 import { airports, getTests } from '../../data/airport-data';
-import { getTestEvidenceLinks, getTestRecordDetails, sortTestsNewestFirst } from '../../data/test-record-presentation';
+import { getTestRecordAnchor, getTestEvidenceLinks, getTestRecordDetails, sortTestsNewestFirst } from '../../data/test-record-presentation';
 const records = sortTestsNewestFirst(airports
 	.flatMap((airport) => getTests(airport).map((test) => ({ airport: airport.name, airportSlug: airport.slug, ...test }))));
 const testedAirportCount = new Set(records.map((record) => record.airport)).size;
@@ -41,14 +43,16 @@ const testStructuredData = {
 ---
 <html lang="zh-CN"><head><BaseHead title="机场测速记录｜四地区节点与使用体验" description={testDescription} structuredData={testStructuredData} /></head><body><Header /><main class="shell">
 	<div class="page-head"><div class="section-kicker">Speed test archive</div><h1>测速中心</h1><p>当前共监测 {testedAirportCount} 家机场，收录 {verifiedTestCount} 条已验证测速，全部参与评分与日期统计。</p><p class="desc">每条记录保留 Speedtest 结果链接或截图；未提供的指标不会使用估算值。记录按测试时间由新到旧排列，时间均为北京时间。</p><div class="actions"><a class="button secondary" href="/rank/">查看机场排行榜</a><a class="button secondary" href="/methodology/">了解测试方法</a></div></div>
-	<section data-archive-pagination data-page-size="10">
-		<div style="overflow-x:auto"><table class="data-table"><caption class="sr-only">机场测速原始记录</caption><thead><tr><th>时间</th><th>服务 / 节点</th><th>下载</th><th>上传</th><th>ChatGPT</th><th>流媒体</th><th>详情</th></tr></thead><tbody>{records.map((record) => <tr data-page-row>
+	<p class="desc">流媒体使用 YouTube 4K，三次拖动进度条观察缓冲；ChatGPT 观察发送消息到开始出现回答的等待。逐次计时仅在实际保存时列入详情。<a class="text-link" href="/methodology/#experience-methods">查看测试流程 →</a></p>
+	<section data-record-pagination data-page-size="10">
+		<div style="overflow-x:auto"><table class="data-table"><caption class="sr-only">机场测速原始记录</caption><thead><tr><th>时间</th><th>服务 / 节点</th><th>下载</th><th>上传</th><th>ChatGPT</th><th>流媒体</th><th>详情</th></tr></thead><tbody>{records.map((record) => <tr data-page-row id={getTestRecordAnchor(record.airportSlug, record.id)} tabindex="-1">
 			<td>{record.testedAt}<br />{record.time ?? '未记录'}</td><td class="airport-name"><a href={`/airport/${record.airportSlug}/`}>{record.airport}</a><small>{record.node}</small></td><td>{record.downloadMbps} Mbps</td><td>{record.uploadMbps.toFixed(2)} Mbps</td><td>{record.chatgpt}</td><td>{record.streaming}</td>
 			<td>{record.resultUrl && <a class="text-link" href={record.resultUrl} target="_blank" rel="noopener nofollow">Speedtest →</a>}{getTestEvidenceLinks(record).map(({ label, path }) => <small><a class="text-link" href={path} target="_blank" rel="noopener">{label} →</a></small>)}
+				<TestRecordLink airportSlug={record.airportSlug} recordId={record.id} label={`${record.airport} ${record.testedAt} ${record.node}`} />
 				<details class="test-record-details"><summary>记录详情</summary><dl>{getTestRecordDetails(record).map(({ label, value }) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl></details>
 			</td>
 		</tr>)}</tbody></table></div>
-		<nav class="table-pagination" data-pagination-controls hidden aria-label="测速原始记录分页"><button type="button" data-page-action="previous">上一页</button><span class="page-numbers" data-page-numbers></span><button type="button" data-page-action="next">下一页</button><span class="page-summary" data-page-summary aria-live="polite"></span></nav>
+		<TestRecordPagination label="测速原始记录分页" />
 	</section>
 </main><Footer /></body></html>
 
@@ -61,55 +65,3 @@ const testStructuredData = {
 	.test-record-details dt { color: var(--muted); }
 	.test-record-details dd { margin: 3px 0 0; overflow-wrap: anywhere; }
 </style>
-
-<script>
-	document.querySelectorAll<HTMLElement>('[data-archive-pagination]').forEach((section) => {
-		const rows = Array.from(section.querySelectorAll<HTMLTableRowElement>('[data-page-row]'));
-		const controls = section.querySelector<HTMLElement>('[data-pagination-controls]');
-		const pageNumbers = section.querySelector<HTMLElement>('[data-page-numbers]');
-		const summary = section.querySelector<HTMLElement>('[data-page-summary]');
-		const previous = section.querySelector<HTMLButtonElement>('[data-page-action="previous"]');
-		const next = section.querySelector<HTMLButtonElement>('[data-page-action="next"]');
-		const pageSize = Number(section.dataset.pageSize) || 10;
-		const pageCount = Math.ceil(rows.length / pageSize);
-		let currentPage = 1;
-
-		if (!controls || !pageNumbers || !summary || !previous || !next || pageCount <= 1) return;
-
-		const pageButtons: HTMLButtonElement[] = [];
-		for (let page = 1; page <= pageCount; page += 1) {
-			const button = document.createElement('button');
-			button.type = 'button';
-			button.textContent = String(page);
-			button.dataset.page = String(page);
-			button.setAttribute('aria-label', `第 ${page} 页`);
-			pageNumbers.append(button);
-			pageButtons.push(button);
-		}
-
-		const render = () => {
-			rows.forEach((row, index) => {
-				row.hidden = index < (currentPage - 1) * pageSize || index >= currentPage * pageSize;
-			});
-			previous.disabled = currentPage === 1;
-			next.disabled = currentPage === pageCount;
-			summary.textContent = `第 ${currentPage} / ${pageCount} 页，共 ${rows.length} 条`;
-			pageButtons.forEach((button) => {
-				if (Number(button.dataset.page) === currentPage) button.setAttribute('aria-current', 'page');
-				else button.removeAttribute('aria-current');
-			});
-		};
-
-		controls.hidden = false;
-		controls.addEventListener('click', (event) => {
-			const button = (event.target as Element).closest<HTMLButtonElement>('button');
-			if (!button || button.disabled) return;
-			if (button.dataset.pageAction === 'previous') currentPage -= 1;
-			if (button.dataset.pageAction === 'next') currentPage += 1;
-			if (button.dataset.page) currentPage = Number(button.dataset.page);
-			render();
-			if (button.disabled) pageButtons[currentPage - 1].focus();
-		});
-		render();
-	});
-</script>

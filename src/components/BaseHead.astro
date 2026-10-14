@@ -9,8 +9,9 @@ interface Props {
 	structuredData?: Record<string, unknown>;
 	ogType?: 'website' | 'article';
 	image?: string;
+	imageAlt?: string;
 }
-const { title, description, noindex = false, structuredData, ogType = 'website', image = '/og-default.png' } = Astro.props;
+const { title, description, noindex = false, structuredData, ogType = 'website', image = '/og-default.png', imageAlt = 'Siilas 机场节点长期实测' } = Astro.props;
 const pageTitle = title ? `${title}｜${SITE_TITLE}` : `机场实测与节点测速排行榜｜${SITE_TITLE}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
@@ -18,7 +19,7 @@ const authorURL = new URL('/about/', Astro.site);
 const defaultStructuredData = {
 	'@context': 'https://schema.org',
 	'@type': title ? 'WebPage' : 'WebSite',
-	name: pageTitle,
+	name: title ? pageTitle : SITE_TITLE,
 	url: canonicalURL,
 	description,
 	inLanguage: 'zh-CN',
@@ -56,9 +57,10 @@ const pageStructuredData = structuredData ?? defaultStructuredData;
 <meta property="og:image" content={socialImageURL} />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Siilas 机场节点长期实测" />
+<meta property="og:image:alt" content={imageAlt} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
 <script is:inline type="application/ld+json" set:html={JSON.stringify(pageStructuredData)} />

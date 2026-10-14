@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import { readFileSync } from 'node:fs';
 
-/** @typedef {{testedAt: string, resultUrl?: string | null, evidenceImage?: string}} SitemapTest */
+/** @typedef {{testedAt: string, node?: string, resultUrl?: string | null, evidenceImage?: string}} SitemapTest */
 /** @typedef {{slug: string, commercialReviewedAt: string, editorialUpdatedAt?: string, clientSupportVerifiedAt?: string, tests?: SitemapTest[]}} SitemapAirport */
 /** @param {string} filename */
 const readData = (filename) => JSON.parse(readFileSync(new URL(`./src/data/${filename}`, import.meta.url), 'utf8'));
@@ -18,7 +18,7 @@ const testDates = (airport) => (airport.tests ?? [])
 const lastModifiedByPath = new Map(Object.entries(readData('page-updates.json')));
 for (const airport of testedAirports) {
 	lastModifiedByPath.set(`/airport/${airport.slug}/`, latestDate([
-		airport.editorialUpdatedAt, airport.commercialReviewedAt, airport.clientSupportVerifiedAt, ...testDates(airport),
+		lastModifiedByPath.get(`/airport/${airport.slug}/`), airport.editorialUpdatedAt, airport.commercialReviewedAt, airport.clientSupportVerifiedAt, ...testDates(airport),
 	]));
 }
 for (const profile of profiles) lastModifiedByPath.set(`/airport/${profile.slug}/`, profile.editorialUpdatedAt);
@@ -26,9 +26,11 @@ const latestRankingData = latestDate(testedAirports.flatMap((airport) => [airpor
 for (const pathname of ['/', '/airport/', '/rank/']) {
 	lastModifiedByPath.set(pathname, latestDate([lastModifiedByPath.get(pathname), latestRankingData]));
 }
-for (const pathname of ['/test/', '/tutorial/']) {
-	lastModifiedByPath.set(pathname, latestDate([lastModifiedByPath.get(pathname), ...testedAirports.flatMap(testDates)]));
-}
+lastModifiedByPath.set('/test/', latestDate([lastModifiedByPath.get('/test/'), ...testedAirports.flatMap(testDates)]));
+const tutorialTestDates = testedAirports.flatMap((airport) => (airport.tests ?? [])
+	.filter((test) => (test.resultUrl || test.evidenceImage) && test.node?.includes('香港'))
+	.map((test) => test.testedAt));
+lastModifiedByPath.set('/tutorial/', latestDate([lastModifiedByPath.get('/tutorial/'), ...tutorialTestDates]));
 lastModifiedByPath.set('/airport/', latestDate([lastModifiedByPath.get('/airport/'), ...profiles.map((profile) => profile.editorialUpdatedAt)]));
 
 // https://astro.build/config

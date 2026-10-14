@@ -1,0 +1,23 @@
+---
+interface Props { label?: string; }
+const { label = '原始测速记录分页' } = Astro.props;
+---
+<nav class="table-pagination" data-pagination-controls hidden aria-label={label}>
+	<button type="button" data-page-action="previous">上一页</button>
+	<span class="page-numbers" data-page-numbers></span>
+	<button type="button" data-page-action="next">下一页</button>
+	<span class="page-summary" data-page-summary aria-live="polite"></span>
+</nav>
+
+<style is:global>
+	.table-pagination[hidden] { display: none; }
+	.data-table tr[data-page-row] { scroll-margin-top: 100px; }
+	.data-table tr[data-record-selected] > td,
+	.data-table tr[data-page-row]:target > td { background: var(--panel2); border-top-color: var(--lime); border-bottom-color: var(--lime); }
+	.data-table tr[data-record-selected] > td:first-child,
+	.data-table tr[data-page-row]:target > td:first-child { box-shadow: inset 3px 0 var(--lime); }
+</style>
+
+<script>
+	import '../scripts/test-record-navigation';
+</script>

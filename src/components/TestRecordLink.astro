@@ -1,0 +1,26 @@
+---
+import { getTestRecordHref } from '../data/test-record-presentation';
+
+interface Props {
+	airportSlug: string;
+	recordId: string;
+	label: string;
+}
+const { airportSlug, recordId, label } = Astro.props;
+const href = getTestRecordHref(airportSlug, recordId);
+---
+<div class="record-link-tools">
+	<a class="text-link" href={href} aria-label={`查看${label}的记录链接`}>记录链接 →</a>
+	<button type="button" data-copy-record-link data-record-url={href} aria-label={`复制${label}的记录链接`} hidden>复制记录链接</button>
+	<span class="record-link-status" data-record-link-status role="status"></span>
+	<input class="record-link-fallback" data-record-link-fallback type="text" readonly hidden aria-label={`${label}的记录链接，可手动复制`} />
+</div>
+
+<style>
+	.record-link-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 10px; font-size: 13px; }
+	.record-link-tools button { border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--panel2); color: var(--text); font: inherit; cursor: pointer; }
+	.record-link-tools button:hover { color: var(--lime); border-color: var(--lime); }
+	.record-link-tools button:disabled { opacity: 0.6; cursor: wait; }
+	.record-link-status { color: var(--muted); }
+	.record-link-fallback { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 7px; background: var(--bg); color: var(--text); font: inherit; }
+</style>

@@ -4,11 +4,32 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { AUTHOR_DESCRIPTION, AUTHOR_NAME } from '../../consts';
 import { airports, getTests } from '../../data/airport-data';
-import { getTestSamplePeriod } from '../../data/test-record-presentation';
+import { getLatestRegionTests, getTestRecordHref, getTestSamplePeriod } from '../../data/test-record-presentation';
 import pageUpdates from '../../data/page-updates.json';
 const rankedAirports = [...airports].sort((a, b) => (b.score ?? -1) - (a.score ?? -1));
 const eligibleAirports = rankedAirports.filter((airport) => airport.rankingEligible);
 const eligibleRanks = new Map(eligibleAirports.map((airport, index) => [airport.slug, index + 1]));
+const comparisons = rankedAirports.map((airport) => {
+  const { chatgpt, streaming } = airport.experienceScores;
+  const experienceDifference = chatgpt === null || streaming === null
+    ? '尚缺体验子项，不能用综合分代替目标服务验证。'
+    : chatgpt === streaming
+      ? '两项历史体验分相同，仍需分别复查目标服务。'
+      : `${chatgpt > streaming ? 'ChatGPT' : '流媒体'}历史体验子项较高；另一项的记录也应单独核对。`;
+  const subscription = airport.universalSubscription ?? '';
+  const clientCondition = airport.officialClientOnly || /^(?:普通套餐)?不支持/u.test(subscription)
+    ? '不支持通用订阅，需按官网指定客户端流程使用。'
+    : /^(?:支持|提供)/u.test(subscription)
+      ? '提供通用订阅，客户端与订阅格式需按机场页核对。'
+      : '通用订阅与客户端兼容条件待核对。';
+  return {
+    airport,
+    experienceDifference,
+    clientCondition,
+    latestRegions: getLatestRegionTests(getTests(airport)),
+  };
+});
+const rankTitle = '机场排行榜｜速度、稳定性与 ChatGPT 使用体验';
 const rankDescription = `查看 Siilas 基于持续测速生成的机场排行榜，综合比较 ${eligibleAirports.length} 家参评机场的节点速度、稳定性、ChatGPT、流媒体体验、套餐价格与有效样本。`;
 const rankUrl = new URL('/rank/', Astro.site).href;
 const authorUrl = new URL('/about/', Astro.site).href;
@@ -20,7 +41,7 @@ const rankStructuredData = {
       '@type': 'WebPage',
       '@id': `${rankUrl}#webpage`,
       url: rankUrl,
-      name: '机场排行榜｜速度、稳定性与 AI 解锁实测',
+      name: rankTitle,
       description: rankDescription,
       inLanguage: 'zh-CN',
       dateModified: [pageUpdates['/rank/'], ...airports.map((airport) => airport.pageModifiedAt)].sort().at(-1),
@@ -53,8 +74,119 @@ const rankStructuredData = {
   ],
 };
 ---
-<html lang="zh-CN"><head><BaseHead title="机场排行榜｜速度、稳定性与 AI 解锁实测" description={rankDescription} structuredData={rankStructuredData} /></head><body><Header /><main class="shell"><div class="page-head"><div class="section-kicker">Data ranking</div><h1>机场排行榜</h1><p>综合评分同时考虑速度、稳定性、ChatGPT 与流媒体实测表现；新加坡、香港、日本和美国每个地区均覆盖至少 3 个不同测试日期后才参与排名，分数会随新增样本持续更新。</p><div class="actions"><a class="button secondary" href="/methodology/">查看评分方法</a><a class="button secondary" href="/test/">复查原始测速</a></div></div><div class="table-scroll"><table class="data-table" style="margin-bottom:40px"><caption class="sr-only">机场排名及数据积累状态</caption><thead><tr><th>排名</th><th>机场</th><th>评分</th><th>稳定性</th><th>已验证样本</th><th>最近实测 / 样本周期</th><th>最低套餐</th><th>性价比计分套餐</th></tr></thead><tbody>{rankedAirports.map((airport) => <tr><td>{airport.rankingEligible ? `#${eligibleRanks.get(airport.slug)}` : '观察'}</td><td><a class="airport-name" href={`/airport/${airport.slug}/`}>{airport.name}</a></td><td class="score">{airport.score ?? '样本不足'}</td><td>{airport.stability === null ? '样本不足' : `${airport.stability}%`}</td><td>{airport.verifiedTestCount} 条</td><td>{airport.latestTestAt ?? '待测试'}<small>{getTestSamplePeriod(getTests(airport))}</small></td><td><strong>{airport.entryPlan.price}</strong><small>{airport.entryPlan.traffic}</small></td><td><strong>{airport.scoringPlan.priceLabel}</strong><small>{airport.scoringPlan.name} · {airport.scoringPlan.trafficLabel}</small></td></tr>)}</tbody></table></div><p class="desc">排名使用全部已验证历史样本，按统一规则自动计算，不等同于当天表现。最近实测日期表示该机场最新一条记录，各地区的最新日期请查看机场页。性价比按明确标记的计分套餐计算，最低套餐供查看入门价格。了解数据采集者请查看<a class="text-link" href="/about/" rel="author">测试者 siilas →</a>。</p><div class="section"></div></main><Footer /></body></html>
+<html lang="zh-CN">
+  <head><BaseHead title={rankTitle} description={rankDescription} structuredData={rankStructuredData} /></head>
+  <body>
+    <Header />
+    <main class="shell">
+      <div class="page-head">
+        <div class="section-kicker">Data ranking</div>
+        <h1>机场排行榜</h1>
+        <p>综合评分同时考虑速度、稳定性、ChatGPT 与流媒体实测表现；新加坡、香港、日本和美国每个地区均覆盖至少 3 个不同测试日期后才参与排名，分数会随新增样本持续更新。</p>
+        <div class="actions">
+          <a class="button secondary" href="/methodology/">查看评分方法</a>
+          <a class="button secondary" href="/test/">复查原始测速</a>
+          <a class="button secondary" href="#comparison-guide">查看比较说明</a>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table" style="margin-bottom:40px">
+          <caption class="sr-only">机场排名及数据积累状态</caption>
+          <thead><tr><th>排名</th><th>机场</th><th>评分</th><th>稳定性</th><th>已验证样本</th><th>最近实测 / 样本周期</th><th>最低套餐</th><th>性价比计分套餐</th></tr></thead>
+          <tbody>
+            {rankedAirports.map((airport) => <tr>
+              <td>{airport.rankingEligible ? `#${eligibleRanks.get(airport.slug)}` : '观察'}</td>
+              <td><a class="airport-name" href={`/airport/${airport.slug}/`}>{airport.name}</a></td>
+              <td class="score">{airport.score ?? '样本不足'}</td>
+              <td>{airport.stability === null ? '样本不足' : `${airport.stability}%`}</td>
+              <td>{airport.verifiedTestCount} 条</td>
+              <td>{airport.latestTestAt ?? '待测试'}<small>{getTestSamplePeriod(getTests(airport))}</small></td>
+              <td><strong>{airport.entryPlan.price}</strong><small>{airport.entryPlan.traffic}</small></td>
+              <td><strong>{airport.scoringPlan.priceLabel}</strong><small>{airport.scoringPlan.name} · {airport.scoringPlan.trafficLabel}</small></td>
+            </tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="desc">排名使用全部已验证历史样本，按统一规则自动计算，不等同于当天表现。最近实测日期表示该机场最新一条记录，各地区的最新日期请查看机场页。性价比按明确标记的计分套餐计算，最低套餐供查看入门价格。了解数据采集者请查看<a class="text-link" href="/about/" rel="author">测试者 siilas →</a>。</p>
+
+      <section class="rank-comparison" id="comparison-guide" aria-labelledby="comparison-heading">
+        <div class="section-head">
+          <div><div class="section-kicker">Compare the evidence</div><h2 id="comparison-heading">分数之外，怎样比较这 {rankedAirports.length} 家？</h2></div>
+        </div>
+        <div class="comparison-principles">
+          <p><strong>先看用途，再看综合分。</strong>综合分为 10 分制，合并稳定性、速度、两项体验和性价比；ChatGPT 与流媒体体验各为百分制历史子项。综合第一不代表目标服务、所有地区或当天表现都最好。</p>
+          <p><strong>用各地区日期判断新旧。</strong>下方每个日期链接指向该地区最近一条有效记录；四个地区未必同日测试。某地区新增记录不等于其他地区重新测试，单次体验也不能代表长期结果。</p>
+          <p><strong>按计分套餐核对价格周期。</strong>最低套餐供预算参考，性价比使用下方明确列出的计分档。月度流量、每天刷新额度和一次性总流量分别核对；日享包的周期累计额度不能一次使用，不限时包也不按月补充。</p>
+        </div>
+        <div class="comparison-grid">
+          {comparisons.map(({ airport, experienceDifference, clientCondition, latestRegions }) => <article class="comparison-card" aria-labelledby={`compare-${airport.slug}`}>
+            <div class="comparison-card-head">
+              <h3 id={`compare-${airport.slug}`}><a href={`/airport/${airport.slug}/`}>{airport.name}</a></h3>
+              <span>{airport.rankingEligible ? `综合 #${eligibleRanks.get(airport.slug)}` : '样本不足'}</span>
+            </div>
+            <p class="comparison-scores">
+              综合 <strong>{airport.score === null ? '样本不足' : `${airport.score} / 10`}</strong>；
+              ChatGPT <strong>{airport.experienceScores.chatgpt === null ? '待测试' : `${airport.experienceScores.chatgpt} / 100`}</strong>，
+              流媒体 <strong>{airport.experienceScores.streaming === null ? '待测试' : `${airport.experienceScores.streaming} / 100`}</strong>。
+            </p>
+            <p>{experienceDifference}</p>
+            <p class="comparison-sample">{airport.verifiedTestCount} 条有效历史样本，覆盖 {airport.dataDays} 个测试日期；{getTestSamplePeriod(getTests(airport))}。</p>
+            <p><strong>性价比计分套餐：</strong>{airport.scoringPlan.name} · {airport.scoringPlan.priceLabel} · {airport.scoringPlan.trafficLabel}。</p>
+            <p><strong>接入条件：</strong>{clientCondition}{airport.deviceLimit && <> 设备 / IP 限制：{airport.deviceLimit.replace(/[。；;，,\s]+$/u, '')}。</>}</p>
+            <p class="comparison-commercial">商业资料复核：<time datetime={airport.commercialReviewedAt}>{airport.commercialReviewedAt}</time>；价格与规则仍需在结算页确认。</p>
+            <div class="comparison-regions">
+              <h4>各地区最近一条有效记录</h4>
+              <ul>{latestRegions.map(({ region, test }) => <li><span>{region}</span>{test ? <a href={getTestRecordHref(airport.slug, test.id)} aria-label={`${airport.name}${region} ${test.testedAt} 的原始记录`}><time datetime={test.testedAt}>{test.testedAt}</time></a> : <span class="region-pending">待测试</span>}</li>)}</ul>
+            </div>
+            <nav class="comparison-links" aria-label={`${airport.name}比较详情`}>
+              <a href={`/airport/${airport.slug}/`}>完整评测 →</a>
+              <a href={`/airport/${airport.slug}/#review-summary`}>评测摘要 →</a>
+              <a href={`/airport/${airport.slug}/#regional-history`}>地区历史 →</a>
+            </nav>
+          </article>)}
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
 
 <style>
 	.data-table td > small { display: block; margin-top: 4px; color: var(--muted); }
+  .rank-comparison { padding: 64px 0 80px; scroll-margin-top: 96px; }
+  .rank-comparison h2 { font-size: 32px; line-height: 1.3; margin: 8px 0 0; }
+  .comparison-principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-bottom: 30px; }
+  .comparison-principles p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
+  .comparison-principles strong { display: block; color: var(--text); margin-bottom: 8px; }
+  .comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .comparison-card { min-width: 0; border: 1px solid var(--line); border-radius: 14px; padding: 24px; background: var(--panel); }
+  .comparison-card-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; }
+  .comparison-card-head h3 { font-size: 23px; line-height: 1.4; margin: 0; }
+  .comparison-card-head > span { flex-shrink: 0; font-size: 13px; color: var(--muted); padding-top: 4px; }
+  .comparison-card p { margin: 14px 0; font-size: 15px; line-height: 1.8; }
+  .comparison-card .comparison-scores { font-size: 16px; margin-top: 18px; }
+  .comparison-scores strong { color: var(--lime); white-space: nowrap; }
+  .comparison-sample, .comparison-commercial { color: var(--muted); }
+  .comparison-card .comparison-commercial { font-size: 13px; }
+  .comparison-regions { padding-top: 16px; border-top: 1px solid var(--line); margin-top: 18px; }
+  .comparison-regions h4 { font-size: 14px; margin: 0 0 10px; }
+  .comparison-regions ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 14px; list-style: none; padding: 0; margin: 0; }
+  .comparison-regions li { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; font-size: 14px; }
+  .comparison-regions li > span:first-child { color: var(--muted); }
+  .region-pending { color: var(--muted); }
+  .comparison-card a { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+  .comparison-card a:hover { color: var(--lime); }
+  .comparison-links { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--line); font-size: 14px; }
+  @media (max-width: 800px) {
+    .comparison-principles { grid-template-columns: 1fr; gap: 18px; }
+    .comparison-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .rank-comparison { padding-top: 46px; }
+    .rank-comparison h2 { font-size: 27px; }
+    .comparison-card { padding: 20px; }
+    .comparison-card-head { flex-wrap: wrap; gap: 6px 14px; }
+    .comparison-card-head h3 { font-size: 21px; }
+    .comparison-regions ul { column-gap: 10px; }
+  }
 </style>

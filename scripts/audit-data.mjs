@@ -2,6 +2,7 @@ import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate } from '../src/data/date-utils.mjs';
+import { getChatgptTimingMismatch, testExperienceSchema } from '../src/data/test-experience-schema.mjs';
 
 const PROJECT_ROOT = fileURLToPath(new URL('..', import.meta.url));
 const REGIONS = ['新加坡', '香港', '日本', '美国'];
@@ -75,6 +76,15 @@ export const auditData = async ({ airports, profiles = [], pageUpdates = {}, pro
 		const idKey = `${airportSlug}:${test.id}`;
 		if (ids.has(idKey)) errors.push(`测试 ID 重复：${idKey}`);
 		ids.set(idKey, true);
+		const experience = testExperienceSchema.safeParse(test);
+		if (!experience.success) {
+			for (const issue of experience.error.issues) {
+				errors.push(`${idKey} ${issue.path.join('.')}：${issue.message}`);
+			}
+		} else {
+			const timingMismatch = getChatgptTimingMismatch(test);
+			if (timingMismatch) errors.push(`${idKey} chatgptTest.firstResponseSeconds：${timingMismatch}`);
+		}
 		if (test.resultUrl) {
 			if (resultUrls.has(test.resultUrl)) errors.push(`Speedtest 链接重复：${test.resultUrl}`);
 			resultUrls.set(test.resultUrl, true);

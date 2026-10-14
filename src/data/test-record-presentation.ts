@@ -1,5 +1,11 @@
 import type { AirportTest } from './airport-data';
 
+export const getTestRecordAnchor = (airportSlug: string, recordId: string) =>
+	`record-${airportSlug}-${encodeURIComponent(recordId)}`;
+
+export const getTestRecordHref = (airportSlug: string, recordId: string) =>
+	`/airport/${airportSlug}/#${encodeURIComponent(getTestRecordAnchor(airportSlug, recordId))}`;
+
 const TEST_REGIONS = [
 	{ name: '新加坡', pattern: /新加坡/u },
 	{ name: '香港', pattern: /香港/u },
@@ -48,6 +54,20 @@ export const getLatestExperienceSummary = (tests: AirportTest[], field: 'chatgpt
 const recorded = (value: string | null | undefined) => value?.trim() || '未记录';
 const measurement = (value: number | null | undefined, unit: string) => value == null ? '未记录' : `${value} ${unit}`;
 
+export const getTestExperienceDetails = (test: AirportTest) => [
+	...(test.streamingTest ? [
+		{ label: '流媒体平台与画质', value: `${test.streamingTest.platform} ${test.streamingTest.quality}` },
+		{ label: '三次拖动后的缓冲时间', value: test.streamingTest.seekBufferingSeconds
+			? test.streamingTest.seekBufferingSeconds.map((seconds, index) => `第 ${index + 1} 次：${measurement(seconds, '秒')}`).join('；')
+			: '未保存逐次秒数' },
+		...(test.streamingTest.videoUrl ? [{ label: '测试视频', value: test.streamingTest.videoUrl }] : []),
+	] : []),
+	...(test.chatgptTest ? [
+		{ label: 'ChatGPT 首次响应等待', value: measurement(test.chatgptTest.firstResponseSeconds, '秒') },
+		{ label: 'ChatGPT 模型', value: recorded(test.chatgptTest.model) },
+	] : []),
+];
+
 export const getTestRecordDetails = (test: AirportTest) => [
 	{ label: '测试地区', value: recorded(test.sourceRegion) },
 	{ label: '本地运营商', value: recorded(test.carrier) },
@@ -65,5 +85,6 @@ export const getTestRecordDetails = (test: AirportTest) => [
 	{ label: '抖动', value: measurement(test.jitterMs, 'ms') },
 	{ label: '丢包率', value: measurement(test.packetLossPercent, '%') },
 	{ label: '测试时段', value: recorded(test.window) },
+	...getTestExperienceDetails(test),
 	{ label: '证据备注', value: recorded(test.evidenceNote) },
 ];

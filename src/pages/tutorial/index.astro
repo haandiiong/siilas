@@ -2,25 +2,331 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { AUTHOR_DESCRIPTION, AUTHOR_NAME, SITE_TITLE, TEST_CLIENTS } from '../../consts';
 import { airports, getTests } from '../../data/airport-data';
+import pageUpdates from '../../data/page-updates.json';
 
-const hongKongTests = airports.flatMap((airport) => getTests(airport))
-  .filter((test) => test.node.includes('香港') && (test.resultUrl || test.evidenceImage));
-const latestHongKongTestAt = hongKongTests.map((test) => test.testedAt).sort().at(-1);
+const verifiedTests = airports.flatMap((airport) => getTests(airport))
+  .filter((test) => test.resultUrl || test.evidenceImage);
+const hongKongTests = verifiedTests.filter((test) => test.node.includes('香港'));
+const hongKongTestDates = hongKongTests.map((test) => test.testedAt).sort();
+const firstHongKongTestAt = hongKongTestDates.at(0);
+const latestHongKongTestAt = hongKongTestDates.at(-1);
 const hongKongChatgptSummary = (['流畅', '轻微延迟', '响应较慢', '响应严重延迟', '不可用'] as const)
   .map((status) => ({ status, count: hongKongTests.filter((test) => test.chatgpt === status).length }))
   .filter(({ count }) => count > 0)
   .map(({ status, count }) => `${status} ${count} 条`)
   .join('、');
+
+const title = 'Clash 使用教程：订阅导入、节点选择与故障排查';
+const description = '从下载安装到连接验证，分步介绍 FlClash、Clash Mi、Clash Verge Rev 的机场订阅导入与配置启用，解释规则、全局、系统代理和 TUN，并排查订阅失效、连接失败、晚高峰变慢及 ChatGPT 访问问题。';
+const updatedAt = pageUpdates['/tutorial/'];
+const lastModifiedAt = [updatedAt, ...hongKongTestDates].sort().at(-1);
+const pageUrl = new URL('/tutorial/', Astro.site).href;
+const authorUrl = new URL('/about/', Astro.site).href;
+const sources = [
+  { name: 'FlClash 官方仓库与发布说明', url: 'https://github.com/chen08209/FlClash' },
+  { name: 'Clash Mi 官方使用手册', url: 'https://clashmi.app/guide/' },
+  { name: 'Clash Mi 官方常见问题', url: 'https://clashmi.app/guide/faq' },
+  { name: 'Clash Verge Rev 官方快速入门', url: 'https://www.clashverge.dev/guide/quickstart.html' },
+  { name: 'Clash Verge Rev 订阅导入说明', url: 'https://www.clashverge.dev/guide/profile.html' },
+  { name: 'Mihomo 运行模式说明', url: 'https://wiki.metacubex.one/config/general/#运行模式' },
+];
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': `${pageUrl}#article`,
+      url: pageUrl,
+      mainEntityOfPage: pageUrl,
+      headline: title,
+      description,
+      inLanguage: 'zh-CN',
+      dateModified: lastModifiedAt,
+      image: new URL('/og-default.png', Astro.site).href,
+      author: { '@type': 'Person', name: AUTHOR_NAME, description: AUTHOR_DESCRIPTION, url: authorUrl },
+      publisher: { '@type': 'Organization', name: SITE_TITLE, url: new URL('/', Astro.site).href },
+      citation: sources.map((source) => source.url),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: new URL('/', Astro.site).href },
+        { '@type': 'ListItem', position: 2, name: 'Clash 使用教程', item: pageUrl },
+      ],
+    },
+  ],
+};
+const contents = [
+  { href: '#client-selection', label: '01 安装与准备' },
+  { href: '#clash-subscription', label: '02 导入与启用订阅' },
+  { href: '#proxy-modes', label: '03 节点、模式与连接' },
+  { href: '#connection-check', label: '04 验证连接是否生效' },
+  { href: '#subscription-troubleshooting', label: '05 订阅与连接排错' },
+  { href: '#peak-speed-troubleshooting', label: '06 速度慢与晚高峰' },
+  { href: '#chatgpt-troubleshooting', label: '07 ChatGPT 访问问题' },
+  { href: '#protocol-selection', label: '08 VLESS 与 SS 怎么选' },
+  { href: '#shadowrocket-subscription', label: '09 Shadowrocket 补充' },
+  { href: '#tutorial-faq', label: '常见问题' },
+  { href: '#tutorial-sources', label: '资料来源与更新' },
+];
 ---
-<html lang="zh-CN"><head><BaseHead title="机场客户端使用教程｜Clash 与 Shadowrocket" description="机场客户端使用与故障排查教程：介绍 Clash Verge、Shadowrocket 订阅导入、VLESS 与 SS 选择、订阅失效、晚高峰变慢和 ChatGPT 无法访问的处理方法。"/></head><body><Header/><main class="shell">
-  <div class="page-head"><div class="section-kicker">Practical guides</div><h1>使用教程</h1><p>从第一次导入订阅，到定位速度、节点和服务可用性问题。</p><div class="actions"><a class="button secondary" href="/methodology/">查看测速方法</a><a class="button secondary" href="/test/">浏览真实测速</a></div></div>
-  <div class="cards">
-    <article class="card"><span class="section-kicker">指南 01</span><h2>Clash Verge 导入订阅</h2><ol><li>在机场后台复制订阅链接。</li><li>进入 Profiles（配置），粘贴链接并导入。</li><li>更新配置后选择节点，开启系统代理或 TUN。</li><li>打开网页确认出口 IP；失败时先更新订阅再换节点。</li></ol><p class="desc">不同版本的菜单名称可能略有差异，订阅链接不要公开分享。</p></article>
-    <article class="card"><span class="section-kicker">指南 02</span><h2>Shadowrocket 添加订阅</h2><ol><li>复制机场订阅链接，打开右上角“+”。</li><li>类型选择 Subscribe，填入 URL 后保存。</li><li>更新订阅，选择节点并开启连接。</li><li>若配置为空，检查套餐状态并重新复制链接。</li></ol></article>
-    <article class="card"><span class="section-kicker">指南 03</span><h2>VLESS 与 SS 怎么选</h2><p><strong>SS：</strong>实现简单、客户端覆盖广，适合常规订阅使用。</p><p><strong>VLESS：</strong>组合方式更多，是否可用取决于机场线路与客户端支持。</p><p class="desc">优先使用机场提供的配置，不要手动修改订阅中的协议参数。</p></article>
-    <article class="card"><span class="section-kicker">指南 04</span><h2>订阅链接失效排查</h2><ol><li>检查套餐是否到期或流量用尽。</li><li>在机场后台确认域名和订阅地址是否变化。</li><li>删除旧配置后重新导入，校准系统时间。</li><li>仍失败时生成新链接并联系售后。</li></ol></article>
-    <article class="card"><span class="section-kicker">指南 05</span><h2>晚高峰速度变慢</h2><p>常见原因包括本地 Wi-Fi 拥堵、入口线路负载、节点倍率、出口带宽和测速服务器差异。</p><ol><li>固定设备、测速服务器和节点。</li><li>连续测试三次并记录中位数。</li><li>在日间与 20:00–23:00 分别复测。</li></ol></article>
-    <article class="card"><span class="section-kicker">指南 06</span><h2>ChatGPT 无法访问</h2><ol><li>先切换到新加坡、日本或美国节点。</li><li>确认浏览器出口国家与所选节点一致。</li><li>更换同地区不同线路，排除出口 IP 限制。</li><li>{latestHongKongTestAt ? <>截至 {latestHongKongTestAt}，本站香港节点的 ChatGPT 实测为：{hongKongChatgptSummary}。请按机场和测试日期判断。</> : '香港节点暂无 ChatGPT 实测记录。'}</li></ol><p class="desc">能打开普通网页不代表特定服务一定可用，可用性需要单独测试。<a class="text-link" href="/test/">查看原始测速 →</a></p></article>
-  </div>
-</main><Footer/></body></html>
+<html lang="zh-CN">
+  <head><BaseHead title={title} description={description} structuredData={structuredData} ogType="article" /></head>
+  <body>
+    <Header />
+    <main class="shell tutorial-page" id="tutorial-top">
+      <nav class="breadcrumbs" aria-label="面包屑导航"><a href="/">首页</a><span aria-hidden="true">/</span><span aria-current="page">使用教程</span></nav>
+      <header class="page-head tutorial-head">
+        <div class="section-kicker">Clash practical guide</div>
+        <h1>Clash 使用教程</h1>
+        <p class="tutorial-lead">从导入机场订阅，到确认连接真正生效。</p>
+        <p>按客户端找到操作步骤，再用连接验证和故障排查定位问题。适用于提供 Clash / Mihomo 订阅的机场；仅支持专属客户端的服务请使用其官方教程。</p>
+        <div class="tutorial-meta"><a href="/about/" rel="author">作者：{AUTHOR_NAME}</a><span>教程复核：<time datetime={updatedAt}>{updatedAt}</time></span><span>涵盖 FlClash · Clash Mi · Clash Verge Rev</span></div>
+      </header>
+      <nav class="quick-start" aria-label="首次连接的五个步骤">
+        <ol>
+          <li><a href="#client-selection"><span>01</span><strong>选对客户端</strong><small>确认系统与订阅格式</small></a></li>
+          <li><a href="#clash-subscription"><span>02</span><strong>导入并启用</strong><small>配置要处于选中状态</small></a></li>
+          <li><a href="#proxy-modes"><span>03</span><strong>选择节点</strong><small>设置模式与连接方式</small></a></li>
+          <li><a href="#connection-check"><span>04</span><strong>验证访问</strong><small>查看连接与目标服务</small></a></li>
+          <li><a href="#subscription-troubleshooting"><span>05</span><strong>按现象排错</strong><small>先找到失败的环节</small></a></li>
+        </ol>
+      </nav>
+      <div class="guide-layout">
+        <aside class="guide-sidebar">
+          <nav class="guide-toc" aria-label="教程目录">
+            <h2>本页目录</h2>
+            <ol>{contents.map((item) => <li><a href={item.href}>{item.label}</a></li>)}</ol>
+            <div class="client-shortcuts"><span>直接查看客户端</span><a href="#flclash">FlClash</a><a href="#clash-mi">Clash Mi</a><a href="#clash-verge-rev">Clash Verge Rev</a></div>
+          </nav>
+        </aside>
+        <article class="guide-body" aria-label="Clash 配置与排查指南">
+          <section class="guide-section" id="client-selection" aria-labelledby="client-selection-heading">
+            <span class="section-kicker">01 / Before you start</span>
+            <h2 id="client-selection-heading">安装客户端，准备正确的订阅</h2>
+            <p>Clash 是一类代理内核与客户端生态的名称。FlClash、Clash Mi 和 Clash Verge Rev 是不同应用，菜单位置不能混用。先在<a href="/airport/">机场资料页</a>或服务商后台确认是否支持通用订阅，再按系统选择应用。</p>
+            <div class="client-grid">
+              <div class="client-card"><h3>FlClash</h3><p>Windows / macOS / Linux / Android</p><a href="https://github.com/chen08209/FlClash/releases">官方发布页 ↗</a><a href="#flclash">查看导入步骤 →</a></div>
+              <div class="client-card"><h3>Clash Mi</h3><p>Windows / macOS / Linux / Android / iOS</p><a href="https://clashmi.app/download">官方下载说明 ↗</a><a href="#clash-mi">查看导入步骤 →</a></div>
+              <div class="client-card"><h3>Clash Verge Rev</h3><p>Windows / macOS / Linux</p><a href="https://github.com/clash-verge-rev/clash-verge-rev/releases">官方发布页 ↗</a><a href="#clash-verge-rev">查看导入步骤 →</a></div>
+            </div>
+            <h3>下载时检查系统和架构</h3>
+            <ul>
+              <li><strong>Windows：</strong>在“设置 → 系统 → 系统信息 / 关于”确认是 x64 还是 ARM64，选择发布页对应的安装包。</li>
+              <li><strong>macOS：</strong>在“关于本机”确认 Intel 或 Apple 芯片，对应选择 x64 / Intel 或 arm64 / Apple Silicon；标有 universal 的包通常同时包含两种架构。</li>
+              <li><strong>Android / iOS：</strong>Android 从官方入口选择兼容架构的 APK；iOS 按 Clash Mi 官方下载说明进入 App Store。FlClash 与 Clash Verge Rev 没有 iOS 版。</li>
+              <li><strong>Linux：</strong>同时核对处理器架构、发行版和包格式，例如 Debian 系的 deb 与 RPM 系的 rpm；以各项目安装说明为准。</li>
+            </ul>
+            <p class="guide-note">在发布页选择正式版的应用安装包。“Source code”是源码压缩包，不能直接当客户端安装。旧 Clash Verge 与 Clash Verge Rev 也不是同一项目。系统最低版本和可用安装包以<a href="https://www.clashverge.dev/install.html">官方安装说明</a>及各项目发布页为准。</p>
+            <div class="guide-callout"><strong>导入前准备这三项</strong><ul><li>有效套餐：确认账号、剩余流量、到期日期与设备限制。</li><li>匹配格式：在后台复制“Clash / Mihomo 订阅”或下载对应 YAML 配置；后台登录地址、个人主页和单个节点链接不是同一回事。</li><li>完整链接：保留整条 URL 及其参数。链接和二维码可能包含账号凭据，不要公开，也不要粘贴到来历不明的转换网站。</li></ul></div>
+          </section>
+          <section class="guide-section" id="clash-subscription" aria-labelledby="clash-subscription-heading">
+            <span class="section-kicker">02 / Import and activate</span>
+            <h2 id="clash-subscription-heading">导入订阅，并选中要使用的配置</h2>
+            <p>一次成功导入应得到配置和节点列表。<strong>“配置已下载”不等于“配置已启用”，一键导入也不等于已经联网。</strong>有多个订阅时，尤其要确认当前选中的配置属于哪家机场。</p>
+            <h3 id="flclash">FlClash：配置 → 添加 → URL</h3>
+            <ol class="guide-steps"><li>打开“配置”页，点击添加按钮，选择“URL / 从 URL 导入”，粘贴机场提供的 Clash 订阅链接并提交。</li><li>等待配置下载完成，检查是否出现配置卡片。点击这份配置，使其成为当前使用的配置；已有其他配置时，不要只看“导入成功”提示。</li><li>进入“代理”页，找到配置里的代理组，展开并选择一个实际节点。首次验证可手动固定节点，方便重复排查。</li><li>回到仪表盘启动连接。桌面端继续确认系统代理或 TUN 的状态；Android 按系统提示允许建立 VPN 连接。具体区别见<a href="#proxy-modes">下一节</a>。</li></ol>
+            <p class="guide-note">根据 <a href="https://github.com/chen08209/FlClash/blob/v0.8.99/lib/views/profiles/add.dart">FlClash 添加配置</a>与<a href="https://github.com/chen08209/FlClash/blob/v0.8.99/lib/views/profiles/profiles.dart">配置选择实现</a>核对。菜单会随版本和屏幕大小变化，“配置”和“代理”是两个不同环节。</p>
+            <h3 id="clash-mi">Clash Mi：我的配置 → 添加配置链接</h3>
+            <ol class="guide-steps"><li>打开“我的配置”，点击“+”，选择“添加配置链接”。在链接 / 内容输入区粘贴完整 URL，可添加便于识别的名称后保存。</li><li>返回配置列表，检查导入结果，确认这份配置已被选中 / 激活。配置存在但节点没有变化时，先检查当前配置，而不是重复添加。</li><li>返回首页，打开连接开关。移动端按系统提示允许 VPN；Windows 使用 TUN 时需要管理员权限，按<a href="https://clashmi.app/guide/faq">官方说明</a>操作。</li><li>在代理面板选择节点与模式，再进行<a href="#connection-check">连接验证</a>。全局模式下也要确认 GLOBAL 组的选择，不能停留在 DIRECT。</li></ol>
+            <div class="guide-note"><strong>其他导入入口：</strong>机场提供二维码时可使用扫码入口；提供本地文件时使用配置文件导入。Clash Mi 要求 Clash YAML 配置，不能把其他客户端专用格式直接当作同一份订阅。来源：<a href="https://clashmi.app/guide/">官方使用手册</a>与<a href="https://clashmi.app/guide/faq">常见问题</a>。</div>
+            <h3 id="clash-verge-rev">Clash Verge Rev：订阅 / Profiles → 导入</h3>
+            <ol class="guide-steps"><li>打开“订阅 / Profiles”页，将 Clash 订阅 URL 粘贴到导入区并导入。也可使用服务商的一键导入按钮；按钮没有唤起应用时改用手动 URL 导入。</li><li>确认订阅卡片已生成并选择这份配置。打开“代理”页，检查代理组与节点是否已加载。</li><li>选择规则模式和一个可用节点，在设置页开启系统代理，先验证浏览器访问；有应用不遵循系统代理时，再按官方说明配置 TUN。</li><li>机场更新节点后，在订阅卡片中更新配置，再检查是否仍选中了预期代理组和节点。</li></ol>
+            <p class="guide-note">操作依据：<a href="https://www.clashverge.dev/guide/profile.html">官方订阅导入说明</a>与<a href="https://www.clashverge.dev/guide/quickstart.html">快速入门</a>。本地文件导入也可使用，但更新方式与远程订阅不同。</p>
+            <div class="completion-check"><strong>这一节完成的标准</strong><p>能看到配置、它已处于选中状态、代理组里有真实节点。任一步缺失，先处理<a href="#subscription-troubleshooting">订阅与配置问题</a>。</p></div>
+          </section>
+          <section class="guide-section" id="proxy-modes" aria-labelledby="proxy-modes-heading">
+            <span class="section-kicker">03 / Route your traffic</span>
+            <h2 id="proxy-modes-heading">选节点、选模式，再让应用经过代理</h2>
+            <p>这里有两个独立问题：流量是否进入客户端，以及进入后走哪条线路。只切换“全局”不会自动接管原本没有经过客户端的应用。</p>
+            <div class="traffic-flow" aria-label="流量处理顺序"><span>浏览器或应用</span><span aria-hidden="true">→</span><span>系统代理 / TUN / VPN</span><span aria-hidden="true">→</span><span>规则与代理组</span><span aria-hidden="true">→</span><span>节点或直连</span></div>
+            <h3>规则、全局、直连分别做什么？</h3>
+            <dl class="mode-list"><div><dt>规则 Rule</dt><dd>按当前配置的规则选择直连、代理组或其他处理方式。它不是固定的“国内直连、国外代理”，实际结果取决于配置；日常使用可先从规则模式开始。</dd></div><div><dt>全局 Global</dt><dd>进入内核的流量使用 GLOBAL 组所选的出站策略。检查这里选的是节点 / 代理组还是 DIRECT；它不改变系统代理的接管范围。</dd></div><div><dt>直连 Direct</dt><dd>进入内核的流量直接访问目标，不经过远端代理节点。排查时可用于对照，但不能据此判断节点速度。</dd></div></dl>
+            <p class="guide-note">模式定义依据 <a href="https://wiki.metacubex.one/config/general/#运行模式">Mihomo 官方配置文档</a>。代理组名称由订阅决定，“自动选择”“节点选择”“流媒体”等组未必同时存在；检查目标网站命中的那一组。</p>
+            <h3>系统代理、TUN 与移动端 VPN 怎么选？</h3>
+            <ul><li><strong>桌面浏览器：</strong>先开启客户端内核与系统代理。系统代理修改操作系统的代理设置，适用于遵循该设置的应用；不是接管电脑所有请求。</li><li><strong>部分桌面应用没有经过代理：</strong>TUN 通过虚拟网络接口处理流量，适用范围取决于路由和客户端配置。按应用官方说明安装服务 / 授权，再单独验证该应用。</li><li><strong>Android / iOS：</strong>通常由应用申请系统 VPN 权限建立连接，不能直接套用桌面“系统代理”开关的操作。VPN 图标出现后仍需验证目标服务。</li></ul>
+            <p class="guide-note">参见 <a href="https://www.clashverge.dev/guide/quickstart.html">Clash Verge Rev 连接说明</a>和 <a href="https://clashmi.app/guide/faq">Clash Mi 平台说明</a>。排错时先只保留一个客户端处理流量，记录原有开关状态，避免多套代理 / VPN 设置同时作用而难以定位。</p>
+          </section>
+          <section class="guide-section" id="connection-check" aria-labelledby="connection-check-heading">
+            <span class="section-kicker">04 / Check the result</span>
+            <h2 id="connection-check-heading">怎样确认连接已经生效？</h2>
+            <ol class="guide-steps"><li><strong>看客户端状态：</strong>配置已启用、内核运行、代理组中选中了实际节点。延迟检测有结果只能说明该次探测，不能代替完整访问测试。</li><li><strong>看实际流量：</strong>打开一个需要代理的目标网页，同时查看客户端“连接 / 日志”。找到对应域名，检查命中的规则、代理组与最终节点；规则模式下某个 IP 查询网站可能走直连。</li><li><strong>看出口：</strong>对确认经过代理的请求检查出口 IP 与地区。节点名称只是服务商标签，IP 地理数据库也可能有差异，应结合连接记录判断。</li><li><strong>看目标服务：</strong>浏览器、视频应用和聊天服务分别验证。网页能打开、延迟低、Speedtest 数字高，都不能单独证明特定服务可用。</li></ol>
+            <div class="completion-check"><strong>保留一个可复查的连接记录</strong><p>记录客户端和版本、配置名称、节点、模式、系统代理 / TUN 状态、测试时间与目标服务。测速时再加服务器与结果链接，方便与<a href="/test/">本站原始实测</a>对照。</p></div>
+          </section>
+          <section class="guide-section" id="subscription-troubleshooting" aria-labelledby="subscription-troubleshooting-heading">
+            <span class="section-kicker">05 / Find the failing step</span>
+            <h2 id="subscription-troubleshooting-heading">订阅失效、节点为空或连接失败</h2>
+            <p>先确定失败发生在下载配置、加载节点，还是访问目标网站。<strong>仅支持官方客户端的机场</strong>同样先检查套餐、账号和官方入口，再按服务商文档重新登录或更新专属客户端；不要强行导入 Clash。</p>
+            <ol><li>核对套餐到期、流量、账号状态与设备限制，确认服务商是否发布故障或迁移公告。</li><li>从后台重新复制当前订阅，核对格式、地址和参数。不要使用旧聊天消息里可能已经失效的链接。</li><li>更新现有远程配置，检查错误提示。需要重新导入时先保留旧配置，等新配置成功加载并选中后再整理。</li><li>仍然失败时，按下表缩小范围，再提交客户端版本、错误信息和发生时间给服务商；截图与日志先隐藏订阅 URL、令牌和个人信息。</li></ol>
+            <div class="diagnostic-table" tabindex="0" role="region" aria-labelledby="diagnostic-table-caption"><table><caption id="diagnostic-table-caption">按看到的现象选择下一步</caption><thead><tr><th scope="col">现象</th><th scope="col">先检查什么</th><th scope="col">下一步</th></tr></thead><tbody>
+              <tr><th scope="row">一键导入没有反应</th><td>应用是否安装；浏览器是否允许打开它</td><td>使用手动 URL 导入，区分唤起失败和订阅下载失败。</td></tr>
+              <tr><th scope="row">401 / 403 / 链接无效</th><td>套餐与令牌；链接是否被重置；服务商公告</td><td>重新复制后台当前链接。HTTP 状态码只能缩小范围，具体原因由服务商确认。</td></tr>
+              <tr><th scope="row">timeout / Connect / 下载失败</th><td>订阅域名是否可达；当前网络；系统时间</td><td>按服务商说明使用备用入口或换网络重试，保留原始错误。不要把关闭证书验证当作通用修复。</td></tr>
+              <tr><th scope="row">解析失败 / 节点列表为空</th><td>是否误复制登录页、单节点或不兼容格式</td><td>重新获取 Clash YAML 配置，更新兼容客户端；不要将来源不明的内容当节点配置。</td></tr>
+              <tr><th scope="row">能看到节点，但所有节点超时</th><td>套餐状态、本地网络、机场公告；是否只测了同一线路</td><td>比较不同地区 / 入口节点，并在另一网络复测，判断是单条线路还是共同故障。</td></tr>
+              <tr><th scope="row">节点可测延迟，网页打不开</th><td>配置是否选中；规则是否命中预期组；连接是否进入客户端</td><td>回到<a href="#connection-check">连接验证</a>。有连接但失败，再查看 DNS / 连接错误；没有连接，先检查接管方式。</td></tr>
+              <tr><th scope="row">浏览器能用，某个应用不能用</th><td>应用是否遵循系统代理；客户端是否看到它的流量</td><td>按官方说明配置 TUN / 应用代理后单独复测，不能只切换全局模式。</td></tr>
+              <tr><th scope="row">关闭客户端后网络异常</th><td>系统中是否仍保留指向本机的代理设置；其他 VPN 状态</td><td>先在客户端关闭代理 / TUN 再退出，检查并恢复原有系统网络设置。</td></tr>
+            </tbody></table></div>
+            <p class="guide-note"><strong>重置订阅 ≠ 重置流量。</strong>前者通常更换访问凭据并使旧链接失效，后者是套餐计费操作。是否支持及具体效果以机场后台说明为准；更换订阅后要同步更新其他设备。</p>
+          </section>
+          <section class="guide-section" id="peak-speed-troubleshooting" aria-labelledby="peak-speed-troubleshooting-heading">
+            <span class="section-kicker">06 / Compare like for like</span>
+            <h2 id="peak-speed-troubleshooting-heading">速度慢，尤其是晚高峰：怎么排查？</h2>
+            <p>下载速度受本地 Wi-Fi、宽带、节点负载、出口带宽与目标服务器共同影响。低延迟不等于高吞吐量；套餐的流量倍率影响消耗，也不能直接当作速度倍率。</p>
+            <ol class="guide-steps"><li><strong>先检查本地网络：</strong>暂停其他下载，比较同一设备的有线 / Wi-Fi 表现；必要时在另一个网络做对照，并记录这项变化。</li><li><strong>固定测速条件：</strong>固定客户端、节点、模式、设备与测速服务器，确认测速应用确实经过该节点。不要用浏览器代理成功来推断桌面测速工具也经过代理。</li><li><strong>重复并保留结果：</strong>连续测三次，记录下载、上传与中位数；测试失败也保留。再换一个节点对照，每次只改变一个主要条件。</li><li><strong>跨时段复测：</strong>在日间与北京时间 20:00–23:00 分别测试。相同条件多日都出现晚高峰下降，才更有理由判断时段负载影响；一次慢速不足以证明机场长期不稳定。</li></ol>
+            <p>浏览器视频流畅、游戏下载慢时，先检查目标服务和流量路径；所有目标都慢时，再比较本地网络与不同节点。本站记录按机场、地区和测试日期展示，使用<a href="/methodology/">公开测速方法</a>理解条件，再查看<a href="/test/">原始结果</a>。</p>
+          </section>
+          <section class="guide-section" id="chatgpt-troubleshooting" aria-labelledby="chatgpt-troubleshooting-heading">
+            <span class="section-kicker">07 / Check the service separately</span>
+            <h2 id="chatgpt-troubleshooting-heading">普通网页能打开，ChatGPT 仍无法访问</h2>
+            <ol class="guide-steps"><li>先区分页面打不开、登录失败、服务返回地区 / 账号提示，还是回答等待较长。保留具体提示，不要将所有情况都归为节点故障。</li><li>查看 <a href="https://status.openai.com/">OpenAI 服务状态</a>与<a href="https://help.openai.com/en/articles/7947663-chatgpt-supported-countries">官方支持地区说明</a>。服务异常、账号问题或地区条件需要分别处理。</li><li>检查客户端中目标域名的实际连接与出站规则；规则模式下，普通网页和 ChatGPT 可能命中不同代理组。</li><li>在服务支持条件内，固定其他设置后比较同地区不同线路的表现，记录节点与时间。能访问页面之后，再单独检查实际对话是否可用。</li></ol>
+            {latestHongKongTestAt && <div class="guide-callout"><strong>本站香港节点的历史样本</strong><p>{firstHongKongTestAt} 至 {latestHongKongTestAt}，共 {hongKongTests.length} 条已验证测速记录关联的 ChatGPT 体验：{hongKongChatgptSummary}。</p><p>这是多个机场、节点与日期的累计历史记录，体验状态由测试者报告，不代表地区支持、当前状态或所有香港节点的可用性。请结合<a href="/test/">原始记录</a>与<a href="/methodology/">体验评分规则</a>判断。</p></div>}
+          </section>
+          <section class="guide-section" id="protocol-selection" aria-labelledby="protocol-selection-heading">
+            <span class="section-kicker">08 / Configuration compatibility</span>
+            <h2 id="protocol-selection-heading">VLESS 与 SS 怎么选？</h2>
+            <p>先看机场提供的线路和客户端兼容性。SS（Shadowsocks）和 VLESS 是节点协议，不是不同的系统代理模式；完整配置还可能包含加密、传输、TLS 等参数。</p>
+            <ul><li><strong>已经有可用订阅：</strong>优先使用服务商生成的配置，按节点实际表现选择，不需要为“换协议”手动改写参数。</li><li><strong>客户端提示不支持：</strong>核对该客户端内核与版本，再使用服务商提供的兼容订阅；不要仅根据软件名称判断支持范围。</li><li><strong>想比较速度：</strong>把节点、线路、时间和目标服务器一起记录。不同协议的节点若走不同线路，速度差异不能只归因于协议。</li></ul>
+            <p class="guide-note">Mihomo 的 <a href="https://wiki.metacubex.one/config/proxies/ss/">Shadowsocks</a> 与 <a href="https://wiki.metacubex.one/config/proxies/vless/">VLESS</a> 文档列出各自配置项。新手应以兼容性和实际访问结果为先，协议名称本身不能保证更快。</p>
+          </section>
+          <section class="guide-section" id="shadowrocket-subscription" aria-labelledby="shadowrocket-subscription-heading">
+            <span class="section-kicker">09 / Another client</span>
+            <h2 id="shadowrocket-subscription-heading">iPhone / iPad：Shadowrocket 订阅补充</h2>
+            <p>已有 Shadowrocket 的用户可按下面的常见界面添加订阅。它是独立应用，应复制机场提供的 Shadowrocket 兼容订阅；购买应用不包含机场服务。应用信息见<a href="https://apps.apple.com/us/app/shadowrocket/id932747118">App Store 开发者页面</a>。</p>
+            <ol class="guide-steps"><li>从机场后台复制对应订阅链接，打开 Shadowrocket 右上角“+”。</li><li>类型选择“Subscribe / 订阅”，填写完整 URL 和备注后保存。</li><li>更新订阅，检查节点列表，选择所需节点，再开启连接并按系统提示允许 VPN。</li><li>检查路由选择，分别验证网页与目标应用。节点为空或链接失效时按<a href="#subscription-troubleshooting">通用订阅排查</a>处理。</li></ol>
+          </section>
+          <section class="guide-section" id="tutorial-faq" aria-labelledby="tutorial-faq-heading">
+            <span class="section-kicker">Questions you may have</span>
+            <h2 id="tutorial-faq-heading">常见问题</h2>
+            <details><summary>Clash 客户端安装好就能使用吗？</summary><p>还需要机场提供的有效订阅或自己的兼容配置。安装包只提供客户端；导入、选中配置、选择节点与开启连接都完成后，再验证访问。</p></details>
+            <details><summary>延迟最低的节点就是最快的吗？</summary><p>延迟反映探测请求的往返等待，不等于持续下载速度。实际使用还受带宽、负载和目标服务影响，应在固定条件下比较真实访问和重复测速。</p></details>
+            <details><summary>全局模式与 TUN 是一回事吗？</summary><p>全局决定进入客户端的流量使用什么出站策略；TUN 是让流量进入客户端的一种方式。应用未经过代理时，只切全局不会解决接管问题。</p></details>
+            <details><summary>自动更新订阅会自动续费或重置流量吗？</summary><p>更新订阅是重新获取服务商配置。套餐续费、流量重置和订阅凭据重置是不同操作，应分别查看后台说明。</p></details>
+          </section>
+          <section class="guide-section sources-section" id="tutorial-sources" aria-labelledby="tutorial-sources-heading">
+            <span class="section-kicker">Sources and scope</span>
+            <h2 id="tutorial-sources-heading">资料来源与更新范围</h2>
+            <p>本页在 {updatedAt} 复核客户端官方入口与通用操作流程，界面名称可能随版本、系统和语言变化。本站测速使用{TEST_CLIENTS}；本文不代表每个客户端、版本和系统组合均已由本站实测。</p>
+            <ul>{sources.map((source) => <li><a href={source.url}>{source.name} ↗</a></li>)}</ul>
+            <div class="guide-next"><a class="button secondary" href="/methodology/">查看测速方法</a><a class="button secondary" href="/test/">浏览真实测速</a><a href="#tutorial-top">回到顶部 ↑</a></div>
+          </section>
+        </article>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+<style>
+  .tutorial-head { padding-bottom: 28px; }
+  .tutorial-head h1 { line-height: 1.15; }
+  .tutorial-head .tutorial-lead { font-size: 24px; color: var(--text); margin: 18px 0 12px; }
+  .tutorial-head p { max-width: 790px; }
+  .tutorial-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--muted); margin-top: 24px; }
+  .tutorial-meta a:hover { color: var(--lime); }
+  .quick-start { margin-bottom: 48px; }
+  .quick-start ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; gap: 10px; padding: 0; margin: 0; }
+  .quick-start a { display: flex; flex-direction: column; height: 100%; padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  .quick-start a:hover { border-color: var(--cyan); }
+  .quick-start span { color: var(--lime); font-size: 12px; margin-bottom: 12px; }
+  .quick-start strong { font-size: 17px; }
+  .quick-start small { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .guide-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; align-items: start; padding-bottom: 70px; }
+  .guide-sidebar { position: sticky; top: 96px; }
+  .guide-toc { padding: 0 18px 0 0; border-right: 1px solid var(--line); max-height: calc(100dvh - 120px); overflow-y: auto; }
+  .guide-toc h2 { font-size: 15px; margin: 0 0 14px; }
+  .guide-toc ol { list-style: none; padding: 0; margin: 0; }
+  .guide-toc li a { display: block; padding: 7px 0; font-size: 14px; color: var(--muted); }
+  .guide-toc a:hover { color: var(--lime); }
+  .client-shortcuts { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+  .client-shortcuts span { color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+  .guide-body { min-width: 0; max-width: 800px; line-height: 1.85; }
+  .guide-body a:not(.button) { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(85, 231, 207, 0.4); overflow-wrap: anywhere; }
+  .guide-body a:hover { text-decoration-color: currentColor; }
+  .guide-section { scroll-margin-top: 96px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .guide-section:last-child { padding-bottom: 0; margin-bottom: 0; border: 0; }
+  .guide-section h2 { font-size: clamp(24px, 2.6vw, 31px); line-height: 1.35; margin: 10px 0 22px; }
+  .guide-section h3 { font-size: 21px; line-height: 1.5; margin: 30px 0 14px; scroll-margin-top: 96px; }
+  .guide-section:target > h2, .guide-section h3:target { color: var(--lime); }
+  .guide-section p { margin: 14px 0; }
+  .guide-section ul, .guide-section ol { padding-left: 24px; }
+  .guide-section li { margin: 9px 0; padding-left: 3px; }
+  .guide-section li::marker { color: var(--muted); }
+  .guide-steps li { margin: 15px 0; }
+  .guide-steps li::marker { color: var(--lime); font-weight: 700; }
+  .guide-note { font-size: 15px; color: var(--muted); line-height: 1.8; }
+  .client-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 24px 0; }
+  .client-card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: var(--panel); }
+  .client-card h3 { font-size: 18px; margin: 0; }
+  .client-card p { font-size: 14px; color: var(--muted); min-height: 52px; margin: 12px 0; }
+  .client-card a { display: block; font-size: 14px; margin: 8px 0 0; }
+  .guide-callout, .completion-check { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--cyan); border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 26px 0; }
+  .guide-callout > strong, .completion-check > strong { display: block; }
+  .guide-callout p:last-child, .guide-callout ul:last-child, .completion-check p:last-child { margin-bottom: 0; }
+  .completion-check { border-left-color: var(--lime); }
+  .traffic-flow { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; font-size: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 12px; margin: 24px 0; background: var(--panel); }
+  .traffic-flow span:nth-child(even) { color: var(--lime); }
+  .mode-list { margin: 20px 0; }
+  .mode-list div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .mode-list dt { font-weight: 700; color: var(--lime); }
+  .mode-list dd { margin: 0; }
+  .diagnostic-table { margin: 26px 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .diagnostic-table:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+  .diagnostic-table table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.7; table-layout: fixed; }
+  .diagnostic-table caption { text-align: left; padding: 16px; color: var(--text); background: var(--panel); font-weight: 700; }
+  .diagnostic-table th, .diagnostic-table td { text-align: left; padding: 14px 16px; border-top: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+  .diagnostic-table thead th { color: var(--muted); background: var(--panel); font-size: 13px; }
+  .diagnostic-table th:first-child { width: 25%; }
+  .diagnostic-table th:nth-child(2) { width: 30%; }
+  .diagnostic-table tbody th { font-weight: 700; }
+  .guide-section details { border: 1px solid var(--line); border-radius: 10px; margin: 12px 0; padding: 16px 20px; }
+  .guide-section summary { cursor: pointer; font-weight: 700; line-height: 1.6; }
+  .guide-section details[open] summary { color: var(--lime); }
+  .guide-section details p { color: var(--muted); font-size: 16px; }
+  .sources-section { font-size: 15px; color: var(--muted); }
+  .sources-section h2 { color: var(--text); }
+  .guide-next { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 28px; }
+  .guide-next .button { font-size: 15px; }
+  .guide-next > a:last-child { margin-left: auto; }
+  @media (max-width: 1050px) {
+    .guide-layout { grid-template-columns: 190px minmax(0, 1fr); gap: 30px; }
+    .client-grid { grid-template-columns: 1fr; }
+    .client-card p { min-height: 0; margin: 6px 0; }
+    .client-card a { display: inline-block; margin-right: 14px; }
+  }
+  @media (max-width: 800px) {
+    .quick-start { margin-bottom: 30px; }
+    .quick-start ol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .guide-layout { grid-template-columns: 1fr; gap: 34px; }
+    .guide-sidebar { position: static; }
+    .guide-toc { padding: 20px; border: 1px solid var(--line); border-radius: 12px; max-height: none; background: var(--panel); }
+    .guide-toc ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+    .client-shortcuts { flex-direction: row; flex-wrap: wrap; gap: 8px 18px; }
+    .client-shortcuts span { width: 100%; }
+  }
+  @media (max-width: 520px) {
+    .tutorial-head .tutorial-lead { font-size: 20px; }
+    .quick-start ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .quick-start li:last-child { grid-column: 1 / -1; }
+    .quick-start a { padding: 14px; }
+    .quick-start span { margin-bottom: 5px; }
+    .guide-toc { padding: 18px; }
+    .guide-toc ol { grid-template-columns: 1fr; }
+    .guide-toc li a { padding: 9px 0; }
+    .guide-section { padding-bottom: 30px; margin-bottom: 30px; }
+    .guide-section h3 { font-size: 19px; }
+    .guide-callout, .completion-check { padding: 18px; }
+    .mode-list div { grid-template-columns: 1fr; gap: 4px; }
+    .diagnostic-table { overflow-x: auto; }
+    .diagnostic-table table { min-width: 570px; }
+    .diagnostic-table::before { content: '左右滑动查看排查表'; display: block; color: var(--muted); padding: 10px 14px; font-size: 12px; }
+    .diagnostic-table th, .diagnostic-table td { padding: 12px; }
+    .guide-next { align-items: stretch; flex-direction: column; }
+    .guide-next > a:last-child { margin-left: 0; margin-top: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) { scroll-behavior: auto; }
+  }
+</style>

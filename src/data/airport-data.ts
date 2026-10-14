@@ -3,6 +3,7 @@ import rawAirports from './airports.json';
 import { foundedDateSchema, historicalDateSchema } from './date-schema';
 import { addCalendarMonths, getShanghaiDateKey } from './date-utils.mjs';
 import { getLatestExperienceSummary } from './test-record-presentation';
+import { getChatgptTimingMismatch, testExperienceSchema } from './test-experience-schema.mjs';
 
 const chatgptStatusSchema = z.enum([
 	'流畅',
@@ -53,6 +54,9 @@ const testSchema = z.object({
 	device: z.string().nullable(),
 	client: z.string().nullable(),
 	measurementTool: z.string().min(1).nullable().optional(),
+}).extend(testExperienceSchema.shape).superRefine((test, context) => {
+	const message = getChatgptTimingMismatch(test);
+	if (message) context.addIssue({ code: 'custom', path: ['chatgptTest', 'firstResponseSeconds'], message });
 });
 
 const nodeSnapshotSchema = z.object({

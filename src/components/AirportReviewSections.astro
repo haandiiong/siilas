@@ -1,0 +1,210 @@
+---
+import { join } from 'node:path';
+import sharp from 'sharp';
+import type { Airport, AirportTest } from '../data/airport-data';
+import type { getAirportReview } from '../data/airport-review';
+import { getTestRecordHref } from '../data/test-record-presentation';
+
+type AirportReview = ReturnType<typeof getAirportReview>;
+interface Props { airport: Airport; review: AirportReview; part?: 'summary' | 'history' | 'evidence' | 'all'; }
+const { airport, review, part = 'all' } = Astro.props;
+const showSummary = part === 'all' || part === 'summary';
+const showHistory = part === 'all' || part === 'history';
+const showEvidence = part === 'all' || part === 'evidence';
+const numberFormat = new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 2 });
+const speed = (value: number | null) => value === null ? '暂无记录' : `${numberFormat.format(value)} Mbps`;
+const recordLabel = (test: AirportTest) => `${test.testedAt}${test.time ? ` ${test.time}` : ''} · ${test.node}`;
+const statuses = (items: { status: string; count: number }[]) => items.length
+  ? items.map((item) => `${item.status} ${item.count} 条`).join(' · ')
+  : '暂无记录';
+const conditions = (test: AirportTest) => [
+  `本地地区：${test.sourceRegion ?? '未记录'}`,
+  `本地运营商：${test.carrier ?? '未记录'}`,
+  `客户端：${test.client ?? '未记录'}`,
+  `设备：${test.device ?? '未记录'}`,
+  `连接方式：${test.connectionType ?? '未记录'}`,
+  `测速服务器：${test.server ?? '未记录'}`,
+  `基准下载带宽：${numberFormat.format(test.baselineDownloadMbps)} Mbps`,
+].join('；');
+
+// All four panels use the same zero-based speed scale and actual calendar span.
+const plot = { left: 48, right: 442, top: 18, bottom: 136, width: 480, height: 174 };
+const dateValue = (date: string) => Date.parse(`${date}T00:00:00Z`);
+const start = review.startDate ? dateValue(review.startDate) : 0;
+const end = review.endDate ? dateValue(review.endDate) : start;
+const maximum = Math.max(1, ...review.regions.flatMap((region) => region.daily.map((day) => day.downloadMedian)));
+const scaleMaximum = Math.ceil(maximum / 100) * 100;
+const x = (date: string) => end === start
+  ? (plot.left + plot.right) / 2
+  : plot.left + ((dateValue(date) - start) / (end - start)) * (plot.right - plot.left);
+const y = (value: number) => plot.bottom - (value / scaleMaximum) * (plot.bottom - plot.top);
+const ticks = [0, scaleMaximum / 2, scaleMaximum];
+const evidence = await Promise.all((showEvidence ? review.evidence.slice(0, 3) : []).map(async (item) => {
+  const metadata = await sharp(join(process.cwd(), 'public', item.imagePath.replace(/^\/+/, ''))).metadata();
+  if (!metadata.width || !metadata.height) throw new Error(`测速证据图片缺少尺寸：${item.imagePath}`);
+  return {
+    ...item,
+    width: metadata.width,
+    height: metadata.height,
+    thumbnail: `/evidence/${airport.slug}/${encodeURIComponent(item.test.id)}.webp`,
+  };
+}));
+---
+
+{showSummary && <section class="section review-section" id="review-summary" aria-labelledby="review-summary-heading">
+  <div class="section-head"><div><div class="section-kicker">What the samples show</div><h2 id="review-summary-heading">实测结论摘要</h2></div></div>
+  <p class="review-intro">以下观察来自 {review.verifiedCount} 条已验证测速、{review.dateCount} 个测试日期{review.startDate && <>，样本范围为 {review.startDate}{review.endDate !== review.startDate && <> 至 {review.endDate}</>}</>}。它们说明已保存的样本表现，新增记录后会随数据更新。</p>
+  <div class="observation-grid">
+    {review.observations.slice(0, 3).map((observation, index) => <article class="observation-card">
+      <span class="observation-number" aria-hidden="true">0{index + 1}</span>
+      <h3>{observation.title}</h3>
+      <p>{observation.body}</p>
+      <details class="review-details">
+        <summary>查看代表记录（{observation.records.length} 条）</summary>
+        <ul class="record-links">{observation.records.map((test) => <li><a href={getTestRecordHref(airport.slug, test.id)}>{recordLabel(test)} →</a></li>)}</ul>
+      </details>
+    </article>)}
+  </div>
+  <p class="review-note">展开项列出少量代表记录；<a class="text-link" href="#regional-history">完整地区统计与各日原始样本在下方 →</a>。样本的节点、时段、本地网络和测速服务器可能不同，历史差异不能直接归因为线路变化。以下汇总不改变本站评分，也不代表所有用户的使用结果。<a class="text-link" href="/methodology/">查看测试方法 →</a></p>
+</section>}
+
+{showHistory && <section class="section review-section" id="regional-history" aria-labelledby="regional-history-heading">
+  <div class="section-head"><div><div class="section-kicker">Regional sample history</div><h2 id="regional-history-heading">地区历史表现</h2></div></div>
+  <p class="review-intro">同地区同一天的下载、上传分别取中位数。小图每个点代表一个实际采样日，横向位置按真实日期间隔排列，四个地区使用相同的速度刻度；没有采样的日期不补值。体验分布按原始记录条数展示。</p>
+  <div class="region-grid">
+    {review.regions.map((region, regionIndex) => <article class="region-card">
+      <div class="region-heading"><h3>{region.region}</h3><span>{region.recordCount} 条记录 · {region.dateCount} 个日期</span></div>
+      {region.latest ? <p class="latest-record">最近实测：<a href={getTestRecordHref(airport.slug, region.latest.id)}>{region.latest.testedAt}{region.latest.time && ` ${region.latest.time}`} →</a></p> : <p class="latest-record">尚无该地区实测</p>}
+      {region.daily.length > 0 && <>
+        <div class="region-metrics"><div><span>每日下载代表值的中位数</span><strong>{speed(region.dailyMedianDownload)}</strong></div><div><span>每日下载代表值范围</span><strong>{speed(region.dailyDownloadMin)} — {speed(region.dailyDownloadMax)}</strong></div></div>
+        <figure class="history-chart">
+          <svg viewBox={`0 0 ${plot.width} ${plot.height}`} role="img" aria-labelledby={`${airport.slug}-chart-title-${regionIndex}`} aria-describedby={`${airport.slug}-chart-description-${regionIndex}`}>
+            <title id={`${airport.slug}-chart-title-${regionIndex}`}>{region.region}逐日下载中位数</title>
+            <desc id={`${airport.slug}-chart-description-${regionIndex}`}>日期按实际间隔排列，速度轴从零开始。具体数值和采样条件见下方数据表；点之间不表示连续监测。</desc>
+            {ticks.map((tick) => <g>
+              <line class="chart-gridline" x1={plot.left} y1={y(tick)} x2={plot.right} y2={y(tick)} />
+              <text class="chart-label" x={plot.left - 8} y={y(tick) + 4} text-anchor="end">{numberFormat.format(tick)}</text>
+            </g>)}
+            <text class="chart-label" x={plot.left} y="10">Mbps</text>
+            {region.daily.map((day) => <circle class="chart-point" cx={x(day.date)} cy={y(day.downloadMedian)} r="4.5"><title>{day.date}：{speed(day.downloadMedian)}，{day.records.length} 条记录</title></circle>)}
+            {review.startDate === review.endDate ? <text class="chart-label" x={(plot.left + plot.right) / 2} y="163" text-anchor="middle">{review.startDate}</text> : <>
+              <text class="chart-label" x={plot.left} y="163">{review.startDate}</text>
+              <text class="chart-label" x={plot.right} y="163" text-anchor="end">{review.endDate}</text>
+            </>}
+          </svg>
+          <figcaption>下载中位数 · 点之间的空白表示采样间隔</figcaption>
+        </figure>
+      </>}
+      <div class="experience-counts"><p><span>ChatGPT</span>{statuses(region.chatgptCounts)}</p><p><span>流媒体</span>{statuses(region.streamingCounts)}</p></div>
+      {region.daily.length > 0 ? <div class="review-table-scroll" tabindex="0" role="region" aria-label={`${region.region}逐日测速表，可横向滚动`}>
+        <table class="review-table">
+          <caption class="sr-only">{airport.name}{region.region}逐日测速中位数与采样条件</caption>
+          <thead><tr><th scope="col">测试日期</th><th scope="col">下载中位数</th><th scope="col">上传中位数</th><th scope="col">原始样本</th></tr></thead>
+          <tbody>{region.daily.map((day) => <tr>
+            <th scope="row">{day.date}</th><td>{speed(day.downloadMedian)}</td><td>{speed(day.uploadMedian)}</td>
+            <td><details class="review-details day-details">
+              <summary>{day.records.length} 条 · 条件与证据</summary>
+              <ul class="sample-conditions">{day.records.map((test) => <li>
+                <a href={getTestRecordHref(airport.slug, test.id)}>{recordLabel(test)} →</a>
+                <p>{conditions(test)}</p>
+                <p>ChatGPT：{test.chatgpt}；流媒体：{test.streaming}；测试时段：{test.window || '未记录'}。</p>
+                {test.evidenceNote && <p>证据备注：{test.evidenceNote}</p>}
+              </li>)}</ul>
+            </details></td>
+          </tr>)}</tbody>
+        </table>
+      </div> : <p class="review-note">暂无可展示的逐日测速数据。</p>}
+    </article>)}
+  </div>
+  <p class="review-note">流媒体按 YouTube 4K 画质、三次拖动进度条观察缓冲；ChatGPT 观察发送消息到开始出现回答的等待。“流畅”等状态保留测试者当次判断，逐次秒数仅在实际保存时展示；YouTube 播放结果不代表其他平台解锁。<a class="text-link" href="/methodology/#experience-methods">查看具体测试方法 →</a></p>
+</section>}
+
+{showEvidence && <section class="section review-section" id="review-evidence" aria-labelledby="review-evidence-heading">
+  <div class="section-head"><div><div class="section-kicker">Selected original evidence</div><h2 id="review-evidence-heading">关键测速证据</h2></div></div>
+  <p class="review-intro">以下截图保留完整比例，选择依据写在各图下方。Speedtest 截图用于核对测速数值，ChatGPT 与流媒体状态仍以对应记录的体验说明为准。</p>
+  {evidence.length > 0 ? <div class="evidence-grid">
+    {evidence.map((item) => <figure class="evidence-card">
+      <a class="evidence-image-link" href={item.imagePath} target="_blank" rel="noopener" aria-label={`打开${airport.name}${recordLabel(item.test)}的测速原图`}>
+        <img src={item.thumbnail} width={item.width} height={item.height} loading="lazy" decoding="async" alt={`${airport.name} ${recordLabel(item.test)} 的 Speedtest 测速截图`} />
+      </a>
+      <figcaption>
+        <h3>{item.test.node}</h3>
+        <p class="evidence-time">{item.test.testedAt} · {item.test.time ?? '时间未记录'}（北京时间）</p>
+        <p>下载 {speed(item.test.downloadMbps)} · 上传 {speed(item.test.uploadMbps)}</p>
+        <p class="evidence-selection">选择依据：{item.note}</p>
+        <details class="review-details"><summary>查看这次采样条件</summary><p class="evidence-conditions">{conditions(item.test)}</p>{item.test.evidenceNote && <p class="evidence-conditions">{item.test.evidenceNote}</p>}</details>
+        <div class="evidence-links"><a href={item.imagePath} target="_blank" rel="noopener">打开测速原图 ↗</a><a href={getTestRecordHref(airport.slug, item.test.id)}>查看对应记录 →</a></div>
+      </figcaption>
+    </figure>)}
+  </div> : <p class="review-note">尚无可展示的测速截图；请在原始记录区查看已保留的结果链接。</p>}
+</section>}
+
+<style>
+  .review-section { scroll-margin-top: 96px; }
+  .review-intro { max-width: 940px; margin: 0 0 26px; color: var(--muted); }
+  .review-note { margin: 22px 0 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+  .observation-grid, .evidence-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .observation-card, .region-card, .evidence-card { min-width: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+  .observation-card { padding: 25px; }
+  .observation-number { display: block; margin-bottom: 18px; font-size: 13px; letter-spacing: 0.12em; color: var(--cyan); }
+  .observation-card h3 { margin: 0; font-size: 21px; line-height: 1.4; }
+  .observation-card > p { margin: 16px 0 20px; font-size: 15px; line-height: 1.8; }
+  .review-details { margin-top: 12px; font-size: 13px; }
+  .review-details summary { color: var(--lime); cursor: pointer; line-height: 1.6; }
+  .review-details[open] summary { margin-bottom: 12px; }
+  .record-links, .sample-conditions { margin: 0; padding: 0 0 0 18px; }
+  .record-links li + li { margin-top: 8px; }
+  .record-links a, .sample-conditions a, .latest-record a, .evidence-links a { color: var(--cyan); text-decoration: underline; text-decoration-color: rgba(85, 231, 207, 0.35); text-underline-offset: 3px; }
+  .region-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .region-card { padding: 24px; }
+  .region-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 14px; }
+  .region-heading h3 { margin: 0; font-size: 25px; }
+  .region-heading > span, .latest-record { color: var(--muted); font-size: 13px; }
+  .latest-record { margin: 10px 0 20px; }
+  .region-metrics { display: grid; gap: 12px; }
+  .region-metrics span { display: block; color: var(--muted); font-size: 12px; }
+  .region-metrics strong { display: block; margin-top: 3px; font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .history-chart { margin: 22px 0 18px; }
+  .history-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart-gridline { stroke: var(--line); stroke-width: 1; }
+  .chart-label { fill: var(--muted); font-size: 11px; font-family: var(--font); }
+  .chart-point { fill: var(--lime); stroke: var(--bg); stroke-width: 1.5; }
+  .history-chart figcaption { margin-top: 6px; color: var(--muted); font-size: 12px; }
+  .experience-counts { margin: 20px 0; font-size: 13px; line-height: 1.7; }
+  .experience-counts p { margin: 8px 0; }
+  .experience-counts span { display: block; color: var(--muted); font-size: 12px; }
+  .review-table-scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; }
+  .review-table-scroll:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+  .review-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .review-table th, .review-table td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .review-table thead th { color: var(--muted); font-weight: 500; background: var(--panel2); white-space: nowrap; }
+  .review-table tbody th { font-weight: 400; white-space: nowrap; }
+  .review-table td { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .review-table tr:last-child > * { border-bottom: 0; }
+  .day-details { margin: 0; min-width: 132px; }
+  .sample-conditions { min-width: 220px; max-width: 350px; white-space: normal; }
+  .sample-conditions li + li { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .sample-conditions p { margin: 7px 0; color: var(--muted); line-height: 1.75; overflow-wrap: anywhere; }
+  .evidence-card { margin: 0; overflow: hidden; }
+  .evidence-image-link { display: block; padding: 12px; background: var(--panel2); }
+  .evidence-image-link img { display: block; width: 100%; height: auto; }
+  .evidence-card figcaption { padding: 22px; }
+  .evidence-card h3 { margin: 0; font-size: 19px; }
+  .evidence-card p { margin: 12px 0; font-size: 13px; line-height: 1.75; }
+  .evidence-time, .evidence-selection, .evidence-conditions { color: var(--muted); }
+  .evidence-conditions { overflow-wrap: anywhere; }
+  .evidence-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 20px; font-size: 13px; }
+  @media (max-width: 1000px) {
+    .observation-grid { grid-template-columns: 1fr; }
+    .observation-card { padding: 22px; }
+    .observation-number { margin-bottom: 10px; }
+    .region-card { padding: 20px; }
+  }
+  @media (max-width: 720px) {
+    .region-grid, .evidence-grid { grid-template-columns: 1fr; }
+    .chart-label { font-size: 20px; }
+    .region-card { padding: 18px; }
+    .region-metrics strong { font-size: 16px; }
+    .evidence-card figcaption { padding: 20px; }
+  }
+</style>

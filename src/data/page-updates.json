@@ -1,9 +1,18 @@
 {
-  "/": "2026-10-09",
+  "/": "2026-10-11",
   "/airport/": "2026-10-03",
-  "/rank/": "2026-10-09",
-  "/test/": "2026-10-09",
-  "/tutorial/": "2026-10-03",
+  "/rank/": "2026-10-13",
+  "/test/": "2026-10-14",
+  "/tutorial/": "2026-10-11",
   "/about/": "2026-10-08",
-  "/methodology/": "2026-10-09"
+  "/methodology/": "2026-10-14",
+  "/airport/globalcloud/": "2026-10-14",
+  "/airport/guangnianti/": "2026-10-14",
+  "/airport/interexpress/": "2026-10-14",
+  "/airport/xxyun/": "2026-10-14",
+  "/airport/flybit/": "2026-10-14",
+  "/airport/pinhaolian/": "2026-10-14",
+  "/airport/cocoduck/": "2026-10-14",
+  "/airport/edgenode/": "2026-10-14",
+  "/airport/xsus/": "2026-10-14"
 }

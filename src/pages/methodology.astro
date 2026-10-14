@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { AUTHOR_DESCRIPTION, AUTHOR_NAME, TEST_CLIENTS, TEST_DEVICE, TEST_NETWORK } from '../consts';
+import pageUpdates from '../data/page-updates.json';
+import { CHATGPT_RESPONSE_TIERS } from '../data/test-experience-schema.mjs';
 const methodologyUrl = new URL('/methodology/', Astro.site).href;
 const authorUrl = new URL('/about/', Astro.site).href;
 const methodologyStructuredData = {
@@ -12,7 +14,7 @@ const methodologyStructuredData = {
   headline: '机场测速与评分方法',
   description: `siilas 公开使用${TEST_NETWORK}、${TEST_DEVICE}和${TEST_CLIENTS}测试机场节点的记录规则、参评条件与自动评分公式。`,
   inLanguage: 'zh-CN',
-  dateModified: '2026-10-08',
+  dateModified: pageUpdates['/methodology/'],
   author: {
     '@type': 'Person',
     name: AUTHOR_NAME,
@@ -53,6 +55,33 @@ const methodologyStructuredData = {
     <section class="card"><h2>延迟与实际体验</h2><p class="desc">测速截图能确认延迟时才记录。Speedtest 空闲延迟是测试设备到测速服务器的往返时间，下载与上传负载延迟分别展示。以后不再要求采集抖动和丢包：单次 Speedtest 的这两项容易受到测速服务器、瞬时线路和当时拥塞影响，对机场长期使用体验的参考价值有限。本站主要通过同地区节点跨日期复测的速度波动，以及 ChatGPT 和流媒体体验判断实际表现。</p></section>
   </div></section>
 
+  <section class="section" id="experience-methods" aria-labelledby="experience-methods-heading">
+    <div class="section-head"><div><div class="section-kicker">Experience test process</div><h2 id="experience-methods-heading">YouTube 4K 与 ChatGPT 怎么测试</h2></div></div>
+    <p>测试者于 2026-10-14 确认以下统一方法：流媒体测试使用 YouTube 4K 画质，通过三次拖动进度条观察缓冲；ChatGPT 测试观察从发送消息到开始出现回答的等待时间。</p>
+    <div class="experience-methods">
+      <section class="card" aria-labelledby="youtube-method-heading">
+        <h3 id="youtube-method-heading">YouTube 4K：三次拖动，观察缓冲</h3>
+        <ol>
+          <li>连接所测节点，打开支持 4K 的 YouTube 视频，将画质设为 4K。</li>
+          <li>拖动播放进度条，观察拖动后至恢复播放前的缓冲等待。</li>
+          <li>共进行三次拖动，分别观察每次的缓冲表现；保存了秒数时逐次记录。</li>
+          <li>根据实际观察到的播放与缓冲情况，提交下方五档流媒体体验状态。</li>
+        </ol>
+        <p class="desc">具体视频、拖动位置和逐次缓冲秒数按当次实际保存的信息说明；不预设固定拖动位置，也不从体验状态倒推秒数。</p>
+      </section>
+      <section class="card" aria-labelledby="chatgpt-method-heading">
+        <h3 id="chatgpt-method-heading">ChatGPT：发送消息至开始出现回答</h3>
+        <ol>
+          <li>使用所测节点打开 ChatGPT，发送一条消息。</li>
+          <li>从发送消息开始观察，到开始出现回答时结束，观察这段等待及其对使用的影响。</li>
+          <li>按 5、10、20、30 秒和未响应五档提交下方 ChatGPT 状态；当次保存了响应秒数、模型或操作证据时，再分别记录。</li>
+        </ol>
+        <p class="desc">计时口径为“从发送消息到开始出现回答”。5、10、20、30 秒整均计入对应的“以内”档，超过 30 秒仍未开始回答按未响应处理。当次未保存精确秒数时保留为未记录。</p>
+      </section>
+    </div>
+    <p class="desc">2026-10-14 是统一方法的确认日期，不是历史记录的测试日期。YouTube 4K 是测试者确认的流媒体测试条件；逐条的视频地址、三次缓冲秒数、ChatGPT 响应秒数、模型与操作证据则按实际保存情况展示。方法确认不补造这些逐条细节，也不把定性体验改写为精确计时结果。</p>
+  </section>
+
   <section class="section"><div class="section-head"><div><div class="section-kicker">Scoring</div><h2>何时显示评分</h2></div></div>
 	<div class="card"><p><strong>参评条件：</strong>新加坡、香港、日本和美国四类常用节点每个地区均有至少 3 个不同测试日期的计分记录后，才会自动计算并显示稳定性与综合评分。同一地区同一天的多次测速仅计为 1 个日期样本。</p><p>计分记录仅包括保留 Speedtest 结果链接或截图的已验证测速。节点在线快照和服务异常观察单独归档，不计入评分。</p><p>任一地区少于 3 个日期样本时，稳定性与综合评分显示“样本不足”；ChatGPT 和流媒体是独立体验子项，只要存在符合状态规则的实测记录，就会先自动换算并显示百分制平均分。样本较少时，单次结果对体验分影响更大，新增记录后分数会持续更新。</p><p><strong>自动评分：</strong>稳定性 40%、速度 25%、ChatGPT 可用性 15%、流媒体体验 10%、套餐性价比 10%。所有已验证样本先按“地区＋日期”汇总：同一地区同一天的下载、上传取中位数，ChatGPT 与流媒体状态换分后取平均值，避免某一天因测试次数更多而获得额外权重。稳定性比较每日代表速度的跨日期波动；速度比较四个地区的每日代表下载速度；ChatGPT 与流媒体先计算地区内每日体验，再让已有实测的地区等权；性价比按每家机场明确标记的计分套餐价格与周期内总流量换算，10GB/元达到该项满分；计分套餐会在详情页单独展示。不限时流量包、加油包与私人专线单独展示，不混入性价比计算。最终综合评分为 10 分制，保留一位小数。</p><p class="desc">为降低单次异常值的影响，下载、上传的同日汇总采用中位数。抖动与丢包不作为本站采集或评分指标。</p></div>
   </section>
@@ -60,10 +89,10 @@ const methodologyStructuredData = {
   <section class="section"><div class="section-head"><div><div class="section-kicker">Score conversion</div><h2>稳定性与可用性如何计分</h2></div></div>
     <div class="cards">
       <section class="card"><h2>稳定性分数</h2><p>分别汇总新加坡、香港、日本和美国四个地区的跨日期测速。同一地区同一天存在多条记录时，先分别取下载和上传中位数，形成当天的代表值；再使用<strong>变异系数（标准差 ÷ 平均值）</strong>衡量每日代表速度的波动。波动越小，稳定性越高；某天速度明显下降，会直接拉低该地区得分。</p><p>单地区分数 = 下载一致性 × 80% + 上传一致性 × 20%，其中一致性 = 100 − 变异系数 × 100，并限制在 0–100 分。总稳定性为四个地区分数的等权平均值，每个地区各占 25%。</p><p class="desc">同地区测试会尽量使用相同节点、客户端、本地宽带和 Speedtest 服务器。该分数表示同一地区节点的“跨时间速度一致性”，不等同于全年在线率。低速和失败记录不会被删除。</p></section>
-      <section class="card"><h2>ChatGPT 分数</h2><div class="table-scroll"><table class="data-table"><caption class="sr-only">ChatGPT 使用体验与分数换算</caption><thead><tr><th>当次使用体验</th><th>标准状态</th><th>单条得分</th></tr></thead><tbody><tr><td>能够正常回答，未感到明显等待</td><td>流畅</td><td>100</td></tr><tr><td>能够回答，有轻微等待</td><td>轻微延迟</td><td>75</td></tr><tr><td>能够回答，等待明显</td><td>响应较慢</td><td>50</td></tr><tr><td>能够回答，等待严重影响使用</td><td>响应严重延迟</td><td>25</td></tr><tr><td>页面无法打开或无法获得回答</td><td>不可用</td><td>0</td></tr></tbody></table></div><p class="desc">这是测试者报告的定性体验。现有记录未保存响应秒数、模型、问题内容或连续计时过程，因此不能用这些状态证明精确响应时间。同一地区同一天多条记录先求平均，再计算该地区跨日期平均分；最后让已有实测的各地区等权。</p></section>
-      <section class="card"><h2>流媒体分数</h2><div class="table-scroll"><table class="data-table"><caption class="sr-only">流媒体播放体验与分数换算</caption><thead><tr><th>当次播放体验</th><th>标准状态</th><th>单条得分</th></tr></thead><tbody><tr><td>播放顺畅，未感到明显缓冲</td><td>流畅</td><td>100</td></tr><tr><td>短暂缓冲，对观看影响较小</td><td>轻微缓冲</td><td>75</td></tr><tr><td>缓冲明显，影响连续观看</td><td>缓冲明显</td><td>50</td></tr><tr><td>频繁或长时间缓冲，严重影响观看</td><td>缓冲严重</td><td>25</td></tr><tr><td>无法播放</td><td>不可用</td><td>0</td></tr></tbody></table></div><p class="desc">这是测试者报告的定性体验。平台、视频清晰度和缓冲秒数仅在实际保存时列入记录详情；未注明清晰度的记录不能视为 4K 测试。同一地区同一天多条记录先求平均，再计算该地区跨日期平均分；最后让已有实测的各地区等权。</p></section>
+      <section class="card" id="chatgpt-response-tiers"><h2>ChatGPT 分数</h2><div class="table-scroll"><table class="data-table"><caption class="sr-only">ChatGPT 首次响应时间与五档分数换算</caption><thead><tr><th>发送至开始回答的等待</th><th>标准状态</th><th>单条得分</th></tr></thead><tbody>{CHATGPT_RESPONSE_TIERS.map((tier) => <tr><td>{tier.label}</td><td>{tier.status}</td><td>{tier.score}</td></tr>)}</tbody></table></div><p class="desc">按 2026-10-14 确认的 5、10、20、30 秒和未响应五档判断首次响应；未响应以“不可用”入库。历史记录继续按已保存的状态计分，不根据状态补写具体秒数。有精确计时时须与对应档位一致，冲突时先核对，不静默改写数据。同一地区同一天多条记录先求平均，再计算该地区跨日期平均分；最后让已有实测的各地区等权。</p></section>
+      <section class="card"><h2>流媒体分数</h2><div class="table-scroll"><table class="data-table"><caption class="sr-only">流媒体播放体验与分数换算</caption><thead><tr><th>当次播放体验</th><th>标准状态</th><th>单条得分</th></tr></thead><tbody><tr><td>播放顺畅，未感到明显缓冲</td><td>流畅</td><td>100</td></tr><tr><td>短暂缓冲，对观看影响较小</td><td>轻微缓冲</td><td>75</td></tr><tr><td>缓冲明显，影响连续观看</td><td>缓冲明显</td><td>50</td></tr><tr><td>频繁或长时间缓冲，严重影响观看</td><td>缓冲严重</td><td>25</td></tr><tr><td>无法播放</td><td>不可用</td><td>0</td></tr></tbody></table></div><p class="desc">这是按 YouTube 4K 画质、三次拖动进度条并观察恢复播放前缓冲所得的定性体验。统一方法与逐条操作记录分开：具体视频、三次缓冲秒数和截图按实际保存情况列示，未保存的秒数不由状态倒推。同一地区同一天多条记录先求平均，再计算该地区跨日期平均分；最后让已有实测的各地区等权。</p></section>
     </div>
-    <div class="card" style="margin-top:20px"><p><strong>进入综合评分的权重：</strong>稳定性分数占 40%，ChatGPT 分数占 15%，流媒体分数占 10%。这里展示的都是百分制子项，按权重与速度、性价比合并后，再换算成首页所见的 10 分制综合评分。</p><p><strong>证据范围：</strong>Speedtest 结果页或截图用于核对测速数值，不能单独证明 ChatGPT 或流媒体体验。两项体验状态按测试者提交保留，历史文字按原含义归入五档状态，不补写未保存的计时或播放条件。</p><p><strong>状态校验：</strong>新提交的 ChatGPT 或流媒体状态必须属于上表已有规则。出现未定义措辞时会先提示确认，不直接写入，也不会自动给予分数。</p><p class="desc">所有分数使用全部已验证历史样本，随新增实测记录自动重新计算。榜单同时展示最近实测日期和样本周期；各地区最新记录分别保留日期，分数不等同于当天表现。最低套餐供查看入门价格，性价比使用单独标明的计分套餐。</p></div>
+    <div class="card" style="margin-top:20px"><p><strong>进入综合评分的权重：</strong>稳定性分数占 40%，ChatGPT 分数占 15%，流媒体分数占 10%。这里展示的都是百分制子项，按权重与速度、性价比合并后，再换算成首页所见的 10 分制综合评分。</p><p><strong>证据范围：</strong>Speedtest 结果页或截图用于核对测速数值，不能单独证明 ChatGPT 或流媒体体验。两项体验状态按测试者提交保留，历史文字按原含义归入五档状态；统一测试方法见上文，逐条未保存的秒数、视频地址和操作证据不事后补造。</p><p><strong>状态校验：</strong>新提交的 ChatGPT 或流媒体状态必须属于上表已有规则。出现未定义措辞时会先提示确认，不直接写入，也不会自动给予分数。</p><p class="desc">所有分数使用全部已验证历史样本，随新增实测记录自动重新计算。榜单同时展示最近实测日期和样本周期；各地区最新记录分别保留日期，分数不等同于当天表现。最低套餐供查看入门价格，性价比使用单独标明的计分套餐。</p></div>
   </section>
 
   <section class="section"><div class="section-head"><div><div class="section-kicker">Disclosure</div><h2>复核与商业独立</h2></div></div><div class="cards">
@@ -72,3 +101,17 @@ const methodologyStructuredData = {
     <section class="card"><h2>推广不改权重</h2><p class="desc">页面可能含推广链接，但合作状态不改变原始记录、参评条件或排行榜权重。</p></section>
   </div><p class="desc">查看<a class="text-link" href="/test/">全部机场测速记录 →</a>或<a class="text-link" href="/rank/">当前机场排行榜 →</a>，可将这里的规则与实际样本、评分结果交叉复核。</p></section>
 </main><Footer/></body></html>
+
+<style>
+  #experience-methods, #chatgpt-response-tiers { scroll-margin-top: 96px; }
+  #chatgpt-response-tiers .data-table { min-width: 0; }
+  #chatgpt-response-tiers th:last-child, #chatgpt-response-tiers td:last-child { white-space: nowrap; }
+  #chatgpt-response-tiers .table-scroll::before { display: none; }
+  .experience-methods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .experience-methods h3 { margin-bottom: 16px; }
+  .experience-methods ol { padding-left: 24px; }
+  .experience-methods li { margin: 10px 0; }
+  @media (max-width: 800px) {
+    .experience-methods { grid-template-columns: 1fr; }
+  }
+</style>

@@ -2,6 +2,7 @@
 import BaseHead from './BaseHead.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import AirportRelatedLinks from './AirportRelatedLinks.astro';
 import { AUTHOR_DESCRIPTION, AUTHOR_NAME } from '../consts';
 import type { AirportProfile } from '../data/airport-profiles';
 
@@ -166,6 +167,7 @@ const structuredData = {
       <div class="card"><p><strong>暂无{a.name}的 Siilas 原始测速记录。</strong></p><p class="desc">其他站点的历史截图和商家宣传不会计入本站评分。收到可追溯的节点、日期、结果链接或截图后，再按<a class="text-link" href="/methodology/">统一方法</a>录入。</p></div>
     </section>
   </>}
+  {!stopped && <AirportRelatedLinks airportSlug={a.slug} />}
   <section class="section">
     <div class="section-head"><div><div class="section-kicker">Source notes</div><h2>{stopped ? '风险资料来源与日期' : '商业资料来源与日期'}</h2></div></div>
     <div class="card">

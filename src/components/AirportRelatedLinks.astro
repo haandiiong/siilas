@@ -1,0 +1,37 @@
+---
+import { getAirportTutorials, getRelatedAirports } from '../data/airport-navigation';
+
+interface Props { airportSlug: string; }
+const { airportSlug } = Astro.props;
+const related = getRelatedAirports(airportSlug);
+const tutorials = getAirportTutorials(airportSlug);
+---
+
+{(related.length > 0 || tutorials.links.length > 0) && <section class="section airport-navigation">
+  {related.length > 0 && <>
+    <div class="section-head"><div><div class="section-kicker">Compare service terms</div><h2>按使用条件继续比较</h2></div></div>
+    <p class="desc">以下只比较资料中记录的客户端、试用和套餐条件，不代表速度、稳定性或服务可用性的实测结论。价格与规则请按各页核对日期查看。</p>
+    <div class="cards related-airports">
+      {related.map((airport) => <article class="card">
+        <h3><a class="text-link" href={`/airport/${airport.slug}/`}>{airport.name}机场{airport.kind === 'tested' ? '评测' : '资料'} →</a></h3>
+        <p>{airport.shared}。</p>
+        <p>{airport.price}</p>
+        <p class="desc">{airport.conditions}</p>
+        <small>{airport.kind === 'tested' ? '含本站实测记录' : '资料页 · 尚无本站实测'} · 商业资料核对 {airport.reviewedAt}</small>
+      </article>)}
+    </div>
+  </>}
+  {tutorials.links.length > 0 && <div class="card related-tutorials">
+    <h2>对应操作与排查</h2>
+    <p class="desc">{tutorials.note}</p>
+    <ul>{tutorials.links.map((link) => <li><a class="text-link" href={link.href}>{link.label} →</a></li>)}</ul>
+  </div>}
+</section>}
+
+<style>
+  .related-airports { padding-bottom: 0; }
+  .airport-navigation .desc { min-height: 0; }
+  .related-airports small { display: block; color: var(--muted); }
+  .related-tutorials { margin-top: 20px; }
+  .related-tutorials ul { margin-bottom: 0; }
+</style>

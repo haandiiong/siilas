@@ -1760,8 +1760,8 @@
       "sourceSha256": "90738c3d3d924d320a4328ed0edec600ca430ecc62a2cce8a57908cb6cf49969",
       "sourceCommercialSha256": "c8bb40a94eff165cad6bf5c92344e543bfaf4152dfa6cd1ed5c4249370ee8139",
       "sourceUpdatedAt": "2026-10-09",
-      "acceptedAt": "2026-10-09",
-      "acceptanceNote": "2026-10-09 审查修复：复核极速123五平台客户端表与Tidal两行下载版本表，其余商业字段和来源正文沿用已核对的yp7资料；接收9家回传摘要外的商业来源指纹，保留完整来源审计版本，测速时间及客户端纠错不改商业复核日期。",
+      "acceptedAt": "2026-10-22",
+      "acceptanceNote": "2026-10-09 审查修复：复核极速123五平台客户端表与Tidal两行下载版本表，其余商业字段和来源正文沿用已核对的yp7资料；接收9家回传摘要外的商业来源指纹，保留完整来源审计版本，测速时间及客户端纠错不改商业复核日期。 2026-10-22 按用户确认仅更新邀请链接为 https://www.xxyun.app/?code=3AYVsSKY；保留原商业资料核对日期及 yp7.net 来源审计版本。",
       "received": {
         "fieldHashes": {
           "affiliate": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
@@ -1799,7 +1799,7 @@
           "testClient": "8bb0d6bff2dbfe6337b776788b9ea9016a45b5638e66361658befb01517f6537",
           "trial": "6ab97ad77145793affbb7eb4400c507e64d1f50158305b21eb31b166e8b9a290",
           "universalSubscription": "45d2b20270633034670c81d6e8ff34bf58c00c9e43f3e1ef657bac968f9447ae",
-          "website": "c381cc4b42f3d2393710eb0a853bce6809218a2dd35ec47edb790ba926c60e05"
+          "website": "5147bcccc32590ac98109e26aad04e42919132c67cc7adfee01433b42126f5e8"
         },
         "detailsSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
         "highlightsSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { auditData } from './audit-data.mjs';
-import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate, toRecordedAtIso } from '../src/data/date-utils.mjs';
+import { addCalendarMonths, compareTestsNewestFirst, getDateValidationError, getPartialDateValidationError, getRecordedTimeMinutes, getRecordedTimeValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate, toRecordedAtIso, toShanghaiRecordedTime } from '../src/data/date-utils.mjs';
 
 const auditFixture = (airportChanges = {}, profiles = []) => auditData({
 	airports: [{ slug: 'fixture', name: '日期边界验证', commercialReviewedAt: '2026-09-30', ...airportChanges }],
@@ -43,6 +43,73 @@ test('精确时间输出有效 ISO，约时间和未知时间保留日期精度'
 	for (const time of ['约 10:40', null, undefined, '24:00', '09:60']) {
 		assert.equal(toRecordedAtIso('2026-10-04', time), '2026-10-04');
 	}
+});
+
+test('共享分钟解析只接受严格北京时间 HH:mm，约时间不伪装成精确时刻', () => {
+	for (const [time, minutes] of [['00:00', 0], ['09:05', 545], ['20:00', 1200], ['23:59', 1439]]) {
+		assert.equal(getRecordedTimeMinutes(time), minutes, time);
+	}
+	for (const time of ['约 23:59', '9:05', '09:05:00', '09:05 GMT', ' 09:05', '09:05 ', '24:00', '09:60', '', null, undefined, 905]) {
+		assert.equal(getRecordedTimeMinutes(time), null, String(time));
+		assert.equal(toRecordedAtIso('2026-10-04', time), '2026-10-04');
+		assert.equal(getTestWindow(time), null, String(time));
+	}
+});
+
+test('入库时间允许北京时间、明确约时间及未知值，原始时区必须先换算', () => {
+	for (const time of [undefined, null, '00:00', '09:05', '23:59', '约 09:05', '约09:05', '约 23:59']) {
+		assert.equal(getRecordedTimeValidationError(time), null, String(time));
+	}
+	for (const time of ['约 09:05', '约09:05']) {
+		assert.equal(getRecordedTimeMinutes(time), null);
+		assert.equal(getTestWindow(time), null);
+		assert.equal(toRecordedAtIso('2026-10-04', time), '2026-10-04');
+	}
+	for (const time of ['24:00', '9:05', '09:60', '约 24:00', '约 9:05', '09:05 GMT', 'GMT 09:05', '09:05 UTC', '09:05 UTC+08:00', '09:05+08:00', '09:05-05:00', '09:05Z', '约 09:05 GMT', '09:05:00', ' 09:05', '09:05 ', '', '未知', 905, false, {}]) {
+		const error = getRecordedTimeValidationError(time);
+		assert.match(error, /先按原始时区换算北京时间/u, String(time));
+		assert.match(error, /未知时间用 null/u, String(time));
+		assert.equal(toRecordedAtIso('2026-10-04', time), '2026-10-04');
+	}
+});
+
+test('最新记录统一按北京时间日期、精确分钟和稳定 ID 排序', () => {
+	const records = [
+		{ id: 'older', testedAt: '2026-10-03', time: '23:59' },
+		{ id: 'approximate', testedAt: '2026-10-04', time: '约 23:59' },
+		{ id: 'same-b', testedAt: '2026-10-04', time: '20:00' },
+		{ id: 'midnight', testedAt: '2026-10-04', time: '00:00' },
+		{ id: 'same-a', testedAt: '2026-10-04', time: '20:00' },
+		{ id: 'unknown', testedAt: '2026-10-05', time: null },
+		{ id: 'latest', testedAt: '2026-10-04', time: '20:01' },
+	];
+	const before = structuredClone(records);
+	const expected = ['unknown', 'latest', 'same-a', 'same-b', 'midnight', 'approximate', 'older'];
+	assert.deepEqual(records.toSorted(compareTestsNewestFirst).map(({ id }) => id), expected);
+	assert.deepEqual(records.toReversed().toSorted(compareTestsNewestFirst).map(({ id }) => id), expected);
+	assert.deepEqual(records, before);
+	assert.equal(compareTestsNewestFirst({ testedAt: '2026-10-04' }, { testedAt: '2026-10-04', time: '未知' }), 0);
+	assert.equal(compareTestsNewestFirst(records[0], records[0]), 0);
+});
+
+test('明确原始时区后才换算北京时间，跨日、跨年和闰日保留正确日期', () => {
+	for (const zone of ['UTC', 'GMT', 'Z', '+00:00', 'UTC+00:00', 'GMT+00:00']) {
+		assert.deepEqual(toShanghaiRecordedTime('2026-10-03', '16:00', zone), { testedAt: '2026-10-04', time: '00:00' }, zone);
+	}
+	assert.deepEqual(toShanghaiRecordedTime('2026-08-08', '09:44', 'GMT'), { testedAt: '2026-08-08', time: '17:44' });
+	assert.deepEqual(toShanghaiRecordedTime('2026-12-31', '20:00', 'UTC'), { testedAt: '2027-01-01', time: '04:00' });
+	assert.deepEqual(toShanghaiRecordedTime('2024-02-28', '23:59', 'GMT'), { testedAt: '2024-02-29', time: '07:59' });
+	assert.deepEqual(toShanghaiRecordedTime('2026-01-01', '01:00', '+14:00'), { testedAt: '2025-12-31', time: '19:00' });
+	assert.deepEqual(toShanghaiRecordedTime('2026-10-03', '23:45', '-03:30'), { testedAt: '2026-10-04', time: '11:15' });
+	assert.deepEqual(toShanghaiRecordedTime('2026-10-04', '10:40', '+08:00'), { testedAt: '2026-10-04', time: '10:40' });
+	assert.deepEqual(toShanghaiRecordedTime('0001-01-01', '00:00', 'UTC'), { testedAt: '0001-01-01', time: '08:00' });
+	for (const zone of [undefined, null, '', 'local', 'Asia/Shanghai', '+8:00', '+08', '+14:01', '+24:00', '-15:00']) {
+		assert.throws(() => toShanghaiRecordedTime('2026-10-04', '10:40', zone), RangeError, String(zone));
+	}
+	assert.throws(() => toShanghaiRecordedTime('2026-02-30', '10:40', 'UTC'), RangeError);
+	assert.throws(() => toShanghaiRecordedTime('2026-10-04', '约 10:40', 'UTC'), RangeError);
+	assert.throws(() => toShanghaiRecordedTime('9999-12-31', '23:59', 'UTC'), RangeError);
+	assert.throws(() => toShanghaiRecordedTime('0001-01-01', '00:00', '+14:00'), RangeError);
 });
 
 test('测试时段按北京时间边界划分，约时间不能自动推断', () => {

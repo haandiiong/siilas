@@ -9,6 +9,7 @@ const makeTest = (id, overrides = {}) => ({
 	time: '20:00',
 	window: '晚高峰',
 	node: '香港节点',
+	exitRegion: '香港',
 	baselineDownloadMbps: 1000,
 	downloadMbps: 100,
 	uploadMbps: 20,
@@ -96,18 +97,18 @@ test('偶数日内中位数与真实零值不会被当成缺失数据', () => {
 	assert.equal(allZero.dailyDownloadMax, 0);
 });
 
-test('来源地区不是节点地区，未知或同时命名两个地区的节点不分配', () => {
+test('地区只认已确认的出口地区，不从本地地区或节点名称推断', () => {
 	const review = reviewTests([
-		makeTest('unknown', { node: '未标注节点', sourceRegion: '香港', testedAt: '2026-10-03' }),
-		makeTest('ambiguous', { node: '香港中转美国', downloadMbps: 999 }),
-		makeTest('english-only', { node: 'US 01', downloadMbps: 888 }),
-		makeTest('singapore', { node: '新加坡 01', downloadMbps: 50 }),
+		makeTest('unknown', { node: '未标注节点', exitRegion: null, sourceRegion: '香港', testedAt: '2026-10-03' }),
+		makeTest('ambiguous', { node: '香港中转美国', exitRegion: null, downloadMbps: 999 }),
+		makeTest('english-only', { node: 'US 01', exitRegion: null, downloadMbps: 888 }),
+		makeTest('singapore', { node: '新加坡 01', exitRegion: '新加坡', downloadMbps: 50 }),
 	]);
 	assert.equal(review.verifiedCount, 4);
 	assert.equal(review.endDate, '2026-10-03');
 	assert.deepEqual(review.regions.map(({ recordCount }) => recordCount), [1, 0, 0, 0]);
 	assert.equal(review.regions[0].dailyMedianDownload, 50);
-	assert.match(review.observations[0].body, /3 条节点地区无法明确归类/u);
+	assert.match(review.observations[0].body, /3 条节点出口地区未确认/u);
 });
 
 test('最新样本保留每个地区实际日期，并按明确时间排序，近似时间不推断分钟', () => {
@@ -118,7 +119,7 @@ test('最新样本保留每个地区实际日期，并按明确时间排序，�
 		makeTest('approximate-hk', { testedAt: '2026-10-03', time: '约 23:00' }),
 		makeTest('unknown-time-hk', { testedAt: '2026-10-03', time: null }),
 		late,
-		makeTest('older-jp', { node: '日本节点', testedAt: '2026-10-01' }),
+		makeTest('older-jp', { node: '日本节点', exitRegion: '日本', testedAt: '2026-10-01' }),
 	]);
 	assert.equal(hongKong(review).latest, late);
 	assert.equal(review.regions[2].latest.testedAt, '2026-10-01');
@@ -156,9 +157,9 @@ test('截图优先最近、最低下载与同地区不同日期，不只展示�
 	const screenshot = (id, changes) => makeTest(id, { evidenceImage: `/evidence/${id}.png`, ...changes });
 	const review = reviewTests([
 		screenshot('latest', { testedAt: '2026-10-04', downloadMbps: 900 }),
-		screenshot('lower-old', { testedAt: '2026-10-01', node: '美国节点', downloadMbps: 0 }),
+		screenshot('lower-old', { testedAt: '2026-10-01', node: '美国节点', exitRegion: '美国', downloadMbps: 0 }),
 		screenshot('same-region-old', { testedAt: '2026-10-03', downloadMbps: 400 }),
-		screenshot('high-jp', { testedAt: '2026-10-03', node: '日本节点', downloadMbps: 999 }),
+		screenshot('high-jp', { testedAt: '2026-10-03', node: '日本节点', exitRegion: '日本', downloadMbps: 999 }),
 	]);
 	assert.deepEqual(review.evidence.map(({ test }) => test.id), ['latest', 'lower-old', 'same-region-old']);
 	assert.match(review.evidence[0].note, /最近的带图实测/u);
@@ -173,8 +174,8 @@ test('截图只返回主测速截图路径，去重且最多三条', () => {
 		makeTest('extra', { testedAt: '2026-10-04', evidenceImages: [{ label: 'ChatGPT 状态截图', path: '/evidence/shared.png' }] }),
 		makeTest('duplicate', { testedAt: '2026-10-03', evidenceImage: '/evidence/shared.png' }),
 		makeTest('same-image', { testedAt: '2026-10-02', evidenceImage: '/evidence/shared.png' }),
-		makeTest('second', { node: '日本节点', testedAt: '2026-10-02', evidenceImage: '/evidence/second.png' }),
-		makeTest('third', { node: '美国节点', testedAt: '2026-10-01', evidenceImage: '/evidence/third.png' }),
+		makeTest('second', { node: '日本节点', exitRegion: '日本', testedAt: '2026-10-02', evidenceImage: '/evidence/second.png' }),
+		makeTest('third', { node: '美国节点', exitRegion: '美国', testedAt: '2026-10-01', evidenceImage: '/evidence/third.png' }),
 		makeTest('fourth', { evidenceImage: '/evidence/fourth.png' }),
 	]);
 	assert.equal(review.evidence.length, 3);
@@ -198,8 +199,8 @@ test('有结果链接但仅附加 ChatGPT 状态图的记录可计入汇总，�
 test('地区未知的主截图可以保留，但选择依据不能称它为另一个已知地区', () => {
 	const review = reviewTests([
 		makeTest('latest', { testedAt: '2026-10-04', downloadMbps: 500, evidenceImage: '/evidence/latest.png' }),
-		makeTest('unknown', { testedAt: '2026-10-03', node: '未标注节点', downloadMbps: 200, evidenceImage: '/evidence/unknown.png' }),
-		makeTest('lowest', { testedAt: '2026-10-01', node: '日本节点', downloadMbps: 0, evidenceImage: '/evidence/lowest.png' }),
+		makeTest('unknown', { testedAt: '2026-10-03', node: '未标注节点', exitRegion: null, downloadMbps: 200, evidenceImage: '/evidence/unknown.png' }),
+		makeTest('lowest', { testedAt: '2026-10-01', node: '日本节点', exitRegion: '日本', downloadMbps: 0, evidenceImage: '/evidence/lowest.png' }),
 	]);
 	assert.equal(review.evidence[2].test.id, 'unknown');
 	assert.doesNotMatch(review.evidence[2].note, /其他地区/u);

@@ -1,4 +1,6 @@
 import type { Airport, AirportTest } from './airport-data';
+import { compareTestsNewestFirst } from './date-utils.mjs';
+import { getTestRegion as getRegion, TEST_REGIONS } from './test-regions.mjs';
 
 export type ReviewStatusCount = { status: string; count: number };
 
@@ -46,26 +48,11 @@ export type AirportReview = {
 };
 
 // Keep the review table in the same region order as the existing sample summaries.
-const REGIONS = ['新加坡', '香港', '日本', '美国'] as const;
+const REGIONS = TEST_REGIONS;
 const CHATGPT_STATUSES = ['流畅', '轻微延迟', '响应较慢', '响应严重延迟', '不可用'];
 const STREAMING_STATUSES = ['流畅', '轻微缓冲', '缓冲明显', '缓冲严重', '不可用'];
 
-const getRegion = (test: AirportTest): string | null => {
-	const matches = REGIONS.filter((region) => test.node.includes(region));
-	// A node naming more than one region does not establish which endpoint was tested.
-	return matches.length === 1 ? matches[0] : null;
-};
-
-const timeMinutes = (time: string | null) => {
-	if (!time || !/^(?:[01]\d|2[0-3]):[0-5]\d$/u.test(time)) return -1;
-	const [hours, minutes] = time.split(':').map(Number);
-	return hours * 60 + minutes;
-};
-
-const newestFirst = (left: AirportTest, right: AirportTest) =>
-	right.testedAt.localeCompare(left.testedAt)
-	|| timeMinutes(right.time) - timeMinutes(left.time)
-	|| left.id.localeCompare(right.id);
+const newestFirst = compareTestsNewestFirst;
 
 const median = (values: number[]): number => {
 	const sorted = [...values].sort((left, right) => left - right);
@@ -113,7 +100,12 @@ const recordLabel = (test: AirportTest) => `${test.testedAt}${test.time ? ` ${te
 
 const coverageObservation = (review: Omit<AirportReview, 'observations' | 'evidence'>, verified: AirportTest[]): ReviewObservation => {
 	const covered = review.regions.filter((region) => region.recordCount > 0);
-	const unmatched = verified.length - covered.reduce((sum, region) => sum + region.recordCount, 0);
+	const unknown = verified.filter((test) => getRegion(test) === null).length;
+	const outside = verified.length - covered.reduce((sum, region) => sum + region.recordCount, 0) - unknown;
+	const excludedSummary = [
+		unknown ? `另有 ${unknown} 条节点出口地区未确认，未计入地区统计。` : '',
+		outside ? `另有 ${outside} 条属于四个比较地区以外的出口，保留实际地区，未计入四地区统计。` : '',
+	].join('');
 	const windows = [...new Set(verified.map((test) => test.window.trim() || '未标注'))];
 	const windowSummary = windows.map((window) => `${window} ${verified.filter((test) => (test.window.trim() || '未标注') === window).length} 条`).join('、');
 	const latest = verified[0];
@@ -128,7 +120,7 @@ const coverageObservation = (review: Omit<AirportReview, 'observations' | 'evide
 	return {
 		title: '实测覆盖与记录时段',
 		body: verified.length
-			? `原始时段分布：${windowSummary}。${updateSummary}${unmatched ? `另有 ${unmatched} 条节点地区无法明确归类，未计入地区统计。` : '这些时段来自已保存的抽样记录，不代表连续监测。'}`
+			? `原始时段分布：${windowSummary}。${updateSummary}${excludedSummary}这些时段来自已保存的抽样记录，不代表连续监测。`
 			: '暂无带测速结果链接或主截图的记录；测试日期、地区覆盖与时段暂不能汇总。',
 		records: uniqueRecords([latest, updates.at(-1), otherWindow]),
 	};

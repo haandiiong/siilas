@@ -4,11 +4,12 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { AUTHOR_DESCRIPTION, AUTHOR_NAME, SITE_TITLE, TEST_CLIENTS } from '../../consts';
 import { airports, getTests } from '../../data/airport-data';
+import { getTestRegion } from '../../data/test-regions.mjs';
 import pageUpdates from '../../data/page-updates.json';
 
 const verifiedTests = airports.flatMap((airport) => getTests(airport))
   .filter((test) => test.resultUrl || test.evidenceImage);
-const hongKongTests = verifiedTests.filter((test) => test.node.includes('香港'));
+const hongKongTests = verifiedTests.filter((test) => getTestRegion(test) === '香港');
 const hongKongTestDates = hongKongTests.map((test) => test.testedAt).sort();
 const firstHongKongTestAt = hongKongTestDates.at(0);
 const latestHongKongTestAt = hongKongTestDates.at(-1);
@@ -183,7 +184,7 @@ const contents = [
             <span class="section-kicker">07 / Check the service separately</span>
             <h2 id="chatgpt-troubleshooting-heading">普通网页能打开，ChatGPT 仍无法访问</h2>
             <ol class="guide-steps"><li>先区分页面打不开、登录失败、服务返回地区 / 账号提示，还是回答等待较长。保留具体提示，不要将所有情况都归为节点故障。</li><li>查看 <a href="https://status.openai.com/">OpenAI 服务状态</a>与<a href="https://help.openai.com/en/articles/7947663-chatgpt-supported-countries">官方支持地区说明</a>。服务异常、账号问题或地区条件需要分别处理。</li><li>检查客户端中目标域名的实际连接与出站规则；规则模式下，普通网页和 ChatGPT 可能命中不同代理组。</li><li>在服务支持条件内，固定其他设置后比较同地区不同线路的表现，记录节点与时间。能访问页面之后，再单独检查实际对话是否可用。</li></ol>
-            {latestHongKongTestAt && <div class="guide-callout"><strong>本站香港节点的历史样本</strong><p>{firstHongKongTestAt} 至 {latestHongKongTestAt}，共 {hongKongTests.length} 条已验证测速记录关联的 ChatGPT 体验：{hongKongChatgptSummary}。</p><p>这是多个机场、节点与日期的累计历史记录，体验状态由测试者报告，不代表地区支持、当前状态或所有香港节点的可用性。请结合<a href="/test/">原始记录</a>与<a href="/methodology/">体验评分规则</a>判断。</p></div>}
+            {latestHongKongTestAt && <div class="guide-callout"><strong>本站香港出口节点的历史样本</strong><p>{firstHongKongTestAt} 至 {latestHongKongTestAt}，共 {hongKongTests.length} 条已验证测速记录关联的 ChatGPT 体验：{hongKongChatgptSummary}。</p><p>这些记录的节点出口 IP 所在地均已确认为香港，日期按北京时间记录；它们来自多个机场、节点与日期，体验状态由测试者报告，不代表地区支持、当前状态或所有香港节点的可用性。请结合<a href="/test/">原始记录</a>与<a href="/methodology/">体验评分规则</a>判断。</p></div>}
           </section>
           <section class="guide-section" id="protocol-selection" aria-labelledby="protocol-selection-heading">
             <span class="section-kicker">08 / Configuration compatibility</span>

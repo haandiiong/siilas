@@ -1,4 +1,6 @@
 import type { AirportTest } from './airport-data';
+import { compareTestsNewestFirst } from './date-utils.mjs';
+import { getTestRegion, TEST_REGIONS } from './test-regions.mjs';
 
 export const getTestRecordAnchor = (airportSlug: string, recordId: string) =>
 	`record-${airportSlug}-${encodeURIComponent(recordId)}`;
@@ -6,21 +8,8 @@ export const getTestRecordAnchor = (airportSlug: string, recordId: string) =>
 export const getTestRecordHref = (airportSlug: string, recordId: string) =>
 	`/airport/${airportSlug}/#${encodeURIComponent(getTestRecordAnchor(airportSlug, recordId))}`;
 
-const TEST_REGIONS = [
-	{ name: '新加坡', pattern: /新加坡/u },
-	{ name: '香港', pattern: /香港/u },
-	{ name: '日本', pattern: /日本/u },
-	{ name: '美国', pattern: /美国/u },
-] as const;
-
-const timeMinutes = (time: string | null) => {
-	const match = time?.match(/(\d{1,2}):(\d{2})/u);
-	return match ? Number(match[1]) * 60 + Number(match[2]) : -1;
-};
-
 export const sortTestsNewestFirst = <T extends Pick<AirportTest, 'testedAt' | 'time'>>(tests: readonly T[]): T[] =>
-	[...tests].sort((left, right) => right.testedAt.localeCompare(left.testedAt)
-		|| timeMinutes(right.time) - timeMinutes(left.time));
+	[...tests].sort(compareTestsNewestFirst);
 
 export const getTestSamplePeriod = (tests: AirportTest[]) => {
 	const dates = tests.filter((test) => test.resultUrl || test.evidenceImage).map((test) => test.testedAt).sort();
@@ -35,12 +24,11 @@ export const getTestEvidenceLinks = (test: AirportTest) => {
 	return links.filter((link, index) => links.findIndex((item) => item.path === link.path) === index);
 };
 
-export const getLatestRegionTests = (tests: AirportTest[]) => TEST_REGIONS.map(({ name, pattern }) => ({
-	region: name,
+export const getLatestRegionTests = (tests: AirportTest[]) => TEST_REGIONS.map((region) => ({
+	region,
 	test: tests
-		.filter((test) => pattern.test(test.node) && Boolean(test.resultUrl || test.evidenceImage))
-		.toSorted((left, right) => right.testedAt.localeCompare(left.testedAt)
-			|| timeMinutes(right.time) - timeMinutes(left.time))
+		.filter((test) => getTestRegion(test) === region && Boolean(test.resultUrl || test.evidenceImage))
+		.toSorted(compareTestsNewestFirst)
 		.at(0),
 }));
 
@@ -69,7 +57,8 @@ export const getTestExperienceDetails = (test: AirportTest) => [
 ];
 
 export const getTestRecordDetails = (test: AirportTest) => [
-	{ label: '测试地区', value: recorded(test.sourceRegion) },
+	{ label: '节点出口地区（按 IP）', value: getTestRegion(test) ?? '未确认' },
+	{ label: '本地测试地区', value: recorded(test.sourceRegion) },
 	{ label: '本地运营商', value: recorded(test.carrier) },
 	{ label: '接入类型', value: recorded(test.accessType) },
 	{ label: '连接方式', value: recorded(test.connectionType) },

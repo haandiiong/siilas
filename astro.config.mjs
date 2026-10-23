@@ -3,8 +3,9 @@
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import { readFileSync } from 'node:fs';
+import { getTestRegion } from './src/data/test-regions.mjs';
 
-/** @typedef {{testedAt: string, node?: string, resultUrl?: string | null, evidenceImage?: string}} SitemapTest */
+/** @typedef {{testedAt: string, exitRegion?: string | null, resultUrl?: string | null, evidenceImage?: string}} SitemapTest */
 /** @typedef {{slug: string, commercialReviewedAt: string, editorialUpdatedAt?: string, clientSupportVerifiedAt?: string, tests?: SitemapTest[]}} SitemapAirport */
 /** @param {string} filename */
 const readData = (filename) => JSON.parse(readFileSync(new URL(`./src/data/${filename}`, import.meta.url), 'utf8'));
@@ -28,7 +29,7 @@ for (const pathname of ['/', '/airport/', '/rank/']) {
 }
 lastModifiedByPath.set('/test/', latestDate([lastModifiedByPath.get('/test/'), ...testedAirports.flatMap(testDates)]));
 const tutorialTestDates = testedAirports.flatMap((airport) => (airport.tests ?? [])
-	.filter((test) => (test.resultUrl || test.evidenceImage) && test.node?.includes('香港'))
+	.filter((test) => (test.resultUrl || test.evidenceImage) && getTestRegion(test) === '香港')
 	.map((test) => test.testedAt));
 lastModifiedByPath.set('/tutorial/', latestDate([lastModifiedByPath.get('/tutorial/'), ...tutorialTestDates]));
 lastModifiedByPath.set('/airport/', latestDate([lastModifiedByPath.get('/airport/'), ...profiles.map((profile) => profile.editorialUpdatedAt)]));
@@ -37,8 +38,10 @@ lastModifiedByPath.set('/airport/', latestDate([lastModifiedByPath.get('/airport
 export default defineConfig({
 	site: 'https://siilas.com',
 	integrations: [sitemap({
+		filter: (page) => new URL(page).pathname.replace(/\/$/u, '') !== '/test/record-index.json',
 		serialize(item) {
-			const lastModified = lastModifiedByPath.get(new URL(item.url).pathname);
+			const pathname = new URL(item.url).pathname;
+			const lastModified = lastModifiedByPath.get(/^\/test\/(?:[1-9]\d*\/)?$/u.test(pathname) ? '/test/' : pathname);
 			if (lastModified) item.lastmod = lastModified;
 			return item;
 		},

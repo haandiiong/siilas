@@ -44,6 +44,7 @@ const stripMarkdown = (value) => {
     '&nbsp;': ' ', '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"',
   })[entity]);
   text = text.replace(/(?:\*\*|__|~~|`)/gu, '');
+  text = text.replace(/\s*\{#[^{}]+\}\s*$/u, '');
   text = text.replace(/\\([\\|*_`])/gu, '$1');
   return text.replace(/\s+/gu, ' ').trim();
 };
@@ -87,7 +88,7 @@ const classify = (headings, columns) => {
 
   // These recurring tables summarize an article, offer buying advice, or
   // reproduce historical tests; none is a source plan/client inventory.
-  if (/资料(?:汇总|与历史记录)|历史记录|FAQ|常见问题|差异化观察|怎么测|测速|资料来源/u.test(section)) return null;
+  if (/资料(?:汇总|与历史记录)|历史|FAQ|常见问题|差异化观察|怎么测|测速|资料来源/u.test(section)) return null;
   if (/^(项目|问题|需求|使用需求|阶段|类型|指标)$/u.test(firstColumn)) return null;
 
   const planSection = /套餐|价格|流量包|付款|不限时|按量包|模式区别|重置多少钱/u.test(section);
@@ -114,11 +115,23 @@ const tableTitle = (lines, index, headings) => {
 const extractTables = (markdown, filename) => {
   const lines = markdown.split(/\r?\n/u);
   const headings = [];
+  const details = [];
   const result = { planTables: [], clientTables: [] };
   const skipped = [];
   const capped = [];
 
   for (let index = 0; index < lines.length - 1; index += 1) {
+    if (/^\s*<details(?:\s[^>]*)?>\s*$/iu.test(lines[index])) {
+      const summary = lines.slice(index, index + 5).join('\n').match(/<summary[^>]*>([\s\S]*?)<\/summary>/iu)?.[1] ?? '';
+      details.push({ historical: /历史|更正前|旧.*(?:套餐|价格|流量|文案|记录)/u.test(stripMarkdown(summary)), headings: [...headings] });
+      continue;
+    }
+    if (/^\s*<\/details>\s*$/iu.test(lines[index])) {
+      const closed = details.pop();
+      if (closed) headings.splice(0, headings.length, ...closed.headings);
+      continue;
+    }
+    if (details.some((section) => section.historical)) continue;
     const heading = lines[index].match(/^(#{2,6})\s+(.+?)\s*#*\s*$/u);
     if (heading) {
       const level = heading[1].length;

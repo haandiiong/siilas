@@ -1,11 +1,12 @@
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate } from '../src/data/date-utils.mjs';
+import { addCalendarMonths, getDateValidationError, getPartialDateValidationError, getRecordedTimeValidationError, getShanghaiDateKey, getTestWindow, isCalendarDate } from '../src/data/date-utils.mjs';
 import { getChatgptTimingMismatch, testExperienceSchema } from '../src/data/test-experience-schema.mjs';
+import { getTestRegion, TEST_REGIONS } from '../src/data/test-regions.mjs';
 
 const PROJECT_ROOT = fileURLToPath(new URL('..', import.meta.url));
-const REGIONS = ['新加坡', '香港', '日本', '美国'];
+const REGIONS = TEST_REGIONS;
 const MIN_REGION_DAYS = 3;
 
 const unique = (values) => [...new Set(values)];
@@ -69,6 +70,12 @@ export const auditData = async ({ airports, profiles = [], pageUpdates = {}, pro
 	const resultUrls = new Map();
 	for (const { airportSlug, test } of allTests) {
 		validateDate(test.testedAt, `${airportSlug} 测试 ${test.id} testedAt`);
+		const timeError = getRecordedTimeValidationError(test.time);
+		if (timeError) errors.push(`${airportSlug}:${test.id} time：${timeError}`);
+		if (test.exitRegion !== undefined && test.exitRegion !== null
+			&& (typeof test.exitRegion !== 'string' || !test.exitRegion.trim())) {
+			errors.push(`${airportSlug}:${test.id} exitRegion：节点出口地区必须是非空字符串或 null（未确认）`);
+		}
 		const expectedWindow = getTestWindow(test.time);
 		if (expectedWindow && test.window !== expectedWindow) {
 			errors.push(`${airportSlug} 测试 ${test.id} 时段应为${expectedWindow}（北京时间 ${test.time}）`);
@@ -117,7 +124,7 @@ export const auditData = async ({ airports, profiles = [], pageUpdates = {}, pro
 			.filter((test) => (test.resultUrl || test.evidenceImage) && !getDateValidationError(test.testedAt, today));
 		const regionDays = Object.fromEntries(REGIONS.map((region) => [
 			region,
-			new Set(verifiedTests.filter((test) => test.node.includes(region)).map((test) => test.testedAt)).size,
+				new Set(verifiedTests.filter((test) => getTestRegion(test) === region).map((test) => test.testedAt)).size,
 		]));
 		const nextReviewAt = getDateValidationError(airport.commercialReviewedAt, today)
 			? '无效日期' : addCalendarMonths(airport.commercialReviewedAt, 2);

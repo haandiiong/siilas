@@ -1,5 +1,4 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { getChatgptResponseTier, getChatgptTimingMismatch, testExperienceSchema } from '../src/data/test-experience-schema.mjs';
 import { getTestExperienceDetails } from '../src/data/test-record-presentation.ts';
@@ -7,16 +6,42 @@ import { auditData } from './audit-data.mjs';
 
 const streaming = (changes = {}) => ({ platform: 'YouTube', quality: '4K', ...changes });
 
-test('已有135条记录无需补计时，解析不会给历史记录添加默认数据', () => {
-	const airports = JSON.parse(readFileSync(new URL('../src/data/airports.json', import.meta.url), 'utf8'));
-	const before = structuredClone(airports);
-	const records = airports.flatMap((airport) => airport.tests ?? []);
-	assert.equal(records.length, 135);
+const chatgptStatuses = ['流畅', '轻微延迟', '响应较慢', '响应严重延迟', '不可用'];
+const makeStatusOnlyRecord = (index) => ({
+	id: `status-only-${index + 1}`,
+	testedAt: '2026-10-14',
+	time: '20:00',
+	window: '晚高峰',
+	node: '香港节点',
+	chatgpt: chatgptStatuses[index % chatgptStatuses.length],
+	streaming: '流畅',
+	resultUrl: `https://www.speedtest.net/result/status-only-${index + 1}`,
+});
+
+test('五档体验记录无需精确秒数，解析和展示不会补写计时', () => {
+	const records = chatgptStatuses.map((_, index) => makeStatusOnlyRecord(index));
+	const before = structuredClone(records);
 	for (const record of records) {
 		assert.deepEqual(testExperienceSchema.parse(record), {});
 		assert.deepEqual(getTestExperienceDetails(record), []);
+		assert.equal(getChatgptTimingMismatch(record), null);
 	}
-	assert.deepEqual(airports, before);
+	assert.deepEqual(records, before);
+});
+
+test('记录数量增长不阻挡审计，新增五档体验记录无需精确秒数', async () => {
+	for (const count of [0, 1, 136]) {
+		const records = Array.from({ length: count }, (_, index) => makeStatusOnlyRecord(index));
+		const before = structuredClone(records);
+		const report = await auditData({
+			airports: [{ slug: 'fixture', name: '五档体验检查', commercialReviewedAt: '2026-10-14', tests: records }],
+			projectRoot: '.', today: '2026-10-14',
+		});
+		assert.deepEqual(report.errors, []);
+		assert.equal(report.testCount, count);
+		assert.equal(report.rows[0].verifiedTests, count);
+		assert.deepEqual(records, before);
+	}
 });
 
 test('三次缓冲与首次响应保留实际零值、精度和未知项', () => {

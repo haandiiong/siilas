@@ -1,0 +1,174 @@
+---
+import BaseHead from './BaseHead.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import TestArchiveRows from './TestArchiveRows.astro';
+import { AUTHOR_DESCRIPTION, AUTHOR_NAME, TEST_CLIENTS, TEST_DEVICE, TEST_NETWORK } from '../consts';
+import { airports } from '../data/airport-data';
+import { getTestRegions } from '../data/test-regions.mjs';
+import { archiveRecords, archivePageSize, archivePageCount, archiveVersion, getArchivePageHref } from '../data/test-archive';
+
+interface Props { currentPage?: number; }
+const { currentPage = 1 } = Astro.props;
+const records = archiveRecords.slice((currentPage - 1) * archivePageSize, currentPage * archivePageSize);
+const testedAirportCount = new Set(archiveRecords.map((record) => record.airportSlug)).size;
+const verifiedTestCount = airports.reduce((count, airport) => count + airport.verifiedTestCount, 0);
+const scoringTestCount = airports.reduce((count, airport) => count + airport.scoringTestCount, 0);
+const recordDates = archiveRecords.map((record) => record.testedAt).sort();
+const testedRegions = getTestRegions(archiveRecords.filter((record) => record.resultUrl || record.evidenceImage));
+const airportOptions = [...new Map(archiveRecords.map((record) => [record.airportSlug, record.airport])).entries()]
+  .sort((left, right) => left[1].localeCompare(right[1], 'zh-CN'));
+const visiblePages = [...new Set([
+  1,
+  ...Array.from({ length: 5 }, (_, index) => currentPage - 2 + index).filter((page) => page >= 1 && page <= archivePageCount),
+  archivePageCount,
+])].sort((left, right) => left - right);
+const paginationItems: Array<number | 'ellipsis'> = [];
+visiblePages.forEach((page, index) => {
+  if (index > 0 && page - visiblePages[index - 1] > 1) paginationItems.push('ellipsis');
+  paginationItems.push(page);
+});
+const testDescription = `浏览 Siilas ${testedAirportCount} 家机场的 ${verifiedTestCount} 条已验证测速，复查节点速度、ChatGPT 与流媒体体验。`;
+const pageDescription = currentPage === 1 ? testDescription : `${testDescription} 当前为第 ${currentPage} 页，每页最多 ${archivePageSize} 条记录。`;
+const testUrl = new URL('/test/', Astro.site).href;
+const authorUrl = new URL('/about/', Astro.site).href;
+const testStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Siilas 机场测速与使用体验数据集',
+  description: testDescription,
+  url: testUrl,
+  inLanguage: 'zh-CN',
+  creator: {
+    '@type': 'Person',
+    '@id': `${authorUrl}#person`,
+    name: AUTHOR_NAME,
+    description: AUTHOR_DESCRIPTION,
+    url: authorUrl,
+  },
+  dateModified: [...recordDates, ...airports.map((airport) => airport.editorialUpdatedAt).filter((date): date is string => Boolean(date))].sort().at(-1),
+  ...(recordDates.length ? { temporalCoverage: `${recordDates[0]}/${recordDates.at(-1)}` } : {}),
+  ...(testedRegions.length ? { spatialCoverage: testedRegions } : {}),
+  measurementTechnique: `${TEST_NETWORK}、${TEST_DEVICE}、${TEST_CLIENTS}、Speedtest、ChatGPT 与流媒体定性体验记录`,
+  variableMeasured: ['下载速度 Mbps', '上传速度 Mbps', 'Speedtest 空闲延迟 ms', 'ChatGPT 使用体验状态', '流媒体使用体验状态'],
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: '已验证测速样本数量', value: verifiedTestCount, unitText: '条' },
+  ],
+  isAccessibleForFree: true,
+  keywords: ['机场测速', '机场评测', '节点速度', 'ChatGPT 节点', '流媒体解锁'],
+};
+---
+<html lang="zh-CN">
+  <head>
+    <BaseHead title={currentPage === 1 ? '机场测速记录｜四地区节点与使用体验' : `机场测速记录｜第 ${currentPage} 页`} description={pageDescription} structuredData={testStructuredData} />
+    {currentPage > 1 && <link rel="prev" href={getArchivePageHref(currentPage - 1)} />}
+    {currentPage < archivePageCount && <link rel="next" href={getArchivePageHref(currentPage + 1)} />}
+  </head>
+  <body>
+    <Header />
+    <main class="shell">
+      <div class="page-head">
+        <div class="section-kicker">Speed test archive</div>
+        <h1>测速中心</h1>
+        <p>当前共监测 {testedAirportCount} 家机场，收录 {verifiedTestCount} 条已验证测速，其中 {scoringTestCount} 条为四区已确认出口的计分记录；其他记录继续保留归档与日期统计。</p>
+        <p class="desc">每条记录保留 Speedtest 结果链接或截图，地区按节点出口 IP 所在地归档；未提供的指标不会使用估算值。记录按测试日期与已记录的精确时刻由新到旧排列，日期与时刻均为北京时间（UTC+08:00）；约时间保留原文，不用于推断当天先后。</p>
+        <div class="actions"><a class="button secondary" href="/rank/">查看机场排行榜</a><a class="button secondary" href="/methodology/">了解测试方法</a></div>
+      </div>
+      <p class="desc">流媒体使用 YouTube 4K，三次拖动进度条观察缓冲；ChatGPT 由测试者观察发送消息到开始出现回答的等待，按 5 秒内、10 秒内、20 秒内、30 秒内或未响应五档提交。精确响应秒数不是提交要求，也不从状态倒推秒数。<a class="text-link" href="/methodology/#experience-methods">查看测试流程 →</a></p>
+      <section class="test-archive" data-test-archive data-current-page={currentPage} data-archive-version={archiveVersion} data-index-url={`/test/record-index.json?v=${archiveVersion}`} aria-label="原始测速记录与筛选">
+        <form class="archive-filters" data-archive-filters action="/test/" method="get">
+          <fieldset disabled>
+            <legend>筛选测速记录</legend>
+            <div class="archive-filter-fields">
+              <label>机场<select name="airport"><option value="">全部机场</option>{airportOptions.map(([slug, name]) => <option value={slug}>{name}</option>)}</select></label>
+              <label>节点出口地区<select name="region"><option value="">全部出口地区</option>{testedRegions.map((region) => <option value={region}>{region}</option>)}</select></label>
+              <label>起始日期（北京时间）<input type="date" name="from" aria-describedby="archive-date-note" /></label>
+              <label>结束日期（北京时间）<input type="date" name="to" aria-describedby="archive-date-note" /></label>
+              <div class="archive-filter-actions"><button class="button" type="submit">筛选</button><button class="button secondary" type="reset">重置</button></div>
+            </div>
+            <p class="archive-filter-note" id="archive-date-note">起止日期均包含当天，按北京时间筛选。</p>
+          </fieldset>
+        </form>
+        <noscript><p class="archive-notice">当前无法使用筛选，可通过下方分页链接逐页浏览全部记录。</p></noscript>
+        <p class="archive-status" data-archive-status aria-live="polite"></p>
+        <p class="archive-error" data-archive-error hidden>暂时无法加载记录，请<a class="text-link" href={getArchivePageHref(currentPage)}>重新加载页面</a>后重试，或<a class="text-link" href="/test/">返回测速中心首页</a>逐页浏览。</p>
+        <p class="archive-empty" data-archive-empty hidden>没有符合这些条件的测速记录，请调整条件或重置筛选。</p>
+        <div class="archive-table-scroll" data-archive-table tabindex="0" role="region" aria-label="机场测速原始记录，可横向滚动">
+          <table class="data-table">
+            <caption class="sr-only">机场测速原始记录</caption>
+            <thead><tr><th scope="col">时间</th><th scope="col">服务 / 节点</th><th scope="col">下载</th><th scope="col">上传</th><th scope="col">ChatGPT</th><th scope="col">流媒体</th><th scope="col">详情</th></tr></thead>
+            <tbody data-archive-rows><TestArchiveRows records={records} /></tbody>
+          </table>
+        </div>
+        <nav class="archive-pagination" data-archive-pagination aria-label="测速原始记录分页">
+          {currentPage > 1 ? <a href={getArchivePageHref(currentPage - 1)} data-archive-page={currentPage - 1} rel="prev">上一页</a> : <span class="archive-page-disabled" aria-disabled="true">上一页</span>}
+          {paginationItems.map((page) => page === 'ellipsis' ? <span aria-hidden="true">…</span> : <a href={getArchivePageHref(page)} data-archive-page={page} aria-label={`第 ${page} 页`} aria-current={page === currentPage ? 'page' : undefined}>{page}</a>)}
+          {currentPage < archivePageCount ? <a href={getArchivePageHref(currentPage + 1)} data-archive-page={currentPage + 1} rel="next">下一页</a> : <span class="archive-page-disabled" aria-disabled="true">下一页</span>}
+          <span class="archive-summary" data-archive-summary aria-live="polite">第 {currentPage} / {archivePageCount} 页，共 {archiveRecords.length} 条</span>
+        </nav>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  .test-archive { padding-bottom: 72px; }
+  .test-archive [hidden] { display: none !important; }
+  .test-archive .archive-filters { margin: 26px 0 18px; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+  .test-archive fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+  .test-archive legend { padding: 0; margin-bottom: 16px; font-size: 19px; font-weight: 700; }
+  .test-archive .archive-filter-fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-items: end; }
+  .test-archive .archive-filter-fields label { display: grid; gap: 7px; min-width: 0; color: var(--muted); font-size: 13px; }
+  .test-archive select, .test-archive input[type="date"] { box-sizing: border-box; width: 100%; min-width: 0; min-height: 44px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; color-scheme: dark; }
+  .test-archive select:focus-visible, .test-archive input:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+  .test-archive fieldset:disabled select, .test-archive fieldset:disabled input, .test-archive fieldset:disabled button { opacity: 0.55; cursor: not-allowed; }
+  .test-archive .archive-filter-actions { display: flex; flex-wrap: wrap; gap: 10px; grid-column: 1 / -1; }
+  .test-archive .archive-filter-actions button { min-height: 44px; font: inherit; cursor: pointer; }
+  .test-archive .archive-filter-note { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
+  .test-archive .archive-status { color: var(--muted); font-size: 14px; }
+  .test-archive .archive-status:empty { display: none; }
+  .test-archive .archive-notice, .test-archive .archive-error, .test-archive .archive-empty { padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: var(--panel); font-size: 14px; }
+  .test-archive .archive-error { border-color: var(--warn); color: var(--warn); }
+  .test-archive .archive-table-scroll { max-width: 100%; overflow-x: auto; }
+  .test-archive .archive-table-scroll:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+  .test-archive .data-table { font-size: 15px; }
+  .test-archive .data-table td { vertical-align: top; }
+  .test-archive .data-table td > small { display: block; margin-top: 4px; }
+  .test-archive tr[data-page-row] { scroll-margin-top: 100px; }
+  .test-archive tr[data-record-selected] > td, .test-archive tr[data-page-row]:target > td { background: var(--panel2); border-top-color: var(--lime); border-bottom-color: var(--lime); }
+  .test-archive tr[data-record-selected] > td:first-child, .test-archive tr[data-page-row]:target > td:first-child { box-shadow: inset 3px 0 var(--lime); }
+  .test-archive .test-record-details { min-width: 150px; margin-top: 8px; }
+  .test-archive .test-record-details summary { color: var(--lime); cursor: pointer; white-space: nowrap; }
+  .test-archive .test-record-details dl { margin: 12px 0 0; font-size: 13px; }
+  .test-archive .test-record-details dl > div { padding: 6px 0; border-top: 1px solid var(--line); }
+  .test-archive .test-record-details dt { color: var(--muted); }
+  .test-archive .test-record-details dd { margin: 3px 0 0; overflow-wrap: anywhere; }
+  .test-archive .record-link-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 10px; font-size: 13px; }
+  .test-archive .record-link-tools button { border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--panel2); color: var(--text); font: inherit; cursor: pointer; }
+  .test-archive .record-link-tools button:hover { color: var(--lime); border-color: var(--lime); }
+  .test-archive .record-link-tools button:disabled { opacity: 0.6; cursor: wait; }
+  .test-archive .record-link-status { color: var(--muted); }
+  .test-archive .record-link-fallback { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 7px; background: var(--bg); color: var(--text); font: inherit; }
+  .test-archive .archive-pagination { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .test-archive .archive-pagination a, .test-archive .archive-pagination [aria-disabled="true"] { display: inline-flex; justify-content: center; align-items: center; min-width: 42px; min-height: 42px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--text); background: var(--panel); font-size: 14px; font-weight: 700; }
+  .test-archive .archive-pagination a:hover, .test-archive .archive-pagination a[aria-current="page"] { color: var(--bg); border-color: var(--lime); background: var(--lime); }
+  .test-archive .archive-pagination [aria-disabled="true"] { color: var(--muted); opacity: 0.5; }
+  .test-archive .archive-pagination > span:not([data-archive-summary]):not([aria-disabled]) { padding: 4px; color: var(--muted); }
+  .test-archive [data-archive-summary] { margin-left: auto; color: var(--muted); font-size: 14px; }
+  @media (max-width: 800px) {
+    .test-archive .archive-filter-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .test-archive .data-table { min-width: 680px; font-size: 14px; }
+    .test-archive .archive-table-scroll::before { content: "左右滑动查看完整表格"; display: block; padding-bottom: 8px; color: var(--muted); font-size: 12px; }
+  }
+  @media (max-width: 520px) {
+    .test-archive .archive-filters { padding: 18px; }
+    .test-archive .archive-filter-fields { grid-template-columns: minmax(0, 1fr); }
+    .test-archive .archive-filter-actions button { flex: 1; }
+    .test-archive [data-archive-summary] { width: 100%; margin: 8px 0 0; }
+  }
+</style>
+
+<script>
+  import '../scripts/test-archive-navigation';
+</script>

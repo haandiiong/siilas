@@ -8,10 +8,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "pnpm data:test && pnpm data:audit && pnpm data:handoff && pnpm check && astro build",
+    "build": "pnpm data:test && pnpm data:audit && pnpm data:handoff && pnpm check && astro build && node scripts/test-archive-build.mjs",
     "check": "astro check",
     "data:audit": "node scripts/audit-data.mjs",
-    "data:test": "node --experimental-strip-types --test scripts/date-validation.test.mjs scripts/source-handoff.test.mjs scripts/airport-review.test.mjs scripts/test-experience.test.mjs",
+    "data:test": "node --experimental-strip-types --test scripts/date-validation.test.mjs scripts/source-handoff.test.mjs scripts/airport-review.test.mjs scripts/test-experience.test.mjs scripts/test-record-region.test.mjs scripts/test-archive.test.mjs",
     "data:handoff": "node scripts/check-airport-source-handoff.mjs",
     "data:handoff:source": "node scripts/check-airport-source-handoff.mjs --source",
     "data:handoff:accept": "node scripts/check-airport-source-handoff.mjs --accept",
@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
-    "astro": "^7.2.10",
-    "sharp": "^0.35.4"
+    "astro": "^7.3.3",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

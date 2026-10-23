@@ -1,9 +1,10 @@
 import { z } from 'astro/zod';
 import rawAirports from './airports.json';
 import { foundedDateSchema, historicalDateSchema } from './date-schema';
-import { addCalendarMonths, getShanghaiDateKey } from './date-utils.mjs';
+import { addCalendarMonths, getRecordedTimeValidationError, getShanghaiDateKey } from './date-utils.mjs';
 import { getLatestExperienceSummary } from './test-record-presentation';
 import { getChatgptTimingMismatch, testExperienceSchema } from './test-experience-schema.mjs';
+import { getCoreTestRegion, TEST_REGIONS } from './test-regions.mjs';
 
 const chatgptStatusSchema = z.enum([
 	'流畅',
@@ -28,9 +29,13 @@ const streamingStatusSchema = z.enum([
 const testSchema = z.object({
 	id: z.string().min(1),
 	testedAt: historicalDateSchema,
-	time: z.string().nullable(),
+	time: z.string().nullable().superRefine((value, context) => {
+		const message = getRecordedTimeValidationError(value);
+		if (message) context.addIssue({ code: 'custom', message });
+	}),
 	window: z.string(),
 	node: z.string().min(1),
+	exitRegion: z.string().trim().min(1).nullable().optional(),
 	baselineDownloadMbps: z.number().positive(),
 	downloadMbps: z.number().nonnegative(),
 	uploadMbps: z.number().nonnegative(),
@@ -170,6 +175,7 @@ const parsedAirports = z.array(airportSchema).min(1).superRefine((items, context
 type ScoringSample = {
 	testedAt: string;
 	node: string;
+	exitRegion?: string | null;
 	downloadMbps: number;
 	uploadMbps: number;
 	baselineDownloadMbps?: number;
@@ -187,12 +193,7 @@ type DailyRegionSample = {
 	streaming: number | null;
 };
 
-const REQUIRED_NODE_REGIONS = [
-	{ name: '新加坡', pattern: /新加坡/u },
-	{ name: '香港', pattern: /香港/u },
-	{ name: '日本', pattern: /日本/u },
-	{ name: '美国', pattern: /美国/u },
-] as const;
+const REQUIRED_NODE_REGIONS = TEST_REGIONS.map((name) => ({ name }));
 
 export const MIN_RANKING_REGION_DAYS = 3;
 
@@ -239,14 +240,11 @@ const streamingScore = (status?: string) => {
 	return null;
 };
 
-const getRegionName = (node: string) =>
-	REQUIRED_NODE_REGIONS.find(({ pattern }) => pattern.test(node))?.name ?? null;
-
 const aggregateSamplesByRegionDay = (samples: ScoringSample[]) => {
 	const groups = new Map<string, ScoringSample[]>();
 
 	for (const sample of samples) {
-		const region = getRegionName(sample.node);
+		const region = getCoreTestRegion(sample);
 		if (!region) continue;
 		const key = `${region}:${sample.testedAt}`;
 		groups.set(key, [...(groups.get(key) ?? []), sample]);
@@ -325,6 +323,9 @@ const countMonitoringDays = (samples: ScoringSample[]) =>
 export const airports = parsedAirports.map((airport) => {
 	const scoringSamples: ScoringSample[] = (airport.tests ?? [])
 		.filter((test) => Boolean(test.resultUrl || test.evidenceImage));
+	const regionalScoringSamples = scoringSamples.filter((sample) => getCoreTestRegion(sample) !== null);
+	const scoringTestCount = regionalScoringSamples.length;
+	const scoringDateCount = countMonitoringDays(regionalScoringSamples);
 	const dataDays = countMonitoringDays(scoringSamples);
 	const verifiedTestCount = (airport.tests ?? []).filter((test) => test.resultUrl || test.evidenceImage).length;
 	const latestTestAt = scoringSamples.map((sample) => sample.testedAt).sort().at(-1) ?? null;
@@ -369,6 +370,8 @@ export const airports = parsedAirports.map((airport) => {
 		dataDays,
 		regionalSampleDays,
 		verifiedTestCount,
+		scoringTestCount,
+		scoringDateCount,
 		status,
 		rankingEligible,
 		score: calculated?.score ?? null,

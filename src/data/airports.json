@@ -6,7 +6,7 @@
     "affiliate": true,
     "foundedAt": "2025-10",
     "couponCode": "cff88",
-    "registrationOffer": "旧首购八折码 cff88 的有效性、适用套餐和首购限制待确认，实际优惠以下单金额为准。",
+    "registrationOffer": "旧首购八折码 cff88 在 2026-10-17 所读页面未见展示；有效性、适用套餐和首购限制继续待确认，实际优惠以下单金额为准。",
     "protocol": "Shadowsocks（套餐标注）；VLESS（2026-07-17 节点记录）",
     "status": "持续监测中",
     "summary": "月付 20 元含 120GB，另有轻量年付、不限时流量包和独享专线。按设备使用官网说明的账号登录客户端；不支持免费试用和通用订阅。",
@@ -21,7 +21,7 @@
     "universalSubscription": "不支持通用订阅。Windows、Android 和 macOS 使用官网自研客户端，iOS 按知识库使用 Nextin；不能将普通订阅导入 Clash 或 Shadowrocket。",
     "trial": "不支持免费试用；2026-09-27 由站长补充确认。",
     "noExpiry": "支持，一次性购买 100GB、400GB 或 800GB 总流量，用完为止，不按月补充或重置；“永久流量”不代表服务永久运营。",
-    "deviceLimit": "BGP 套餐标注不限制设备数量",
+    "deviceLimit": "常规 BGP 套餐标注不限制同时使用客户端数量；不限时包只称支持多终端、多人及团队并发，未列具体数量",
     "nodeCount": 58,
     "onlineSnapshot": "2026-07-17 10:36 采集时 58/58 在线，0 个离线",
     "regions": [
@@ -41,7 +41,7 @@
       "专线级出口（套餐标注）"
     ],
     "bandwidthPolicy": "BGP 套餐标注 Shadowsocks、1× 流量计费、不限制设备和专线级出口；独享私人专线标注独立公网 IP 与独立带宽。线路描述不等于逐节点实测结果。",
-    "billingPolicy": "四档 BGP 方案可按月、季、半年或年付费，长周期价格为订单总额，流量额度仍按月。轻量版按年付费、每月 59GB；不限时包一次性购买总流量。独享专线约 2–3 个工作日交付。",
+    "billingPolicy": "四档 BGP 方案可按月、季、半年或年付费，长周期价格为订单总额，流量额度仍按月。99 元轻量版一次付全年，每月 59GB，按原购买日起每 30 天刷新；59GB 由用户于 2026-10-18 确认。不限时包一次性购买总流量，续购余量、重置费用未明确。独享专线约 2–3 个工作日交付。",
     "paymentMethods": [
       "支付宝",
       "USDT"
@@ -54,6 +54,7 @@
         "time": "10:30",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 277.74,
         "uploadMbps": 48.87,
@@ -75,6 +76,7 @@
         "time": "约 10:40",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 654.96,
         "uploadMbps": 32.0,
@@ -96,6 +98,7 @@
         "time": "10:57",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 457.1,
         "uploadMbps": 48.45,
@@ -117,6 +120,7 @@
         "time": "11:00",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 9.79,
         "uploadMbps": 47.21,
@@ -138,6 +142,7 @@
         "time": "10:06",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 315.5,
         "uploadMbps": 46.99,
@@ -159,6 +164,7 @@
         "time": "10:26",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 215.28,
         "uploadMbps": 31.28,
@@ -180,6 +186,7 @@
         "time": "13:45",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 724.94,
         "uploadMbps": 50.33,
@@ -201,6 +208,7 @@
         "time": "13:50",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 160.06,
         "uploadMbps": 48.59,
@@ -222,6 +230,7 @@
         "time": "13:54",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 617.14,
         "uploadMbps": 50.41,
@@ -243,6 +252,7 @@
         "time": "16:18",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 234.09,
         "uploadMbps": 45.85,
@@ -264,6 +274,7 @@
         "time": "17:48",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 812.65,
         "uploadMbps": 48.9,
@@ -292,6 +303,7 @@
         "time": "18:00",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 469.35,
         "uploadMbps": 53.7,
@@ -313,6 +325,7 @@
         "time": "18:19",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 5.33,
         "uploadMbps": 19.91,
@@ -334,6 +347,7 @@
         "time": "15:47",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 275.71,
         "uploadMbps": 56.28,
@@ -355,6 +369,7 @@
         "time": "17:41",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 756.09,
         "uploadMbps": 39.64,
@@ -376,6 +391,7 @@
         "time": "16:29",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 637.6,
         "uploadMbps": 50.96,
@@ -398,6 +414,7 @@
         "time": "16:36",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 757.27,
         "uploadMbps": 42.09,
@@ -420,6 +437,7 @@
         "time": "16:45",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 19.19,
         "uploadMbps": 28.01,
@@ -442,6 +460,7 @@
         "time": "17:08",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 841.12,
         "uploadMbps": 40.09,
@@ -464,6 +483,7 @@
         "time": "21:06",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 142.7,
         "uploadMbps": 7.51,
@@ -486,6 +506,7 @@
         "time": "21:07",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 390.36,
         "uploadMbps": 26.2,
@@ -508,6 +529,7 @@
         "time": "22:16",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 158.63,
         "uploadMbps": 44.5,
@@ -530,6 +552,7 @@
         "time": "22:22",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 17.48,
         "uploadMbps": 31.59,
@@ -552,6 +575,7 @@
         "time": "22:27",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 882.38,
         "uploadMbps": 49.94,
@@ -574,6 +598,7 @@
         "time": "20:47",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 416.9,
         "uploadMbps": 92.81,
@@ -601,6 +626,7 @@
         "time": "20:51",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 132.71,
         "uploadMbps": 37.0,
@@ -628,6 +654,7 @@
         "time": "20:57",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 405.33,
         "uploadMbps": 90.74,
@@ -655,6 +682,7 @@
         "time": "21:05",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 424.58,
         "uploadMbps": 91.34,
@@ -702,8 +730,8 @@
         "price": "¥99/年",
         "traffic": "59GB/月",
         "details": [
-          "一次支付全年费用",
-          "流量额度按月"
+          "一次支付全年费用，每月 59GB 由用户于 2026-10-18 确认",
+          "按原购买日起每 30 天刷新，不是一次到账全年流量"
         ]
       },
       {
@@ -762,7 +790,7 @@
       "/evidence/globalcloud/2026-07-17-plans-2.png"
     ],
     "couponLabel": "旧优惠码（待复核）",
-    "clientNotes": "Windows、Android、Mac 使用官网账号登录自研客户端；iOS 使用 Nextin，填写识别码 quanqiuyun 后登录。Linux 安装步骤需先确认。面板标注最低系统为 Windows 10、Android 5.0、macOS 10.15、iOS 12，安装时仍需核对软件要求。",
+    "clientNotes": "Windows、Android、Mac 使用官网账号登录自研客户端；iOS 使用 Nextin，填写识别码 quanqiuyun 后登录。2026-10-17 仪表盘列 Android arm64-v8a 与 armeabi-v7a 包；Mac 知识库有 universal.pkg 备用包但仍残留 zip 文字，需按实际文件类型确认流程。Linux 仅列 globalcloud-2.2.3-linux.zip，缺少完整环境要求及安装步骤。面板标注最低系统为 Windows 10、Android 5.0、macOS 10.15、iOS 12，未逐平台安装验证。",
     "noExpiryPlans": [
       {
         "name": "BGP 不限时轻量包",
@@ -771,7 +799,7 @@
         "details": [
           "用完为止，不按月重置",
           "1× 流量计费",
-          "不限制设备数量"
+          "支持多终端并发，具体数量未列；续购余量与重置费用待确认"
         ]
       },
       {
@@ -781,7 +809,7 @@
         "details": [
           "用完为止，不按月重置",
           "1× 流量计费",
-          "不限制设备数量"
+          "支持多终端并发，具体数量未列；续购余量与重置费用待确认"
         ]
       },
       {
@@ -791,7 +819,7 @@
         "details": [
           "用完为止，不按月重置",
           "1× 流量计费",
-          "不限制设备数量"
+          "支持多终端并发，具体数量未列；续购余量与重置费用待确认"
         ]
       }
     ],
@@ -800,7 +828,7 @@
       "price": "¥20/月",
       "traffic": "120GB/月"
     },
-    "commercialReviewedAt": "2026-09-11",
+    "commercialReviewedAt": "2026-10-18",
     "scoringPlan": {
       "name": "BGP 智能优化・入门方案",
       "priceCny": 20,
@@ -808,15 +836,15 @@
       "priceLabel": "¥20/月",
       "trafficLabel": "120GB/月"
     },
-    "editorialUpdatedAt": "2026-10-09",
+    "editorialUpdatedAt": "2026-10-20",
     "sourcePage": "https://yp7.net/posts/quanqiuyun/",
-    "sourceReviewNote": "官网套餐与客户端资料核对于 2026-09-11；不支持免费试用和通用订阅由站长于 2026-09-27 补充确认。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "yp7.net 于 2026-10-18 重读 9 款套餐及长周期报价；99 元年付轻量版每月 59GB 由用户同日补充确认。客户端、系统要求及知识库核对于 2026-10-17；不支持免费试用和通用订阅仍据 2026-09-27 站长补充。2026-10-20 共享接收；未下单、安装或新增测试，旧优惠码、退款及不限时续购余量仍待核实。",
     "selectionGuide": {
       "goodFor": [
         "接受按设备使用账号登录客户端，想比较 20 元月付与不限时总流量包。"
       ],
       "checkBeforeBuying": [
-        "不提供免费试用和通用订阅；旧优惠码及退款条件仍待核实。"
+        "不提供免费试用和通用订阅；旧优惠码、退款及不限时续购余量待核实，不限时包的并发数量未列。"
       ]
     }
   },
@@ -828,7 +856,7 @@
     "foundedAt": "2025-10",
     "couponCode": "GNT80",
     "couponLabel": "站长补充八折码（适用条件待核）",
-    "registrationOffer": "八折码 GNT80 由站长于 2026-09-27 补充；适用套餐、有效期、使用次数及与周期折扣的叠加条件未验证，实际金额以结算页为准。",
+    "registrationOffer": "八折码 GNT80 仍据 2026-09-27 站长补充；2026-10-17 所读页面未见该码当前展示，适用套餐、有效期、次数、叠加条件和结算金额未重新确认。",
     "protocol": "VLESS",
     "status": "持续监测中",
     "summary": "官网当前提供 ¥89 年付限时套餐及 110GB 至 900GB 的月付套餐，常规套餐标注 IPLC 线路、晚高峰不限速和最高 2.5Gbps；普通套餐使用官网指定客户端，不支持通用订阅，实际表现以本站测速为准。",
@@ -862,7 +890,7 @@
       "IEPL"
     ],
     "bandwidthPolicy": "常规套餐全部节点 1× 倍率，标注晚高峰不限速、全程 IPLC、最高可提供 2.5Gbps；独享私人专线采用 IEPL 和独立公网 IP。",
-    "billingPolicy": "季付及以上按购买日起算，每 30 天重置流量，年付限时套餐也按每 30 天重置。套餐页宣传年付 8 折、两年付 7 折、三年付 6 折并称可叠加优惠码，但不能据此认定 GNT80 的适用范围或结算金额；89 元限时档能否用码未验证。",
+    "billingPolicy": "季付及以上按购买日起算，每 30 天重置流量，89 元年付限时套餐也按每 30 天重置。四档常规套餐的季付、半年付、年付价格为页面实际筛选总价，流量仍按月。套餐文案宣传年付 8 折、两年付 7 折、三年付 6 折并称可叠加优惠码，但不能据此认定 GNT80 的适用范围或结算金额；89 元限时档能否用码未验证。",
     "paymentMethods": [
       "支付宝",
       "USDT"
@@ -875,6 +903,7 @@
         "time": "11:57",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 337.0,
         "uploadMbps": 36.41,
@@ -896,6 +925,7 @@
         "time": "12:01",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 205.75,
         "uploadMbps": 49.49,
@@ -917,6 +947,7 @@
         "time": "12:06",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 501.05,
         "uploadMbps": 40.63,
@@ -938,6 +969,7 @@
         "time": "12:09",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 424.21,
         "uploadMbps": 47.86,
@@ -959,6 +991,7 @@
         "time": "18:30",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 752.09,
         "uploadMbps": 40.37,
@@ -980,6 +1013,7 @@
         "time": "18:50",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 548.86,
         "uploadMbps": 46.82,
@@ -1001,6 +1035,7 @@
         "time": "19:14",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 818.59,
         "uploadMbps": 47.34,
@@ -1022,6 +1057,7 @@
         "time": "19:20",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 56.01,
         "uploadMbps": 41.36,
@@ -1043,6 +1079,7 @@
         "time": "17:11",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 868.43,
         "uploadMbps": 36.45,
@@ -1065,6 +1102,7 @@
         "time": "17:20",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 164.47,
         "uploadMbps": 50.43,
@@ -1087,6 +1125,7 @@
         "time": "17:23",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 211.08,
         "uploadMbps": 39.03,
@@ -1109,6 +1148,7 @@
         "time": "17:48",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 413.92,
         "uploadMbps": 33.95,
@@ -1131,6 +1171,7 @@
         "time": "20:17",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 107.26,
         "uploadMbps": 13.89,
@@ -1158,6 +1199,7 @@
         "time": "20:30",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 8.22,
         "uploadMbps": 46.29,
@@ -1185,6 +1227,7 @@
         "time": "20:39",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 67.53,
         "uploadMbps": 48.92,
@@ -1212,6 +1255,7 @@
         "time": "20:43",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 121.46,
         "uploadMbps": 7.83,
@@ -1270,9 +1314,10 @@
       },
       {
         "name": "光年梯入门版",
-        "price": "¥18/月",
+        "price": "月付 ¥18 / 季付 ¥50 / 半年 ¥90 / 年付 ¥160",
         "traffic": "110GB/月",
         "details": [
+          "长周期价格为订单总额，流量仍按月；季付及以上每 30 天重置",
           "所有节点 1×、晚高峰不限速",
           "全程 IPLC、最高 2.5Gbps",
           "原生 IP，支持 ChatGPT、TikTok 与主流流媒体",
@@ -1281,9 +1326,10 @@
       },
       {
         "name": "光年梯晋级版",
-        "price": "¥34/月",
+        "price": "月付 ¥34 / 季付 ¥100 / 半年 ¥180 / 年付 ¥320",
         "traffic": "220GB/月",
         "details": [
+          "长周期价格为订单总额，流量仍按月；季付及以上每 30 天重置",
           "所有节点 1×、晚高峰不限速",
           "全程 IPLC、最高 2.5Gbps",
           "支持 AI 与主流流媒体",
@@ -1292,9 +1338,10 @@
       },
       {
         "name": "光年梯专业版",
-        "price": "¥68/月",
+        "price": "月付 ¥68 / 季付 ¥200 / 半年 ¥375 / 年付 ¥667",
         "traffic": "450GB/月",
         "details": [
+          "长周期价格为订单总额，流量仍按月；季付及以上每 30 天重置",
           "所有节点 1×、晚高峰不限速",
           "全程 IPLC、最高 2.5Gbps",
           "支持 AI 与主流流媒体",
@@ -1303,9 +1350,10 @@
       },
       {
         "name": "光年梯至尊版",
-        "price": "¥130/月",
+        "price": "月付 ¥130 / 季付 ¥390 / 半年 ¥702 / 年付 ¥1248",
         "traffic": "900GB/月",
         "details": [
+          "长周期价格为订单总额，流量仍按月；季付及以上每 30 天重置",
           "所有节点 1×、晚高峰不限速",
           "全程 IPLC、最高 2.5Gbps",
           "支持 AI 与主流流媒体",
@@ -1328,7 +1376,7 @@
     "planEvidenceImages": [
       "/evidence/guangnianti/2026-07-17-plans.png"
     ],
-    "commercialReviewedAt": "2026-09-16",
+    "commercialReviewedAt": "2026-10-17",
     "scoringPlan": {
       "name": "光年梯入门版",
       "priceCny": 18,
@@ -1336,10 +1384,10 @@
       "priceLabel": "¥18/月",
       "trafficLabel": "110GB/月"
     },
-    "clientNotes": "Windows、Android 和 macOS 使用自研客户端；iOS 使用 Nextin，识别码为 guangnianti。Android 知识库的 V7、V8 下载项指向相同 arm64 文件，安装前需核对设备架构；Linux 提供压缩包，文档最低要求 Ubuntu 22.04+、Debian 12+、Fedora 36+。以上为教程与面板标注，本站未逐平台安装验证。",
-    "editorialUpdatedAt": "2026-10-09",
+    "clientNotes": "Windows 自研 2.2.3 客户端提供 exe 与 zip；Android 仪表盘列两种架构，但知识库 V7、V8 仍指向同一 arm64-v8a 文件，需核对架构，未验证鸿蒙。Mac 提供 universal.pkg，正文仍有 zip 解压文字；iOS 使用 Nextin，识别码 guangnianti。Linux 为 2.2.3 压缩包，文档要求 Ubuntu 22.04+、Debian 12+、Fedora 36+，缺少详细安装与排错步骤。以上于 2026-10-17 只读核对，未逐平台安装验证；私人专线的第三方软件及路由器说明不能套用于普通套餐。",
+    "editorialUpdatedAt": "2026-10-20",
     "sourcePage": "https://yp7.net/posts/guangnianti-review-2026/",
-    "sourceReviewNote": "官网套餐、客户端知识库与仪表盘核对于 2026-09-16；不支持免费试用及八折码 GNT80 由站长于 2026-09-27 补充，优惠码结算条件仍未验证。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "yp7.net 于 2026-10-17 重读 6 款现售套餐、实际长周期总价、仪表盘及 6 篇知识库文档；不支持免费试用、普通套餐不提供通用订阅及 GNT80 仍保留 2026-09-27 补充日期，优惠码适用及结算未验证。2026-10-20 共享接收；未下单、安装、导入或新增测试。",
     "selectionGuide": {
       "goodFor": [
         "接受官网客户端或 iOS 的 Nextin 用法，按月度流量比较 110GB 至 900GB 套餐。"
@@ -1358,7 +1406,7 @@
     "foundedAt": "2021",
     "couponCode": "yp7net",
     "couponLabel": "免费体验券",
-    "registrationOffer": "体验券 yp7net 可领取 1 天 5GB 免费试用（2026-09-27 站长补充）；旧首购九折码 ZLOARB 的当前有效性和适用条件待确认。6.8 元 20GB 是付费流量包。",
+    "registrationOffer": "体验券 yp7net 的 1 天 5GB 免费试用规则仍据 2026-09-27 站长补充；2026-10-17 仅确认兑换入口存在，未显示额度、适用账号或起算方式，也未兑换。旧首购九折码 ZLOARB 仍待确认；6.8 元 20GB 是付费包。",
     "lowestPlan": {
       "price": "¥6.8",
       "traffic": "20GB 永久"
@@ -1391,7 +1439,7 @@
       "USDT"
     ],
     "refundPolicy": "退款条件待确认，付款前请核对套餐与售后条款。",
-    "trial": "支持通过官网体验券兑换框使用 yp7net 领取 1 天 5GB 免费试用；2026-09-27 由站长补充确认，实际到账以账户显示为准。",
+    "trial": "支持使用体验券 yp7net 领取 1 天 5GB，规则仍据 2026-09-27 站长补充；2026-10-17 仅看到激活码输入框，未兑换，当前领取条件与起算方式需确认。",
     "noExpiry": "支持，6 档永久流量包，一次购买、永久有效，流量用完为止",
     "nodeCount": 30,
     "onlineSnapshot": "2026-07-29 晚间客户端截图中可辨认 29 个实际线路节点，均返回探测延迟；显示范围 120–3101 ms，其中 3 个节点达到 500 ms 以上。",
@@ -1427,7 +1475,7 @@
       "纯净家宽"
     ],
     "bandwidthPolicy": "套餐标注不限设备。2026-07-29 节点快照记录过 1×、2×、3×、5× 流量倍率，当前倍率需以订阅为准；“4K 秒开”等套餐宣传不作为实测结论。",
-    "billingPolicy": "永久包一次性付费，不按月清零，用完为止；“永久”不是服务永久运营的承诺。日享包每天上限 60GB，凌晨重置；30、90、365 天价格均为周期总额，累计展示流量不能一次使用。",
+    "billingPolicy": "永久包一次性付费，不按月清零，用完为止；“永久”不是服务永久运营的承诺。日享包每天上限 60GB，凌晨重置；30、90、365 天价格均为周期总额，累计展示流量不能一次使用。后台列明多套餐扣量顺序为日享包 → 月套餐 → 永久包；本次商店只见永久包和日享包，不能据此新增在售月套餐。",
     "noExpiryPlans": [
       {
         "name": "试用套餐·不限时间",
@@ -1491,6 +1539,7 @@
         "time": "12:45",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 382.14,
         "uploadMbps": 47.12,
@@ -1512,6 +1561,7 @@
         "time": "12:50",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 121.45,
         "uploadMbps": 49.76,
@@ -1533,6 +1583,7 @@
         "time": "13:00",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 29.13,
         "uploadMbps": 15.19,
@@ -1554,6 +1605,7 @@
         "time": "13:03",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 156.25,
         "uploadMbps": 21.07,
@@ -1575,6 +1627,7 @@
         "time": "19:31",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 362.27,
         "uploadMbps": 48.65,
@@ -1596,6 +1649,7 @@
         "time": "19:35",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 483.11,
         "uploadMbps": 0.83,
@@ -1617,6 +1671,7 @@
         "time": "19:40",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 70.92,
         "uploadMbps": 50.97,
@@ -1638,6 +1693,7 @@
         "time": "20:00",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 4.13,
         "uploadMbps": 4.75,
@@ -1659,6 +1715,7 @@
         "time": "18:03",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 628.57,
         "uploadMbps": 49.26,
@@ -1681,6 +1738,7 @@
         "time": "18:09",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 546.68,
         "uploadMbps": 48.91,
@@ -1703,6 +1761,7 @@
         "time": "18:13",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 188.72,
         "uploadMbps": 50.69,
@@ -1725,6 +1784,7 @@
         "time": "18:15",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 259.02,
         "uploadMbps": 48.93,
@@ -1747,6 +1807,7 @@
         "time": "21:39",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 611.42,
         "uploadMbps": 33.77,
@@ -1771,6 +1832,7 @@
         "time": "21:44",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 120.27,
         "uploadMbps": 49.76,
@@ -1795,6 +1857,7 @@
         "time": "21:54",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 662.82,
         "uploadMbps": 47.62,
@@ -1825,6 +1888,7 @@
         "time": "21:58",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 164.38,
         "uploadMbps": 47.91,
@@ -1849,6 +1913,7 @@
         "time": "21:17",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 141.53,
         "uploadMbps": 84.35,
@@ -1908,9 +1973,9 @@
         ]
       }
     ],
-    "clientNotes": "按 Windows、Android、iOS、macOS 或 Linux 选择 FlClash、Hiddify、SingBox、Karing 等兼容第三方客户端，再取得订阅并导入；机场账户不是所有第三方客户端的登录账户。Windows 的 v2ray 入口要求 v7 及以上版本；软路由“快车VPN”对应 OpenClash 插件，不是电脑或手机专属 App。",
+    "clientNotes": "按 Windows、Android、iOS、macOS 或 Linux 选择 FlClash、Hiddify、SingBox、Karing 等兼容第三方客户端，再取得订阅并导入；机场账户不是第三方软件的登录账户。Windows 的 v2ray 入口要求 v7 及以上；软路由入口为 OpenClash v0.48.002，内含 Mihomo 与 GeoIP，不是电脑或手机专属 App。Linux 菜单部分教程仍指向 Windows 路径；“万能订阅”为商家入口名称，不代表已验证所有软件兼容。2026-10-17 只核对菜单与入口，未下载、安装或导入。",
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）",
-    "commercialReviewedAt": "2026-09-10",
+    "commercialReviewedAt": "2026-10-17",
     "scoringPlan": {
       "name": "30 天日享包",
       "priceCny": 28,
@@ -1918,15 +1983,15 @@
       "priceLabel": "¥28/30天",
       "trafficLabel": "每日 60GB（30 天）"
     },
-    "editorialUpdatedAt": "2026-10-09",
+    "editorialUpdatedAt": "2026-10-20",
     "sourcePage": "https://yp7.net/posts/wangji-kuaiche-review/",
-    "sourceReviewNote": "官网套餐与第三方客户端资料核对于 2026-09-10；体验券 yp7net 的 1 天 5GB 规则由站长于 2026-09-27 补充。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "yp7.net 于 2026-10-17 核对 6 款永久包、3 款日享包、扣量顺序、六平台客户端菜单、体验券入口及公告；套餐价格与此前记录一致。体验券 yp7net 的 1 天 5GB 仍据 2026-09-27 补充，本次未兑换、起算未核。2026-10-20 共享接收；旧优惠码与退款仍待核实，没有新增测试。",
     "selectionGuide": {
       "goodFor": [
         "会配置第三方客户端，想比较不限时总流量包或每日 60GB 上限的日享包。"
       ],
       "checkBeforeBuying": [
-        "6.8 元 20GB 是付费包；日享包每天重置，累计展示流量不能一次使用。"
+        "日享包每天上限 60GB；体验券领取条件和起算方式、旧优惠码与退款仍需确认。"
       ]
     }
   },
@@ -1937,24 +2002,27 @@
     "affiliate": true,
     "foundedAt": "2024",
     "couponCode": "xxyun",
-    "couponLabel": "新用户单次九折码",
-    "registrationOffer": "公告列出新用户九折码 xxyun，仅可使用一次；是否适用所选套餐及最终金额以下单页面为准。",
+    "couponLabel": "新用户九折码（次数与结算待核）",
+    "registrationOffer": "2026-10-17 后台仍展示新用户九折码 xxyun；仅可用一次为 2026-09-10 旧记录，本轮未重验次数、截止、叠加及实际订单优惠。",
     "protocol": "VLESS / ANYTLS / Shadowsocks / V2NODE / TUIC",
     "status": "持续监测中",
     "serviceStatus": "持续监测中；2026-10-08 新加坡、日本节点 ChatGPT 与流媒体均流畅；香港节点 ChatGPT 不可用、流媒体轻微缓冲",
     "serviceStatusUpdated": "2026-10-08",
-    "summary": "月付 9.99 元含 100GB，仅支持官方客户端。需要 Clash、FlClash、Shadowrocket 等第三方订阅或软路由订阅的用户不适用。",
+    "summary": "月付 9.99 元含 100GB，年付 89.99 元起、流量仍按月；另有 66.66 元 500GB 起的不限时包。使用官方客户端或自有插件，不提供 Clash 等通用订阅；Linux 与 x86 软路由有系统和架构限制，官网明确无退款政策。",
     "platforms": [
-      "官方客户端（Android）",
-      "官方客户端（iPhone / iPad）",
+      "官方客户端（Android APK，鸿蒙 NEXT 未验证）",
+      "iPhone / iPad（Nextin，iOS 15+）",
       "官方客户端（Windows）",
-      "官方客户端（Mac）"
+      "官方客户端（macOS 11 / macOS 12+ 分入口）",
+      "官方 Linux 桌面客户端（所列 Ubuntu/Debian，amd64/x86_64）",
+      "官方 Linux 终端客户端（Ubuntu/Debian、systemd≥245、amd64）",
+      "自有 x86_64 OpenWrt / ImmortalWrt / iStoreOS 插件"
     ],
     "testClient": "xxyun 官方专属客户端",
-    "universalSubscription": "不支持。必须使用 xxyun 官方客户端，不能将订阅导入 Clash、FlClash、Shadowrocket、Surge 或 Stash。",
+    "universalSubscription": "不支持 Clash、FlClash、Shadowrocket、Surge 或 Stash 通用订阅。手机、电脑、Linux 及所列 x86 软路由均按官方客户端或自有插件登录；自有软路由插件不等于可导出通用订阅。",
     "deviceLimit": "不限设备",
-    "trial": "来源汇总标记为不支持免费试用；本次核对的月付卡片未列试用承诺，购买前请确认当前条款。",
-    "noExpiry": "支持，另有不限时套餐入口；当前价格、总流量和有效期需在购买页确认。",
+    "trial": "沿用已有不支持免费试用记录；2026-10-17 未新注册验证试用权益。",
+    "noExpiry": "支持一次性 66.66 元 500GB、199 元 2888GB 两档总量包，标注不限设备、永久有效用完为止；未列重置及续购余量叠加规则，不代表服务永久运营。",
     "nodeCount": 36,
     "onlineSnapshot": "2026-07-17 11:08 后台清单共 36 个实际节点，全部标记在线、均为 1× 倍率；另有 1 条续费与客服网址信息入口，不计入节点总数。该页面未展示延迟，不代表实际链路全部可用。",
     "regions": [
@@ -1984,12 +2052,12 @@
       "中转（套餐标注）"
     ],
     "bandwidthPolicy": "月付套餐标称带宽：100GB 档 300M、300GB 档 500M、1000GB 档 800M。标称带宽与解锁宣传不等于实际速度或平台可用性。",
-    "billingPolicy": "月付套餐每月订单日重置流量，未用完的流量不累积到下个月；不限时套餐按单独的购买条件核对，不能按月付重置流量比较。",
+    "billingPolicy": "常规月付与年付均每月订单日重置流量，未用完不累积；年付是一次支付全年金额，不是一次发放全年总量。不限时包按一次性总流量扣除，重置和续购余量处理未列。",
     "paymentMethods": [
       "支付宝",
       "微信"
     ],
-    "refundPolicy": "当前月付套餐未列退款承诺，付款前请核对售后条款。",
+    "refundPolicy": "2026-10-17 所读官方知识库明确“本产品无退款政策”；另写不支持新疆，校园网不保证，购买前需确认网络及系统适用性。",
     "plans": [
       {
         "name": "初级月付",
@@ -2020,6 +2088,39 @@
           "BGP + 中转，标称 800M 带宽",
           "不限设备，使用官方客户端"
         ]
+      },
+      {
+        "name": "初级年付",
+        "price": "¥89.99/年",
+        "traffic": "100GB/月",
+        "details": [
+          "一次支付全年费用，流量仍按月提供",
+          "每月订单日重置，未用不累积",
+          "BGP + 中转，商家标称 300M 带宽",
+          "不限设备，使用官方客户端或自有插件"
+        ]
+      },
+      {
+        "name": "中级年付",
+        "price": "¥180/年",
+        "traffic": "300GB/月",
+        "details": [
+          "一次支付全年费用，流量仍按月提供",
+          "每月订单日重置，未用不累积",
+          "BGP + 中转，商家标称 500M 带宽",
+          "不限设备，使用官方客户端或自有插件"
+        ]
+      },
+      {
+        "name": "高级年付",
+        "price": "¥459/年",
+        "traffic": "1000GB/月",
+        "details": [
+          "一次支付全年费用，流量仍按月提供",
+          "每月订单日重置，未用不累积",
+          "BGP + 中转，商家标称 800M 带宽",
+          "不限设备，使用官方客户端或自有插件"
+        ]
       }
     ],
     "planEvidenceImages": [
@@ -2033,6 +2134,7 @@
         "time": "19:15",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 140.94,
         "uploadMbps": 49.91,
@@ -2054,6 +2156,7 @@
         "time": "19:18",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 143.26,
         "uploadMbps": 20.75,
@@ -2075,6 +2178,7 @@
         "time": "19:24",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 138.99,
         "uploadMbps": 51.87,
@@ -2096,6 +2200,7 @@
         "time": "19:27",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 125.18,
         "uploadMbps": 47.95,
@@ -2117,6 +2222,7 @@
         "time": "20:08",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 131.8,
         "uploadMbps": 12.0,
@@ -2138,6 +2244,7 @@
         "time": "17:44",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 149.03,
         "uploadMbps": 95.48,
@@ -2162,6 +2269,7 @@
         "time": "18:09",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 136.53,
         "uploadMbps": 86.1,
@@ -2186,6 +2294,7 @@
         "time": "18:13",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 172.62,
         "uploadMbps": 12.95,
@@ -2210,6 +2319,7 @@
         "time": "21:29",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 144.95,
         "uploadMbps": 47.42,
@@ -2234,6 +2344,7 @@
         "time": "19:19",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 183.53,
         "uploadMbps": 95.95,
@@ -2261,6 +2372,7 @@
         "time": "19:28",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 115.9,
         "uploadMbps": 76.3,
@@ -2288,6 +2400,7 @@
         "time": "19:39",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 17.01,
         "uploadMbps": 20.01,
@@ -2370,9 +2483,9 @@
         "note": "当日整体使用体验较差；这是一次带时间的人工实测观察，不填充虚构速度或延迟数据。"
       }
     ],
-    "clientNotes": "仅支持 xxyun 官方专属客户端，不支持 Clash、FlClash、Shadowrocket、Surge、Stash 等通用客户端或软路由订阅导入。",
+    "clientNotes": "2026-10-17 只读核对官方教程：Android 为 APK，不能保证鸿蒙 NEXT；Windows 用官方 EXE；Mac 按 macOS 11 或 12+ 选择 PKG；iOS 15+ 使用 Nextin、识别码 xxyun。Linux 桌面要求 Ubuntu 22.04/24.04、Debian 12/13、GNOME/Xfce 及 amd64/x86_64，不适用 ARM 或无桌面系统；终端版要求 Ubuntu/Debian、systemd≥245、amd64，可用于无桌面系统，应用需自行设置本地代理。自有软路由插件仅支持 x86_64 OpenWrt/ImmortalWrt/iStoreOS，不支持 ARM/MIPS 或非 OpenWrt。未下载或安装验证，均不提供通用订阅。",
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）",
-    "commercialReviewedAt": "2026-09-10",
+    "commercialReviewedAt": "2026-10-17",
     "scoringPlan": {
       "name": "初级月付",
       "priceCny": 9.99,
@@ -2380,19 +2493,41 @@
       "priceLabel": "¥9.99/月",
       "trafficLabel": "100GB/月"
     },
-    "clientSupportVerifiedAt": "2026-09-24",
+    "clientSupportVerifiedAt": "2026-10-17",
     "officialClientOnly": true,
     "editorialUpdatedAt": "2026-10-22",
     "sourcePage": "https://yp7.net/posts/xxyun-review-2026/",
-    "sourceReviewNote": "官网月付套餐与官方客户端公告核对于 2026-09-10。来源汇总标记不支持免费试用，正文说明月付卡片未列试用或退款承诺；购买前仍需确认具体条款。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "yp7.net 于 2026-10-17 核对月付、年付、两档不限时、优惠展示、购买及无退款政策、七类官方客户端/插件教程。既有无免费试用记录沿用，本次未新注册；优惠次数限制仍为 2026-09-10 旧记录。2026-10-20 共享接收；不支持新疆、校园网不保证，未下单、安装或新增测试。",
     "selectionGuide": {
       "goodFor": [
         "预算约 10 元/月、接受官方专属客户端与 100GB/月流量的用户。"
       ],
       "checkBeforeBuying": [
-        "不支持通用订阅；购买前请使用 xxyun 官方专属客户端核对目标地区的实际体验。"
+        "不提供通用订阅且无退款政策；不支持新疆、校园网不保证；Linux 和自有软路由仅支持所列系统及架构，不限时重购余量规则未列。"
       ]
-    }
+    },
+    "noExpiryPlans": [
+      {
+        "name": "不限时 500GB",
+        "price": "¥66.66/一次性",
+        "traffic": "500GB 总流量",
+        "details": [
+          "商家标称 300M 带宽，不限设备",
+          "标注永久有效，用完为止；不代表服务永久运营",
+          "重置及续购余量叠加规则未列"
+        ]
+      },
+      {
+        "name": "不限时 2888GB",
+        "price": "¥199/一次性",
+        "traffic": "2888GB 总流量",
+        "details": [
+          "商家标称 800M 带宽，不限设备",
+          "标注永久有效，用完为止；不代表服务永久运营",
+          "重置及续购余量叠加规则未列"
+        ]
+      }
+    ]
   },
   {
     "slug": "flybit",
@@ -2401,24 +2536,22 @@
     "affiliate": true,
     "foundedAt": "2024-07-15",
     "couponCode": "flybit",
-    "registrationOffer": "官方公开说明列出九折码 flybit；到期日、是否仅限首购和适用套餐未明确，来源记录未提交订单验证，实际优惠以结算页为准。",
-    "protocol": "SS / Secure 隧道（通用订阅）",
+    "registrationOffer": "2026-10-15 后台仍见九折码 flybit 的旧公告标题；公告发布于 2024-07-15、最后编辑于 2026-06-01，正文未列有效期和适用套餐。首购、叠加及实际结算金额仍未验证。",
+    "protocol": "VLESS / Secure 隧道（当前套餐卡片标注，未逐节点验证）",
     "status": "持续监测中",
-    "summary": "月付 15 元含 128GB，不限时总流量包 36 元 128GB 起。后台提供 7 个第三方客户端导入入口，适合接受订阅配置和多设备共享流量的用户。",
+    "summary": "月付 15 元含 128GB，不限时总流量包 36 元 128GB 起。当前后台提供 5 个具名第三方客户端导入入口；周期套餐限 30 或 50 台设备，不限时包标注不限设备，使用前需核对订阅格式。",
     "platforms": [
-      "Clash Meta",
-      "Hiddify",
-      "SingBox",
+      "Clash系列 / Mihomo",
       "Shadowrocket",
-      "QuantumultX",
-      "Surge",
-      "Stash"
+      "sing-box",
+      "Stash",
+      "Quantumult X"
     ],
     "testClient": "FlClash（macOS）",
-    "universalSubscription": "支持。后台提供 Clash Meta、Hiddify、SingBox、Shadowrocket、QuantumultX、Surge、Stash 共 7 个导入入口，以及复制地址和二维码订阅；属于第三方客户端订阅。",
-    "deviceLimit": "套餐标注不限设备数量、支持家庭共享；所有设备共用套餐流量",
+    "universalSubscription": "支持。2026-10-15 后台有 Clash系列/Mihomo、Shadowrocket、sing-box、Stash、Quantumult X 五个具名导入入口，另有通用复制与二维码；下载区显示暂无客户端。旧 Hiddify、Surge 入口本次未见，不等于已确认不支持，需另核对格式。",
+    "deviceLimit": "周期 128GB、192GB、256GB 档标注 30 台，512GB 档 50 台；不限时包标注不限设备，所有设备共用套餐流量",
     "trial": "支持注册后 1 天 2GB 免费试用（2026-09-27 站长补充）；来源记录未新建账号验证，实际到账流量和到期时间以账户显示为准。",
-    "noExpiry": "支持 128GB / 256GB / 512GB / 1024GB 一次性总流量包，按用量扣除，不按月补充；用完后按当期规则续购。",
+    "noExpiry": "支持 128GB / 256GB / 512GB / 1024GB 一次性总流量包，卡片标注无期限、不限设备，不按月补充；续购和剩余额度处理仍待确认，不能套用周期套餐重置费。",
     "nodeCount": 69,
     "onlineSnapshot": "2026-07-29 客户端后台截图可辨认 69 条节点记录，其中 67 条显示蓝色状态，表示正常在线；台湾 02 与美国 04 显示红色状态，表示离线。",
     "regions": [
@@ -2474,8 +2607,8 @@
     "lineTypes": [
       "IEPL + 中转（服务商说明）"
     ],
-    "bandwidthPolicy": "公开说明标注 SS + Secure 隧道、IEPL + 中转及 1× 倍率，当前逐节点倍率需以订阅为准。2026-07-29 历史快照中，新加坡、日本、香港各有一条 0.3× 直连节点，其余为 1×；倍率指流量扣除，不代表速度。",
-    "billingPolicy": "月付、季付、半年付和年付价格均为对应周期总价，流量档位按月列示；具体重置时间及结转规则请在购买前确认。不限时包一次性购买总流量，多设备共同消耗，用完后按当期规则续购。",
+    "bandwidthPolicy": "2026-10-15 当前套餐卡片标注 VLESS | Secure 隧道和不限速，未逐节点核验实际协议、线路或速率；同日用户补充确认当前全部节点统一 1× 计费，实际使用 1GB 扣 1GB，无其他节点或时段倍率。2026-07-29 的 0.3× 直连节点仅为历史快照，不作为当前倍率。",
+    "billingPolicy": "月付、季付、半年付和年付价格为对应周期总价，流量档位按月；192GB 档季付为 62 元，2026-10-15 用户确认。周期 128/192/256/512GB 档另列重置费 12/18/22/42 元，未验证重置时点、结转、续费或换套餐余量处理。不限时包一次购买总流量，不套用周期重置费，续购余量处理待确认。",
     "paymentMethods": [
       "支付宝",
       "微信"
@@ -2487,20 +2620,20 @@
         "price": "月付 ¥15 / 季付 ¥42 / 半年 ¥75 / 年付 ¥148",
         "traffic": "128GB/月",
         "details": [
-          "各周期价格为订单总额",
-          "流量重置与结转规则需确认",
-          "不限设备，家庭共享流量",
+          "各周期价格为订单总额，流量按宣传 GB 档位；后台另有 GiB 显示，未验证实际交付",
+          "流量重置时点、结转及续购余量规则需确认",
+          "设备上限 30 台；卡片重置费 ¥12",
           "不支持退款"
         ]
       },
       {
         "name": "每月 192GB",
-        "price": "月付 ¥22 / 季付 ¥60 / 半年 ¥110 / 年付 ¥216",
+        "price": "月付 ¥22 / 季付 ¥62 / 半年 ¥110 / 年付 ¥216",
         "traffic": "192GB/月",
         "details": [
-          "各周期价格为订单总额",
-          "流量重置与结转规则需确认",
-          "不限设备，家庭共享流量",
+          "各周期价格为订单总额，流量按宣传 GB 档位；后台另有 GiB 显示，未验证实际交付",
+          "流量重置时点、结转及续购余量规则需确认",
+          "设备上限 30 台；卡片重置费 ¥18",
           "不支持退款"
         ]
       },
@@ -2509,9 +2642,9 @@
         "price": "月付 ¥28 / 季付 ¥80 / 半年 ¥140 / 年付 ¥268",
         "traffic": "256GB/月",
         "details": [
-          "各周期价格为订单总额",
-          "流量重置与结转规则需确认",
-          "不限设备，家庭共享流量",
+          "各周期价格为订单总额，流量按宣传 GB 档位；后台另有 GiB 显示，未验证实际交付",
+          "流量重置时点、结转及续购余量规则需确认",
+          "设备上限 30 台；卡片重置费 ¥22",
           "不支持退款"
         ]
       },
@@ -2520,9 +2653,9 @@
         "price": "月付 ¥52 / 季付 ¥148 / 半年 ¥260 / 年付 ¥498",
         "traffic": "512GB/月",
         "details": [
-          "各周期价格为订单总额",
-          "流量重置与结转规则需确认",
-          "不限设备，家庭共享流量",
+          "各周期价格为订单总额，流量按宣传 GB 档位；后台另有 GiB 显示，未验证实际交付",
+          "流量重置时点、结转及续购余量规则需确认",
+          "设备上限 50 台；卡片重置费 ¥42",
           "不支持退款"
         ]
       }
@@ -2534,7 +2667,7 @@
         "traffic": "128GB 总流量",
         "details": [
           "按用量扣除，不按月补充",
-          "多设备共享",
+          "卡片标注无期限、不限设备；续购余量处理待确认",
           "不支持退款"
         ]
       },
@@ -2544,7 +2677,7 @@
         "traffic": "256GB 总流量",
         "details": [
           "按用量扣除，不按月补充",
-          "多设备共享",
+          "卡片标注无期限、不限设备；续购余量处理待确认",
           "不支持退款"
         ]
       },
@@ -2554,7 +2687,7 @@
         "traffic": "512GB 总流量",
         "details": [
           "按用量扣除，不按月补充",
-          "多设备共享",
+          "卡片标注无期限、不限设备；续购余量处理待确认",
           "不支持退款"
         ]
       },
@@ -2564,7 +2697,7 @@
         "traffic": "1024GB 总流量",
         "details": [
           "按用量扣除，不按月补充",
-          "多设备共享",
+          "卡片标注无期限、不限设备；续购余量处理待确认",
           "不支持退款"
         ]
       }
@@ -2579,6 +2712,7 @@
         "time": "18:56",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 599.5,
         "uploadMbps": 43.95,
@@ -2600,6 +2734,7 @@
         "time": "19:01",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 553.12,
         "uploadMbps": 48.78,
@@ -2621,6 +2756,7 @@
         "time": "19:05",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 316.34,
         "uploadMbps": 24.99,
@@ -2642,6 +2778,7 @@
         "time": "19:09",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 586.78,
         "uploadMbps": 11.35,
@@ -2663,6 +2800,7 @@
         "time": "20:51",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 882.82,
         "uploadMbps": 47.91,
@@ -2687,6 +2825,7 @@
         "time": "17:50",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 512.95,
         "uploadMbps": 95.17,
@@ -2711,6 +2850,7 @@
         "time": "18:01",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 593.8,
         "uploadMbps": 96.46,
@@ -2735,6 +2875,7 @@
         "time": "18:27",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 371.04,
         "uploadMbps": 22.8,
@@ -2759,6 +2900,7 @@
         "time": "18:31",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 232.11,
         "uploadMbps": 91.01,
@@ -2783,6 +2925,7 @@
         "time": "20:32",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 405.28,
         "uploadMbps": 22.89,
@@ -2807,6 +2950,7 @@
         "time": "21:30",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 340.81,
         "uploadMbps": 95.7,
@@ -2831,6 +2975,7 @@
         "time": "21:34",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 456.43,
         "uploadMbps": 1.82,
@@ -2855,6 +3000,7 @@
         "time": "21:44",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 564.36,
         "uploadMbps": 94.15,
@@ -2874,9 +3020,9 @@
         "connectionType": "Wi-Fi"
       }
     ],
-    "clientNotes": "先安装客户端，再使用后台导入入口；也可复制订阅地址或扫描二维码。Clash Verge 需按兼容格式手动导入。Windows、macOS、iOS、Android、Linux、路由器和安卓电视的支持条件需按各客户端教程确认。",
+    "clientNotes": "先安装兼容客户端，再使用后台五个具名导入入口、复制地址或二维码，导入后仍需验证连接；下载区显示暂无客户端。2026-10-15 阅读电脑 FlClash 与 iOS Shadowrocket 教程，Android FlClash 仅见目录；未安装或导入验证。旧 Hiddify、Surge 入口本次未见，其兼容性另核对。10月11日商家恢复公告要求重新取得订阅，属于商家声明，不是本站恢复验证。",
     "planEvidenceLabel": "历史套餐截图（2026-07-29，不代表当前价格）",
-    "commercialReviewedAt": "2026-09-08",
+    "commercialReviewedAt": "2026-10-15",
     "scoringPlan": {
       "name": "每月 128GB",
       "priceCny": 15,
@@ -2884,15 +3030,15 @@
       "priceLabel": "¥15/月",
       "trafficLabel": "128GB/月"
     },
-    "editorialUpdatedAt": "2026-10-09",
+    "editorialUpdatedAt": "2026-10-20",
     "sourcePage": "https://yp7.net/posts/flybit-review-2026/",
-    "sourceReviewNote": "官网套餐标价核对于 2026-09-08，客户端一键导入菜单与公开说明核对于 2026-09-09；1 天 2GB 试用由站长于 2026-09-27 补充。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "yp7.net 于 2026-10-15 核对后台套餐、设备上限、重置费、五个导入入口、电脑 FlClash/iOS 教程及公告；192GB 季付 62 元和当前统一 1× 计费由用户同日确认。1 天 2GB 试用仍据 2026-09-27 站长补充，未新注册；九折码未结算验证。2026-10-20 共享接收，没有下单、安装或新增测试。",
     "selectionGuide": {
       "goodFor": [
         "会导入第三方订阅，想比较 15 元 128GB 月付或不限时总流量包。"
       ],
       "checkBeforeBuying": [
-        "需自行安装兼容客户端并完成连接；一键导入不代表已经联网。"
+        "周期套餐限 30 或 50 台设备，不支持退款；需自行安装兼容客户端并验证连接，重置时点与余量处理仍待确认。"
       ]
     }
   },
@@ -2903,21 +3049,20 @@
     "affiliate": true,
     "foundedAt": "2025-11-01",
     "couponCode": "无",
-    "protocol": "VLESS（专属客户端 / 通用订阅）",
+    "protocol": "VLESS（2026-07-17 节点记录；新机场采用通用订阅）",
     "status": "持续监测中",
-    "summary": "月付 9.9 元含 100GB，另有 19.9 元 200GB、50 元 600GB、79 元 1024GB 套餐和 45 元 150GB 不限时包。提供四端官方客户端及通用订阅，免费试用 1 天 6GB；入门限速 200Mbps，官方客户端限制 3 台。",
+    "summary": "当前新购月付 19.9 元 50GB 起，另有 35 元 100GB、68 元 200GB、120 元 350GB 及 70 元 150GB 不限时包。新机场用户使用第三方订阅工具，不提供专属客户端；1 天 6GB 试用于 2026-10-16 再次获用户确认，领取与起算方式待核实。",
     "platforms": [
-      "iOS（官方客户端）",
-      "Android（官方客户端）",
-      "macOS（官方客户端）",
-      "Windows（官方客户端）",
-      "第三方代理客户端"
+      "Windows（第三方订阅，FlClash 教程）",
+      "macOS（第三方订阅，FlClash 教程）",
+      "Android（第三方订阅，FlClash 教程）",
+      "iPhone / iPad（第三方订阅，Shadowrocket 教程）"
     ],
     "testClient": "FlClash（macOS）",
-    "universalSubscription": "支持。后台提供复制订阅地址、二维码和重置入口；Windows 教程使用 FlClash，其他第三方客户端需确认订阅格式及版本兼容。",
-    "deviceLimit": "官方客户端限制 3 台；第三方代理连接条款按所选套餐核对，跨境全球拼及随心充能包标注不限第三方连接。",
-    "trial": "新用户可免费试用 1 天 6GB；2026-09-27 由站长补充确认，实际到账额度和期限以账户显示为准。",
-    "noExpiry": "支持 ¥45 的 150GB 随心充能包，不限时并可手动重置流量",
+    "universalSubscription": "支持。新机场用户使用 Clash、v2rayN、Shadowrocket 等兼容第三方客户端，不再提供专属客户端；老用户客户端按公告保留，独立 VPN 服务另行核对。后台有订阅复制、二维码和凭据重置；文档中旧域名与下载文件残留，不等于所有客户端均已适配。",
+    "deviceLimit": "当前新购卡片标注第三方连接不限；新机场用户无专属客户端，不能沿用旧专属客户端 3 台权益，老用户依公告核对",
+    "trial": "新版机场仍支持 1 天 6GB，2026-10-16 用户再次确认；2026-09-27 站长补充另保留。领取渠道与起算方式尚未明确，本次未注册领取，实际到账需核对。",
+    "noExpiry": "支持 ¥70 的 150GB 随心充能包，卡片标注不限时、不限速、第三方连接不限；重置价格待确认，不沿用旧 ¥45 价格或重置费。",
     "nodeCount": 42,
     "onlineSnapshot": "2026-07-17 11:04 客户端截图中 42/42 个实际地区节点在线；官网与 TG 群组为信息入口，不计入节点总数",
     "regions": [
@@ -2945,65 +3090,64 @@
     ],
     "regionsNote": "21 个地区各提供 2 个节点；本次截图中的实际地区节点全部为 VLESS，倍率均为 1.5×。",
     "lineTypes": [
-      "BGP",
-      "IEPL"
+      "CN2GIA + 9929 + CMIN2（当前商家宣传，未核验）"
     ],
-    "bandwidthPolicy": "天天尝鲜拼标注 200Mbps，万人好评拼标注 400Mbps，至尊金牌拼标注不限速；跨境全球拼标注不限第三方连接。以上为套餐条件，不是本站实测速率；官方客户端均需按 3 台限制使用。",
+    "bandwidthPolicy": "当前新购天天尝鲜拼、万人好评拼、至尊金牌拼、跨境全球拼分别标注 200/400/800/1000Mbps，均为 21 国节点；万人好评拼和至尊金牌拼另列家宽。以上为商家条件，不是实测速率。新机场账号使用第三方客户端，卡片标注第三方连接不限；旧专属客户端 3 台条款不作为当前新购权益。",
     "paymentMethods": [
       "支付宝",
       "微信"
     ],
     "refundPolicy": "退款政策尚未核实，付款前请向客服确认适用条件。",
-    "billingPolicy": "四档周期套餐支持月付、季付、半年付和年付；常规套餐每月在订单日重置流量，未用完流量不结转。一个账号使用一种套餐，手动重置流量不改变套餐到期日。随心充能包和 VIP 包场拼为一次性购买。",
+    "billingPolicy": "本次仅核对四档当前月付，其他付款周期、优惠与实付未核验。周期流量按原订单日重置、未用不累积；续订只延长后续周期，不立即补量；重置流量立即恢复本周期上限，到期日及重置日不变；新购套餐即时替换旧套餐、不自动叠加流量时长。随心充能包按一次性总量，重置费待核实。旧已购套餐据公告到期前保留原价原流量，但锁价期限和续费价未明确。",
     "plans": [
       {
         "name": "天天尝鲜拼",
-        "price": "¥9.90/月",
-        "traffic": "100GB/月",
+        "price": "¥19.90/月",
+        "traffic": "50GB/月",
         "details": [
-          "商店标注 11 国节点、200Mbps 限速",
-          "官方客户端限 3 台，第三方连接条件按所选套餐核对",
-          "每月订单日重置，未用流量不结转"
+          "商店标注 21 国节点、200Mbps 限速",
+          "新机场用户使用第三方客户端，卡片标注第三方连接不限",
+          "周期流量按原订单日重置，未用不结转；其他付款周期未核验"
         ]
       },
       {
         "name": "万人好评拼",
-        "price": "¥19.90/月",
-        "traffic": "200GB/月",
+        "price": "¥35/月",
+        "traffic": "100GB/月",
         "details": [
-          "商店标注 16 国节点、400Mbps 限速",
-          "官方客户端限 3 台，第三方连接条件按所选套餐核对",
-          "每月订单日重置，未用流量不结转"
+          "商店标注 21 国节点、400Mbps 限速；含家宽",
+          "新机场用户使用第三方客户端，卡片标注第三方连接不限",
+          "周期流量按原订单日重置，未用不结转；其他付款周期未核验"
         ]
       },
       {
         "name": "至尊金牌拼",
-        "price": "¥50/月",
-        "traffic": "600GB/月",
+        "price": "¥68/月",
+        "traffic": "200GB/月",
         "details": [
-          "商店标注 18 国节点、不限速",
-          "官方客户端限 3 台，第三方连接条件按所选套餐核对",
-          "每月订单日重置，未用流量不结转"
+          "商店标注 21 国节点、800Mbps 限速；含家宽",
+          "新机场用户使用第三方客户端，卡片标注第三方连接不限",
+          "周期流量按原订单日重置，未用不结转；其他付款周期未核验"
         ]
       },
       {
         "name": "跨境全球拼",
-        "price": "¥79/月",
-        "traffic": "1TB（1024GB）/月",
+        "price": "¥120/月",
+        "traffic": "350GB/月",
         "details": [
-          "商店标注不限第三方代理连接",
-          "官方客户端限 3 台",
-          "每月订单日重置，未用流量不结转"
+          "商店标注 21 国节点、1000Mbps 限速",
+          "新机场用户使用第三方客户端，卡片标注第三方连接不限",
+          "周期流量按原订单日重置，未用不结转；其他付款周期未核验"
         ]
       },
       {
         "name": "随心充能包",
-        "price": "¥45/一次性",
+        "price": "¥70/一次性",
         "traffic": "150GB 不限时",
         "details": [
-          "一次性购买 150GB 总流量，不限时",
-          "专属客户端限 3 台，第三方不限连接",
-          "手动重置流量 ¥45/次"
+          "一次性购买 150GB 总流量，卡片标注不限时、不限速",
+          "第三方连接不限，新机场用户无专属客户端",
+          "当前重置价格待核实，不沿用旧 ¥45/次说明"
         ]
       },
       {
@@ -3027,6 +3171,7 @@
         "time": "18:15",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 86.01,
         "uploadMbps": 49.12,
@@ -3048,6 +3193,7 @@
         "time": "18:36",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 323.62,
         "uploadMbps": 48.53,
@@ -3069,6 +3215,7 @@
         "time": "18:43",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 21.33,
         "uploadMbps": 38.73,
@@ -3090,6 +3237,7 @@
         "time": "18:50",
         "window": "晚间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 322.83,
         "uploadMbps": 40.85,
@@ -3111,6 +3259,7 @@
         "time": "20:50",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 287.05,
         "uploadMbps": 25.32,
@@ -3132,6 +3281,7 @@
         "time": "15:52",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 93.58,
         "uploadMbps": 46.56,
@@ -3153,6 +3303,7 @@
         "time": "19:34",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 27.9,
         "uploadMbps": 6.3,
@@ -3174,6 +3325,7 @@
         "time": "21:45",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 393.71,
         "uploadMbps": 48.88,
@@ -3201,6 +3353,7 @@
         "time": "21:56",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 326.36,
         "uploadMbps": 49.75,
@@ -3228,6 +3381,7 @@
         "time": "22:30",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 424.59,
         "uploadMbps": 91.41,
@@ -3255,6 +3409,7 @@
         "time": "22:35",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 363.72,
         "uploadMbps": 96.75,
@@ -3282,6 +3437,7 @@
         "time": "22:39",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 13.3,
         "uploadMbps": 94.93,
@@ -3355,24 +3511,24 @@
         ]
       }
     ],
-    "commercialReviewedAt": "2026-09-27",
+    "commercialReviewedAt": "2026-10-16",
     "scoringPlan": {
       "name": "天天尝鲜拼",
-      "priceCny": 9.9,
-      "trafficGb": 100,
-      "priceLabel": "¥9.90/月",
-      "trafficLabel": "100GB/月"
+      "priceCny": 19.9,
+      "trafficGb": 50,
+      "priceLabel": "¥19.90/月",
+      "trafficLabel": "50GB/月"
     },
-    "clientNotes": "四端官方客户端通过账号登录；Windows 第三方教程使用 FlClash，要求 Windows 10 及以上 64 位系统。后台可复制订阅地址、使用二维码及重置订阅；重置订阅会令旧链接立即失效，需要重新导入，不能与重置流量混淆。其他客户端应先核对格式兼容。",
-    "editorialUpdatedAt": "2026-10-09",
+    "clientNotes": "新机场用户使用兼容第三方客户端；老用户客户端按公告保留，独立 VPN 服务与机场权益分开。2026-10-16 所读 Windows/Mac/Android 教程为 FlClash，iOS 为 Shadowrocket，但部分电脑下载链接实际为 PinHaoLian，iOS 一键段有旧域名，需核对软件和订阅格式，未安装导入验证。机场导航为 phl2.one，不能由导航的客户端下载区推断新机场账号享有专属客户端。重置订阅会让旧链接立即失效，但流量与到期时间不变，不能与重置流量混淆。",
+    "editorialUpdatedAt": "2026-10-20",
     "sourcePage": "https://yp7.net/posts/runway-review-2026/",
-    "sourceReviewNote": "套餐商店、客户端公告、使用规则及 FlClash 订阅教程核对于 2026-09-27；1 天 6GB 试用由站长当日补充，退款条款仍待核实。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "yp7.net 于 2026-10-16 核对更新后新购套餐、机场/VPN 分流和老用户公告、机场导航、使用规则及四端第三方教程；新版 1 天 6GB 试用获用户同日再次确认，领取及起算未核。当前新购以 19.9 元 50GB 月付、70 元 150GB 不限时为准，旧价和专属客户端权益只作历史，锁价期限、重置费与退款待核实。2026-10-20 共享接收，未下单、领取或新增测试。",
     "selectionGuide": {
       "goodFor": [
-        "想先使用 1 天 6GB 试用，再比较 9.9 元 100GB 月付与 45 元 150GB 不限时包。"
+        "想先核对 1 天 6GB 试用，再比较 19.9 元 50GB 月付与 70 元 150GB 不限时，并接受第三方订阅配置。"
       ],
       "checkBeforeBuying": [
-        "官方客户端限制 3 台；第三方订阅需确认兼容格式，退款政策待核实。"
+        "新机场用户无专属客户端；领取及起算、订阅格式、退款、不限时重置费和老用户锁价期限仍需核对。"
       ]
     },
     "planEvidenceLabel": "历史套餐截图（2026-07-17，不代表当前价格）"
@@ -3628,6 +3784,7 @@
         "time": "21:24",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 591.39,
         "uploadMbps": 50.29,
@@ -3649,6 +3806,7 @@
         "time": "21:36",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 549.83,
         "uploadMbps": 50.47,
@@ -3670,6 +3828,7 @@
         "time": "21:41",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 476.33,
         "uploadMbps": 48.3,
@@ -3691,6 +3850,7 @@
         "time": "21:46",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 492.01,
         "uploadMbps": 48.31,
@@ -3712,6 +3872,7 @@
         "time": "15:56",
         "window": "日间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 546.2,
         "uploadMbps": 94.53,
@@ -3736,6 +3897,7 @@
         "time": "16:15",
         "window": "日间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 613.69,
         "uploadMbps": 80.91,
@@ -3760,6 +3922,7 @@
         "time": "16:46",
         "window": "日间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 659.13,
         "uploadMbps": 95.4,
@@ -3784,6 +3947,7 @@
         "time": "17:18",
         "window": "日间",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 683.67,
         "uploadMbps": 96.97,
@@ -3808,6 +3972,7 @@
         "time": "21:56",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 85.25,
         "uploadMbps": 79.92,
@@ -3832,6 +3997,7 @@
         "time": "22:06",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 217.69,
         "uploadMbps": 97.38,
@@ -3856,6 +4022,7 @@
         "time": "22:16",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 0.55,
         "uploadMbps": 95.44,
@@ -3880,6 +4047,7 @@
         "time": "22:27",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 91.01,
         "uploadMbps": 81.53,
@@ -3965,13 +4133,13 @@
       "直连"
     ],
     "bandwidthPolicy": "当前套餐页标注所有节点 1× 倍率、高峰时段不降速、全 IPLC 专线，最高提供 2.5Gbps；不限制设备连接数量。",
-    "billingPolicy": "周期套餐按月刷新流量，具体付款周期及长周期折扣以所选套餐结算页为准。15 元限时月付体验不参加优惠；常规月付档位与 98 元年付包展示 xk808 八折码，优惠期限及叠加条件未确认。不限时包不自动刷新，手动重置需核对报价。",
+    "billingPolicy": "周期套餐按月刷新流量，付款周期及长周期折扣按所选结算页确认。15 元限时月付体验不参加优惠；常规月付及 98 元年付包展示 xk808 八折码，优惠期限及叠加未核。2026-10-20 用户确认重置费为对应套餐费用的 90%，不再沿用年付档旧 10 元例外；此比例不证明其他商品有重置入口或特定付款周期。不限时包不自动刷新，重置后额度及余量处理仍待确认。",
     "paymentMethods": [
       "支付宝",
       "USDT"
     ],
     "trial": "不支持免费试用（2026-09-27 站长补充确认）；15 元 50GB 限时体验月付是付费套餐，不参加优惠活动。",
-    "noExpiry": "支持 ¥100/100GB 与 ¥399/450GB 两档永久不限时流量包，不自动重置，可付费手动重置；450GB 包的重置报价待核实",
+    "noExpiry": "支持 ¥100/100GB 与 ¥399/450GB 两档不限时总量包，不自动刷新。2026-10-20 用户确认重置费为对应套餐费用的 90%，分别为 ¥90、¥359.10；重置后额度及余量处理未确认。",
     "refundPolicy": "退款规则尚未核实，付款前请向客服确认。",
     "plans": [
       {
@@ -4003,7 +4171,7 @@
         "details": [
           "优惠码 xk808 八折",
           "低流量年付小包",
-          "可 ¥10 手动重置流量",
+          "重置费采用 2026-10-20 用户确认的对应套餐费用 90% 规则，旧 10 元说明已更正",
           "不限设备数量"
         ]
       },
@@ -4079,6 +4247,7 @@
         "time": "20:43",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 437.82,
         "uploadMbps": 21.43,
@@ -4100,6 +4269,7 @@
         "time": "20:50",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 317.34,
         "uploadMbps": 8.37,
@@ -4121,6 +4291,7 @@
         "time": "21:10",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 367.82,
         "uploadMbps": 4.22,
@@ -4142,6 +4313,7 @@
         "time": "20:31",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 818.8,
         "uploadMbps": 49.74,
@@ -4166,6 +4338,7 @@
         "time": "20:03",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 16.71,
         "uploadMbps": 1.9,
@@ -4190,6 +4363,7 @@
         "time": "20:09",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 19.93,
         "uploadMbps": 5.19,
@@ -4214,6 +4388,7 @@
         "time": "20:18",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 23.18,
         "uploadMbps": 1.89,
@@ -4238,6 +4413,7 @@
         "time": "20:24",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 12.22,
         "uploadMbps": 0.58,
@@ -4262,6 +4438,7 @@
         "time": "19:42",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 551.47,
         "uploadMbps": 94.93,
@@ -4289,6 +4466,7 @@
         "time": "19:53",
         "window": "晚间",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 78.75,
         "uploadMbps": 59.59,
@@ -4316,6 +4494,7 @@
         "time": "19:59",
         "window": "晚间",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 541.78,
         "uploadMbps": 95.4,
@@ -4343,6 +4522,7 @@
         "time": "20:01",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 601.7,
         "uploadMbps": 95.33,
@@ -4372,10 +4552,11 @@
         "traffic": "100GB 不限时",
         "details": [
           "购买后不自动重置",
-          "手动重置 ¥90",
+          "重置费 ¥100 × 90% = ¥90（2026-10-20 用户确认比例，未执行重置）",
           "所有节点 1×、高峰不降速",
           "全 IPLC、最高 2.5Gbps",
-          "不限设备数量"
+          "不限设备数量",
+          "重置后实际额度及原余量处理未确认"
         ]
       },
       {
@@ -4384,10 +4565,11 @@
         "traffic": "450GB 不限时",
         "details": [
           "购买后不自动重置",
-          "页面标注支持付费手动重置，但重置费算式与 ¥399 标价不一致，需确认报价",
+          "重置费 ¥399 × 90% = ¥359.10（2026-10-20 用户确认比例，未执行重置）",
           "所有节点 1×、高峰不降速",
           "全 IPLC、最高 2.5Gbps",
-          "不限设备数量"
+          "不限设备数量",
+          "重置后实际额度及原余量处理未确认"
         ]
       }
     ],
@@ -4402,15 +4584,15 @@
     "clientSupportVerifiedAt": "2026-09-24",
     "officialClientOnly": true,
     "clientNotes": "按官网指定流程登录：Android、Windows、macOS 使用官方专属客户端；iOS 按官网教程使用 Nextin，输入识别码 edgenova0526 后以官网账号登录。Clash、Shadowrocket 等通用订阅不可用。",
-    "editorialUpdatedAt": "2026-10-09",
+    "editorialUpdatedAt": "2026-10-20",
     "sourcePage": "https://yp7.net/posts/bianyuan-review-2026/",
-    "sourceReviewNote": "官网 9 款套餐、优惠说明、客户端下载与教程核对于 2026-09-27；站长当日补充确认不支持免费试用和通用订阅。退款规则仍待核实，399 元 450GB 不限时包重置费说明与标价冲突。2026-10-08 共享接收 yp7.net 当前商业资料；来源文章编辑及测速引用更新不代表重新核价。",
+    "sourceReviewNote": "官网 9 款套餐、优惠、客户端及教程仍据 2026-09-27；无免费试用和通用订阅仍据当日站长补充。2026-10-20 用户另确认重置费为对应套餐费用的 90%，100GB/450GB 包计算为 90 元/359.10 元，旧 100 元基数及年付 10 元说明已更正；本次未访问官网、付款或执行重置，重置后额度及余量处理、退款仍待核实。2026-10-20 共享接收，原测试日期不变。",
     "selectionGuide": {
       "goodFor": [
         "接受官方专属客户端，比较 15 元体验月付和不限时总流量包。"
       ],
       "checkBeforeBuying": [
-        "不提供免费试用或通用订阅；15 元体验包不参加八折活动，450GB 包的重置报价与退款条件待核实。"
+        "无免费试用或通用订阅；15 元体验包不参加八折活动，退款、重置后额度与余量处理仍待确认。"
       ]
     }
   },
@@ -4491,6 +4673,7 @@
         "time": "19:53",
         "window": "晚间",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 815.92,
         "uploadMbps": 43.48,
@@ -4513,6 +4696,7 @@
         "time": "20:05",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 449.41,
         "uploadMbps": 19.77,
@@ -4535,6 +4719,7 @@
         "time": "21:24",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 328.12,
         "uploadMbps": 11.7,
@@ -4557,6 +4742,7 @@
         "time": "21:34",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 31.86,
         "uploadMbps": 3.27,
@@ -4579,6 +4765,7 @@
         "time": "20:55",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 537.72,
         "uploadMbps": 7.52,
@@ -4603,6 +4790,7 @@
         "time": "21:06",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 433.03,
         "uploadMbps": 24.51,
@@ -4627,6 +4815,7 @@
         "time": "21:16",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 273.35,
         "uploadMbps": 10.59,
@@ -4651,6 +4840,7 @@
         "time": "21:38",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 109.64,
         "uploadMbps": 2.96,
@@ -4675,6 +4865,7 @@
         "time": "22:09",
         "window": "晚高峰",
         "node": "香港节点",
+        "exitRegion": "香港",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 319.87,
         "uploadMbps": 3.64,
@@ -4702,6 +4893,7 @@
         "time": "22:14",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 171.37,
         "uploadMbps": 7.92,
@@ -4729,6 +4921,7 @@
         "time": "22:20",
         "window": "晚高峰",
         "node": "日本节点",
+        "exitRegion": "日本",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 35.57,
         "uploadMbps": 56.69,
@@ -4756,6 +4949,7 @@
         "time": "22:25",
         "window": "晚高峰",
         "node": "美国节点",
+        "exitRegion": "美国",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 347.98,
         "uploadMbps": 26.38,
@@ -4783,6 +4977,7 @@
         "time": "21:09",
         "window": "晚高峰",
         "node": "新加坡节点",
+        "exitRegion": "新加坡",
         "baselineDownloadMbps": 1000,
         "downloadMbps": 316.0,
         "uploadMbps": 80.69,

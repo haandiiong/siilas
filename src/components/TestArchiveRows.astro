@@ -1,0 +1,23 @@
+---
+import TestRecordLink from './TestRecordLink.astro';
+import type { archiveRecords } from '../data/test-archive';
+import { getTestRecordAnchor, getTestEvidenceLinks, getTestRecordDetails } from '../data/test-record-presentation';
+
+type ArchiveRecord = (typeof archiveRecords)[number];
+interface Props { records: readonly ArchiveRecord[]; }
+const { records } = Astro.props;
+---
+{records.map((record) => <tr data-page-row id={getTestRecordAnchor(record.airportSlug, record.id)} tabindex="-1">
+  <td>{record.testedAt}<br />{record.time ?? '未记录'}</td>
+  <td class="airport-name"><a href={`/airport/${record.airportSlug}/`}>{record.airport}</a><small>{record.node}</small></td>
+  <td>{record.downloadMbps} Mbps</td>
+  <td>{record.uploadMbps.toFixed(2)} Mbps</td>
+  <td>{record.chatgpt}</td>
+  <td>{record.streaming}</td>
+  <td>
+    {record.resultUrl && <a class="text-link" href={record.resultUrl} target="_blank" rel="noopener nofollow">Speedtest →</a>}
+    {getTestEvidenceLinks(record).map(({ label, path }) => <small><a class="text-link" href={path} target="_blank" rel="noopener">{label} →</a></small>)}
+    <TestRecordLink airportSlug={record.airportSlug} recordId={record.id} label={`${record.airport} ${record.testedAt} ${record.node}`} />
+    <details class="test-record-details"><summary>记录详情</summary><dl>{getTestRecordDetails(record).map(({ label, value }) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl></details>
+  </td>
+</tr>)}
